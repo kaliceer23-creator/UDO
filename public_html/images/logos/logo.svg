@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 165.49 58.08">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #96c740;
+      }
+
+      .cls-2 {
+        font-family: SukhumvitSet-Text, 'Sukhumvit Set';
+        font-size: 8.99px;
+      }
+
+      .cls-3 {
+        letter-spacing: .05em;
+      }
+
+      .cls-4 {
+        letter-spacing: .06em;
+      }
+
+      .cls-5 {
+        fill: #f01a26;
+      }
+    </style>
+  </defs>
+  <text class="cls-2" transform="translate(2.32 55.31)"><tspan class="cls-4" x="0" y="0">THE LEADER OF WELDING P</tspan><tspan class="cls-3" x="120.21" y="0">R</tspan><tspan class="cls-4" x="125.92" y="0">ODUCTS</tspan></text>
+  <g>
+    <path class="cls-1" d="M69.13,40.97h25.74c1.06,0,1.93-.86,1.93-1.93V4.08c0-1.06-.86-1.93-1.93-1.93h-44.5c-1.06,0-1.93.86-1.93,1.93v33.04H15.12V2.17h-3.85v36.88c0,1.06.86,1.93,1.93,1.93h37.17c1.06,0,1.93-.86,1.93-1.93V6.01h40.65v31.12h-23.81v3.85Z"/>
+    <g>
+      <path class="cls-1" d="M150.37,6.02v30.91h-44.83V6.02h44.83M150.37,2.17h-44.83c-2.13,0-3.85,1.72-3.85,3.85v30.91c0,2.13,1.72,3.85,3.85,3.85h44.83c2.13,0,3.85-1.72,3.85-3.85V6.02c0-2.13-1.72-3.85-3.85-3.85h0Z"/>
+      <rect class="cls-5" x="127.96" y="7.99" width="19.36" height="11.94"/>
+    </g>
+  </g>
+</svg>

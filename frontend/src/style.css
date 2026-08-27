@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@theme {
+  /* เปลี่ยนสีแดงให้สดขึ้น เป็น True Red ที่ไม่ติดชมพู (R>G=B) */
+  --color-brand-red: rgb(226, 30, 30);
+  --color-brand-green: rgb(138, 195, 83);
+  --color-muji-bg: #f8f8f8;
+  --color-muji-gray-light: #e5e5e5;
+  --color-muji-gray-dark: #333333;
+}
+
+body {
+  font-family: 'Sukhumvit Set', 'Prompt', sans-serif;
+  background-color: #ffffff;
+  color: var(--color-muji-gray-dark);
+  margin: 0;
+  padding: 0;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
