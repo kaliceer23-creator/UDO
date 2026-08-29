@@ -6,6 +6,12 @@ export default defineConfig({
     tailwindcss(),
   ],
   build: {
+    rollupOptions: {
+      input: {
+        main: 'index.html',
+        product: 'product.html'
+      }
+    },
     outDir: '../public_html',
     emptyOutDir: true,
   },

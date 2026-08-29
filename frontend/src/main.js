@@ -24,9 +24,9 @@ document.querySelector('#app').innerHTML = `
   </div>
 
   <!-- Sticky Wrapper สำหรับล็อก Header + Nav ให้อยู่บนสุดตอนไถจอ -->
-  <div class="sticky top-0 z-[60] w-full shadow-sm">
+  <div class="sticky top-0 z-[60] w-full">
         <!-- 1. แถบสีขาวด้านบน (Main Header) -->
-    <header class="w-full bg-white border-b border-gray-100">
+    <header class="w-full bg-white border-b border-black/5 relative z-[55] bg-white">
       <div class="max-w-[1250px] mx-auto px-4 md:px-8 lg:px-12 py-2 md:py-2.5 flex items-center gap-6">
         
         <!-- Hamburger + Logo -->
@@ -65,7 +65,7 @@ document.querySelector('#app').innerHTML = `
           </div>
           
           <!-- Search Button (Brand Red instead of Yellow) -->
-          <button class="bg-[#E12427] hover:bg-[#c41f22] text-white w-[64px] h-[44px] rounded-[4px] flex items-center justify-center transition-colors shrink-0 shadow-sm">
+          <button class="bg-[#76b83f] hover:bg-[#65a332] text-white w-[64px] h-[44px] rounded-[4px] flex items-center justify-center transition-colors shrink-0 shadow-sm">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-[22px] h-[22px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
             </svg>
@@ -2263,3 +2263,29 @@ productSliders.forEach(sliderWrapper => {
 });
 
 
+
+
+// Smart Header Logic: Hide green bar on scroll down, show on scroll up
+const greenNav = document.querySelector('nav.bg-brand-green');
+if (greenNav) {
+  // Use a premium easing curve (like iOS) and animate both margin and opacity for ultimate smoothness
+  greenNav.style.transition = 'all 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
+  let lastScrollY = window.scrollY;
+  
+  window.addEventListener('scroll', () => {
+    const currentScrollY = window.scrollY;
+    
+    // Anti-stutter: require at least 5px scroll difference to trigger
+    if (Math.abs(currentScrollY - lastScrollY) < 5) return;
+    
+    // If scrolled down past 100px and scrolling down
+    if (currentScrollY > 100 && currentScrollY > lastScrollY) {
+      greenNav.style.marginTop = `-${greenNav.offsetHeight}px`;
+      greenNav.style.opacity = '0';
+    } else {
+      greenNav.style.marginTop = '0px';
+      greenNav.style.opacity = '1';
+    }
+    lastScrollY = currentScrollY;
+  });
+}

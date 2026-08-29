@@ -1,0 +1,20 @@
+import re
+
+with open('/Users/aliceer/UDO/frontend/category.html', 'w') as f:
+    f.write('''<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UDO Welding - หมวดหมู่สินค้า</title>
+    <!-- Prompt Font for Windows fallback -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/category.js"></script>
+  </body>
+</html>
+''')
+print("Fixed category.html fonts")
