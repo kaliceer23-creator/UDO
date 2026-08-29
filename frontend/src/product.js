@@ -235,7 +235,7 @@ document.querySelector('#app').innerHTML = `
   <!-- 3. พื้นที่เนื้อหาหลัก (Main Content) -->
   <!-- Breadcrumb -->
     <div class="bg-white">
-      <div class="max-w-[1250px] mx-auto px-4 md:px-8 py-3 text-[14px] font-normal text-gray-700 flex items-center gap-4 overflow-x-auto whitespace-nowrap">
+      <div class="max-w-[1250px] mx-auto px-4 md:px-8 py-3 text-[14px] font-normal text-gray-700 flex items-center gap-4 overflow-x-auto whitespace-nowrap border-b border-black/10">
         <a href="/" class="hover:text-[#8ac353]">หน้าหลัก</a>
         <span class="text-gray-400">&gt;</span>
         <a href="#" class="hover:text-[#8ac353]">เกม & สตรีมมิ่งและอุปกรณ์เสริม</a>
@@ -283,14 +283,25 @@ document.querySelector('#app').innerHTML = `
 
           <!-- RIGHT COLUMN: Details -->
           <div class="w-full lg:w-[49%]">
-            <!-- Title -->
-            <h1 class="text-[20px] md:text-[24px] font-semibold text-[#252525] leading-tight mb-2">เครื่องเล่นเกม Nintendo Switch 2 + Mario Kart World Bundle</h1>
-            
-            <div class="text-[14px] text-black/45 mb-5 flex items-center gap-4">
-              <span>แบรนด์: <a href="#" class="text-[#252525] font-medium hover:underline">NINTENDO</a></span>
-              <span class="text-black/45">|</span>
-              <span>SKU: 4902370553451</span>
+            <!-- Top Row: Brand & Call -->
+            <div class="mb-3 flex items-center justify-between">
+              <!-- Left: Brand & SKU -->
+              <div class="flex items-center gap-3">
+                <a href="#" class="inline-block bg-[#333333] hover:bg-black text-white text-[12px] md:text-[13px] font-medium px-3 py-1 rounded-[3px] tracking-wide transition-colors uppercase">NINTENDO</a>
+                <span class="text-[13px] text-gray-400 hidden sm:inline-block">SKU: 4902370553451</span>
+              </div>
+              
+              <!-- Right: Call Button -->
+              <a href="tel:021234567" class="flex items-center gap-1.5 px-3 py-1 bg-white border border-[#76b83f] text-[#76b83f] hover:bg-[#76b83f] hover:text-white rounded-[4px] text-[12px] md:text-[13px] font-medium transition-colors shadow-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+                โทรสอบถาม
+              </a>
             </div>
+
+            <!-- Title -->
+            <h1 class="text-[20px] md:text-[24px] font-semibold text-[#252525] leading-[1.3] mb-6">เครื่องเล่นเกม Nintendo Switch 2 + Mario Kart World Bundle</h1>
 
             <!-- Pricing -->
             <div class="flex items-end gap-3 mb-5">
@@ -299,7 +310,7 @@ document.querySelector('#app').innerHTML = `
                 <span class="text-black/45 text-[15px] font-medium">/ห่อ</span>
               </div>
               <div class="text-[18px] text-black/45 line-through mb-1">฿18,000</div>
-              <div class="text-[#E12427] text-[13px] font-medium bg-[#E12427]/10 border border-[#E12427] rounded px-2 py-0.5 mb-1 flex items-center gap-1">
+              <div class="text-[#E12427] text-[13px] font-medium border border-[#E12427] rounded px-2 py-0.5 mb-1 flex items-center gap-1">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" /></svg>
                 ราคาหลังหักส่วนลด
               </div>
@@ -313,15 +324,7 @@ document.querySelector('#app').innerHTML = `
               รับประกัน 1 ปี
             </div>
 
-            <!-- Badges -->
-            <div class="flex gap-2 mb-8">
-              <div class="bg-[#F8F9FA] rounded px-3 py-1 flex items-center gap-2 border border-black/5">
-                <span class="text-[13px] font-medium text-[#252525]">ดูเพิ่มเติม</span>
-              </div>
-              <div class="bg-[#F8F9FA] rounded px-3 py-1 flex items-center gap-2 border border-black/5">
-                <span class="text-[13px] font-medium text-[#252525]">iCare</span>
-              </div>
-            </div>
+
 
             <p class="text-[16px] text-[#252525] mb-6 leading-[1.6]">
               <span class="font-semibold">เครื่องเล่นเกม Nintendo Switch 2</span> พลิกโฉมประสบการณ์การเล่นเกม ที่ UDO ด้วยการอัปเกรดครั้งใหญ่ทั้งในด้านประสิทธิภาพ และหน้าจอใหญ่ขึ้น สีสันสดใส เล่นเกมได้อย่างลื่นไหล พร้อม Joy-Con รุ่นใหม่ที่ติดแน่นกับตัวเครื่องด้วยแรงแม่เหล็ก สนุกไปกับเกมใหม่ ๆ ที่เล่นได้เฉพาะบน Nintendo Switch 2
@@ -331,8 +334,8 @@ document.querySelector('#app').innerHTML = `
             <div class="mb-10">
               <span class="block text-[16px] text-[#252525] mb-4">บรรจุ</span>
               <div class="flex items-center gap-3">
-                <button class="px-4 py-1 rounded-[4px] bg-[#76b83f] border border-[#76b83f] text-white font-medium text-[14px] shadow-sm transition-colors">ห่อ</button>
-                <button class="px-4 py-1 rounded-[4px] bg-white border border-gray-300 text-[#252525] font-medium text-[14px] hover:border-[#76b83f] transition-colors">ลัง (4 ห่อ)</button>
+                <button class="px-4 py-1 rounded-[4px] bg-[#333333] border border-[#333333] text-white font-medium text-[14px] shadow-sm transition-colors">ห่อ</button>
+                <button class="px-4 py-1 rounded-[4px] bg-white border border-gray-300 text-[#252525] font-medium text-[14px] hover:border-[#333333] transition-colors">ลัง (4 ห่อ)</button>
               </div>
             </div>
 
