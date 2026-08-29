@@ -42,7 +42,7 @@ document.querySelector('#app').innerHTML = `
           </div>
           
           <!-- Search Button (Brand Red instead of Yellow) -->
-          <button class="bg-[#76b83f] hover:bg-[#76b83f]/70 text-white w-[64px] h-[44px] rounded-[4px] flex items-center justify-center transition-colors shrink-0 shadow-sm">
+          <button class="bg-brand-red hover:bg-brand-red/90 text-white w-[64px] h-[42px] rounded-[4px] flex items-center justify-center transition-colors shrink-0 shadow-sm">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-[22px] h-[22px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
             </svg>
@@ -378,7 +378,7 @@ document.querySelector('#app').innerHTML = `
             <!-- Action Buttons -->
             <div class="grid grid-cols-2 gap-4 mb-6">
               <button class="border border-[#76b83f] bg-[#76b83f]/10 hover:bg-[#76b83f]/70 hover:text-white text-[#76b83f] font-medium text-[16px] py-3.5 rounded transition-colors flex items-center justify-center">หยิบใส่ตะกร้า</button>
-              <button class="bg-[#76b83f] hover:bg-[#76b83f]/70 text-white font-medium text-[16px] py-3.5 rounded transition-colors shadow-sm flex items-center justify-center">ซื้อสินค้า</button>
+              <button class="bg-brand-red hover:bg-brand-red/90 text-white font-medium text-[16px] py-3.5 rounded transition-colors shadow-sm flex items-center justify-center">ซื้อสินค้า</button>
             </div>
 
             <!-- Social Links -->
