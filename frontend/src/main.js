@@ -65,7 +65,7 @@ document.querySelector('#app').innerHTML = `
           </div>
           
           <!-- Search Button (Brand Red instead of Yellow) -->
-          <button class="bg-[#E32626] hover:bg-[#C92222] text-white w-[64px] h-[44px] rounded-[4px] flex items-center justify-center transition-colors shrink-0 shadow-sm">
+          <button class="bg-[#E12427] hover:bg-[#c41f22] text-white w-[64px] h-[44px] rounded-[4px] flex items-center justify-center transition-colors shrink-0 shadow-sm">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-[22px] h-[22px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
             </svg>
@@ -497,7 +497,7 @@ document.querySelector('#app').innerHTML = `
               สินค้าเข้าใหม่
             </h2>
             <!-- Fire/Hot Icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#E32626] mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#E12427] mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z" />
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1A3.75 3.75 0 0012 18z" />
             </svg>
@@ -535,7 +535,7 @@ document.querySelector('#app').innerHTML = `
                 
                 <div class="flex items-center justify-between">
                   <div class="flex items-baseline gap-1">
-                    <span class="text-[#E32626] font-bold text-[18px] price-display">฿650</span>
+                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿650</span>
                     <span class="text-gray-500 text-[12px] font-medium price-unit">/ห่อ</span>
                   </div>
                   <div class="cart-control flex justify-end" data-unit="ห่อ">
@@ -584,7 +584,7 @@ document.querySelector('#app').innerHTML = `
                 
                 <div class="flex items-center justify-between">
                   <div class="flex items-baseline gap-1">
-                    <span class="text-[#E32626] font-bold text-[18px] price-display">฿450</span>
+                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿450</span>
                     <span class="text-gray-500 text-[12px] font-medium price-unit">/ห่อ</span>
                   </div>
                   <div class="cart-control flex justify-end" data-unit="ห่อ">
@@ -633,7 +633,7 @@ document.querySelector('#app').innerHTML = `
                 
                 <div class="flex items-center justify-between">
                   <div class="flex items-baseline gap-1">
-                    <span class="text-[#E32626] font-bold text-[18px] price-display">฿1,250</span>
+                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿1,250</span>
                     <span class="text-gray-500 text-[12px] font-medium price-unit">/ม้วน</span>
                   </div>
                   <div class="cart-control flex justify-end" data-unit="ม้วน">
@@ -682,7 +682,7 @@ document.querySelector('#app').innerHTML = `
                 
                 <div class="flex items-center justify-between">
                   <div class="flex items-baseline gap-1">
-                    <span class="text-[#E32626] font-bold text-[18px] price-display">฿320</span>
+                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿320</span>
                     <span class="text-gray-500 text-[12px] font-medium price-unit">/กล่อง</span>
                   </div>
                   <div class="cart-control flex justify-end" data-unit="กล่อง">
@@ -729,7 +729,7 @@ document.querySelector('#app').innerHTML = `
                 </div>
                 <div class="flex items-center justify-between">
                   <div class="flex items-baseline gap-1">
-                    <span class="text-[#E32626] font-bold text-[18px] price-display">฿650</span>
+                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿650</span>
                     <span class="text-gray-500 text-[12px] font-medium price-unit">/ห่อ</span>
                   </div>
                   <div class="cart-control flex justify-end" data-unit="ห่อ">
@@ -776,7 +776,7 @@ document.querySelector('#app').innerHTML = `
                 </div>
                 <div class="flex items-center justify-between">
                   <div class="flex items-baseline gap-1">
-                    <span class="text-[#E32626] font-bold text-[18px] price-display">฿450</span>
+                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿450</span>
                     <span class="text-gray-500 text-[12px] font-medium price-unit">/ห่อ</span>
                   </div>
                   <div class="cart-control flex justify-end" data-unit="ห่อ">
@@ -836,7 +836,7 @@ document.querySelector('#app').innerHTML = `
               ขายดีประจำเดือน
             </h2>
             <!-- Fire/Hot Icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#E32626] mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#E12427] mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z" />
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1A3.75 3.75 0 0012 18z" />
             </svg>
@@ -874,7 +874,7 @@ document.querySelector('#app').innerHTML = `
                 
                 <div class="flex items-center justify-between">
                   <div class="flex items-baseline gap-1">
-                    <span class="text-[#E32626] font-bold text-[18px] price-display">฿650</span>
+                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿650</span>
                     <span class="text-gray-500 text-[12px] font-medium price-unit">/ห่อ</span>
                   </div>
                   <div class="cart-control flex justify-end" data-unit="ห่อ">
@@ -923,7 +923,7 @@ document.querySelector('#app').innerHTML = `
                 
                 <div class="flex items-center justify-between">
                   <div class="flex items-baseline gap-1">
-                    <span class="text-[#E32626] font-bold text-[18px] price-display">฿450</span>
+                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿450</span>
                     <span class="text-gray-500 text-[12px] font-medium price-unit">/ห่อ</span>
                   </div>
                   <div class="cart-control flex justify-end" data-unit="ห่อ">
@@ -972,7 +972,7 @@ document.querySelector('#app').innerHTML = `
                 
                 <div class="flex items-center justify-between">
                   <div class="flex items-baseline gap-1">
-                    <span class="text-[#E32626] font-bold text-[18px] price-display">฿1,250</span>
+                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿1,250</span>
                     <span class="text-gray-500 text-[12px] font-medium price-unit">/ม้วน</span>
                   </div>
                   <div class="cart-control flex justify-end" data-unit="ม้วน">
@@ -1021,7 +1021,7 @@ document.querySelector('#app').innerHTML = `
                 
                 <div class="flex items-center justify-between">
                   <div class="flex items-baseline gap-1">
-                    <span class="text-[#E32626] font-bold text-[18px] price-display">฿320</span>
+                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿320</span>
                     <span class="text-gray-500 text-[12px] font-medium price-unit">/กล่อง</span>
                   </div>
                   <div class="cart-control flex justify-end" data-unit="กล่อง">
@@ -1068,7 +1068,7 @@ document.querySelector('#app').innerHTML = `
                 </div>
                 <div class="flex items-center justify-between">
                   <div class="flex items-baseline gap-1">
-                    <span class="text-[#E32626] font-bold text-[18px] price-display">฿650</span>
+                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿650</span>
                     <span class="text-gray-500 text-[12px] font-medium price-unit">/ห่อ</span>
                   </div>
                   <div class="cart-control flex justify-end" data-unit="ห่อ">
@@ -1115,7 +1115,7 @@ document.querySelector('#app').innerHTML = `
                 </div>
                 <div class="flex items-center justify-between">
                   <div class="flex items-baseline gap-1">
-                    <span class="text-[#E32626] font-bold text-[18px] price-display">฿450</span>
+                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿450</span>
                     <span class="text-gray-500 text-[12px] font-medium price-unit">/ห่อ</span>
                   </div>
                   <div class="cart-control flex justify-end" data-unit="ห่อ">
@@ -1175,7 +1175,7 @@ document.querySelector('#app').innerHTML = `
               คัดมาเพื่อคุณ
             </h2>
             <!-- Fire/Hot Icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#E32626] mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#E12427] mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z" />
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1A3.75 3.75 0 0012 18z" />
             </svg>
@@ -1213,7 +1213,7 @@ document.querySelector('#app').innerHTML = `
                 
                 <div class="flex items-center justify-between">
                   <div class="flex items-baseline gap-1">
-                    <span class="text-[#E32626] font-bold text-[18px] price-display">฿650</span>
+                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿650</span>
                     <span class="text-gray-500 text-[12px] font-medium price-unit">/ห่อ</span>
                   </div>
                   <div class="cart-control flex justify-end" data-unit="ห่อ">
@@ -1262,7 +1262,7 @@ document.querySelector('#app').innerHTML = `
                 
                 <div class="flex items-center justify-between">
                   <div class="flex items-baseline gap-1">
-                    <span class="text-[#E32626] font-bold text-[18px] price-display">฿450</span>
+                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿450</span>
                     <span class="text-gray-500 text-[12px] font-medium price-unit">/ห่อ</span>
                   </div>
                   <div class="cart-control flex justify-end" data-unit="ห่อ">
@@ -1311,7 +1311,7 @@ document.querySelector('#app').innerHTML = `
                 
                 <div class="flex items-center justify-between">
                   <div class="flex items-baseline gap-1">
-                    <span class="text-[#E32626] font-bold text-[18px] price-display">฿1,250</span>
+                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿1,250</span>
                     <span class="text-gray-500 text-[12px] font-medium price-unit">/ม้วน</span>
                   </div>
                   <div class="cart-control flex justify-end" data-unit="ม้วน">
@@ -1360,7 +1360,7 @@ document.querySelector('#app').innerHTML = `
                 
                 <div class="flex items-center justify-between">
                   <div class="flex items-baseline gap-1">
-                    <span class="text-[#E32626] font-bold text-[18px] price-display">฿320</span>
+                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿320</span>
                     <span class="text-gray-500 text-[12px] font-medium price-unit">/กล่อง</span>
                   </div>
                   <div class="cart-control flex justify-end" data-unit="กล่อง">
@@ -1407,7 +1407,7 @@ document.querySelector('#app').innerHTML = `
                 </div>
                 <div class="flex items-center justify-between">
                   <div class="flex items-baseline gap-1">
-                    <span class="text-[#E32626] font-bold text-[18px] price-display">฿650</span>
+                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿650</span>
                     <span class="text-gray-500 text-[12px] font-medium price-unit">/ห่อ</span>
                   </div>
                   <div class="cart-control flex justify-end" data-unit="ห่อ">
@@ -1454,7 +1454,7 @@ document.querySelector('#app').innerHTML = `
                 </div>
                 <div class="flex items-center justify-between">
                   <div class="flex items-baseline gap-1">
-                    <span class="text-[#E32626] font-bold text-[18px] price-display">฿450</span>
+                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿450</span>
                     <span class="text-gray-500 text-[12px] font-medium price-unit">/ห่อ</span>
                   </div>
                   <div class="cart-control flex justify-end" data-unit="ห่อ">
@@ -1559,7 +1559,7 @@ document.querySelector('#app').innerHTML = `
               <img src="/images/banners/Banner_0.png" alt="Article 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" />
               <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300"></div>
             </div>
-            <h3 class="text-[16px] md:text-[18px] font-semibold text-gray-900 group-hover:text-[#E32626] transition-colors line-clamp-2 leading-snug">
+            <h3 class="text-[16px] md:text-[18px] font-semibold text-gray-900 group-hover:text-[#E12427] transition-colors line-clamp-2 leading-snug">
               แนะนำ 5 เทคนิคการเชื่อม TIG สำหรับมือใหม่ ให้ได้เกล็ดที่สวยงามและแข็งแรง
             </h3>
           </a>
@@ -1570,7 +1570,7 @@ document.querySelector('#app').innerHTML = `
               <img src="/images/banners/Banner_0.png" alt="Article 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" />
               <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300"></div>
             </div>
-            <h3 class="text-[16px] md:text-[18px] font-semibold text-gray-900 group-hover:text-[#E32626] transition-colors line-clamp-2 leading-snug">
+            <h3 class="text-[16px] md:text-[18px] font-semibold text-gray-900 group-hover:text-[#E12427] transition-colors line-clamp-2 leading-snug">
               การเลือกใช้ลวดเชื่อมฟลักซ์คอร์สให้เหมาะกับเหล็กหนาในงานโครงสร้างขนาดใหญ่
             </h3>
           </a>
@@ -1587,7 +1587,7 @@ document.querySelector('#app').innerHTML = `
                  </div>
               </div>
             </div>
-            <h3 class="text-[16px] md:text-[18px] font-semibold text-gray-900 group-hover:text-[#E32626] transition-colors line-clamp-2 leading-snug">
+            <h3 class="text-[16px] md:text-[18px] font-semibold text-gray-900 group-hover:text-[#E12427] transition-colors line-clamp-2 leading-snug">
               รีวิวการใช้งานตู้เชื่อมซีโอทู (MIG) ช่วยลดต้นทุนการผลิตในโรงงานอุตสาหกรรม
             </h3>
           </a>
@@ -1598,7 +1598,7 @@ document.querySelector('#app').innerHTML = `
               <img src="/images/banners/Banner_0.png" alt="Article 4" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" />
               <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300"></div>
             </div>
-            <h3 class="text-[16px] md:text-[18px] font-semibold text-gray-900 group-hover:text-[#E32626] transition-colors line-clamp-2 leading-snug">
+            <h3 class="text-[16px] md:text-[18px] font-semibold text-gray-900 group-hover:text-[#E12427] transition-colors line-clamp-2 leading-snug">
               เจาะลึก 3 ข้อควรระวังในการเชื่อมเหล็กหล่อ เพื่อป้องกันรอยแตกร้าว
             </h3>
           </a>
@@ -1779,19 +1779,19 @@ document.querySelector('#app').innerHTML = `
       </button>
       
       <!-- Main Circle Button (ย่อลงมานิดนึง เป็น 108px) -->
-      <a href="#" class="w-[90px] h-[90px] md:w-[108px] md:h-[108px] bg-[#E32626] hover:bg-[#c92020] rounded-full flex flex-col items-center justify-center shadow-[0_10px_20px_rgba(227,38,38,0.25)] transition-transform hover:scale-105 duration-300">
+      <a href="#" class="w-[90px] h-[90px] md:w-[108px] md:h-[108px] bg-[#E12427] hover:bg-[#c41f22] rounded-full flex flex-col items-center justify-center shadow-[0_10px_20px_rgba(181,56,50,0.25)] transition-transform hover:scale-105 duration-300">
         <span class="text-white text-[14px] md:text-[17px] leading-[1.3] text-center font-medium">ทำไมต้อง<br>ซื้อกับ<br>UDO</span>
       </a>
     </div>
 
     <!-- LINE Button -->
-    <a href="#" class="w-[56px] h-[56px] md:w-[64px] md:h-[64px] bg-[#E32626] hover:bg-[#00B900] rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110 duration-300 relative group border-[1px] border-white/80">
+    <a href="#" class="w-[56px] h-[56px] md:w-[64px] md:h-[64px] bg-[#E12427] hover:bg-[#00B900] rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110 duration-300 relative group border-[1px] border-white/80">
       <!-- LINE SVG Icon แบบสร้างใหม่ (ใช้ Text จริงๆ การันตีว่าอ่านออก 100%) -->
       <svg class="w-7 h-7 md:w-[34px] md:h-[34px] relative z-10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <!-- ลูกโป่งสีขาว -->
         <path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.053.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967 1.739-1.907 2.572-3.843 2.572-5.992z" fill="white"/>
         <!-- ตัวหนังสือ LINE ข้างใน (เปลี่ยนสีตาม hover ได้ด้วย) -->
-        <text x="12" y="13.2" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="7.5" fill="#E32626" text-anchor="middle" class="group-hover:fill-[#00B900] transition-colors duration-300">LINE</text>
+        <text x="12" y="13.2" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="7.5" fill="#E12427" text-anchor="middle" class="group-hover:fill-[#00B900] transition-colors duration-300">LINE</text>
       </svg>
     </a>
     
@@ -1799,7 +1799,7 @@ document.querySelector('#app').innerHTML = `
 
     <!-- LINE Button -->
     <!-- ขอบขาวบางลง (border-[1px] border-white/80) -->
-    <a href="#" class="w-[56px] h-[56px] md:w-[64px] md:h-[64px] bg-[#E32626] hover:bg-[#00B900] rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110 duration-300 relative group border-[1px] border-white/80">
+    <a href="#" class="w-[56px] h-[56px] md:w-[64px] md:h-[64px] bg-[#E12427] hover:bg-[#00B900] rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110 duration-300 relative group border-[1px] border-white/80">
       <!-- LINE SVG Icon (เปลี่ยนมาใช้ FontAwesome Path ที่คมชัดและตัวหนังสือไม่บี้) -->
       <svg class="w-8 h-8 md:w-10 md:h-10 text-white relative z-10" viewBox="0 0 496 512" fill="currentColor">
         <path d="M248 8C111.1 8 0 99.1 0 211.8c0 51.5 22.3 98.4 59.8 135.5 13.9 13.8 15.3 19.3 11.2 37.1-3.6 15.9-10.3 35.8-13.6 47.9-1.9 6.8 5.6 9.8 10.3 7 10.3-6 45.4-26.3 64.9-42.3 10.3-8.4 19.2-12.8 30.6-10.7 27.6 5.1 56.6 7.9 86.8 7.9 136.9 0 248-91.1 248-203.8S384.9 8 248 8zM161.4 274.5c0 6.6-5.4 12-12 12h-47c-6.6 0-12-5.4-12-12v-88c0-6.6 5.4-12 12-12h47c6.6 0 12 5.4 12 12v12h-35v19h35c6.6 0 12 5.4 12 12v12zm68.3 0c0 6.6-5.4 12-12 12h-17.7c-6.6 0-12-5.4-12-12v-88c0-6.6 5.4-12 12-12h17.7c6.6 0 12 5.4 12 12v88zm81.4 0c0 6.6-5.4 12-12 12h-18l-32.9-46.7v34.7c0 6.6-5.4 12-12 12h-17.7c-6.6 0-12-5.4-12-12v-88c0-6.6 5.4-12 12-12h18l32.9 46.7V186.5c0-6.6 5.4-12 12-12h17.7c6.6 0 12 5.4 12 12v88zm83.3-33h-35v19h35c6.6 0 12 5.4 12 12v12c0 6.6-5.4 12-12 12h-47c-6.6 0-12-5.4-12-12v-88c0-6.6 5.4-12 12-12h47c6.6 0 12 5.4 12 12v12h-35v19h35c6.6 0 12 5.4 12 12v12z"/>
@@ -1810,7 +1810,7 @@ document.querySelector('#app').innerHTML = `
 
     <!-- LINE Button -->
     <!-- เพิ่มเส้นขอบสีขาว (border-2 border-white) และขยายปุ่มนิดนึง -->
-    <a href="#" class="w-[52px] h-[52px] md:w-[60px] md:h-[60px] bg-[#E32626] hover:bg-[#00B900] rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110 duration-300 relative group border-[2px] border-white">
+    <a href="#" class="w-[52px] h-[52px] md:w-[60px] md:h-[60px] bg-[#E12427] hover:bg-[#00B900] rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110 duration-300 relative group border-[2px] border-white">
       <!-- LINE SVG Icon (ขยายขนาดจาก w-8 เป็น w-10 เพื่อให้คำว่า LINE ข้างในอ่านออกชัดเจนขึ้น) -->
       <svg class="w-8 h-8 md:w-10 md:h-10 text-white relative z-10" viewBox="0 0 24 24" fill="currentColor">
         <path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.053.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967 1.739-1.907 2.572-3.843 2.572-5.992zM8.344 13.56H6.173c-.29 0-.524-.234-.524-.524v-4.48c0-.289.234-.523.524-.523h2.171c.29 0 .524.234.524.523v1.308c0 .29-.234.524-.524.524H6.697v1.865h1.647c.29 0 .524.234.524.523v1.308c0 .29-.234.524-.524.524H8.344zm3.924 0h-1.646c-.29 0-.524-.234-.524-.524v-4.48c0-.289.234-.523.524-.523h1.646c.29 0 .524.234.524.523v4.48c0 .29-.234.524-.524.524zm4.184 0h-1.288l-1.921-2.617v2.093c0 .29-.234.524-.524.524h-1.647c-.289 0-.523-.234-.523-.524v-4.48c0-.289.234-.523.523-.523h1.289l1.92 2.617V8.553c0-.289.234-.523.524-.523h1.647c.289 0 .523.234.523.523v4.48c0 .29-.234.524-.523.524zm4.07 0h-2.17c-.29 0-.524-.234-.524-.524v-4.48c0-.289.234-.523.524-.523h2.17c.289 0 .523.234.523.523v1.308c0 .29-.234.524-.523.524h-1.646v1.08h1.646c.289 0 .523.234.523.524v1.308c0 .29-.234.524-.523.524h-1.646v1.308c0 .29.234.524.523.524h2.17c.289 0 .524.234.524.524z" />
@@ -1820,7 +1820,7 @@ document.querySelector('#app').innerHTML = `
   </div>
 
     <!-- LINE Button -->
-    <a href="#" class="w-[48px] h-[48px] md:w-[56px] md:h-[56px] bg-[#E32626] hover:bg-[#00B900] rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110 duration-300 relative group">
+    <a href="#" class="w-[48px] h-[48px] md:w-[56px] md:h-[56px] bg-[#E12427] hover:bg-[#00B900] rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110 duration-300 relative group">
       <!-- LINE SVG Icon -->
       <svg class="w-6 h-6 md:w-8 md:h-8 text-white relative z-10" viewBox="0 0 24 24" fill="currentColor">
         <path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.053.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967 1.739-1.907 2.572-3.843 2.572-5.992zM8.344 13.56H6.173c-.29 0-.524-.234-.524-.524v-4.48c0-.289.234-.523.524-.523h2.171c.29 0 .524.234.524.523v1.308c0 .29-.234.524-.524.524H6.697v1.865h1.647c.29 0 .524.234.524.523v1.308c0 .29-.234.524-.524.524H8.344zm3.924 0h-1.646c-.29 0-.524-.234-.524-.524v-4.48c0-.289.234-.523.524-.523h1.646c.29 0 .524.234.524.523v4.48c0 .29-.234.524-.524.524zm4.184 0h-1.288l-1.921-2.617v2.093c0 .29-.234.524-.524.524h-1.647c-.289 0-.523-.234-.523-.524v-4.48c0-.289.234-.523.523-.523h1.289l1.92 2.617V8.553c0-.289.234-.523.524-.523h1.647c.289 0 .523.234.523.523v4.48c0 .29-.234.524-.523.524zm4.07 0h-2.17c-.29 0-.524-.234-.524-.524v-4.48c0-.289.234-.523.524-.523h2.17c.289 0 .523.234.523.523v1.308c0 .29-.234.524-.523.524h-1.646v1.08h1.646c.289 0 .523.234.523.524v1.308c0 .29-.234.524-.523.524h-1.646v1.308c0 .29.234.524.523.524h2.17c.289 0 .524.234.524.524z" />
@@ -1835,7 +1835,7 @@ document.querySelector('#app').innerHTML = `
     <a href="#" class="flex flex-col items-center justify-center gap-0 md:gap-0.5 group px-2 md:px-4">
       <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 md:w-[26px] md:h-[26px] group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke-width="1.8">
         <path stroke="#76b83f" stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
-        <path stroke="#E32626" stroke-linecap="round" stroke-linejoin="round" d="M19.128 6.554l-.45-1.554-.45 1.554a2.25 2.25 0 00-1.554 1.554l-1.554.45 1.554.45a2.25 2.25 0 001.554 1.554l.45 1.554.45-1.554a2.25 2.25 0 001.554-1.554l1.554-.45-1.554-.45a2.25 2.25 0 00-1.554-1.554z" />
+        <path stroke="#E12427" stroke-linecap="round" stroke-linejoin="round" d="M19.128 6.554l-.45-1.554-.45 1.554a2.25 2.25 0 00-1.554 1.554l-1.554.45 1.554.45a2.25 2.25 0 001.554 1.554l.45 1.554.45-1.554a2.25 2.25 0 001.554-1.554l1.554-.45-1.554-.45a2.25 2.25 0 00-1.554-1.554z" />
       </svg>
       <span class="text-[16px] md:text-[17px] font-semibold text-gray-900 group-hover:text-[#76b83f] transition-colors whitespace-nowrap tracking-tight">ถาม UDO AI</span>
     </a>
@@ -1853,7 +1853,7 @@ document.querySelector('#app').innerHTML = `
     <a href="#" class="flex flex-col items-center justify-center gap-0 md:gap-0.5 group px-2 md:px-4">
       <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 md:w-[26px] md:h-[26px] group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke-width="1.8">
         <path stroke="#76b83f" stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-        <path stroke="#E32626" stroke-linecap="round" stroke-linejoin="round" d="M15 11.25h.008v.008H15v-.008z" />
+        <path stroke="#E12427" stroke-linecap="round" stroke-linejoin="round" d="M15 11.25h.008v.008H15v-.008z" />
       </svg>
       <span class="text-[16px] md:text-[17px] font-semibold text-gray-900 group-hover:text-[#76b83f] transition-colors whitespace-nowrap tracking-tight">ขอใบเสนอราคา</span>
     </a>
