@@ -324,66 +324,7 @@ document.querySelector('#app').innerHTML = `
     
       </section>
 
-    <!-- Section: Bento Categories (Landy Home Style) -->
-    <section class="max-w-[1250px] mx-auto px-4 md:px-8 lg:px-12 py-10 md:py-16">
-      <div class="grid grid-cols-1 md:grid-cols-6 gap-4 md:gap-6">
-        
-        <!-- Row 1 -->
-        <!-- Card 1: 2/3 width (col-span-4) -->
-        <a href="#" class="relative block h-[220px] md:h-[300px] md:col-span-4 bg-[#86BFE6] rounded-[20px] overflow-hidden group shadow-sm hover:shadow-md transition-shadow">
-          <div class="absolute top-6 left-6 md:top-8 md:left-8 z-10">
-            <h3 class="text-[22px] md:text-[28px] font-bold text-white leading-tight">กลุ่มลวดเชื่อม</h3>
-          </div>
-        </a>
-        
-        <!-- Card 2: 1/3 width (col-span-2) -->
-        <a href="#" class="relative block h-[220px] md:h-[300px] md:col-span-2 bg-[#EBF0F5] rounded-[20px] overflow-hidden group shadow-sm hover:shadow-md transition-shadow">
-          <div class="absolute top-6 left-6 md:top-8 md:left-8 z-10">
-            <h3 class="text-[22px] md:text-[28px] font-bold text-gray-900 leading-tight">ท่อบรรจุก๊าซ<br>และวาล์ว</h3>
-          </div>
-        </a>
-        
-        <!-- Row 2 -->
-        <!-- Card 3: Full width (col-span-6) -->
-        <a href="#" class="relative block h-[200px] md:h-[260px] md:col-span-6 bg-[#332E2C] rounded-[20px] overflow-hidden group shadow-sm hover:shadow-md transition-shadow">
-          <div class="absolute top-6 left-6 md:top-8 md:left-8 z-10">
-            <h3 class="text-[22px] md:text-[28px] font-bold text-white leading-tight">เครื่องเชื่อมและ<br>เครื่องตัดพลาสม่า</h3>
-          </div>
-        </a>
-        
-        <!-- Row 3 -->
-        <!-- Card 4, 5, 6: 1/3 width each (col-span-2) -->
-        <a href="#" class="relative block h-[240px] md:h-[320px] md:col-span-2 bg-[#1A1A1A] rounded-[20px] overflow-hidden group shadow-sm hover:shadow-md transition-shadow">
-          <div class="absolute top-6 left-6 md:top-8 md:left-8 z-10">
-            <h3 class="text-[22px] md:text-[28px] font-bold text-white leading-tight">วัสดุอุปกรณ์เคมีภัณฑ์<br>สำหรับงานเชื่อม</h3>
-          </div>
-        </a>
-        <a href="#" class="relative block h-[240px] md:h-[320px] md:col-span-2 bg-[#F3F4F6] rounded-[20px] overflow-hidden group shadow-sm hover:shadow-md transition-shadow">
-          <div class="absolute top-6 left-6 md:top-8 md:left-8 z-10">
-            <h3 class="text-[22px] md:text-[28px] font-bold text-gray-900 leading-tight">อุปกรณ์เชื่อม<br>ตัดเผาแก๊ส</h3>
-          </div>
-        </a>
-        <a href="#" class="relative block h-[240px] md:h-[320px] md:col-span-2 bg-[#EAE8E3] rounded-[20px] overflow-hidden group shadow-sm hover:shadow-md transition-shadow">
-          <div class="absolute top-6 left-6 md:top-8 md:left-8 z-10">
-            <h3 class="text-[22px] md:text-[28px] font-bold text-gray-900 leading-tight">ใบตัดใบเจียร</h3>
-          </div>
-        </a>
-        
-        <!-- Row 4 -->
-        <!-- Card 7, 8: 1/2 width each (col-span-3) -->
-        <a href="#" class="relative block h-[200px] md:h-[260px] md:col-span-3 bg-[#EAF0EC] rounded-[20px] overflow-hidden group shadow-sm hover:shadow-md transition-shadow">
-          <div class="absolute top-6 left-6 md:top-8 md:left-8 z-10">
-            <h3 class="text-[22px] md:text-[28px] font-bold text-gray-900 leading-tight">อะไหล่สิ้นเปลือง<br><span class="text-[16px] md:text-[20px] font-medium block mt-1">เครื่องตัดพลาสม่า เครื่องเชื่อม</span></h3>
-          </div>
-        </a>
-        <a href="#" class="relative block h-[200px] md:h-[260px] md:col-span-3 bg-[#F0EBE6] rounded-[20px] overflow-hidden group shadow-sm hover:shadow-md transition-shadow">
-          <div class="absolute top-6 left-6 md:top-8 md:left-8 z-10">
-            <h3 class="text-[22px] md:text-[28px] font-bold text-gray-900 leading-tight">เครื่องมือช่าง</h3>
-          </div>
-        </a>
-        
-      </div>
-    </section>
+    
 
 
     <!-- พื้นที่สีขาวด้านล่าง (Main Content Grid - Power Buy Style) -->
@@ -452,86 +393,96 @@ document.querySelector('#app').innerHTML = `
       </section>
 
       
-      <!-- Section: Category Shortcuts (Bento Grid 10 Items from old site) -->
+            <!-- Section: Category Shortcuts (Bento Grid 8 Items) -->
       <section class="mb-14 md:mb-20">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 lg:gap-6 auto-rows-[140px] md:auto-rows-[160px]">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 lg:gap-6 auto-rows-[220px] md:auto-rows-[280px]">
           
-          <!-- Item 1: กลุ่มลวดเชื่อม (Big Hero) -->
-          <a href="#" class="md:col-span-2 md:row-span-3 relative w-full h-full bg-gray-900 rounded-[24px] lg:rounded-[32px] overflow-hidden group hover:shadow-xl transition-all duration-300 flex items-center justify-center">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-0 group-hover:scale-105 transition-transform duration-700"></div>
-            <h3 class="relative z-10 text-white font-bold text-[28px] md:text-[36px] lg:text-[42px] leading-snug text-center px-6">
-              กลุ่มลวดเชื่อม
-            </h3>
+          <!-- Row 1 -->
+          <!-- Card 1: กลุ่มลวดเชื่อม (Span 2, Dark Style) -->
+          <a href="#" class="md:col-span-2 relative w-full h-full bg-[#1c1c1e] rounded-[24px] lg:rounded-[32px] overflow-hidden group hover:shadow-xl transition-all duration-300">
+            <div class="absolute top-6 left-6 lg:top-8 lg:left-8 z-10">
+              <h3 class="text-white font-semibold text-[20px] md:text-[24px] lg:text-[28px] leading-snug group-hover:-translate-y-1 transition-transform duration-300">
+                กลุ่มลวดเชื่อม
+              </h3>
+            </div>
+            <!-- Mock Image Placeholder -->
+            <div class="absolute bottom-0 right-0 w-[50%] h-[80%] bg-gradient-to-tl from-gray-700 to-transparent rounded-tl-[100px] opacity-50 group-hover:scale-105 transition-transform duration-500"></div>
           </a>
 
-          <!-- Item 2: ท่อบรรจุก๊าซ และวาล์ว -->
-          <a href="#" class="md:col-span-1 md:row-span-1 relative w-full h-full bg-gray-800 rounded-[16px] lg:rounded-[24px] overflow-hidden group hover:shadow-xl transition-all duration-300 flex items-center justify-center">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-black/30 z-0 group-hover:scale-105 transition-transform duration-700"></div>
-            <h3 class="relative z-10 text-white font-bold text-[18px] md:text-[20px] lg:text-[22px] leading-snug text-center px-4">
-              ท่อบรรจุก๊าซ และวาล์ว
-            </h3>
+          <!-- Card 2: เครื่องเชื่อมและเครื่องตัดพลาสม่า (Span 1, Premium Image Style) -->
+          <a href="#" class="col-span-1 relative w-full h-full bg-[#1c1c1e] rounded-[24px] lg:rounded-[32px] overflow-hidden group hover:shadow-xl transition-all duration-300">
+            <!-- Background Image with Hover Zoom Effect -->
+            <div class="absolute inset-0 bg-[url('/images/bg-welding.jpeg')] bg-cover bg-right-bottom bg-no-repeat group-hover:scale-110 transition-transform duration-700"></div>
+            <!-- Gradient Overlay (Dark Top-Left for Text Readability) -->
+            <div class="absolute inset-0 bg-gradient-to-br from-black/80 via-black/20 to-transparent z-0"></div>
+            
+            <div class="absolute top-6 left-6 lg:top-8 lg:left-8 z-10 pr-4">
+              <h3 class="text-white font-semibold text-[20px] md:text-[24px] lg:text-[28px] leading-snug group-hover:-translate-y-1 transition-transform duration-300 shadow-black/50 drop-shadow-md">
+                เครื่องเชื่อมและ<br />เครื่องตัดพลาสม่า
+              </h3>
+            </div>
           </a>
 
-          <!-- Item 3: ใบตัดใบเจียร -->
-          <a href="#" class="md:col-span-1 md:row-span-1 relative w-full h-full bg-gray-800 rounded-[16px] lg:rounded-[24px] overflow-hidden group hover:shadow-xl transition-all duration-300 flex items-center justify-center">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-black/30 z-0 group-hover:scale-105 transition-transform duration-700"></div>
-            <h3 class="relative z-10 text-white font-bold text-[18px] md:text-[20px] lg:text-[22px] leading-snug text-center px-4">
-              ใบตัดใบเจียร
-            </h3>
+          <!-- Row 2 -->
+          <!-- Card 3: อุปกรณ์เชื่อมตัดเผาแก๊ส (Span 1, Image Style) -->
+          <a href="#" class="col-span-1 relative w-full h-full bg-[#e8e8ed] rounded-[24px] lg:rounded-[32px] overflow-hidden group hover:shadow-xl transition-all duration-300">
+            <div class="absolute top-6 left-6 lg:top-8 lg:left-8 z-10 pr-4">
+              <h3 class="text-gray-900 font-semibold text-[20px] md:text-[24px] lg:text-[28px] leading-snug group-hover:-translate-y-1 transition-transform duration-300">
+                อุปกรณ์เชื่อม<br />ตัดเผาแก๊ส
+              </h3>
+            </div>
+            <div class="absolute inset-x-0 bottom-0 h-[60%] bg-gradient-to-t from-gray-300 to-transparent"></div>
           </a>
 
-          <!-- Item 4: อุปกรณ์เชื่อมตัดเผาแก๊ส -->
-          <a href="#" class="md:col-span-1 md:row-span-1 relative w-full h-full bg-gray-800 rounded-[16px] lg:rounded-[24px] overflow-hidden group hover:shadow-xl transition-all duration-300 flex items-center justify-center">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-black/30 z-0 group-hover:scale-105 transition-transform duration-700"></div>
-            <h3 class="relative z-10 text-white font-bold text-[18px] md:text-[20px] lg:text-[22px] leading-snug text-center px-4">
-              อุปกรณ์เชื่อมตัดเผาแก๊ส
-            </h3>
+          <!-- Card 4: ท่อบรรจุก๊าซและวาล์ว (Span 1, Light Style) -->
+          <a href="#" class="col-span-1 relative w-full h-full bg-[#f5f5f7] rounded-[24px] lg:rounded-[32px] overflow-hidden group hover:shadow-xl transition-all duration-300">
+            <div class="absolute top-6 left-6 lg:top-8 lg:left-8 z-10 pr-4">
+              <h3 class="text-gray-900 font-semibold text-[20px] md:text-[24px] lg:text-[28px] leading-snug group-hover:-translate-y-1 transition-transform duration-300">
+                ท่อบรรจุก๊าซ<br />และวาล์ว
+              </h3>
+            </div>
+            <div class="absolute -bottom-4 -right-4 w-[70%] h-[70%] bg-gray-200 rounded-full group-hover:scale-105 transition-transform duration-500"></div>
           </a>
 
-          <!-- Item 5: เครื่องเชื่อมและเครื่องตัดพลาสม่า -->
-          <a href="#" class="md:col-span-1 md:row-span-2 relative w-full h-full bg-gray-900 rounded-[20px] lg:rounded-[28px] overflow-hidden group hover:shadow-xl transition-all duration-300 flex items-center justify-center">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-black/40 z-0 group-hover:scale-105 transition-transform duration-700"></div>
-            <h3 class="relative z-10 text-white font-bold text-[20px] md:text-[24px] leading-snug text-center px-6">
-              เครื่องเชื่อมและเครื่องตัดพลาสม่า
-            </h3>
+          <!-- Card 5: ใบตัดใบเจียร (Span 1, Dark Style) -->
+          <a href="#" class="col-span-1 relative w-full h-full bg-[#1c1c1e] rounded-[24px] lg:rounded-[32px] overflow-hidden group hover:shadow-xl transition-all duration-300">
+            <div class="absolute top-6 left-6 lg:top-8 lg:left-8 z-10 pr-4">
+              <h3 class="text-white font-semibold text-[20px] md:text-[24px] lg:text-[28px] leading-snug group-hover:-translate-y-1 transition-transform duration-300">
+                ใบตัดใบเจียร
+              </h3>
+            </div>
+            <div class="absolute bottom-0 right-0 w-[60%] h-[60%] bg-gradient-to-tl from-gray-700 to-transparent rounded-tl-[100px] opacity-50 group-hover:scale-105 transition-transform duration-500"></div>
           </a>
 
-          <!-- Item 6: อะไหล่สิ้นเปลือง -->
-          <a href="#" class="md:col-span-1 md:row-span-2 relative w-full h-full bg-gray-900 rounded-[20px] lg:rounded-[28px] overflow-hidden group hover:shadow-xl transition-all duration-300 flex items-center justify-center">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-black/40 z-0 group-hover:scale-105 transition-transform duration-700"></div>
-            <h3 class="relative z-10 text-white font-bold text-[20px] md:text-[24px] leading-snug text-center px-6">
-              อะไหล่สิ้นเปลือง เครื่องตัดพลาสม่า เครื่องเชื่อม
-            </h3>
+          <!-- Row 3 -->
+          <!-- Card 6: อะไหล่สิ้นเปลือง เครื่องเชื่อม-พลาสม่า (Span 1, Light Style) -->
+          <a href="#" class="col-span-1 relative w-full h-full bg-[#f5f5f7] rounded-[24px] lg:rounded-[32px] overflow-hidden group hover:shadow-xl transition-all duration-300">
+            <div class="absolute top-6 left-6 lg:top-8 lg:left-8 z-10 pr-4">
+              <h3 class="text-gray-900 font-semibold text-[20px] md:text-[24px] lg:text-[28px] leading-snug group-hover:-translate-y-1 transition-transform duration-300">
+                อะไหล่สิ้นเปลือง<br />เครื่องเชื่อม-พลาสม่า
+              </h3>
+            </div>
+            <div class="absolute -bottom-4 -right-4 w-[80%] h-[80%] bg-gray-200 rounded-full group-hover:scale-105 transition-transform duration-500"></div>
           </a>
 
-          <!-- Item 7: วัสดุอุปกรณ์เคมีภัณฑ์ -->
-          <a href="#" class="md:col-span-1 md:row-span-2 relative w-full h-full bg-gray-900 rounded-[20px] lg:rounded-[28px] overflow-hidden group hover:shadow-xl transition-all duration-300 flex items-center justify-center">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-black/40 z-0 group-hover:scale-105 transition-transform duration-700"></div>
-            <h3 class="relative z-10 text-white font-bold text-[20px] md:text-[24px] leading-snug text-center px-6">
-              วัสดุอุปกรณ์เคมีภัณฑ์สำหรับงานเชื่อม
-            </h3>
+          <!-- Card 7: วัสดุอุปกรณ์เคมีภัณฑ์สำหรับงานเชื่อม (Span 1, Image Style) -->
+          <a href="#" class="col-span-1 relative w-full h-full bg-[#e8e8ed] rounded-[24px] lg:rounded-[32px] overflow-hidden group hover:shadow-xl transition-all duration-300">
+            <div class="absolute top-6 left-6 lg:top-8 lg:left-8 z-10 pr-4">
+              <h3 class="text-gray-900 font-semibold text-[20px] md:text-[24px] lg:text-[28px] leading-snug group-hover:-translate-y-1 transition-transform duration-300">
+                วัสดุอุปกรณ์เคมีภัณฑ์<br />สำหรับงานเชื่อม
+              </h3>
+            </div>
+            <div class="absolute inset-x-0 bottom-0 h-[60%] bg-gradient-to-t from-gray-300 to-transparent"></div>
           </a>
 
-          <!-- Item 8: เครื่องมือช่าง -->
-          <a href="#" class="md:col-span-1 md:row-span-2 relative w-full h-full bg-gray-900 rounded-[20px] lg:rounded-[28px] overflow-hidden group hover:shadow-xl transition-all duration-300 flex items-center justify-center">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-black/40 z-0 group-hover:scale-105 transition-transform duration-700"></div>
-            <h3 class="relative z-10 text-white font-bold text-[20px] md:text-[24px] leading-snug text-center px-6">
-              เครื่องมือช่าง
-            </h3>
-          </a>
-
-          <!-- Item 9: COMING SOON -->
-          <a href="#" class="md:col-span-1 md:row-span-2 relative w-full h-full bg-gray-800/80 rounded-[20px] lg:rounded-[28px] overflow-hidden group hover:shadow-xl transition-all duration-300 flex items-center justify-center cursor-default pointer-events-none border border-gray-200/20">
-            <h3 class="relative z-10 text-white/50 font-bold text-[20px] md:text-[24px] leading-snug text-center px-6 tracking-wider">
-              COMING SOON
-            </h3>
-          </a>
-
-          <!-- Item 10: COMING SOON -->
-          <a href="#" class="md:col-span-1 md:row-span-2 relative w-full h-full bg-gray-800/80 rounded-[20px] lg:rounded-[28px] overflow-hidden group hover:shadow-xl transition-all duration-300 flex items-center justify-center cursor-default pointer-events-none border border-gray-200/20">
-            <h3 class="relative z-10 text-white/50 font-bold text-[20px] md:text-[24px] leading-snug text-center px-6 tracking-wider">
-              COMING SOON
-            </h3>
+          <!-- Card 8: เครื่องมือช่าง (Span 1, Dark Style) -->
+          <a href="#" class="col-span-1 relative w-full h-full bg-[#1c1c1e] rounded-[24px] lg:rounded-[32px] overflow-hidden group hover:shadow-xl transition-all duration-300">
+            <div class="absolute top-6 left-6 lg:top-8 lg:left-8 z-10 pr-4">
+              <h3 class="text-white font-semibold text-[20px] md:text-[24px] lg:text-[28px] leading-snug group-hover:-translate-y-1 transition-transform duration-300">
+                เครื่องมือช่าง
+              </h3>
+            </div>
+            <div class="absolute bottom-0 right-0 w-[70%] h-[70%] bg-gradient-to-tl from-gray-700 to-transparent rounded-tl-[100px] opacity-50 group-hover:scale-105 transition-transform duration-500"></div>
           </a>
 
         </div>
@@ -1814,34 +1765,97 @@ document.querySelector('#app').innerHTML = `
     </div>
   </footer>
 
+
+  <!-- Sticky Right Buttons (Why UDO & LINE) -->
+  <div class="fixed bottom-6 md:bottom-8 right-6 md:right-8 z-[100] flex flex-col items-center gap-3 md:gap-4">
+    
+    <!-- Why UDO Button -->
+    <div class="relative group cursor-pointer" id="whyUdoBtnContainer">
+      <!-- Close Button (X) -->
+      <button onclick="document.getElementById('whyUdoBtnContainer').style.display='none'" class="absolute -top-1 -right-1 md:-top-1.5 md:-right-1.5 w-6 h-6 md:w-8 md:h-8 bg-black/70 text-white rounded-full flex items-center justify-center hover:bg-black/90 transition-colors z-10 border-[1.5px] border-white/30 shadow-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 md:w-5 md:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      
+      <!-- Main Circle Button (ย่อลงมานิดนึง เป็น 108px) -->
+      <a href="#" class="w-[90px] h-[90px] md:w-[108px] md:h-[108px] bg-[#E32626] hover:bg-[#c92020] rounded-full flex flex-col items-center justify-center shadow-[0_10px_20px_rgba(227,38,38,0.25)] transition-transform hover:scale-105 duration-300">
+        <span class="text-white text-[14px] md:text-[17px] leading-[1.3] text-center font-medium">ทำไมต้อง<br>ซื้อกับ<br>UDO</span>
+      </a>
+    </div>
+
+    <!-- LINE Button -->
+    <a href="#" class="w-[56px] h-[56px] md:w-[64px] md:h-[64px] bg-[#E32626] hover:bg-[#00B900] rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110 duration-300 relative group border-[1px] border-white/80">
+      <!-- LINE SVG Icon แบบสร้างใหม่ (ใช้ Text จริงๆ การันตีว่าอ่านออก 100%) -->
+      <svg class="w-7 h-7 md:w-[34px] md:h-[34px] relative z-10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- ลูกโป่งสีขาว -->
+        <path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.053.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967 1.739-1.907 2.572-3.843 2.572-5.992z" fill="white"/>
+        <!-- ตัวหนังสือ LINE ข้างใน (เปลี่ยนสีตาม hover ได้ด้วย) -->
+        <text x="12" y="13.2" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="7.5" fill="#E32626" text-anchor="middle" class="group-hover:fill-[#00B900] transition-colors duration-300">LINE</text>
+      </svg>
+    </a>
+    
+  </div>
+
+    <!-- LINE Button -->
+    <!-- ขอบขาวบางลง (border-[1px] border-white/80) -->
+    <a href="#" class="w-[56px] h-[56px] md:w-[64px] md:h-[64px] bg-[#E32626] hover:bg-[#00B900] rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110 duration-300 relative group border-[1px] border-white/80">
+      <!-- LINE SVG Icon (เปลี่ยนมาใช้ FontAwesome Path ที่คมชัดและตัวหนังสือไม่บี้) -->
+      <svg class="w-8 h-8 md:w-10 md:h-10 text-white relative z-10" viewBox="0 0 496 512" fill="currentColor">
+        <path d="M248 8C111.1 8 0 99.1 0 211.8c0 51.5 22.3 98.4 59.8 135.5 13.9 13.8 15.3 19.3 11.2 37.1-3.6 15.9-10.3 35.8-13.6 47.9-1.9 6.8 5.6 9.8 10.3 7 10.3-6 45.4-26.3 64.9-42.3 10.3-8.4 19.2-12.8 30.6-10.7 27.6 5.1 56.6 7.9 86.8 7.9 136.9 0 248-91.1 248-203.8S384.9 8 248 8zM161.4 274.5c0 6.6-5.4 12-12 12h-47c-6.6 0-12-5.4-12-12v-88c0-6.6 5.4-12 12-12h47c6.6 0 12 5.4 12 12v12h-35v19h35c6.6 0 12 5.4 12 12v12zm68.3 0c0 6.6-5.4 12-12 12h-17.7c-6.6 0-12-5.4-12-12v-88c0-6.6 5.4-12 12-12h17.7c6.6 0 12 5.4 12 12v88zm81.4 0c0 6.6-5.4 12-12 12h-18l-32.9-46.7v34.7c0 6.6-5.4 12-12 12h-17.7c-6.6 0-12-5.4-12-12v-88c0-6.6 5.4-12 12-12h18l32.9 46.7V186.5c0-6.6 5.4-12 12-12h17.7c6.6 0 12 5.4 12 12v88zm83.3-33h-35v19h35c6.6 0 12 5.4 12 12v12c0 6.6-5.4 12-12 12h-47c-6.6 0-12-5.4-12-12v-88c0-6.6 5.4-12 12-12h47c6.6 0 12 5.4 12 12v12h-35v19h35c6.6 0 12 5.4 12 12v12z"/>
+      </svg>
+    </a>
+    
+  </div>
+
+    <!-- LINE Button -->
+    <!-- เพิ่มเส้นขอบสีขาว (border-2 border-white) และขยายปุ่มนิดนึง -->
+    <a href="#" class="w-[52px] h-[52px] md:w-[60px] md:h-[60px] bg-[#E32626] hover:bg-[#00B900] rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110 duration-300 relative group border-[2px] border-white">
+      <!-- LINE SVG Icon (ขยายขนาดจาก w-8 เป็น w-10 เพื่อให้คำว่า LINE ข้างในอ่านออกชัดเจนขึ้น) -->
+      <svg class="w-8 h-8 md:w-10 md:h-10 text-white relative z-10" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.053.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967 1.739-1.907 2.572-3.843 2.572-5.992zM8.344 13.56H6.173c-.29 0-.524-.234-.524-.524v-4.48c0-.289.234-.523.524-.523h2.171c.29 0 .524.234.524.523v1.308c0 .29-.234.524-.524.524H6.697v1.865h1.647c.29 0 .524.234.524.523v1.308c0 .29-.234.524-.524.524H8.344zm3.924 0h-1.646c-.29 0-.524-.234-.524-.524v-4.48c0-.289.234-.523.524-.523h1.646c.29 0 .524.234.524.523v4.48c0 .29-.234.524-.524.524zm4.184 0h-1.288l-1.921-2.617v2.093c0 .29-.234.524-.524.524h-1.647c-.289 0-.523-.234-.523-.524v-4.48c0-.289.234-.523.523-.523h1.289l1.92 2.617V8.553c0-.289.234-.523.524-.523h1.647c.289 0 .523.234.523.523v4.48c0 .29-.234.524-.523.524zm4.07 0h-2.17c-.29 0-.524-.234-.524-.524v-4.48c0-.289.234-.523.524-.523h2.17c.289 0 .523.234.523.523v1.308c0 .29-.234.524-.523.524h-1.646v1.08h1.646c.289 0 .523.234.523.524v1.308c0 .29-.234.524-.523.524h-1.646v1.308c0 .29.234.524.523.524h2.17c.289 0 .524.234.524.524z" />
+      </svg>
+    </a>
+    
+  </div>
+
+    <!-- LINE Button -->
+    <a href="#" class="w-[48px] h-[48px] md:w-[56px] md:h-[56px] bg-[#E32626] hover:bg-[#00B900] rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110 duration-300 relative group">
+      <!-- LINE SVG Icon -->
+      <svg class="w-6 h-6 md:w-8 md:h-8 text-white relative z-10" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.053.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967 1.739-1.907 2.572-3.843 2.572-5.992zM8.344 13.56H6.173c-.29 0-.524-.234-.524-.524v-4.48c0-.289.234-.523.524-.523h2.171c.29 0 .524.234.524.523v1.308c0 .29-.234.524-.524.524H6.697v1.865h1.647c.29 0 .524.234.524.523v1.308c0 .29-.234.524-.524.524H8.344zm3.924 0h-1.646c-.29 0-.524-.234-.524-.524v-4.48c0-.289.234-.523.524-.523h1.646c.29 0 .524.234.524.523v4.48c0 .29-.234.524-.524.524zm4.184 0h-1.288l-1.921-2.617v2.093c0 .29-.234.524-.524.524h-1.647c-.289 0-.523-.234-.523-.524v-4.48c0-.289.234-.523.523-.523h1.289l1.92 2.617V8.553c0-.289.234-.523.524-.523h1.647c.289 0 .523.234.523.523v4.48c0 .29-.234.524-.523.524zm4.07 0h-2.17c-.29 0-.524-.234-.524-.524v-4.48c0-.289.234-.523.524-.523h2.17c.289 0 .523.234.523.523v1.308c0 .29-.234.524-.523.524h-1.646v1.08h1.646c.289 0 .523.234.523.524v1.308c0 .29-.234.524-.523.524h-1.646v1.308c0 .29.234.524.523.524h2.17c.289 0 .524.234.524.524z" />
+      </svg>
+    </a>
+    
+  </div>
   <!-- Fixed Bottom Dock (UDO Custom) -->
   <div class="fixed bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 z-[100] bg-white rounded-full px-4 md:px-5 py-1 md:py-2 shadow-[0_20px_40px_rgba(0,0,0,0.08)] flex items-center gap-1 md:gap-2 hover:shadow-[0_20px_40px_rgba(138,195,83,0.2)] transition-shadow duration-500 border border-gray-200/50">
     
     <!-- Item 1: ถาม UDO AI -->
     <a href="#" class="flex flex-col items-center justify-center gap-0 md:gap-0.5 group px-2 md:px-4">
       <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 md:w-[26px] md:h-[26px] group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke-width="1.8">
-        <path stroke="#8ac353" stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+        <path stroke="#76b83f" stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
         <path stroke="#E32626" stroke-linecap="round" stroke-linejoin="round" d="M19.128 6.554l-.45-1.554-.45 1.554a2.25 2.25 0 00-1.554 1.554l-1.554.45 1.554.45a2.25 2.25 0 001.554 1.554l.45 1.554.45-1.554a2.25 2.25 0 001.554-1.554l1.554-.45-1.554-.45a2.25 2.25 0 00-1.554-1.554z" />
       </svg>
-      <span class="text-[16px] md:text-[17px] font-semibold text-gray-900 group-hover:text-[#8ac353] transition-colors whitespace-nowrap tracking-tight">ถาม UDO AI</span>
+      <span class="text-[16px] md:text-[17px] font-semibold text-gray-900 group-hover:text-[#76b83f] transition-colors whitespace-nowrap tracking-tight">ถาม UDO AI</span>
     </a>
 
     <!-- Item 2: โทรเช็กสต็อก -->
     <a href="#" class="flex flex-col items-center justify-center gap-0 md:gap-0.5 group px-2 md:px-4">
       <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 md:w-[26px] md:h-[26px] group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke-width="1.8">
-        <path stroke="#8ac353" stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-2.896-1.596-5.25-3.95-6.847-6.847l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+        <path stroke="#76b83f" stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-2.896-1.596-5.25-3.95-6.847-6.847l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
         
       </svg>
-      <span class="text-[16px] md:text-[17px] font-semibold text-gray-900 group-hover:text-[#8ac353] transition-colors whitespace-nowrap tracking-tight">โทรเช็กสต็อก</span>
+      <span class="text-[16px] md:text-[17px] font-semibold text-gray-900 group-hover:text-[#76b83f] transition-colors whitespace-nowrap tracking-tight">โทรเช็กสต็อก</span>
     </a>
 
     <!-- Item 3: ขอใบเสนอราคา -->
     <a href="#" class="flex flex-col items-center justify-center gap-0 md:gap-0.5 group px-2 md:px-4">
       <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 md:w-[26px] md:h-[26px] group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke-width="1.8">
-        <path stroke="#8ac353" stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+        <path stroke="#76b83f" stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
         <path stroke="#E32626" stroke-linecap="round" stroke-linejoin="round" d="M15 11.25h.008v.008H15v-.008z" />
       </svg>
-      <span class="text-[16px] md:text-[17px] font-semibold text-gray-900 group-hover:text-[#8ac353] transition-colors whitespace-nowrap tracking-tight">ขอใบเสนอราคา</span>
+      <span class="text-[16px] md:text-[17px] font-semibold text-gray-900 group-hover:text-[#76b83f] transition-colors whitespace-nowrap tracking-tight">ขอใบเสนอราคา</span>
     </a>
   </div>
 

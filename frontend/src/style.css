@@ -3,7 +3,7 @@
 @theme {
   /* เปลี่ยนสีแดงให้สดขึ้น เป็น True Red ที่ไม่ติดชมพู (R>G=B) */
   --color-brand-red: rgb(226, 30, 30);
-  --color-brand-green: rgb(138, 195, 83);
+  --color-brand-green: rgb(118, 184, 63);
   --color-muji-bg: #f8f8f8;
   --color-muji-gray-light: #e5e5e5;
   --color-muji-gray-dark: #333333;
