@@ -261,11 +261,11 @@ document.querySelector('#app').innerHTML = `
                 <img src="/images/bg-welding.jpeg" alt="Product" class="w-full h-full object-contain">
                 
                 <!-- Arrows (Matching Home Page Slider) -->
-                <button class="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 w-7 h-12 md:w-8 md:h-14 bg-black/10 hover:bg-black/20 backdrop-blur-sm shadow-md flex items-center justify-center text-white rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 z-20 cursor-pointer">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 md:w-5 md:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
+                <button class="absolute left-0 top-1/2 -translate-y-1/2 w-8 h-14 bg-black/25 hover:bg-black/35 text-white rounded-md z-10 transition-all flex items-center justify-center cursor-pointer">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="0.8"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
                 </button>
-                <button class="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 w-7 h-12 md:w-8 md:h-14 bg-black/10 hover:bg-black/20 backdrop-blur-sm shadow-md flex items-center justify-center text-white rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 z-20 cursor-pointer">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 md:w-5 md:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+                <button class="absolute right-0 top-1/2 -translate-y-1/2 w-8 h-14 bg-black/25 hover:bg-black/35 text-white rounded-md z-10 transition-all flex items-center justify-center cursor-pointer">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="0.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
                 </button>
               </div>
               
@@ -286,20 +286,20 @@ document.querySelector('#app').innerHTML = `
             <!-- Title -->
             <h1 class="text-[20px] md:text-[24px] font-semibold text-[#252525] leading-tight mb-2">เครื่องเล่นเกม Nintendo Switch 2 + Mario Kart World Bundle</h1>
             
-            <div class="text-[14px] text-black/45 mb-6 flex items-center gap-4">
+            <div class="text-[14px] text-black/45 mb-5 flex items-center gap-4">
               <span>แบรนด์: <a href="#" class="text-[#252525] font-medium hover:underline">NINTENDO</a></span>
               <span class="text-black/45">|</span>
               <span>SKU: 4902370553451</span>
             </div>
 
             <!-- Pricing -->
-            <div class="flex items-end gap-3 mb-2">
+            <div class="flex items-end gap-3 mb-5">
               <div class="flex items-baseline gap-1.5">
                 <div class="text-[30px] md:text-[34px] font-medium text-[#E12427] leading-none">฿18,412</div>
                 <span class="text-black/45 text-[15px] font-medium">/ห่อ</span>
               </div>
               <div class="text-[18px] text-black/45 line-through mb-1">฿18,000</div>
-              <div class="text-[#E12427] text-[13px] border border-[#E12427] rounded px-2 py-0.5 mb-1 flex items-center gap-1">
+              <div class="text-[#E12427] text-[13px] font-medium bg-[#E12427]/10 border border-[#E12427] rounded px-2 py-0.5 mb-1 flex items-center gap-1">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" /></svg>
                 ราคาหลังหักส่วนลด
               </div>
@@ -323,7 +323,7 @@ document.querySelector('#app').innerHTML = `
               </div>
             </div>
 
-            <p class="text-[14px] text-gray-600 mb-6 leading-relaxed">
+            <p class="text-[16px] text-[#252525] mb-6 leading-[1.6]">
               <span class="font-semibold">เครื่องเล่นเกม Nintendo Switch 2</span> พลิกโฉมประสบการณ์การเล่นเกม ที่ UDO ด้วยการอัปเกรดครั้งใหญ่ทั้งในด้านประสิทธิภาพ และหน้าจอใหญ่ขึ้น สีสันสดใส เล่นเกมได้อย่างลื่นไหล พร้อม Joy-Con รุ่นใหม่ที่ติดแน่นกับตัวเครื่องด้วยแรงแม่เหล็ก สนุกไปกับเกมใหม่ ๆ ที่เล่นได้เฉพาะบน Nintendo Switch 2
             </p>
 
@@ -331,8 +331,8 @@ document.querySelector('#app').innerHTML = `
             <div class="mb-10">
               <span class="block text-[16px] text-[#252525] mb-4">บรรจุ</span>
               <div class="flex items-center gap-3">
-                <button class="px-4 py-1.5 rounded-[4px] bg-[#76b83f] border border-[#76b83f] text-white font-medium text-[14px] shadow-sm transition-colors">ห่อ</button>
-                <button class="px-4 py-1.5 rounded-[4px] bg-white border border-gray-300 text-[#252525] font-medium text-[14px] hover:border-[#76b83f] transition-colors">ลัง (4 ห่อ)</button>
+                <button class="px-4 py-1 rounded-[4px] bg-[#76b83f] border border-[#76b83f] text-white font-medium text-[14px] shadow-sm transition-colors">ห่อ</button>
+                <button class="px-4 py-1 rounded-[4px] bg-white border border-gray-300 text-[#252525] font-medium text-[14px] hover:border-[#76b83f] transition-colors">ลัง (4 ห่อ)</button>
               </div>
             </div>
 
@@ -379,7 +379,7 @@ document.querySelector('#app').innerHTML = `
             </div>
 
             <!-- Social Links -->
-            <div class="flex items-center justify-between text-[16px] font-semibold text-[#252525] border-t border-gray-200 pt-6">
+            <div class="flex items-center justify-between text-[16px] font-medium text-[#252525] border-t border-gray-200 pt-4">
               <button class="flex items-center gap-2 hover:text-[#E12427] transition-colors group">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-black group-hover:text-[#E12427] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
                 เพิ่มเป็นรายการโปรด
