@@ -1097,40 +1097,33 @@ document.querySelector('#app').innerHTML = `
 
     <!-- Main Footer Content -->
     <div class="max-w-[1360px] mx-auto px-4 md:px-8 xl:px-16 py-12">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10">
         
         <!-- Col 1 -->
         <div class="flex flex-col">
           <!-- Logo -->
-          <a href="/" class="shrink-0 mb-4 inline-block hover:opacity-80 transition-opacity">
-            <img src="/images/logos/logo.svg" alt="UDO Welding Products" class="h-10 w-auto object-contain" />
+          <a href="/" class="shrink-0 mb-4 inline-block group">
+            <img src="/images/logos/logo.svg" alt="UDO Welding Products" class="h-[42px] md:h-[52px] w-auto object-contain grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-400" />
           </a>
-          <p class="text-[13.5px] text-gray-900 font-semibold mb-5">ช้อปสินค้าอุปกรณ์งานเชื่อมครบวงจร ตลอด 24 ชั่วโมง</p>
-          <button class="flex items-center justify-center gap-2 border border-gray-400 text-gray-900 bg-white hover:bg-gray-50 rounded-md py-2 px-4 mb-6 w-fit text-[14px] font-semibold transition-colors shadow-sm">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /></svg>
-            ค้นหาสาขาใกล้คุณ
-          </button>
-          <div class="flex gap-2">
-            <!-- App Store Mock -->
-            <div class="bg-black text-white rounded-[4px] flex items-center gap-1.5 px-2.5 py-1.5 cursor-pointer hover:bg-gray-800 transition-colors w-[120px]">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M16.36 14c.08-.02.2-.02.26 0 .53.22 1.05.52 1.5 1 .64.67 1.05 1.57 1.05 2.5 0 2.27-1.85 4.12-4.13 4.12-1.07 0-2.1-.41-2.88-1.12l-.66-.62-.64.62c-.78.7-1.81 1.12-2.88 1.12-2.28 0-4.13-1.85-4.13-4.12 0-.93.41-1.83 1.05-2.5.45-.48.97-.78 1.5-1 .06-.02.18-.02.26 0 .78.18 1.57.51 2.27.97.7-.46 1.49-.79 2.27-.97zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.68 18.27c-.89-.3-1.68-.78-2.33-1.42l-.35-.35-.35.35c-.65.64-1.44 1.12-2.33 1.42C7.03 19.34 6 18.3 6 17c0-.85.34-1.63.9-2.18.52-.51 1.23-.84 2-.96l.85-.14.28.8c.18.52.47 1 .84 1.4.38.41.86.72 1.41.89l.72.22.72-.22c.55-.17 1.03-.48 1.41-.89.37-.4.66-.88.84-1.4l.28-.8.85.14c.77.12 1.48.45 2 .96.56.55.9 1.33.9 2.18 0 1.3-1.03 2.34-2.32 3.27z"/></svg>
-              <div class="flex flex-col leading-none">
-                <span class="text-[7px] opacity-90 mt-0.5">Download on the</span>
-                <span class="text-[12px] font-semibold -mt-0.5">App Store</span>
-              </div>
-            </div>
-            <!-- Play Store Mock -->
-            <div class="bg-black text-white rounded-[4px] flex items-center gap-1.5 px-2.5 py-1.5 cursor-pointer hover:bg-gray-800 transition-colors w-[120px]">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 24 24"><path d="M3 20.5V3.5C3 2.91 3.34 2.39 3.84 2.15L13.69 12 3.84 21.85C3.34 21.61 3 21.09 3 20.5zm11.39-7.8L21 16c.39.23.39.61 0 .84l-6.61 3.32-3.23-3.23 3.23-3.23zm0-1.4l-3.23-3.23 3.23-3.23L21 8c.39.23.39.61 0 .84l-6.61 2.46z"/></svg>
-              <div class="flex flex-col leading-none">
-                <span class="text-[7px] opacity-90 mt-0.5">GET IT ON</span>
-                <span class="text-[12px] font-semibold -mt-0.5">Google Play</span>
-              </div>
-            </div>
+          <!-- Operating Hours -->
+          <div class="mt-2 text-[13px] md:text-[14px] text-gray-800 leading-[1.8]">
+            <p class="mb-0"><span class="font-bold text-gray-900">เวลาทำการ UDO Call Center :</span><br>วันจันทร์ - วันอาทิตย์ 09.00-18.00 น.</p>
+            <p class="mb-0 mt-3"><span class="font-bold text-gray-900">เวลาจัดส่งสินค้า :</span><br>จันทร์ - เสาร์ 08:30 - 17:30 น.</p>
           </div>
         </div>
 
-        <!-- Col 2 -->
+        <!-- Col 2: หมวดหมู่สินค้า -->
+        <div class="flex flex-col gap-2.5">
+          <h3 class="font-bold text-gray-900 text-[14px] mb-1">หมวดหมู่สินค้า</h3>
+          <a href="#" class="text-gray-700 hover:text-black text-[13.5px] transition-colors">ลวดเชื่อม</a>
+          <a href="#" class="text-gray-700 hover:text-black text-[13.5px] transition-colors">เครื่องเชื่อม</a>
+          <a href="#" class="text-gray-700 hover:text-black text-[13.5px] transition-colors">อุปกรณ์งานเชื่อม</a>
+          <a href="#" class="text-gray-700 hover:text-black text-[13.5px] transition-colors">อะไหล่ปืนเชื่อม</a>
+          <a href="#" class="text-gray-700 hover:text-black text-[13.5px] transition-colors">น้ำยาเคมีภัณฑ์</a>
+          <a href="#" class="text-gray-700 hover:text-black text-[13.5px] transition-colors">อุปกรณ์เซฟตี้</a>
+        </div>
+
+        <!-- Col 3 (เดิม Col 2) -->
         <div class="flex flex-col gap-2.5">
           <h3 class="font-bold text-gray-900 text-[14px] mb-1">เกี่ยวกับ UDO</h3>
           <a href="#" class="text-gray-700 hover:text-black text-[13.5px] transition-colors">ติดต่อเรา</a>
@@ -1140,7 +1133,7 @@ document.querySelector('#app').innerHTML = `
           <a href="#" class="text-gray-700 hover:text-black text-[13.5px] transition-colors">ร่วมงานกับเรา</a>
         </div>
 
-        <!-- Col 3 -->
+        <!-- Col 4 (เดิม Col 3) -->
         <div class="flex flex-col gap-2.5">
           <h3 class="font-bold text-gray-900 text-[14px] mb-1">บริการ</h3>
           <a href="#" class="text-gray-700 hover:text-black text-[13.5px] transition-colors">ขั้นตอนการสั่งซื้อบน UDO.co.th แบบง่ายๆ</a>
@@ -1150,7 +1143,7 @@ document.querySelector('#app').innerHTML = `
           <a href="#" class="text-gray-700 hover:text-black text-[13.5px] transition-colors">นโยบายการรับประกันและการเคลม</a>
         </div>
 
-        <!-- Col 4 -->
+        <!-- Col 5 (เดิม Col 4) -->
         <div class="flex flex-col">
           <h3 class="font-bold text-gray-900 text-[14px] mb-3">Verified by</h3>
           <div class="flex items-center gap-3 mb-8">
@@ -1184,6 +1177,16 @@ document.querySelector('#app').innerHTML = `
             <span class="text-[#F37021] font-black text-lg italic tracking-tighter">KERRY</span>
             <div class="bg-[#FFCC00] text-[#D40511] font-black text-sm px-1.5 py-0.5 tracking-tight italic">DHL</div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Company Info -->
+    <div class="border-t border-gray-200 bg-white">
+      <div class="max-w-[1360px] mx-auto px-4 md:px-8 xl:px-16 py-8">
+        <div class="text-[13px] md:text-[14px] text-gray-800 leading-[1.8]">
+          <p class="mb-0 text-gray-600">Copyright © 2026 UDO จัดจำหน่ายสินค้าและบริการ โดย บริษัท ยู.ดี.โอ. จำกัด (สำนักงานใหญ่) 61,63,65 ซอยพระราม 3 ซอย 54 แขวงช่องนนทรี เขตยานนาวา กรุงเทพฯ 10120</p>
+          <p class="mb-0 text-gray-600">เบอร์โทร. : 02-123-4567 | อีเมล : contact@udo.co.th | เลขทะเบียนพาณิชย์อิเล็กทรอนิกส์ : 0101234567890</p>
         </div>
       </div>
     </div>
@@ -1223,51 +1226,8 @@ document.querySelector('#app').innerHTML = `
         <span class="text-white text-[14px] md:text-[17px] leading-[1.3] text-center font-medium">ทำไมต้อง<br>ซื้อกับ<br>UDO</span>
       </a>
     </div>
-
-    <!-- LINE Button -->
-    <a href="#" class="w-[56px] h-[56px] md:w-[64px] md:h-[64px] bg-[#E12427] hover:bg-[#00B900] rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110 duration-300 relative group border-[1px] border-white/80">
-      <!-- LINE SVG Icon แบบสร้างใหม่ (ใช้ Text จริงๆ การันตีว่าอ่านออก 100%) -->
-      <svg class="w-7 h-7 md:w-[34px] md:h-[34px] relative z-10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- ลูกโป่งสีขาว -->
-        <path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.053.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967 1.739-1.907 2.572-3.843 2.572-5.992z" fill="white"/>
-        <!-- ตัวหนังสือ LINE ข้างใน (เปลี่ยนสีตาม hover ได้ด้วย) -->
-        <text x="12" y="13.2" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="7.5" fill="#E12427" text-anchor="middle" class="group-hover:fill-[#00B900] transition-colors duration-300">LINE</text>
-      </svg>
-    </a>
-    
   </div>
-
-    <!-- LINE Button -->
-    <!-- ขอบขาวบางลง (border-[1px] border-white/80) -->
-    <a href="#" class="w-[56px] h-[56px] md:w-[64px] md:h-[64px] bg-[#E12427] hover:bg-[#00B900] rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110 duration-300 relative group border-[1px] border-white/80">
-      <!-- LINE SVG Icon (เปลี่ยนมาใช้ FontAwesome Path ที่คมชัดและตัวหนังสือไม่บี้) -->
-      <svg class="w-8 h-8 md:w-10 md:h-10 text-white relative z-10" viewBox="0 0 496 512" fill="currentColor">
-        <path d="M248 8C111.1 8 0 99.1 0 211.8c0 51.5 22.3 98.4 59.8 135.5 13.9 13.8 15.3 19.3 11.2 37.1-3.6 15.9-10.3 35.8-13.6 47.9-1.9 6.8 5.6 9.8 10.3 7 10.3-6 45.4-26.3 64.9-42.3 10.3-8.4 19.2-12.8 30.6-10.7 27.6 5.1 56.6 7.9 86.8 7.9 136.9 0 248-91.1 248-203.8S384.9 8 248 8zM161.4 274.5c0 6.6-5.4 12-12 12h-47c-6.6 0-12-5.4-12-12v-88c0-6.6 5.4-12 12-12h47c6.6 0 12 5.4 12 12v12h-35v19h35c6.6 0 12 5.4 12 12v12zm68.3 0c0 6.6-5.4 12-12 12h-17.7c-6.6 0-12-5.4-12-12v-88c0-6.6 5.4-12 12-12h17.7c6.6 0 12 5.4 12 12v88zm81.4 0c0 6.6-5.4 12-12 12h-18l-32.9-46.7v34.7c0 6.6-5.4 12-12 12h-17.7c-6.6 0-12-5.4-12-12v-88c0-6.6 5.4-12 12-12h18l32.9 46.7V186.5c0-6.6 5.4-12 12-12h17.7c6.6 0 12 5.4 12 12v88zm83.3-33h-35v19h35c6.6 0 12 5.4 12 12v12c0 6.6-5.4 12-12 12h-47c-6.6 0-12-5.4-12-12v-88c0-6.6 5.4-12 12-12h47c6.6 0 12 5.4 12 12v12h-35v19h35c6.6 0 12 5.4 12 12v12z"/>
-      </svg>
-    </a>
-    
-  </div>
-
-    <!-- LINE Button -->
-    <!-- เพิ่มเส้นขอบสีขาว (border-2 border-white) และขยายปุ่มนิดนึง -->
-    <a href="#" class="w-[52px] h-[52px] md:w-[60px] md:h-[60px] bg-[#E12427] hover:bg-[#00B900] rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110 duration-300 relative group border-[2px] border-white">
-      <!-- LINE SVG Icon (ขยายขนาดจาก w-8 เป็น w-10 เพื่อให้คำว่า LINE ข้างในอ่านออกชัดเจนขึ้น) -->
-      <svg class="w-8 h-8 md:w-10 md:h-10 text-white relative z-10" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.053.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967 1.739-1.907 2.572-3.843 2.572-5.992zM8.344 13.56H6.173c-.29 0-.524-.234-.524-.524v-4.48c0-.289.234-.523.524-.523h2.171c.29 0 .524.234.524.523v1.308c0 .29-.234.524-.524.524H6.697v1.865h1.647c.29 0 .524.234.524.523v1.308c0 .29-.234.524-.524.524H8.344zm3.924 0h-1.646c-.29 0-.524-.234-.524-.524v-4.48c0-.289.234-.523.524-.523h1.646c.29 0 .524.234.524.523v4.48c0 .29-.234.524-.524.524zm4.184 0h-1.288l-1.921-2.617v2.093c0 .29-.234.524-.524.524h-1.647c-.289 0-.523-.234-.523-.524v-4.48c0-.289.234-.523.523-.523h1.289l1.92 2.617V8.553c0-.289.234-.523.524-.523h1.647c.289 0 .523.234.523.523v4.48c0 .29-.234.524-.523.524zm4.07 0h-2.17c-.29 0-.524-.234-.524-.524v-4.48c0-.289.234-.523.524-.523h2.17c.289 0 .523.234.523.523v1.308c0 .29-.234.524-.523.524h-1.646v1.08h1.646c.289 0 .523.234.523.524v1.308c0 .29-.234.524-.523.524h-1.646v1.308c0 .29.234.524.523.524h2.17c.289 0 .524.234.524.524z" />
-      </svg>
-    </a>
-    
-  </div>
-
-    <!-- LINE Button -->
-    <a href="#" class="w-[48px] h-[48px] md:w-[56px] md:h-[56px] bg-[#E12427] hover:bg-[#00B900] rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110 duration-300 relative group">
-      <!-- LINE SVG Icon -->
-      <svg class="w-6 h-6 md:w-8 md:h-8 text-white relative z-10" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.053.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967 1.739-1.907 2.572-3.843 2.572-5.992zM8.344 13.56H6.173c-.29 0-.524-.234-.524-.524v-4.48c0-.289.234-.523.524-.523h2.171c.29 0 .524.234.524.523v1.308c0 .29-.234.524-.524.524H6.697v1.865h1.647c.29 0 .524.234.524.523v1.308c0 .29-.234.524-.524.524H8.344zm3.924 0h-1.646c-.29 0-.524-.234-.524-.524v-4.48c0-.289.234-.523.524-.523h1.646c.29 0 .524.234.524.523v4.48c0 .29-.234.524-.524.524zm4.184 0h-1.288l-1.921-2.617v2.093c0 .29-.234.524-.524.524h-1.647c-.289 0-.523-.234-.523-.524v-4.48c0-.289.234-.523.523-.523h1.289l1.92 2.617V8.553c0-.289.234-.523.524-.523h1.647c.289 0 .523.234.523.523v4.48c0 .29-.234.524-.523.524zm4.07 0h-2.17c-.29 0-.524-.234-.524-.524v-4.48c0-.289.234-.523.524-.523h2.17c.289 0 .523.234.523.523v1.308c0 .29-.234.524-.523.524h-1.646v1.08h1.646c.289 0 .523.234.523.524v1.308c0 .29-.234.524-.523.524h-1.646v1.308c0 .29.234.524.523.524h2.17c.289 0 .524.234.524.524z" />
-      </svg>
-    </a>
-    
-  </div>
+  
   <!-- Fixed Bottom Dock (UDO Custom) -->
   <div class="fixed bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 z-[100] bg-white/95 backdrop-blur-md rounded-full px-4 md:px-5 py-1 md:py-2 shadow-[0_8px_32px_rgba(0,0,0,0.12)] flex items-center gap-1 md:gap-2 hover:shadow-[0_12px_40px_rgba(138,195,83,0.25)] transition-all duration-500">
     
