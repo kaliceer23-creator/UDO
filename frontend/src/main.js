@@ -7,13 +7,20 @@ document.querySelector('#app').innerHTML = `
   <!-- 0. แถบ Utility ด้านบนสุด (สไตล์ BaNANA) -->
   <div class="w-full bg-[#F5F5F5] hidden md:block relative z-[60]">
     <div class="max-w-[1360px] mx-auto px-4 md:px-8 lg:px-12 h-10 flex items-center justify-end text-[12px] text-black/90 font-medium gap-4">
-      <a href="#" class="hover:text-brand-red transition-all">เกี่ยวกับเรา</a>
+      
+      <!-- Phone Number (Minimalist) -->
+      <a href="tel:0628159999" class="flex items-center gap-1.5 hover:text-brand-red transition-colors group">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-gray-500 group-hover:text-brand-red transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-2.896-1.596-5.273-3.973-6.869-6.87l1.293-.97c.362-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+        </svg>
+        <span class="font-semibold tracking-wide">062 815 9999</span>
+      </a>
+      
       <span class="text-gray-400 font-light">|</span>
+
       <a href="#" class="hover:text-brand-red transition-all">วิธีการสั่งซื้อ/ขอใบเสนอราคา</a>
       <span class="text-gray-400 font-light">|</span>
       <a href="#" class="hover:text-brand-red transition-all">FAQ</a>
-      <span class="text-gray-400 font-light">|</span>
-      <a href="#" class="hover:text-brand-red transition-all">ติดต่อเรา</a>
       <span class="text-gray-400 font-light">|</span>
       
       <!-- ตัวเลือกภาษา (Language Switcher) -->
@@ -23,6 +30,7 @@ document.querySelector('#app').innerHTML = `
           <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
         </svg>
       </div>
+
     </div>
   </div>
 
@@ -41,7 +49,7 @@ document.querySelector('#app').innerHTML = `
         </div>
         
         <!-- Search Bar Area (Clean Thin Border, No Shadow, Refined Small Red AI Mode Button) -->
-        <div class="hidden md:flex flex-1 max-w-[680px] lg:max-w-[800px] xl:max-w-[860px] items-center mx-4 lg:mx-8 bg-white rounded-2xl h-[48px] md:h-[50px] lg:h-[52px] pl-5 pr-4 border border-gray-200 focus-within:border-brand-red transition-all duration-200 relative">
+        <div class="hidden md:flex flex-1 max-w-[680px] lg:max-w-[800px] xl:max-w-[860px] items-center mx-4 lg:mx-8 bg-white rounded-2xl h-[48px] md:h-[50px] lg:h-[52px] pl-5 pr-4 border border-gray-200 focus-within:border-[#ff8585] focus-within:ring-[1.5px] focus-within:ring-[#ff8585] transition-all duration-200 relative">
           
           <!-- Search Input Container with Animated Placeholder -->
           <div class="flex-1 mr-3 flex items-center h-full relative">
@@ -57,37 +65,56 @@ document.querySelector('#app').innerHTML = `
           
           <!-- Refined Small Red AI Button (Ultra Compact Pill) -->
           <button class="bg-brand-red hover:bg-[#c91d20] text-white px-3 md:px-3.5 py-0.5 h-[26px] md:h-[28px] rounded-full flex items-center justify-center gap-1 transition-all duration-200 shrink-0 cursor-pointer active:scale-[0.98]">
-            <!-- Fine Stroke AI Sparkles Icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM19.128 6.554l-.45-1.554-.45 1.554a2.25 2.25 0 00-1.554 1.554l-1.554.45 1.554.45a2.25 2.25 0 001.554 1.554l.45 1.554.45-1.554a2.25 2.25 0 001.554-1.554l1.554-.45-1.554-.45a2.25 2.25 0 00-1.554-1.554z"/>
-            </svg>
+            <!-- AI Search Icon (Magnifying Glass + Sparkle) -->
+            <div class="relative flex items-center justify-center w-3.5 h-3.5 mr-0.5">
+              <!-- Magnifying Glass -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-[13px] h-[13px] text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+              </svg>
+              <!-- Sparkle (Top Right) -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-[8px] h-[8px] text-white absolute -top-1 -right-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+              </svg>
+            </div>
             <span class="font-medium text-[11.5px] md:text-[12px] tracking-tight">โหมด AI</span>
           </button>
           
         </div>
 
         <!-- Right Side Actions -->
-        <div class="shrink-0 flex items-center justify-end text-[16px] text-black/90 font-medium gap-5 lg:gap-6">
+        <div class="shrink-0 flex items-center justify-end text-[16px] text-black/90 font-medium gap-6 lg:gap-8">
           
-          <!-- Login -->
-          <a href="#" class="hidden lg:flex items-center gap-2 hover:text-brand-red cursor-pointer transition-colors text-black/90">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-[22px] h-[22px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-            </svg>
-            <span class="font-medium text-[16px]">เข้าสู่ระบบ</span>
-          </a>
+          <!-- Auth Links -->
+          <div class="hidden lg:flex items-center gap-1.5 font-normal text-[15px] text-[#252525]">
+            <a href="#" class="flex items-center gap-1.5 hover:text-brand-red transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-[22px] h-[22px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+              </svg>
+              เข้าสู่ระบบ
+            </a>
+            <span class="text-black mx-1">|</span>
+            <a href="#" class="hover:text-brand-red transition-colors">ลงทะเบียน</a>
+          </div>
 
-          <!-- Divider -->
-          <div class="w-[1px] h-[24px] bg-gray-200 hidden lg:block"></div>
+          <!-- Icons Group (Heart + Cart) -->
+          <div class="flex items-center gap-4">
+            <!-- Heart Icon -->
+            <a href="#" class="text-black/90 hover:text-brand-red transition-colors flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-[25px] h-[25px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2">
+                <!-- Geometric Heart with straight V bottom -->
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+              </svg>
+            </a>
 
-          <!-- Cart -->
-          <a href="#" class="text-black/90 hover:text-brand-red transition-colors flex items-center relative pr-1">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-[26px] h-[26px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-            </svg>
-            <!-- Badge (Optional, you can remove if not needed, but standard for carts) -->
-            <span class="absolute -top-1 -right-1 bg-brand-red text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border border-white leading-none">0</span>
-          </a>
+            <!-- Cart (Unchanged SVG and Badge as requested) -->
+            <a href="#" class="text-black/90 hover:text-brand-red transition-colors flex items-center relative pr-1">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-[26px] h-[26px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+              </svg>
+              <!-- Badge -->
+              <span class="absolute -top-1 -right-1 bg-brand-red text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border border-white leading-none">0</span>
+            </a>
+          </div>
 
         </div>
       </div>
@@ -95,11 +122,10 @@ document.querySelector('#app').innerHTML = `
 
   <!-- 2. แถบคาดสีเขียว (Main Categories Banner) -->
   <nav class="w-full bg-brand-green h-[38px] md:h-[44px] relative z-50 overflow-x-auto lg:overflow-visible no-scrollbar">
-    <div class="max-w-[1360px] mx-auto px-4 md:px-8 lg:px-12 relative h-full flex items-center justify-between gap-4 lg:gap-6 whitespace-nowrap text-[13.5px] md:text-[14px]">
+    <div class="max-w-[1360px] mx-auto px-4 md:px-8 lg:px-12 relative h-full flex items-center justify-between">
       
-      <!-- ปุ่มเลือกตามหมวดหมู่ (App Launcher 4 Squares Grid Icon) -->
+      <!-- ปุ่มเลือกตามหมวดหมู่ (ฝั่งซ้าย) -->
       <div id="category-menu-btn" class="h-full flex items-center gap-2 text-white font-semibold text-[13.5px] md:text-[14px] cursor-pointer hover:bg-white/15 px-3 md:px-4 -ml-3 md:-ml-4 rounded-md transition-all shrink-0 select-none group">
-        <!-- 4-Square App Grid Icon -->
         <svg xmlns="http://www.w3.org/2000/svg" class="w-[17px] h-[17px] text-white transition-transform duration-200 group-hover:scale-105" viewBox="0 0 24 24" fill="currentColor">
           <path fill-rule="evenodd" d="M3 6a3 3 0 013-3h2.25a3 3 0 013 3v2.25a3 3 0 01-3 3H6a3 3 0 01-3-3V6zm9.75 0a3 3 0 013-3H18a3 3 0 013 3v2.25a3 3 0 01-3 3h-2.25a3 3 0 01-3-3V6zM3 15.75a3 3 0 013-3h2.25a3 3 0 013 3V18a3 3 0 01-3 3H6a3 3 0 01-3-3v-2.25zm9.75 0a3 3 0 013-3H18a3 3 0 013 3V18a3 3 0 01-3 3h-2.25a3 3 0 01-3-3v-2.25z" clip-rule="evenodd" />
         </svg>
@@ -109,206 +135,115 @@ document.querySelector('#app').innerHTML = `
         </svg>
       </div>
 
-      <!-- หมวดหมู่พิเศษ (โปรโมชั่น - ไม่มีกรอบขาวแล้ว) -->
-      <a href="#" class="flex items-center gap-1.5 text-white hover:text-gray-200 font-medium transition-colors text-[13.5px] md:text-[14px]">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-          <path fill-rule="evenodd" d="M12.963 2.286a.75.75 0 00-1.071-.136 9.742 9.742 0 00-3.539 6.177A7.547 7.547 0 016.648 6.61a.75.75 0 00-1.152-.082A9 9 0 1015.68 4.534a7.46 7.46 0 01-2.717-2.248z" clip-rule="evenodd" />
-        </svg>
-        โปรโมชั่นฮอต
-      </a>
-
-      <!-- หมวดหมู่สินค้าหลัก (ปรับตามโครงสร้างสินค้าจริงของ UDO) -->
-      <a href="#" class="relative h-full flex items-center text-white hover:text-gray-100 font-medium text-[13.5px] md:text-[14px] transition-colors group">
-        ตู้เชื่อม/พลาสม่า
-        <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[7px] border-r-[7px] border-b-[7px] border-l-transparent border-r-transparent border-b-brand-red opacity-0 group-hover:opacity-100 transition-opacity"></span>
-      </a>
-      
-      <!-- เมนู กลุ่มลวดเชื่อม (พร้อม Mega Menu Dropdown) -->
-      <div class="h-full flex items-center group cursor-pointer static">
-        <a href="#" class="relative text-white group-hover:text-gray-100 font-medium text-[13.5px] md:text-[14px] transition-colors h-full flex items-center">
-          กลุ่มลวดเชื่อม
-          <!-- สามเหลี่ยมชี้ขึ้น (สีแดงแบรนด์) -->
-          <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[7px] border-r-[7px] border-b-[7px] border-l-transparent border-r-transparent border-b-brand-red opacity-0 group-hover:opacity-100 transition-opacity z-10"></span>
-        </a>
+      <!-- เมนูตรงกลาง (Center Aligned) -->
+      <div class="hidden lg:flex flex-1 justify-center h-full items-center gap-8 lg:gap-10 xl:gap-12 whitespace-nowrap">
         
-        <!-- Mega Menu (ซ่อนอยู่ จะโชว์ตอน Hover) - จำกัดขนาดให้อยู่ในกรอบแบบ Power Buy -->
-        <div class="hidden lg:group-hover:block absolute top-full left-4 md:left-8 lg:left-12 right-4 md:right-8 lg:right-12 bg-white shadow-2xl border-t-[3px] border-brand-red cursor-default rounded-b-md">
-          <div class="p-10 grid grid-cols-4 gap-10 text-left whitespace-normal">
-            
-            <!-- Column 1 -->
-            <div class="space-y-8">
-              <div>
-                <h3 class="text-gray-900 font-semibold text-[16px] mb-3 border-b-2 border-brand-red inline-block pb-1">เชื่อมเหล็ก</h3>
-                <ul class="space-y-2 text-[14px] text-gray-600 font-semibold mt-3">
-                  <li><a href="#" class="hover:text-brand-red transition-colors">เชื่อมไฟฟ้า (MMA)</a></li>
-                  <li><a href="#" class="hover:text-brand-red transition-colors">เชื่อมอาร์กอน (TIG)</a></li>
-                  <li><a href="#" class="hover:text-brand-red transition-colors">เชื่อมซีโอทู (MIG)</a></li>
-                  <li><a href="#" class="hover:text-brand-red transition-colors">เชื่อมฟลักซ์คอร์ส (FCW)</a></li>
-                  <li><a href="#" class="hover:text-brand-red transition-colors">เชื่อมซับเมอร์ค (SAW)</a></li>
-                  <li><a href="#" class="hover:text-brand-red transition-colors">เชื่อมแก๊ส (Brazing)</a></li>
-                </ul>
-              </div>
-              <div>
-                <h3 class="text-gray-900 font-semibold text-[16px] mb-3 border-b-2 border-brand-red inline-block pb-1">เชื่อมสแตนเลส</h3>
-                <ul class="space-y-2 text-[14px] text-gray-600 font-semibold mt-3">
-                  <li><a href="#" class="hover:text-brand-red transition-colors">เชื่อมไฟฟ้า (MMA)</a></li>
-                  <li><a href="#" class="hover:text-brand-red transition-colors">เชื่อมอาร์กอน (TIG)</a></li>
-                  <li><a href="#" class="hover:text-brand-red transition-colors">เชื่อมซีโอทู (MIG)</a></li>
-                  <li><a href="#" class="hover:text-brand-red transition-colors">เชื่อมฟลักซ์คอร์ส (FCW)</a></li>
-                  <li><a href="#" class="hover:text-brand-red transition-colors">เชื่อมซับเมอร์ค (SAW)</a></li>
-                </ul>
-              </div>
-            </div>
-
-            <!-- Column 2 -->
-            <div class="space-y-8">
-              <div>
-                <h3 class="text-gray-900 font-semibold text-[16px] mb-3 border-b-2 border-brand-red inline-block pb-1">เชื่อมอลูมิเนียม</h3>
-                <ul class="space-y-2 text-[14px] text-gray-600 font-semibold mt-3">
-                  <li><a href="#" class="hover:text-brand-red transition-colors">เชื่อมไฟฟ้า (MMA)</a></li>
-                  <li><a href="#" class="hover:text-brand-red transition-colors">เชื่อมอาร์กอน (TIG)</a></li>
-                  <li><a href="#" class="hover:text-brand-red transition-colors">เชื่อมซีโอทู (MIG)</a></li>
-                  <li><a href="#" class="hover:text-brand-red transition-colors">เชื่อมแก๊ส (Brazing)</a></li>
-                </ul>
-              </div>
-              <div>
-                <h3 class="text-gray-900 font-semibold text-[16px] mb-3 border-b-2 border-brand-red inline-block pb-1">เชื่อมเหล็กหล่อ</h3>
-                <ul class="space-y-2 text-[14px] text-gray-600 font-semibold mt-3">
-                  <li><a href="#" class="hover:text-brand-red transition-colors">เชื่อมไฟฟ้า (MMA)</a></li>
-                  <li><a href="#" class="hover:text-brand-red transition-colors">เชื่อมอาร์กอน (TIG)</a></li>
-                  <li><a href="#" class="hover:text-brand-red transition-colors">เชื่อมซีโอทู (MIG)</a></li>
-                </ul>
-              </div>
-            </div>
-
-            <!-- Column 3 -->
-            <div class="space-y-8">
-              <div>
-                <h3 class="text-gray-900 font-semibold text-[16px] mb-3 border-b-2 border-brand-red inline-block pb-1">เชื่อมวัสดุเกรดพิเศษ</h3>
-                <ul class="space-y-2 text-[14px] text-gray-600 font-semibold mt-3">
-                  <li><a href="#" class="hover:text-brand-red transition-colors">เชื่อมไฟฟ้า (MMA)</a></li>
-                  <li><a href="#" class="hover:text-brand-red transition-colors">เชื่อมอาร์กอน (TIG)</a></li>
-                  <li><a href="#" class="hover:text-brand-red transition-colors">เชื่อมซีโอทู (MIG)</a></li>
-                  <li><a href="#" class="hover:text-brand-red transition-colors">เชื่อมฟลักซ์คอร์ส (FCW)</a></li>
-                  <li><a href="#" class="hover:text-brand-red transition-colors">เชื่อมซับเมอร์ค (SAW)</a></li>
-                  <li><a href="#" class="hover:text-brand-red transition-colors">เชื่อมแม่พิมพ์</a></li>
-                </ul>
-              </div>
-              <div>
-                <h3 class="text-gray-900 font-semibold text-[16px] mb-3 border-b-2 border-brand-red inline-block pb-1">เชื่อมพอกผิวแข็ง</h3>
-                <ul class="space-y-2 text-[14px] text-gray-600 font-semibold mt-3">
-                  <li><a href="#" class="hover:text-brand-red transition-colors">เชื่อมไฟฟ้า (MMA)</a></li>
-                  <li><a href="#" class="hover:text-brand-red transition-colors">เชื่อมฟลักซ์คอร์ส (FCW)</a></li>
-                </ul>
-              </div>
-            </div>
-
-            <!-- Column 4 -->
-            <div class="space-y-8">
-              <div>
-                <h3 class="text-gray-900 font-semibold text-[16px] mb-3 border-b-2 border-brand-red inline-block pb-1">เชื่อมทองเหลืองทองแดงและเงิน</h3>
-                <ul class="space-y-2 text-[14px] text-gray-600 font-semibold mt-3">
-                  <li><a href="#" class="hover:text-brand-red transition-colors">เชื่อมไฟฟ้า (MMA)</a></li>
-                  <li><a href="#" class="hover:text-brand-red transition-colors">เชื่อมอาร์กอน (TIG)</a></li>
-                  <li><a href="#" class="hover:text-brand-red transition-colors">เชื่อมซีโอทู (MIG)</a></li>
-                  <li><a href="#" class="hover:text-brand-red transition-colors">เชื่อมแก๊ส (Brazing)</a></li>
-                </ul>
-              </div>
-              <div>
-                <h3 class="text-gray-900 font-semibold text-[16px] mb-3 border-b-2 border-brand-red inline-block pb-1">เชื่อมตัดเจาะร่อง</h3>
-                <ul class="space-y-2 text-[14px] text-gray-600 font-semibold mt-3">
-                  <li><a href="#" class="hover:text-brand-red transition-colors">เชื่อมไฟฟ้า (MMA)</a></li>
-                </ul>
-              </div>
-              <div>
-                <h3 class="text-gray-900 font-semibold text-[16px] mb-3 border-b-2 border-brand-red inline-block pb-1">เชื่อมทังสเตน</h3>
-              </div>
-            </div>
-
+        <!-- มี V (Dropdown): เปลี่ยนตัวหนังสือเป็นสีแดง + เส้นใต้หนาสีแดงชิดขอบล่าง -->
+        <div class="relative h-full flex items-center group cursor-pointer" tabindex="0">
+          <!-- Text and Arrow -->
+          <div class="flex items-center gap-1 text-white group-hover:text-brand-red font-medium text-[13.5px] md:text-[14px] transition-colors h-full px-1">
+            กลุ่มลวดเชื่อม
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-white group-hover:text-brand-red transition-all duration-300 group-hover:-rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
           </div>
+          
+          <!-- Dropdown Box (8 Categories) -->
+          <div class="hidden group-hover:block absolute top-[100%] left-1/2 -translate-x-1/2 w-[220px] bg-white rounded-b-lg shadow-[0_10px_40px_rgba(0,0,0,0.1)] py-2 z-[60]">
+            <a href="#" class="block px-5 py-2.5 text-gray-800 hover:bg-gray-100 text-[14px] font-medium transition-colors">เชื่อมเหล็ก</a>
+            <a href="#" class="block px-5 py-2.5 text-gray-800 hover:bg-gray-100 text-[14px] font-medium transition-colors">เชื่อมสแตนเลส</a>
+            <a href="#" class="block px-5 py-2.5 text-gray-800 hover:bg-gray-100 text-[14px] font-medium transition-colors">เชื่อมอลูมิเนียม</a>
+            <a href="#" class="block px-5 py-2.5 text-gray-800 hover:bg-gray-100 text-[14px] font-medium transition-colors">เชื่อมเหล็กหล่อ</a>
+            <a href="#" class="block px-5 py-2.5 text-gray-800 hover:bg-gray-100 text-[14px] font-medium transition-colors">เชื่อมทองเหลือง-ทองแดงและเงิน</a>
+            <a href="#" class="block px-5 py-2.5 text-gray-800 hover:bg-gray-100 text-[14px] font-medium transition-colors">เชื่อมพอกผิวแข็ง</a>
+            <a href="#" class="block px-5 py-2.5 text-gray-800 hover:bg-gray-100 text-[14px] font-medium transition-colors">เชื่อมตัดเซาะร่อง</a>
+            <a href="#" class="block px-5 py-2.5 text-gray-800 hover:bg-gray-100 text-[14px] font-medium transition-colors">เชื่อมวัสดุเกรดพิเศษ</a>
+          </div>
+          
+          <!-- Thick Red Underline -->
+          <span class="absolute bottom-0 left-0 w-full h-[3px] bg-brand-red opacity-0 group-hover:opacity-100 transition-opacity z-[61]"></span>
         </div>
+
+        <!-- ไม่มี V: เปลี่ยนตัวหนังสือเป็นสีแดง ไม่มีเส้นใต้ -->
+        <a href="#" class="h-full flex items-center gap-1.5 text-white hover:text-brand-red font-medium transition-colors text-[13.5px] md:text-[14px]">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+            <path fill-rule="evenodd" d="M12.963 2.286a.75.75 0 00-1.071-.136 9.742 9.742 0 00-3.539 6.177A7.547 7.547 0 016.648 6.61a.75.75 0 00-1.152-.082A9 9 0 1015.68 4.534a7.46 7.46 0 01-2.717-2.248z" clip-rule="evenodd" />
+          </svg>
+          โปรโมชั่น
+        </a>
+
+        <a href="#" class="h-full flex items-center text-white hover:text-brand-red font-medium transition-colors text-[13.5px] md:text-[14px]">
+          เกี่ยวกับเรา
+        </a>
+
+        <a href="#" class="h-full flex items-center text-white hover:text-brand-red font-medium transition-colors text-[13.5px] md:text-[14px]">
+          ข่าวสารอัปเดต
+        </a>
+
+        <a href="#" class="h-full flex items-center text-white hover:text-brand-red font-medium transition-colors text-[13.5px] md:text-[14px]">
+          ติดต่อเรา
+        </a>
+
       </div>
-      
-      <a href="#" class="relative h-full flex items-center text-white hover:text-gray-100 font-medium text-[13.5px] md:text-[14px] transition-colors group">
-        ใบตัด/ใบเจียร
-        <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[7px] border-r-[7px] border-b-[7px] border-l-transparent border-r-transparent border-b-brand-red opacity-0 group-hover:opacity-100 transition-opacity"></span>
-      </a>
-      
-      <a href="#" class="relative h-full flex items-center text-white hover:text-gray-100 font-medium text-[13.5px] md:text-[14px] transition-colors group">
-        อุปกรณ์เชื่อมตัดแก๊ส
-        <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[7px] border-r-[7px] border-b-[7px] border-l-transparent border-r-transparent border-b-brand-red opacity-0 group-hover:opacity-100 transition-opacity"></span>
-      </a>
-      
 
-      <a href="#" class="relative h-full flex items-center text-white hover:text-gray-100 font-medium text-[13.5px] md:text-[14px] transition-colors group">
-        ท่อบรรจุก๊าซและวาล์ว
-        <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[7px] border-r-[7px] border-b-[7px] border-l-transparent border-r-transparent border-b-brand-red opacity-0 group-hover:opacity-100 transition-opacity"></span>
-      </a>
-      
-      <a href="#" class="relative h-full flex items-center text-white hover:text-gray-100 font-medium text-[13.5px] md:text-[14px] transition-colors group">
-        อะไหล่สิ้นเปลือง
-        <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[7px] border-r-[7px] border-b-[7px] border-l-transparent border-r-transparent border-b-brand-red opacity-0 group-hover:opacity-100 transition-opacity"></span>
-      </a>
-      
-
-      <a href="#" class="relative h-full flex items-center text-white hover:text-gray-100 font-medium text-[13.5px] md:text-[14px] transition-colors group">
-        เครื่องมือช่าง
-        <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[7px] border-r-[7px] border-b-[7px] border-l-transparent border-r-transparent border-b-brand-red opacity-0 group-hover:opacity-100 transition-opacity"></span>
-      </a>
+      <!-- บล็อกสมดุลฝั่งขวา (Invisible Spacer) เพื่อให้เมนูกลางอยู่ตรงกลางจริงๆ -->
+      <div class="hidden lg:block w-[140px] xl:w-[160px] shrink-0 pointer-events-none"></div>
 
     </div>
   </nav>
 
   <!-- Mega Menu Dropdown (BaNANA Exact Style) -->
-  <div id="desktop-mega-menu" class="hidden absolute top-[100%] left-0 w-screen bg-white border-t border-gray-100 shadow-2xl cursor-default z-[60]">
+  <div id="desktop-mega-menu" class="hidden absolute flex-col top-[100%] left-0 w-screen bg-white border-t border-gray-100 shadow-2xl cursor-default z-[60]">
     <!-- Centered Content Wrapper (1360px) -->
     <div class="w-full max-w-[1360px] mx-auto flex h-[480px]">
       
       <!-- Left Sidebar (Main Categories) -->
-      <div class="w-[280px] bg-white border-r border-gray-200 overflow-y-auto custom-scrollbar py-6 pr-4 pl-4 md:pl-8 lg:pl-12">
+      <div class="w-[280px] bg-white border-r border-gray-200 overflow-y-auto custom-scrollbar py-6 pr-4 pl-4 md:pl-8 lg:pl-12 group/sidebar">
         <!-- Active Item (Green rounded rectangle) -->
-        <a href="#" class="flex items-center justify-between px-4 py-2.5 mb-1.5 bg-brand-green text-white font-semibold text-[16px] rounded-lg">
+        <a href="#" class="flex items-center justify-between px-4 py-2.5 mb-1.5 font-semibold text-[16px] rounded-lg transition-colors bg-brand-green text-white group-hover/sidebar:bg-transparent group-hover/sidebar:text-[#252525] hover:!bg-brand-green hover:!text-white group">
           <span class="flex items-center gap-2">🔥 โปรโมชั่นพิเศษ</span>
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white group-hover/sidebar:text-gray-400 hover:!text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
         </a>
         
         <!-- Normal Items (No border, plain text, rounded hover effect) -->
-        <a href="#" class="flex items-center justify-between px-4 py-2.5 mb-1.5 text-[#252525] hover:bg-gray-100 font-normal text-[16px] rounded-lg transition-colors">
-          ตู้เชื่อม/พลาสม่า
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
-        </a>
-        <a href="#" class="flex items-center justify-between px-4 py-2.5 mb-1.5 text-[#252525] hover:bg-gray-100 font-normal text-[16px] rounded-lg transition-colors">
+        <a href="#" class="flex items-center justify-between px-4 py-2.5 mb-1.5 text-[#252525] hover:bg-brand-green hover:text-white font-normal text-[16px] rounded-lg transition-colors group">
           กลุ่มลวดเชื่อม
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
         </a>
-        <a href="#" class="flex items-center justify-between px-4 py-2.5 mb-1.5 text-[#252525] hover:bg-gray-100 font-normal text-[16px] rounded-lg transition-colors">
-          อุปกรณ์เชื่อม
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+        <a href="#" class="flex items-center justify-between px-4 py-2.5 mb-1.5 text-[#252525] hover:bg-brand-green hover:text-white font-normal text-[16px] rounded-lg transition-colors group">
+          เครื่องเชื่อมและเครื่องตัดพลาสม่า
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
         </a>
-        <a href="#" class="flex items-center justify-between px-4 py-2.5 mb-1.5 text-[#252525] hover:bg-gray-100 font-normal text-[16px] rounded-lg transition-colors">
-          อะไหล่/วัสดุสิ้นเปลือง
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+        <a href="#" class="flex items-center justify-between px-4 py-2.5 mb-1.5 text-[#252525] hover:bg-brand-green hover:text-white font-normal text-[16px] rounded-lg transition-colors group">
+          อุปกรณ์เชื่อมตัดเผาแก๊ส
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
         </a>
-        <a href="#" class="flex items-center justify-between px-4 py-2.5 mb-1.5 text-[#252525] hover:bg-gray-100 font-normal text-[16px] rounded-lg transition-colors">
-          อุปกรณ์นิรภัยส่วนบุคคล (PPE)
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+        <a href="#" class="flex items-center justify-between px-4 py-2.5 mb-1.5 text-[#252525] hover:bg-brand-green hover:text-white font-normal text-[16px] rounded-lg transition-colors group">
+          ท่อบรรจุก๊าซและวาล์ว
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
         </a>
-        <a href="#" class="flex items-center justify-between px-4 py-2.5 mb-1.5 text-[#252525] hover:bg-gray-100 font-normal text-[16px] rounded-lg transition-colors">
-          น้ำยาเคมี/ตรวจสอบรอยร้าว
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+        <a href="#" class="flex items-center justify-between px-4 py-2.5 mb-1.5 text-[#252525] hover:bg-brand-green hover:text-white font-normal text-[16px] rounded-lg transition-colors group">
+          ใบตัดใบเจียร
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
         </a>
-        <a href="#" class="flex items-center justify-between px-4 py-2.5 mb-1.5 text-[#252525] hover:bg-gray-100 font-normal text-[16px] rounded-lg transition-colors">
-          แบรนด์สินค้าทั้งหมด
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+        <a href="#" class="flex items-center justify-between px-4 py-2.5 mb-1.5 text-[#252525] hover:bg-brand-green hover:text-white font-normal text-[16px] rounded-lg transition-colors group">
+          อะไหล่สิ้นเปลือง เครื่องเชื่อม-พลาสม่า
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+        </a>
+        <a href="#" class="flex items-center justify-between px-4 py-2.5 mb-1.5 text-[#252525] hover:bg-brand-green hover:text-white font-normal text-[16px] rounded-lg transition-colors group">
+          วัสดุอุปกรณ์เคมีภัณฑ์สำหรับงานเชื่อม
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+        </a>
+        <a href="#" class="flex items-center justify-between px-4 py-2.5 mb-1.5 text-[#252525] hover:bg-brand-green hover:text-white font-normal text-[16px] rounded-lg transition-colors group">
+          เครื่องมือช่าง
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
         </a>
       </div>
 
       <!-- Right Content Area (Subcategories) -->
       <div class="flex-1 bg-white pl-10 pr-4 md:pr-8 lg:pr-12 py-8 overflow-y-auto custom-scrollbar">
         <!-- Section Header (Green text) -->
-        <h2 class="text-brand-green font-semibold text-[16px] mb-8 flex items-center gap-2">
+        <a href="#" class="text-brand-green font-semibold text-[16px] mb-8 flex items-center gap-2 w-fit hover:opacity-80 transition-all">
           🔥 โปรโมชั่นพิเศษ ทั้งหมด
-        </h2>
+        </a>
         
         <!-- Grid 3 Columns -->
         <div class="grid grid-cols-3 gap-x-12">
@@ -316,7 +251,7 @@ document.querySelector('#app').innerHTML = `
           <!-- Column 1 -->
           <div class="flex flex-col">
             <div class="border-b border-gray-200 pb-7 mb-7">
-              <h3 class="text-[#252525] font-semibold text-[16px] mb-3">โปรโมชั่นลวดเชื่อม</h3>
+              <a href="#" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">โปรโมชั่นลวดเชื่อม</a>
               <ul class="space-y-2.5 text-[16px] text-gray-600 font-normal">
                 <li><a href="#" class="hover:text-brand-red transition-colors">ลดล้างสต็อก ลวดเชื่อม KOBE</a></li>
                 <li><a href="#" class="hover:text-brand-red transition-colors">ซื้อ 10 ลัง แถม 1 ลัง</a></li>
@@ -324,7 +259,7 @@ document.querySelector('#app').innerHTML = `
               </ul>
             </div>
             <div class="border-b border-gray-200 pb-7 mb-7">
-              <h3 class="text-[#252525] font-semibold text-[16px] mb-3">ลวดเชื่อมลดราคา</h3>
+              <a href="#" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">ลวดเชื่อมลดราคา</a>
               <ul class="space-y-2.5 text-[16px] text-gray-600 font-normal">
                 <li><a href="#" class="hover:text-brand-red transition-colors">ลวดเชื่อมอลูมิเนียม</a></li>
                 <li><a href="#" class="hover:text-brand-red transition-colors">ลวดเชื่อมเหล็กหล่อ</a></li>
@@ -335,7 +270,7 @@ document.querySelector('#app').innerHTML = `
           <!-- Column 2 -->
           <div class="flex flex-col">
             <div class="border-b border-gray-200 pb-7 mb-7">
-              <h3 class="text-[#252525] font-semibold text-[16px] mb-3">โปรโมชั่นตู้เชื่อม</h3>
+              <a href="#" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">โปรโมชั่นตู้เชื่อม</a>
               <ul class="space-y-2.5 text-[16px] text-gray-600 font-normal">
                 <li><a href="#" class="hover:text-brand-red transition-colors">ตู้เชื่อม JASIC ลดสูงสุด 20%</a></li>
                 <li><a href="#" class="hover:text-brand-red transition-colors">แถมฟรี สายเชื่อม 10 เมตร</a></li>
@@ -344,7 +279,7 @@ document.querySelector('#app').innerHTML = `
               </ul>
             </div>
             <div class="border-b border-gray-200 pb-7 mb-7">
-              <h3 class="text-[#252525] font-semibold text-[16px] mb-3">แบรนด์ยอดฮิต</h3>
+              <a href="#" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">แบรนด์ยอดฮิต</a>
               <ul class="space-y-2.5 text-[16px] text-gray-600 font-normal">
                 <li><a href="#" class="hover:text-brand-red transition-colors">KOBE</a></li>
                 <li><a href="#" class="hover:text-brand-red transition-colors">JASIC</a></li>
@@ -356,7 +291,7 @@ document.querySelector('#app').innerHTML = `
           <!-- Column 3 -->
           <div class="flex flex-col">
             <div class="border-b border-gray-200 pb-7 mb-7">
-              <h3 class="text-[#252525] font-semibold text-[16px] mb-3">อุปกรณ์เซฟตี้</h3>
+              <a href="#" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">อุปกรณ์เซฟตี้</a>
               <ul class="space-y-2.5 text-[16px] text-gray-600 font-normal">
                 <li><a href="#" class="hover:text-brand-red transition-colors">หน้ากากเชื่อมปรับแสงอัตโนมัติ</a></li>
                 <li><a href="#" class="hover:text-brand-red transition-colors">ถุงมือหนังเชื่อม 1 แถม 1</a></li>
@@ -364,11 +299,64 @@ document.querySelector('#app').innerHTML = `
               </ul>
             </div>
             <div class="pb-7 mb-7">
-              <h3 class="text-[#252525] font-semibold text-[16px] mb-3">สินค้าอื่นๆ</h3>
+              <a href="#" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">สินค้าอื่นๆ</a>
               <ul class="space-y-2.5 text-[16px] text-gray-600 font-normal">
                 <li><a href="#" class="hover:text-brand-red transition-colors">อะไหล่หัวเชื่อม</a></li>
                 <li><a href="#" class="hover:text-brand-red transition-colors">เกจ์ลม เกจ์แก๊ส</a></li>
               </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Mega Menu Trust Bar (Bottom Footer of Dropdown) -->
+    <div class="w-full bg-white border-t border-gray-100">
+      <div class="max-w-[1360px] mx-auto px-4 md:px-8 lg:px-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 divide-y md:divide-y-0 lg:divide-x divide-gray-200 py-5">
+          
+          <!-- 1. Expertise (Trust) -->
+          <div class="flex items-center justify-center gap-3.5 px-4 py-2 lg:py-1">
+            <svg class="w-10 h-10 text-gray-900 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+            <div class="flex flex-col justify-center">
+              <div class="text-[15px] font-bold text-gray-900 leading-snug">สินค้าคุณภาพมาตรฐาน</div>
+              <div class="text-[13px] text-gray-800 leading-snug">ทีมงานผู้เชี่ยวชาญให้คำปรึกษา</div>
+            </div>
+          </div>
+
+          <!-- 2. Shipping -->
+          <div class="flex items-center justify-center gap-3.5 px-4 py-2 lg:py-1">
+            <svg class="w-10 h-10 text-gray-900 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 21a2 2 0 11-4 0 2 2 0 014 0zM20 21a2 2 0 11-4 0 2 2 0 014 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M4 19H2v-9a2 2 0 012-2h10a2 2 0 012 2v3m4 0h-4v6h4a2 2 0 002-2v-3l-2.5-3.5H16"/>
+            </svg>
+            <div class="flex flex-col justify-center">
+              <div class="text-[15px] font-bold text-gray-900 leading-snug">จัดส่งทั่วประเทศ</div>
+              <div class="text-[13px] text-gray-800 leading-snug">รวดเร็ว ทันใจ ปลอดภัย</div>
+            </div>
+          </div>
+
+          <!-- 3. Contact (Phone) -->
+          <div class="flex items-center justify-center gap-3.5 px-4 py-2 lg:py-1">
+            <svg class="w-10 h-10 text-gray-900 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+            </svg>
+            <div class="flex flex-col justify-center">
+              <div class="text-[15px] font-bold text-gray-900 leading-snug">062-815-9999</div>
+              <div class="text-[13px] text-gray-800 leading-snug">บริการทุกวัน 09.00 - 18.00 น.</div>
+            </div>
+          </div>
+
+          <!-- 4. Email -->
+          <div class="flex items-center justify-center gap-3.5 px-4 py-2 lg:py-1">
+            <svg class="w-10 h-10 text-gray-900 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+            <div class="flex flex-col justify-center">
+              <div class="text-[15px] font-bold text-gray-900 leading-snug">ส่งอีเมล</div>
+              <div class="text-[13px] text-gray-800 leading-snug">ถึงเรา</div>
             </div>
           </div>
 
@@ -555,67 +543,59 @@ document.querySelector('#app').innerHTML = `
           <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 lg:gap-5 relative z-10">
              
              <!-- Card 1 -->
-             <a href="#" class="bg-white rounded-[16px] p-4 md:p-5 hover:shadow-[0_10px_40px_rgba(0,0,0,0.06)] hover:-translate-y-1.5 transition-all duration-400 group relative overflow-hidden aspect-square flex flex-col justify-between">
-                <h3 class="text-gray-900 group-hover:text-brand-green transition-colors duration-300 font-semibold text-[18px] md:text-[22px] lg:text-[24px] leading-tight relative z-10 mt-1 ml-1 lg:mt-2 lg:ml-2">เชื่อมเหล็ก</h3>
-                <div class="absolute bottom-0 right-0 w-[65%] h-[65%] flex items-end justify-end p-2">
-                  <img src="https://via.placeholder.com/150/FFFFFF/9CA3AF?text=Steel" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300 origin-bottom-right" alt="เชื่อมเหล็ก">
-                </div>
+             <a href="#" class="rounded-[16px] md:rounded-[20px] hover:shadow-[0_10px_40px_rgba(0,0,0,0.15)] hover:-translate-y-1.5 transition-all duration-400 group relative overflow-hidden aspect-square block">
+                <img src="/images/popular-categories/steel.png" class="absolute inset-0 w-full h-full object-cover object-center" alt="เชื่อมเหล็ก">
+                <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/10 to-transparent pointer-events-none"></div>
+                <h3 class="text-white font-semibold text-[20px] md:text-[22px] lg:text-[24px] leading-tight absolute top-4 left-4 md:top-5 md:left-5 z-10 [text-shadow:_0_1px_4px_rgb(0_0_0_/_60%)]">เชื่อมเหล็ก</h3>
              </a>
 
              <!-- Card 2 -->
-             <a href="#" class="bg-white rounded-[16px] p-4 md:p-5 hover:shadow-[0_10px_40px_rgba(0,0,0,0.06)] hover:-translate-y-1.5 transition-all duration-400 group relative overflow-hidden aspect-square flex flex-col justify-between">
-                <h3 class="text-gray-900 group-hover:text-brand-green transition-colors duration-300 font-semibold text-[18px] md:text-[22px] lg:text-[24px] leading-tight relative z-10 mt-1 ml-1 lg:mt-2 lg:ml-2">เชื่อมสเตนเลส</h3>
-                <div class="absolute bottom-0 right-0 w-[65%] h-[65%] flex items-end justify-end p-2">
-                  <img src="https://via.placeholder.com/150/FFFFFF/9CA3AF?text=Stainless" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300 origin-bottom-right" alt="เชื่อมสเตนเลส">
-                </div>
+             <a href="#" class="rounded-[16px] md:rounded-[20px] hover:shadow-[0_10px_40px_rgba(0,0,0,0.15)] hover:-translate-y-1.5 transition-all duration-400 group relative overflow-hidden aspect-square block">
+                <img src="/images/popular-categories/stainless.png" class="absolute inset-0 w-full h-full object-cover object-center" alt="เชื่อมสแตนเลส">
+                <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/10 to-transparent pointer-events-none"></div>
+                <h3 class="text-white font-semibold text-[20px] md:text-[22px] lg:text-[24px] leading-tight absolute top-4 left-4 md:top-5 md:left-5 z-10 [text-shadow:_0_1px_4px_rgb(0_0_0_/_60%)]">เชื่อมสแตนเลส</h3>
              </a>
 
              <!-- Card 3 -->
-             <a href="#" class="bg-white rounded-[16px] p-4 md:p-5 hover:shadow-[0_10px_40px_rgba(0,0,0,0.06)] hover:-translate-y-1.5 transition-all duration-400 group relative overflow-hidden aspect-square flex flex-col justify-between">
-                <h3 class="text-gray-900 group-hover:text-brand-green transition-colors duration-300 font-semibold text-[18px] md:text-[22px] lg:text-[24px] leading-tight relative z-10 mt-1 ml-1 lg:mt-2 lg:ml-2">เชื่อมอลูมิเนียม</h3>
-                <div class="absolute bottom-0 right-0 w-[65%] h-[65%] flex items-end justify-end p-2">
-                  <img src="https://via.placeholder.com/150/FFFFFF/9CA3AF?text=Aluminum" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300 origin-bottom-right" alt="เชื่อมอลูมิเนียม">
-                </div>
+             <a href="#" class="rounded-[16px] md:rounded-[20px] hover:shadow-[0_10px_40px_rgba(0,0,0,0.15)] hover:-translate-y-1.5 transition-all duration-400 group relative overflow-hidden aspect-square block">
+                <img src="/images/popular-categories/aluminum.png" class="absolute inset-0 w-full h-full object-cover object-center" alt="เชื่อมอลูมิเนียม">
+                <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/10 to-transparent pointer-events-none"></div>
+                <h3 class="text-white font-semibold text-[20px] md:text-[22px] lg:text-[24px] leading-tight absolute top-4 left-4 md:top-5 md:left-5 z-10 [text-shadow:_0_1px_4px_rgb(0_0_0_/_60%)]">เชื่อมอลูมิเนียม</h3>
              </a>
 
              <!-- Card 4 -->
-             <a href="#" class="bg-white rounded-[16px] p-4 md:p-5 hover:shadow-[0_10px_40px_rgba(0,0,0,0.06)] hover:-translate-y-1.5 transition-all duration-400 group relative overflow-hidden aspect-square flex flex-col justify-between">
-                <h3 class="text-gray-900 group-hover:text-brand-green transition-colors duration-300 font-semibold text-[18px] md:text-[22px] lg:text-[24px] leading-tight relative z-10 mt-1 ml-1 lg:mt-2 lg:ml-2 w-[70%]">เชื่อมเหล็กหล่อ</h3>
-                <div class="absolute bottom-0 right-0 w-[65%] h-[65%] flex items-end justify-end p-2">
-                  <img src="https://via.placeholder.com/150/FFFFFF/9CA3AF?text=CastIron" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300 origin-bottom-right" alt="เชื่อมเหล็กหล่อ">
-                </div>
+             <a href="#" class="rounded-[16px] md:rounded-[20px] hover:shadow-[0_10px_40px_rgba(0,0,0,0.15)] hover:-translate-y-1.5 transition-all duration-400 group relative overflow-hidden aspect-square block">
+                <img src="/images/popular-categories/cast-iron.png" class="absolute inset-0 w-full h-full object-cover object-center" alt="เชื่อมเหล็กหล่อ">
+                <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/10 to-transparent pointer-events-none"></div>
+                <h3 class="text-white font-semibold text-[20px] md:text-[22px] lg:text-[24px] leading-tight absolute top-4 left-4 md:top-5 md:left-5 z-10 [text-shadow:_0_1px_4px_rgb(0_0_0_/_60%)]">เชื่อมเหล็กหล่อ</h3>
              </a>
 
              <!-- Card 5 -->
-             <a href="#" class="bg-white rounded-[16px] p-4 md:p-5 hover:shadow-[0_10px_40px_rgba(0,0,0,0.06)] hover:-translate-y-1.5 transition-all duration-400 group relative overflow-hidden aspect-square flex flex-col justify-between">
-                <h3 class="text-gray-900 group-hover:text-brand-green transition-colors duration-300 font-semibold text-[18px] md:text-[22px] lg:text-[24px] leading-tight relative z-10 mt-1 ml-1 lg:mt-2 lg:ml-2 w-[70%]">เชื่อมซีโอทู (MIG)</h3>
-                <div class="absolute bottom-0 right-0 w-[65%] h-[65%] flex items-end justify-end p-2">
-                  <img src="https://via.placeholder.com/150/FFFFFF/9CA3AF?text=MIG" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300 origin-bottom-right" alt="เชื่อมซีโอทู (MIG)">
-                </div>
+             <a href="#" class="rounded-[16px] md:rounded-[20px] hover:shadow-[0_10px_40px_rgba(0,0,0,0.15)] hover:-translate-y-1.5 transition-all duration-400 group relative overflow-hidden aspect-square block">
+                <img src="/images/popular-categories/brass-copper.png" class="absolute inset-0 w-full h-full object-cover object-center" alt="เชื่อมทองเหลือง-ทองแดงและเงิน">
+                <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/10 to-transparent pointer-events-none"></div>
+                <h3 class="text-white font-semibold text-[20px] md:text-[22px] lg:text-[24px] leading-tight absolute top-4 left-4 md:top-5 md:left-5 z-10 [text-shadow:_0_1px_4px_rgb(0_0_0_/_60%)] pr-4">เชื่อมทองเหลือง<br>ทองแดงและเงิน</h3>
              </a>
 
              <!-- Card 6 -->
-             <a href="#" class="bg-white rounded-[16px] p-4 md:p-5 hover:shadow-[0_10px_40px_rgba(0,0,0,0.06)] hover:-translate-y-1.5 transition-all duration-400 group relative overflow-hidden aspect-square flex flex-col justify-between">
-                <h3 class="text-gray-900 group-hover:text-brand-green transition-colors duration-300 font-semibold text-[18px] md:text-[22px] lg:text-[24px] leading-tight relative z-10 mt-1 ml-1 lg:mt-2 lg:ml-2 w-[80%]">เชื่อมอาร์กอน (TIG)</h3>
-                <div class="absolute bottom-0 right-0 w-[65%] h-[65%] flex items-end justify-end p-2">
-                  <img src="https://via.placeholder.com/150/FFFFFF/9CA3AF?text=TIG" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300 origin-bottom-right" alt="เชื่อมอาร์กอน (TIG)">
-                </div>
+             <a href="#" class="rounded-[16px] md:rounded-[20px] hover:shadow-[0_10px_40px_rgba(0,0,0,0.15)] hover:-translate-y-1.5 transition-all duration-400 group relative overflow-hidden aspect-square block">
+                <img src="/images/popular-categories/hardfacing.png" class="absolute inset-0 w-full h-full object-cover object-center" alt="เชื่อมพอกผิวแข็ง">
+                <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/10 to-transparent pointer-events-none"></div>
+                <h3 class="text-white font-semibold text-[20px] md:text-[22px] lg:text-[24px] leading-tight absolute top-4 left-4 md:top-5 md:left-5 z-10 [text-shadow:_0_1px_4px_rgb(0_0_0_/_60%)]">เชื่อมพอกผิวแข็ง</h3>
              </a>
 
              <!-- Card 7 -->
-             <a href="#" class="bg-white rounded-[16px] p-4 md:p-5 hover:shadow-[0_10px_40px_rgba(0,0,0,0.06)] hover:-translate-y-1.5 transition-all duration-400 group relative overflow-hidden aspect-square flex flex-col justify-between">
-                <h3 class="text-gray-900 group-hover:text-brand-green transition-colors duration-300 font-semibold text-[18px] md:text-[22px] lg:text-[24px] leading-tight relative z-10 mt-1 ml-1 lg:mt-2 lg:ml-2 w-[70%]">เชื่อมพอกผิวแข็ง</h3>
-                <div class="absolute bottom-0 right-0 w-[65%] h-[65%] flex items-end justify-end p-2">
-                  <img src="https://via.placeholder.com/150/FFFFFF/9CA3AF?text=Hardfacing" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300 origin-bottom-right" alt="เชื่อมพอกผิวแข็ง">
-                </div>
+             <a href="#" class="rounded-[16px] md:rounded-[20px] hover:shadow-[0_10px_40px_rgba(0,0,0,0.15)] hover:-translate-y-1.5 transition-all duration-400 group relative overflow-hidden aspect-square block">
+                <img src="/images/popular-categories/gouging.png" class="absolute inset-0 w-full h-full object-cover object-center" alt="เชื่อมตัดเซาะร่อง">
+                <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/10 to-transparent pointer-events-none"></div>
+                <h3 class="text-white font-semibold text-[20px] md:text-[22px] lg:text-[24px] leading-tight absolute top-4 left-4 md:top-5 md:left-5 z-10 [text-shadow:_0_1px_4px_rgb(0_0_0_/_60%)]">เชื่อมตัดเซาะร่อง</h3>
              </a>
 
              <!-- Card 8 -->
-             <a href="#" class="bg-white rounded-[16px] p-4 md:p-5 hover:shadow-[0_10px_40px_rgba(0,0,0,0.06)] hover:-translate-y-1.5 transition-all duration-400 group relative overflow-hidden aspect-square flex flex-col justify-between">
-                <h3 class="text-gray-900 group-hover:text-brand-green transition-colors duration-300 font-semibold text-[18px] md:text-[22px] lg:text-[24px] leading-tight relative z-10 mt-1 ml-1 lg:mt-2 lg:ml-2 w-[70%]">เชื่อมทังสเตน</h3>
-                <div class="absolute bottom-0 right-0 w-[65%] h-[65%] flex items-end justify-end p-2">
-                  <img src="https://via.placeholder.com/150/FFFFFF/9CA3AF?text=Tungsten" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300 origin-bottom-right" alt="เชื่อมทังสเตน">
-                </div>
+             <a href="#" class="rounded-[16px] md:rounded-[20px] hover:shadow-[0_10px_40px_rgba(0,0,0,0.15)] hover:-translate-y-1.5 transition-all duration-400 group relative overflow-hidden aspect-square block">
+                <img src="/images/popular-categories/special-alloys.png" class="absolute inset-0 w-full h-full object-cover object-center" alt="เชื่อมวัสดุเกรดพิเศษ">
+                <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/10 to-transparent pointer-events-none"></div>
+                <h3 class="text-white font-semibold text-[20px] md:text-[22px] lg:text-[24px] leading-tight absolute top-4 left-4 md:top-5 md:left-5 z-10 [text-shadow:_0_1px_4px_rgb(0_0_0_/_60%)]">เชื่อมวัสดุเกรดพิเศษ</h3>
              </a>
              
           </div>
@@ -644,7 +624,7 @@ document.querySelector('#app').innerHTML = `
           <!-- Card 2: เครื่องเชื่อมและเครื่องตัดพลาสม่า (Span 1, Premium Image Style) -->
           <a href="#" class="col-span-1 relative w-full h-full bg-[#1c1c1e] rounded-[24px] lg:rounded-[32px] overflow-hidden group hover:shadow-xl transition-all duration-300">
             <!-- Background Image with Hover Zoom Effect -->
-            <div class="absolute inset-0 bg-[url('/images/bg-welding.jpeg')] bg-cover bg-right-bottom bg-no-repeat group-hover:scale-110 transition-transform duration-700"></div>
+            <div class="absolute inset-0 bg-[url('/images/bg-welding.jpeg')] bg-cover bg-right-bottom bg-no-repeat"></div>
             <!-- Gradient Overlay (Dark Top-Left for Text Readability) -->
             <div class="absolute inset-0 bg-gradient-to-br from-black/80 via-black/20 to-transparent z-0"></div>
             
@@ -723,7 +703,7 @@ document.querySelector('#app').innerHTML = `
     </div>
 
     <!-- โซน 2: สินค้าเข้าใหม่และโปรโมชั่น (พื้นหลังสีเทาอ่อน #F8F8F8 เพื่อให้การ์ดสินค้าสีขาวเด่น) -->
-    <div class="w-full bg-[#F8F8F8] pt-20 md:pt-28 lg:pt-36 pb-12 md:pb-16">
+    <div class="w-full bg-[#F8F8F8] pt-20 md:pt-28 lg:pt-36 pb-16 md:pb-20 lg:pb-24">
       <div class="max-w-[1360px] mx-auto px-4 md:px-8 lg:px-12">
       
       <!-- Section 2: สินค้าเข้าใหม่ -->
@@ -761,21 +741,21 @@ document.querySelector('#app').innerHTML = `
               <h3 class="font-semibold text-gray-800 text-[15px] md:text-[17px] leading-tight mb-2 line-clamp-2">
                 ลวดเชื่อมสเตนเลส KOBE-308L ขนาด 2.6 มม. (2 กก.)
               </h3>
-              <p class="text-[14px] text-gray-500 line-clamp-3 mb-3 leading-[1.6]">
+              <p class="text-[14px] text-gray-900 line-clamp-3 mb-3 leading-[1.6]">
                 งานสเตนเลส | ทนการกัดกร่อน | เชื่อมเรียบ | ไม่เป็นสนิม
               </p>
               <div class="mt-auto flex flex-col">
-                <!-- Unit Toggle -->
-                <div class="flex items-center bg-gray-100 p-0.5 rounded-[4px] w-fit mb-2.5">
-                  <button class="unit-toggle active px-2.5 py-1 bg-white shadow-sm rounded-[3px] text-[11px] text-gray-900 font-medium transition-all" data-price="650" data-unit="ห่อ">ห่อ</button>
-                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-500 hover:text-gray-900 font-medium transition-all" data-price="2,500" data-unit="ลัง">ลัง (4 ห่อ)</button>
-                </div>
                 
-                <div class="flex items-center justify-between">
-                  <div class="flex items-baseline gap-1">
-                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿650</span>
-                    <span class="text-gray-500 text-[12px] font-medium price-unit">/ห่อ</span>
+                <div class="flex items-baseline gap-1 mt-2.5">
+                    <span class="text-[#FF3B30] font-bold text-[19px] price-display">฿650</span>
+                    <span class="text-gray-900 text-[12px] font-medium price-unit">/ห่อ</span>
                   </div>
+                <div class="flex items-center justify-between mt-2.5">
+                  <!-- Unit Toggle -->
+                <div class="flex items-center bg-gray-100 p-0.5 rounded-[4px] w-fit">
+                  <button class="unit-toggle active px-2.5 py-1 bg-white shadow-sm rounded-[3px] text-[11px] text-gray-900 font-medium transition-all" data-price="650" data-unit="ห่อ">ห่อ</button>
+                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-900 font-medium transition-all" data-price="2,500" data-unit="ลัง">ลัง (4 ห่อ)</button>
+                </div>
                   <div class="cart-control flex justify-end" data-unit="ห่อ">
                     <button class="btn-add w-8 h-8 md:w-9 md:h-9 bg-brand-green hover:bg-[#8eb543] text-white flex items-center justify-center rounded-lg shadow-sm transition-transform hover:scale-105 shrink-0">
                       <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -789,7 +769,7 @@ document.querySelector('#app').innerHTML = `
                         </svg>
                       </button>
                       <div class="px-1 font-bold text-[13px] text-gray-800 flex items-center justify-center min-w-[3rem] select-none">
-                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-500 font-medium unit-text">ห่อ</span>
+                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-900 font-medium unit-text">ห่อ</span>
                       </div>
                       <button class="btn-plus w-8 h-full flex items-center justify-center bg-brand-green text-white hover:bg-[#8eb543] transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -810,21 +790,21 @@ document.querySelector('#app').innerHTML = `
               <h3 class="font-semibold text-gray-800 text-[15px] md:text-[17px] leading-tight mb-2 line-clamp-2">
                 ลวดเชื่อมเหล็กเหนียว YAWATA FT-51 ขนาด 3.2 มม. (5 กก.)
               </h3>
-              <p class="text-[14px] text-gray-500 line-clamp-3 mb-3 leading-[1.6]">
+              <p class="text-[14px] text-gray-900 line-clamp-3 mb-3 leading-[1.6]">
                 เหล็กเหนียว | เชื่อมท่าตั้งดีเยี่ยม | ควันน้อย | สะเก็ดไฟน้อย
               </p>
               <div class="mt-auto flex flex-col">
-                <!-- Unit Toggle -->
-                <div class="flex items-center bg-gray-100 p-0.5 rounded-[4px] w-fit mb-2.5">
-                  <button class="unit-toggle active px-2.5 py-1 bg-white shadow-sm rounded-[3px] text-[11px] text-gray-900 font-medium transition-all" data-price="450" data-unit="ห่อ">ห่อ</button>
-                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-500 hover:text-gray-900 font-medium transition-all" data-price="1,750" data-unit="ลัง">ลัง (4 ห่อ)</button>
-                </div>
                 
-                <div class="flex items-center justify-between">
-                  <div class="flex items-baseline gap-1">
-                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿450</span>
-                    <span class="text-gray-500 text-[12px] font-medium price-unit">/ห่อ</span>
+                <div class="flex items-baseline gap-1 mt-2.5">
+                    <span class="text-[#FF3B30] font-bold text-[19px] price-display">฿450</span>
+                    <span class="text-gray-900 text-[12px] font-medium price-unit">/ห่อ</span>
                   </div>
+                <div class="flex items-center justify-between mt-2.5">
+                  <!-- Unit Toggle -->
+                <div class="flex items-center bg-gray-100 p-0.5 rounded-[4px] w-fit">
+                  <button class="unit-toggle active px-2.5 py-1 bg-white shadow-sm rounded-[3px] text-[11px] text-gray-900 font-medium transition-all" data-price="450" data-unit="ห่อ">ห่อ</button>
+                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-900 font-medium transition-all" data-price="1,750" data-unit="ลัง">ลัง (4 ห่อ)</button>
+                </div>
                   <div class="cart-control flex justify-end" data-unit="ห่อ">
                     <button class="btn-add w-8 h-8 md:w-9 md:h-9 bg-brand-green hover:bg-[#8eb543] text-white flex items-center justify-center rounded-lg shadow-sm transition-transform hover:scale-105 shrink-0">
                       <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -838,7 +818,7 @@ document.querySelector('#app').innerHTML = `
                         </svg>
                       </button>
                       <div class="px-1 font-bold text-[13px] text-gray-800 flex items-center justify-center min-w-[3rem] select-none">
-                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-500 font-medium unit-text">ห่อ</span>
+                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-900 font-medium unit-text">ห่อ</span>
                       </div>
                       <button class="btn-plus w-8 h-full flex items-center justify-center bg-brand-green text-white hover:bg-[#8eb543] transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -859,21 +839,21 @@ document.querySelector('#app').innerHTML = `
               <h3 class="font-semibold text-gray-800 text-[15px] md:text-[17px] leading-tight mb-2 line-clamp-2">
                 ลวดเชื่อม MIG / MAG (CO2) ER70S-6 ขนาด 0.8 มม. (15 กก.)
               </h3>
-              <p class="text-[14px] text-gray-500 line-clamp-3 mb-3 leading-[1.6]">
+              <p class="text-[14px] text-gray-900 line-clamp-3 mb-3 leading-[1.6]">
                 งานเชื่อมแก๊ส | แนวเชื่อมสวย | ทนแรงดึง | สำหรับงานโครงสร้าง
               </p>
               <div class="mt-auto flex flex-col">
-                <!-- Unit Toggle -->
-                <div class="flex items-center bg-gray-100 p-0.5 rounded-[4px] w-fit mb-2.5">
-                  <button class="unit-toggle active px-2.5 py-1 bg-white shadow-sm rounded-[3px] text-[11px] text-gray-900 font-medium transition-all" data-price="1,250" data-unit="ม้วน">ม้วน</button>
-                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-500 hover:text-gray-900 font-medium transition-all" data-price="85,000" data-unit="พาเลท">พาเลท (72 ม้วน)</button>
-                </div>
                 
-                <div class="flex items-center justify-between">
-                  <div class="flex items-baseline gap-1">
-                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿1,250</span>
-                    <span class="text-gray-500 text-[12px] font-medium price-unit">/ม้วน</span>
+                <div class="flex items-baseline gap-1 mt-2.5">
+                    <span class="text-[#FF3B30] font-bold text-[19px] price-display">฿1,250</span>
+                    <span class="text-gray-900 text-[12px] font-medium price-unit">/ม้วน</span>
                   </div>
+                <div class="flex items-center justify-between mt-2.5">
+                  <!-- Unit Toggle -->
+                <div class="flex items-center bg-gray-100 p-0.5 rounded-[4px] w-fit">
+                  <button class="unit-toggle active px-2.5 py-1 bg-white shadow-sm rounded-[3px] text-[11px] text-gray-900 font-medium transition-all" data-price="1,250" data-unit="ม้วน">ม้วน</button>
+                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-900 font-medium transition-all" data-price="85,000" data-unit="พาเลท">พาเลท (72 ม้วน)</button>
+                </div>
                   <div class="cart-control flex justify-end" data-unit="ม้วน">
                     <button class="btn-add w-8 h-8 md:w-9 md:h-9 bg-brand-green hover:bg-[#8eb543] text-white flex items-center justify-center rounded-lg shadow-sm transition-transform hover:scale-105 shrink-0">
                       <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -887,7 +867,7 @@ document.querySelector('#app').innerHTML = `
                         </svg>
                       </button>
                       <div class="px-1 font-bold text-[13px] text-gray-800 flex items-center justify-center min-w-[3rem] select-none">
-                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-500 font-medium unit-text">ม้วน</span>
+                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-900 font-medium unit-text">ม้วน</span>
                       </div>
                       <button class="btn-plus w-8 h-full flex items-center justify-center bg-brand-green text-white hover:bg-[#8eb543] transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -908,21 +888,21 @@ document.querySelector('#app').innerHTML = `
               <h3 class="font-semibold text-gray-800 text-[15px] md:text-[17px] leading-tight mb-2 line-clamp-2">
                 ลวดเชื่อมเซาะร่อง (Gouging) ขนาด 6.4 มม.
               </h3>
-              <p class="text-[14px] text-gray-500 line-clamp-3 mb-3 leading-[1.6]">
+              <p class="text-[14px] text-gray-900 line-clamp-3 mb-3 leading-[1.6]">
                 เซาะร่อง | กำจัดรอยร้าว | ทนกระแสไฟสูง | ตัดโลหะรวดเร็ว
               </p>
               <div class="mt-auto flex flex-col">
-                <!-- Unit Toggle -->
-                <div class="flex items-center bg-gray-100 p-0.5 rounded-[4px] w-fit mb-2.5">
-                  <button class="unit-toggle active px-2.5 py-1 bg-white shadow-sm rounded-[3px] text-[11px] text-gray-900 font-medium transition-all" data-price="320" data-unit="กล่อง">กล่อง</button>
-                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-500 hover:text-gray-900 font-medium transition-all" data-price="3,000" data-unit="ลัง">ลัง (10 กล่อง)</button>
-                </div>
                 
-                <div class="flex items-center justify-between">
-                  <div class="flex items-baseline gap-1">
-                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿320</span>
-                    <span class="text-gray-500 text-[12px] font-medium price-unit">/กล่อง</span>
+                <div class="flex items-baseline gap-1 mt-2.5">
+                    <span class="text-[#FF3B30] font-bold text-[19px] price-display">฿320</span>
+                    <span class="text-gray-900 text-[12px] font-medium price-unit">/กล่อง</span>
                   </div>
+                <div class="flex items-center justify-between mt-2.5">
+                  <!-- Unit Toggle -->
+                <div class="flex items-center bg-gray-100 p-0.5 rounded-[4px] w-fit">
+                  <button class="unit-toggle active px-2.5 py-1 bg-white shadow-sm rounded-[3px] text-[11px] text-gray-900 font-medium transition-all" data-price="320" data-unit="กล่อง">กล่อง</button>
+                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-900 font-medium transition-all" data-price="3,000" data-unit="ลัง">ลัง (10 กล่อง)</button>
+                </div>
                   <div class="cart-control flex justify-end" data-unit="กล่อง">
                     <button class="btn-add w-8 h-8 md:w-9 md:h-9 bg-brand-green hover:bg-[#8eb543] text-white flex items-center justify-center rounded-lg shadow-sm transition-transform hover:scale-105 shrink-0">
                       <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -936,7 +916,7 @@ document.querySelector('#app').innerHTML = `
                         </svg>
                       </button>
                       <div class="px-1 font-bold text-[13px] text-gray-800 flex items-center justify-center min-w-[3rem] select-none">
-                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-500 font-medium unit-text">กล่อง</span>
+                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-900 font-medium unit-text">กล่อง</span>
                       </div>
                       <button class="btn-plus w-8 h-full flex items-center justify-center bg-brand-green text-white hover:bg-[#8eb543] transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -957,18 +937,18 @@ document.querySelector('#app').innerHTML = `
               <h3 class="font-semibold text-gray-800 text-[15px] md:text-[17px] leading-tight mb-2 line-clamp-2">
                 ลวดเชื่อมสเตนเลส KOBE-308L ขนาด 2.6 มม. (2 กก.)
               </h3>
-              <p class="text-[14px] text-gray-500 line-clamp-3 mb-3 leading-[1.6]">
+              <p class="text-[14px] text-gray-900 line-clamp-3 mb-3 leading-[1.6]">
                 งานสเตนเลส | ทนการกัดกร่อน | เชื่อมเรียบ | ไม่เป็นสนิม
               </p>
               <div class="mt-auto flex flex-col">
                 <div class="flex items-center bg-gray-100 p-0.5 rounded-[4px] w-fit mb-2.5">
                   <button class="unit-toggle active px-2.5 py-1 bg-white shadow-sm rounded-[3px] text-[11px] text-gray-900 font-medium transition-all" data-price="650" data-unit="ห่อ">ห่อ</button>
-                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-500 hover:text-gray-900 font-medium transition-all" data-price="2,500" data-unit="ลัง">ลัง (4 ห่อ)</button>
+                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-900 font-medium transition-all" data-price="2,500" data-unit="ลัง">ลัง (4 ห่อ)</button>
                 </div>
                 <div class="flex items-center justify-between">
-                  <div class="flex items-baseline gap-1">
-                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿650</span>
-                    <span class="text-gray-500 text-[12px] font-medium price-unit">/ห่อ</span>
+                  <div class="flex items-baseline gap-1 mt-2.5">
+                    <span class="text-[#FF3B30] font-bold text-[19px] price-display">฿650</span>
+                    <span class="text-gray-900 text-[12px] font-medium price-unit">/ห่อ</span>
                   </div>
                   <div class="cart-control flex justify-end" data-unit="ห่อ">
                     <button class="btn-add w-8 h-8 md:w-9 md:h-9 bg-brand-green hover:bg-[#8eb543] text-white flex items-center justify-center rounded-lg shadow-sm transition-transform hover:scale-105 shrink-0">
@@ -983,7 +963,7 @@ document.querySelector('#app').innerHTML = `
                         </svg>
                       </button>
                       <div class="px-1 font-bold text-[13px] text-gray-800 flex items-center justify-center min-w-[3rem] select-none">
-                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-500 font-medium unit-text">ห่อ</span>
+                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-900 font-medium unit-text">ห่อ</span>
                       </div>
                       <button class="btn-plus w-8 h-full flex items-center justify-center bg-brand-green text-white hover:bg-[#8eb543] transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -1004,18 +984,18 @@ document.querySelector('#app').innerHTML = `
               <h3 class="font-semibold text-gray-800 text-[15px] md:text-[17px] leading-tight mb-2 line-clamp-2">
                 ลวดเชื่อมเหล็กเหนียว YAWATA FT-51 ขนาด 3.2 มม. (5 กก.)
               </h3>
-              <p class="text-[14px] text-gray-500 line-clamp-3 mb-3 leading-[1.6]">
+              <p class="text-[14px] text-gray-900 line-clamp-3 mb-3 leading-[1.6]">
                 เหล็กเหนียว | เชื่อมท่าตั้งดีเยี่ยม | ควันน้อย | สะเก็ดไฟน้อย
               </p>
               <div class="mt-auto flex flex-col">
                 <div class="flex items-center bg-gray-100 p-0.5 rounded-[4px] w-fit mb-2.5">
                   <button class="unit-toggle active px-2.5 py-1 bg-white shadow-sm rounded-[3px] text-[11px] text-gray-900 font-medium transition-all" data-price="450" data-unit="ห่อ">ห่อ</button>
-                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-500 hover:text-gray-900 font-medium transition-all" data-price="1,750" data-unit="ลัง">ลัง (4 ห่อ)</button>
+                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-900 font-medium transition-all" data-price="1,750" data-unit="ลัง">ลัง (4 ห่อ)</button>
                 </div>
                 <div class="flex items-center justify-between">
-                  <div class="flex items-baseline gap-1">
-                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿450</span>
-                    <span class="text-gray-500 text-[12px] font-medium price-unit">/ห่อ</span>
+                  <div class="flex items-baseline gap-1 mt-2.5">
+                    <span class="text-[#FF3B30] font-bold text-[19px] price-display">฿450</span>
+                    <span class="text-gray-900 text-[12px] font-medium price-unit">/ห่อ</span>
                   </div>
                   <div class="cart-control flex justify-end" data-unit="ห่อ">
                     <button class="btn-add w-8 h-8 md:w-9 md:h-9 bg-brand-green hover:bg-[#8eb543] text-white flex items-center justify-center rounded-lg shadow-sm transition-transform hover:scale-105 shrink-0">
@@ -1030,7 +1010,7 @@ document.querySelector('#app').innerHTML = `
                         </svg>
                       </button>
                       <div class="px-1 font-bold text-[13px] text-gray-800 flex items-center justify-center min-w-[3rem] select-none">
-                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-500 font-medium unit-text">ห่อ</span>
+                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-900 font-medium unit-text">ห่อ</span>
                       </div>
                       <button class="btn-plus w-8 h-full flex items-center justify-center bg-brand-green text-white hover:bg-[#8eb543] transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -1100,21 +1080,21 @@ document.querySelector('#app').innerHTML = `
               <h3 class="font-semibold text-gray-800 text-[15px] md:text-[17px] leading-tight mb-2 line-clamp-2">
                 ลวดเชื่อมสเตนเลส KOBE-308L ขนาด 2.6 มม. (2 กก.)
               </h3>
-              <p class="text-[14px] text-gray-500 line-clamp-3 mb-3 leading-[1.6]">
+              <p class="text-[14px] text-gray-900 line-clamp-3 mb-3 leading-[1.6]">
                 งานสเตนเลส | ทนการกัดกร่อน | เชื่อมเรียบ | ไม่เป็นสนิม
               </p>
               <div class="mt-auto flex flex-col">
-                <!-- Unit Toggle -->
-                <div class="flex items-center bg-gray-100 p-0.5 rounded-[4px] w-fit mb-2.5">
-                  <button class="unit-toggle active px-2.5 py-1 bg-white shadow-sm rounded-[3px] text-[11px] text-gray-900 font-medium transition-all" data-price="650" data-unit="ห่อ">ห่อ</button>
-                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-500 hover:text-gray-900 font-medium transition-all" data-price="2,500" data-unit="ลัง">ลัง (4 ห่อ)</button>
-                </div>
                 
-                <div class="flex items-center justify-between">
-                  <div class="flex items-baseline gap-1">
-                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿650</span>
-                    <span class="text-gray-500 text-[12px] font-medium price-unit">/ห่อ</span>
+                <div class="flex items-baseline gap-1 mt-2.5">
+                    <span class="text-[#FF3B30] font-bold text-[19px] price-display">฿650</span>
+                    <span class="text-gray-900 text-[12px] font-medium price-unit">/ห่อ</span>
                   </div>
+                <div class="flex items-center justify-between mt-2.5">
+                  <!-- Unit Toggle -->
+                <div class="flex items-center bg-gray-100 p-0.5 rounded-[4px] w-fit">
+                  <button class="unit-toggle active px-2.5 py-1 bg-white shadow-sm rounded-[3px] text-[11px] text-gray-900 font-medium transition-all" data-price="650" data-unit="ห่อ">ห่อ</button>
+                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-900 font-medium transition-all" data-price="2,500" data-unit="ลัง">ลัง (4 ห่อ)</button>
+                </div>
                   <div class="cart-control flex justify-end" data-unit="ห่อ">
                     <button class="btn-add w-8 h-8 md:w-9 md:h-9 bg-brand-green hover:bg-[#8eb543] text-white flex items-center justify-center rounded-lg shadow-sm transition-transform hover:scale-105 shrink-0">
                       <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -1128,7 +1108,7 @@ document.querySelector('#app').innerHTML = `
                         </svg>
                       </button>
                       <div class="px-1 font-bold text-[13px] text-gray-800 flex items-center justify-center min-w-[3rem] select-none">
-                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-500 font-medium unit-text">ห่อ</span>
+                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-900 font-medium unit-text">ห่อ</span>
                       </div>
                       <button class="btn-plus w-8 h-full flex items-center justify-center bg-brand-green text-white hover:bg-[#8eb543] transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -1149,21 +1129,21 @@ document.querySelector('#app').innerHTML = `
               <h3 class="font-semibold text-gray-800 text-[15px] md:text-[17px] leading-tight mb-2 line-clamp-2">
                 ลวดเชื่อมเหล็กเหนียว YAWATA FT-51 ขนาด 3.2 มม. (5 กก.)
               </h3>
-              <p class="text-[14px] text-gray-500 line-clamp-3 mb-3 leading-[1.6]">
+              <p class="text-[14px] text-gray-900 line-clamp-3 mb-3 leading-[1.6]">
                 เหล็กเหนียว | เชื่อมท่าตั้งดีเยี่ยม | ควันน้อย | สะเก็ดไฟน้อย
               </p>
               <div class="mt-auto flex flex-col">
-                <!-- Unit Toggle -->
-                <div class="flex items-center bg-gray-100 p-0.5 rounded-[4px] w-fit mb-2.5">
-                  <button class="unit-toggle active px-2.5 py-1 bg-white shadow-sm rounded-[3px] text-[11px] text-gray-900 font-medium transition-all" data-price="450" data-unit="ห่อ">ห่อ</button>
-                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-500 hover:text-gray-900 font-medium transition-all" data-price="1,750" data-unit="ลัง">ลัง (4 ห่อ)</button>
-                </div>
                 
-                <div class="flex items-center justify-between">
-                  <div class="flex items-baseline gap-1">
-                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿450</span>
-                    <span class="text-gray-500 text-[12px] font-medium price-unit">/ห่อ</span>
+                <div class="flex items-baseline gap-1 mt-2.5">
+                    <span class="text-[#FF3B30] font-bold text-[19px] price-display">฿450</span>
+                    <span class="text-gray-900 text-[12px] font-medium price-unit">/ห่อ</span>
                   </div>
+                <div class="flex items-center justify-between mt-2.5">
+                  <!-- Unit Toggle -->
+                <div class="flex items-center bg-gray-100 p-0.5 rounded-[4px] w-fit">
+                  <button class="unit-toggle active px-2.5 py-1 bg-white shadow-sm rounded-[3px] text-[11px] text-gray-900 font-medium transition-all" data-price="450" data-unit="ห่อ">ห่อ</button>
+                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-900 font-medium transition-all" data-price="1,750" data-unit="ลัง">ลัง (4 ห่อ)</button>
+                </div>
                   <div class="cart-control flex justify-end" data-unit="ห่อ">
                     <button class="btn-add w-8 h-8 md:w-9 md:h-9 bg-brand-green hover:bg-[#8eb543] text-white flex items-center justify-center rounded-lg shadow-sm transition-transform hover:scale-105 shrink-0">
                       <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -1177,7 +1157,7 @@ document.querySelector('#app').innerHTML = `
                         </svg>
                       </button>
                       <div class="px-1 font-bold text-[13px] text-gray-800 flex items-center justify-center min-w-[3rem] select-none">
-                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-500 font-medium unit-text">ห่อ</span>
+                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-900 font-medium unit-text">ห่อ</span>
                       </div>
                       <button class="btn-plus w-8 h-full flex items-center justify-center bg-brand-green text-white hover:bg-[#8eb543] transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -1198,21 +1178,21 @@ document.querySelector('#app').innerHTML = `
               <h3 class="font-semibold text-gray-800 text-[15px] md:text-[17px] leading-tight mb-2 line-clamp-2">
                 ลวดเชื่อม MIG / MAG (CO2) ER70S-6 ขนาด 0.8 มม. (15 กก.)
               </h3>
-              <p class="text-[14px] text-gray-500 line-clamp-3 mb-3 leading-[1.6]">
+              <p class="text-[14px] text-gray-900 line-clamp-3 mb-3 leading-[1.6]">
                 งานเชื่อมแก๊ส | แนวเชื่อมสวย | ทนแรงดึง | สำหรับงานโครงสร้าง
               </p>
               <div class="mt-auto flex flex-col">
-                <!-- Unit Toggle -->
-                <div class="flex items-center bg-gray-100 p-0.5 rounded-[4px] w-fit mb-2.5">
-                  <button class="unit-toggle active px-2.5 py-1 bg-white shadow-sm rounded-[3px] text-[11px] text-gray-900 font-medium transition-all" data-price="1,250" data-unit="ม้วน">ม้วน</button>
-                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-500 hover:text-gray-900 font-medium transition-all" data-price="85,000" data-unit="พาเลท">พาเลท (72 ม้วน)</button>
-                </div>
                 
-                <div class="flex items-center justify-between">
-                  <div class="flex items-baseline gap-1">
-                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿1,250</span>
-                    <span class="text-gray-500 text-[12px] font-medium price-unit">/ม้วน</span>
+                <div class="flex items-baseline gap-1 mt-2.5">
+                    <span class="text-[#FF3B30] font-bold text-[19px] price-display">฿1,250</span>
+                    <span class="text-gray-900 text-[12px] font-medium price-unit">/ม้วน</span>
                   </div>
+                <div class="flex items-center justify-between mt-2.5">
+                  <!-- Unit Toggle -->
+                <div class="flex items-center bg-gray-100 p-0.5 rounded-[4px] w-fit">
+                  <button class="unit-toggle active px-2.5 py-1 bg-white shadow-sm rounded-[3px] text-[11px] text-gray-900 font-medium transition-all" data-price="1,250" data-unit="ม้วน">ม้วน</button>
+                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-900 font-medium transition-all" data-price="85,000" data-unit="พาเลท">พาเลท (72 ม้วน)</button>
+                </div>
                   <div class="cart-control flex justify-end" data-unit="ม้วน">
                     <button class="btn-add w-8 h-8 md:w-9 md:h-9 bg-brand-green hover:bg-[#8eb543] text-white flex items-center justify-center rounded-lg shadow-sm transition-transform hover:scale-105 shrink-0">
                       <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -1226,7 +1206,7 @@ document.querySelector('#app').innerHTML = `
                         </svg>
                       </button>
                       <div class="px-1 font-bold text-[13px] text-gray-800 flex items-center justify-center min-w-[3rem] select-none">
-                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-500 font-medium unit-text">ม้วน</span>
+                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-900 font-medium unit-text">ม้วน</span>
                       </div>
                       <button class="btn-plus w-8 h-full flex items-center justify-center bg-brand-green text-white hover:bg-[#8eb543] transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -1247,21 +1227,21 @@ document.querySelector('#app').innerHTML = `
               <h3 class="font-semibold text-gray-800 text-[15px] md:text-[17px] leading-tight mb-2 line-clamp-2">
                 ลวดเชื่อมเซาะร่อง (Gouging) ขนาด 6.4 มม.
               </h3>
-              <p class="text-[14px] text-gray-500 line-clamp-3 mb-3 leading-[1.6]">
+              <p class="text-[14px] text-gray-900 line-clamp-3 mb-3 leading-[1.6]">
                 เซาะร่อง | กำจัดรอยร้าว | ทนกระแสไฟสูง | ตัดโลหะรวดเร็ว
               </p>
               <div class="mt-auto flex flex-col">
-                <!-- Unit Toggle -->
-                <div class="flex items-center bg-gray-100 p-0.5 rounded-[4px] w-fit mb-2.5">
-                  <button class="unit-toggle active px-2.5 py-1 bg-white shadow-sm rounded-[3px] text-[11px] text-gray-900 font-medium transition-all" data-price="320" data-unit="กล่อง">กล่อง</button>
-                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-500 hover:text-gray-900 font-medium transition-all" data-price="3,000" data-unit="ลัง">ลัง (10 กล่อง)</button>
-                </div>
                 
-                <div class="flex items-center justify-between">
-                  <div class="flex items-baseline gap-1">
-                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿320</span>
-                    <span class="text-gray-500 text-[12px] font-medium price-unit">/กล่อง</span>
+                <div class="flex items-baseline gap-1 mt-2.5">
+                    <span class="text-[#FF3B30] font-bold text-[19px] price-display">฿320</span>
+                    <span class="text-gray-900 text-[12px] font-medium price-unit">/กล่อง</span>
                   </div>
+                <div class="flex items-center justify-between mt-2.5">
+                  <!-- Unit Toggle -->
+                <div class="flex items-center bg-gray-100 p-0.5 rounded-[4px] w-fit">
+                  <button class="unit-toggle active px-2.5 py-1 bg-white shadow-sm rounded-[3px] text-[11px] text-gray-900 font-medium transition-all" data-price="320" data-unit="กล่อง">กล่อง</button>
+                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-900 font-medium transition-all" data-price="3,000" data-unit="ลัง">ลัง (10 กล่อง)</button>
+                </div>
                   <div class="cart-control flex justify-end" data-unit="กล่อง">
                     <button class="btn-add w-8 h-8 md:w-9 md:h-9 bg-brand-green hover:bg-[#8eb543] text-white flex items-center justify-center rounded-lg shadow-sm transition-transform hover:scale-105 shrink-0">
                       <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -1275,7 +1255,7 @@ document.querySelector('#app').innerHTML = `
                         </svg>
                       </button>
                       <div class="px-1 font-bold text-[13px] text-gray-800 flex items-center justify-center min-w-[3rem] select-none">
-                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-500 font-medium unit-text">กล่อง</span>
+                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-900 font-medium unit-text">กล่อง</span>
                       </div>
                       <button class="btn-plus w-8 h-full flex items-center justify-center bg-brand-green text-white hover:bg-[#8eb543] transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -1296,18 +1276,18 @@ document.querySelector('#app').innerHTML = `
               <h3 class="font-semibold text-gray-800 text-[15px] md:text-[17px] leading-tight mb-2 line-clamp-2">
                 ลวดเชื่อมสเตนเลส KOBE-308L ขนาด 2.6 มม. (2 กก.)
               </h3>
-              <p class="text-[14px] text-gray-500 line-clamp-3 mb-3 leading-[1.6]">
+              <p class="text-[14px] text-gray-900 line-clamp-3 mb-3 leading-[1.6]">
                 งานสเตนเลส | ทนการกัดกร่อน | เชื่อมเรียบ | ไม่เป็นสนิม
               </p>
               <div class="mt-auto flex flex-col">
                 <div class="flex items-center bg-gray-100 p-0.5 rounded-[4px] w-fit mb-2.5">
                   <button class="unit-toggle active px-2.5 py-1 bg-white shadow-sm rounded-[3px] text-[11px] text-gray-900 font-medium transition-all" data-price="650" data-unit="ห่อ">ห่อ</button>
-                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-500 hover:text-gray-900 font-medium transition-all" data-price="2,500" data-unit="ลัง">ลัง (4 ห่อ)</button>
+                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-900 font-medium transition-all" data-price="2,500" data-unit="ลัง">ลัง (4 ห่อ)</button>
                 </div>
                 <div class="flex items-center justify-between">
-                  <div class="flex items-baseline gap-1">
-                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿650</span>
-                    <span class="text-gray-500 text-[12px] font-medium price-unit">/ห่อ</span>
+                  <div class="flex items-baseline gap-1 mt-2.5">
+                    <span class="text-[#FF3B30] font-bold text-[19px] price-display">฿650</span>
+                    <span class="text-gray-900 text-[12px] font-medium price-unit">/ห่อ</span>
                   </div>
                   <div class="cart-control flex justify-end" data-unit="ห่อ">
                     <button class="btn-add w-8 h-8 md:w-9 md:h-9 bg-brand-green hover:bg-[#8eb543] text-white flex items-center justify-center rounded-lg shadow-sm transition-transform hover:scale-105 shrink-0">
@@ -1322,7 +1302,7 @@ document.querySelector('#app').innerHTML = `
                         </svg>
                       </button>
                       <div class="px-1 font-bold text-[13px] text-gray-800 flex items-center justify-center min-w-[3rem] select-none">
-                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-500 font-medium unit-text">ห่อ</span>
+                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-900 font-medium unit-text">ห่อ</span>
                       </div>
                       <button class="btn-plus w-8 h-full flex items-center justify-center bg-brand-green text-white hover:bg-[#8eb543] transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -1343,18 +1323,18 @@ document.querySelector('#app').innerHTML = `
               <h3 class="font-semibold text-gray-800 text-[15px] md:text-[17px] leading-tight mb-2 line-clamp-2">
                 ลวดเชื่อมเหล็กเหนียว YAWATA FT-51 ขนาด 3.2 มม. (5 กก.)
               </h3>
-              <p class="text-[14px] text-gray-500 line-clamp-3 mb-3 leading-[1.6]">
+              <p class="text-[14px] text-gray-900 line-clamp-3 mb-3 leading-[1.6]">
                 เหล็กเหนียว | เชื่อมท่าตั้งดีเยี่ยม | ควันน้อย | สะเก็ดไฟน้อย
               </p>
               <div class="mt-auto flex flex-col">
                 <div class="flex items-center bg-gray-100 p-0.5 rounded-[4px] w-fit mb-2.5">
                   <button class="unit-toggle active px-2.5 py-1 bg-white shadow-sm rounded-[3px] text-[11px] text-gray-900 font-medium transition-all" data-price="450" data-unit="ห่อ">ห่อ</button>
-                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-500 hover:text-gray-900 font-medium transition-all" data-price="1,750" data-unit="ลัง">ลัง (4 ห่อ)</button>
+                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-900 font-medium transition-all" data-price="1,750" data-unit="ลัง">ลัง (4 ห่อ)</button>
                 </div>
                 <div class="flex items-center justify-between">
-                  <div class="flex items-baseline gap-1">
-                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿450</span>
-                    <span class="text-gray-500 text-[12px] font-medium price-unit">/ห่อ</span>
+                  <div class="flex items-baseline gap-1 mt-2.5">
+                    <span class="text-[#FF3B30] font-bold text-[19px] price-display">฿450</span>
+                    <span class="text-gray-900 text-[12px] font-medium price-unit">/ห่อ</span>
                   </div>
                   <div class="cart-control flex justify-end" data-unit="ห่อ">
                     <button class="btn-add w-8 h-8 md:w-9 md:h-9 bg-brand-green hover:bg-[#8eb543] text-white flex items-center justify-center rounded-lg shadow-sm transition-transform hover:scale-105 shrink-0">
@@ -1369,7 +1349,7 @@ document.querySelector('#app').innerHTML = `
                         </svg>
                       </button>
                       <div class="px-1 font-bold text-[13px] text-gray-800 flex items-center justify-center min-w-[3rem] select-none">
-                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-500 font-medium unit-text">ห่อ</span>
+                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-900 font-medium unit-text">ห่อ</span>
                       </div>
                       <button class="btn-plus w-8 h-full flex items-center justify-center bg-brand-green text-white hover:bg-[#8eb543] transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -1439,21 +1419,21 @@ document.querySelector('#app').innerHTML = `
               <h3 class="font-semibold text-gray-800 text-[15px] md:text-[17px] leading-tight mb-2 line-clamp-2">
                 ลวดเชื่อมสเตนเลส KOBE-308L ขนาด 2.6 มม. (2 กก.)
               </h3>
-              <p class="text-[14px] text-gray-500 line-clamp-3 mb-3 leading-[1.6]">
+              <p class="text-[14px] text-gray-900 line-clamp-3 mb-3 leading-[1.6]">
                 งานสเตนเลส | ทนการกัดกร่อน | เชื่อมเรียบ | ไม่เป็นสนิม
               </p>
               <div class="mt-auto flex flex-col">
-                <!-- Unit Toggle -->
-                <div class="flex items-center bg-gray-100 p-0.5 rounded-[4px] w-fit mb-2.5">
-                  <button class="unit-toggle active px-2.5 py-1 bg-white shadow-sm rounded-[3px] text-[11px] text-gray-900 font-medium transition-all" data-price="650" data-unit="ห่อ">ห่อ</button>
-                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-500 hover:text-gray-900 font-medium transition-all" data-price="2,500" data-unit="ลัง">ลัง (4 ห่อ)</button>
-                </div>
                 
-                <div class="flex items-center justify-between">
-                  <div class="flex items-baseline gap-1">
-                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿650</span>
-                    <span class="text-gray-500 text-[12px] font-medium price-unit">/ห่อ</span>
+                <div class="flex items-baseline gap-1 mt-2.5">
+                    <span class="text-[#FF3B30] font-bold text-[19px] price-display">฿650</span>
+                    <span class="text-gray-900 text-[12px] font-medium price-unit">/ห่อ</span>
                   </div>
+                <div class="flex items-center justify-between mt-2.5">
+                  <!-- Unit Toggle -->
+                <div class="flex items-center bg-gray-100 p-0.5 rounded-[4px] w-fit">
+                  <button class="unit-toggle active px-2.5 py-1 bg-white shadow-sm rounded-[3px] text-[11px] text-gray-900 font-medium transition-all" data-price="650" data-unit="ห่อ">ห่อ</button>
+                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-900 font-medium transition-all" data-price="2,500" data-unit="ลัง">ลัง (4 ห่อ)</button>
+                </div>
                   <div class="cart-control flex justify-end" data-unit="ห่อ">
                     <button class="btn-add w-8 h-8 md:w-9 md:h-9 bg-brand-green hover:bg-[#8eb543] text-white flex items-center justify-center rounded-lg shadow-sm transition-transform hover:scale-105 shrink-0">
                       <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -1467,7 +1447,7 @@ document.querySelector('#app').innerHTML = `
                         </svg>
                       </button>
                       <div class="px-1 font-bold text-[13px] text-gray-800 flex items-center justify-center min-w-[3rem] select-none">
-                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-500 font-medium unit-text">ห่อ</span>
+                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-900 font-medium unit-text">ห่อ</span>
                       </div>
                       <button class="btn-plus w-8 h-full flex items-center justify-center bg-brand-green text-white hover:bg-[#8eb543] transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -1488,21 +1468,21 @@ document.querySelector('#app').innerHTML = `
               <h3 class="font-semibold text-gray-800 text-[15px] md:text-[17px] leading-tight mb-2 line-clamp-2">
                 ลวดเชื่อมเหล็กเหนียว YAWATA FT-51 ขนาด 3.2 มม. (5 กก.)
               </h3>
-              <p class="text-[14px] text-gray-500 line-clamp-3 mb-3 leading-[1.6]">
+              <p class="text-[14px] text-gray-900 line-clamp-3 mb-3 leading-[1.6]">
                 เหล็กเหนียว | เชื่อมท่าตั้งดีเยี่ยม | ควันน้อย | สะเก็ดไฟน้อย
               </p>
               <div class="mt-auto flex flex-col">
-                <!-- Unit Toggle -->
-                <div class="flex items-center bg-gray-100 p-0.5 rounded-[4px] w-fit mb-2.5">
-                  <button class="unit-toggle active px-2.5 py-1 bg-white shadow-sm rounded-[3px] text-[11px] text-gray-900 font-medium transition-all" data-price="450" data-unit="ห่อ">ห่อ</button>
-                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-500 hover:text-gray-900 font-medium transition-all" data-price="1,750" data-unit="ลัง">ลัง (4 ห่อ)</button>
-                </div>
                 
-                <div class="flex items-center justify-between">
-                  <div class="flex items-baseline gap-1">
-                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿450</span>
-                    <span class="text-gray-500 text-[12px] font-medium price-unit">/ห่อ</span>
+                <div class="flex items-baseline gap-1 mt-2.5">
+                    <span class="text-[#FF3B30] font-bold text-[19px] price-display">฿450</span>
+                    <span class="text-gray-900 text-[12px] font-medium price-unit">/ห่อ</span>
                   </div>
+                <div class="flex items-center justify-between mt-2.5">
+                  <!-- Unit Toggle -->
+                <div class="flex items-center bg-gray-100 p-0.5 rounded-[4px] w-fit">
+                  <button class="unit-toggle active px-2.5 py-1 bg-white shadow-sm rounded-[3px] text-[11px] text-gray-900 font-medium transition-all" data-price="450" data-unit="ห่อ">ห่อ</button>
+                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-900 font-medium transition-all" data-price="1,750" data-unit="ลัง">ลัง (4 ห่อ)</button>
+                </div>
                   <div class="cart-control flex justify-end" data-unit="ห่อ">
                     <button class="btn-add w-8 h-8 md:w-9 md:h-9 bg-brand-green hover:bg-[#8eb543] text-white flex items-center justify-center rounded-lg shadow-sm transition-transform hover:scale-105 shrink-0">
                       <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -1516,7 +1496,7 @@ document.querySelector('#app').innerHTML = `
                         </svg>
                       </button>
                       <div class="px-1 font-bold text-[13px] text-gray-800 flex items-center justify-center min-w-[3rem] select-none">
-                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-500 font-medium unit-text">ห่อ</span>
+                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-900 font-medium unit-text">ห่อ</span>
                       </div>
                       <button class="btn-plus w-8 h-full flex items-center justify-center bg-brand-green text-white hover:bg-[#8eb543] transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -1537,21 +1517,21 @@ document.querySelector('#app').innerHTML = `
               <h3 class="font-semibold text-gray-800 text-[15px] md:text-[17px] leading-tight mb-2 line-clamp-2">
                 ลวดเชื่อม MIG / MAG (CO2) ER70S-6 ขนาด 0.8 มม. (15 กก.)
               </h3>
-              <p class="text-[14px] text-gray-500 line-clamp-3 mb-3 leading-[1.6]">
+              <p class="text-[14px] text-gray-900 line-clamp-3 mb-3 leading-[1.6]">
                 งานเชื่อมแก๊ส | แนวเชื่อมสวย | ทนแรงดึง | สำหรับงานโครงสร้าง
               </p>
               <div class="mt-auto flex flex-col">
-                <!-- Unit Toggle -->
-                <div class="flex items-center bg-gray-100 p-0.5 rounded-[4px] w-fit mb-2.5">
-                  <button class="unit-toggle active px-2.5 py-1 bg-white shadow-sm rounded-[3px] text-[11px] text-gray-900 font-medium transition-all" data-price="1,250" data-unit="ม้วน">ม้วน</button>
-                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-500 hover:text-gray-900 font-medium transition-all" data-price="85,000" data-unit="พาเลท">พาเลท (72 ม้วน)</button>
-                </div>
                 
-                <div class="flex items-center justify-between">
-                  <div class="flex items-baseline gap-1">
-                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿1,250</span>
-                    <span class="text-gray-500 text-[12px] font-medium price-unit">/ม้วน</span>
+                <div class="flex items-baseline gap-1 mt-2.5">
+                    <span class="text-[#FF3B30] font-bold text-[19px] price-display">฿1,250</span>
+                    <span class="text-gray-900 text-[12px] font-medium price-unit">/ม้วน</span>
                   </div>
+                <div class="flex items-center justify-between mt-2.5">
+                  <!-- Unit Toggle -->
+                <div class="flex items-center bg-gray-100 p-0.5 rounded-[4px] w-fit">
+                  <button class="unit-toggle active px-2.5 py-1 bg-white shadow-sm rounded-[3px] text-[11px] text-gray-900 font-medium transition-all" data-price="1,250" data-unit="ม้วน">ม้วน</button>
+                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-900 font-medium transition-all" data-price="85,000" data-unit="พาเลท">พาเลท (72 ม้วน)</button>
+                </div>
                   <div class="cart-control flex justify-end" data-unit="ม้วน">
                     <button class="btn-add w-8 h-8 md:w-9 md:h-9 bg-brand-green hover:bg-[#8eb543] text-white flex items-center justify-center rounded-lg shadow-sm transition-transform hover:scale-105 shrink-0">
                       <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -1565,7 +1545,7 @@ document.querySelector('#app').innerHTML = `
                         </svg>
                       </button>
                       <div class="px-1 font-bold text-[13px] text-gray-800 flex items-center justify-center min-w-[3rem] select-none">
-                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-500 font-medium unit-text">ม้วน</span>
+                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-900 font-medium unit-text">ม้วน</span>
                       </div>
                       <button class="btn-plus w-8 h-full flex items-center justify-center bg-brand-green text-white hover:bg-[#8eb543] transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -1586,21 +1566,21 @@ document.querySelector('#app').innerHTML = `
               <h3 class="font-semibold text-gray-800 text-[15px] md:text-[17px] leading-tight mb-2 line-clamp-2">
                 ลวดเชื่อมเซาะร่อง (Gouging) ขนาด 6.4 มม.
               </h3>
-              <p class="text-[14px] text-gray-500 line-clamp-3 mb-3 leading-[1.6]">
+              <p class="text-[14px] text-gray-900 line-clamp-3 mb-3 leading-[1.6]">
                 เซาะร่อง | กำจัดรอยร้าว | ทนกระแสไฟสูง | ตัดโลหะรวดเร็ว
               </p>
               <div class="mt-auto flex flex-col">
-                <!-- Unit Toggle -->
-                <div class="flex items-center bg-gray-100 p-0.5 rounded-[4px] w-fit mb-2.5">
-                  <button class="unit-toggle active px-2.5 py-1 bg-white shadow-sm rounded-[3px] text-[11px] text-gray-900 font-medium transition-all" data-price="320" data-unit="กล่อง">กล่อง</button>
-                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-500 hover:text-gray-900 font-medium transition-all" data-price="3,000" data-unit="ลัง">ลัง (10 กล่อง)</button>
-                </div>
                 
-                <div class="flex items-center justify-between">
-                  <div class="flex items-baseline gap-1">
-                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿320</span>
-                    <span class="text-gray-500 text-[12px] font-medium price-unit">/กล่อง</span>
+                <div class="flex items-baseline gap-1 mt-2.5">
+                    <span class="text-[#FF3B30] font-bold text-[19px] price-display">฿320</span>
+                    <span class="text-gray-900 text-[12px] font-medium price-unit">/กล่อง</span>
                   </div>
+                <div class="flex items-center justify-between mt-2.5">
+                  <!-- Unit Toggle -->
+                <div class="flex items-center bg-gray-100 p-0.5 rounded-[4px] w-fit">
+                  <button class="unit-toggle active px-2.5 py-1 bg-white shadow-sm rounded-[3px] text-[11px] text-gray-900 font-medium transition-all" data-price="320" data-unit="กล่อง">กล่อง</button>
+                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-900 font-medium transition-all" data-price="3,000" data-unit="ลัง">ลัง (10 กล่อง)</button>
+                </div>
                   <div class="cart-control flex justify-end" data-unit="กล่อง">
                     <button class="btn-add w-8 h-8 md:w-9 md:h-9 bg-brand-green hover:bg-[#8eb543] text-white flex items-center justify-center rounded-lg shadow-sm transition-transform hover:scale-105 shrink-0">
                       <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -1614,7 +1594,7 @@ document.querySelector('#app').innerHTML = `
                         </svg>
                       </button>
                       <div class="px-1 font-bold text-[13px] text-gray-800 flex items-center justify-center min-w-[3rem] select-none">
-                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-500 font-medium unit-text">กล่อง</span>
+                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-900 font-medium unit-text">กล่อง</span>
                       </div>
                       <button class="btn-plus w-8 h-full flex items-center justify-center bg-brand-green text-white hover:bg-[#8eb543] transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -1635,18 +1615,18 @@ document.querySelector('#app').innerHTML = `
               <h3 class="font-semibold text-gray-800 text-[15px] md:text-[17px] leading-tight mb-2 line-clamp-2">
                 ลวดเชื่อมสเตนเลส KOBE-308L ขนาด 2.6 มม. (2 กก.)
               </h3>
-              <p class="text-[14px] text-gray-500 line-clamp-3 mb-3 leading-[1.6]">
+              <p class="text-[14px] text-gray-900 line-clamp-3 mb-3 leading-[1.6]">
                 งานสเตนเลส | ทนการกัดกร่อน | เชื่อมเรียบ | ไม่เป็นสนิม
               </p>
               <div class="mt-auto flex flex-col">
                 <div class="flex items-center bg-gray-100 p-0.5 rounded-[4px] w-fit mb-2.5">
                   <button class="unit-toggle active px-2.5 py-1 bg-white shadow-sm rounded-[3px] text-[11px] text-gray-900 font-medium transition-all" data-price="650" data-unit="ห่อ">ห่อ</button>
-                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-500 hover:text-gray-900 font-medium transition-all" data-price="2,500" data-unit="ลัง">ลัง (4 ห่อ)</button>
+                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-900 font-medium transition-all" data-price="2,500" data-unit="ลัง">ลัง (4 ห่อ)</button>
                 </div>
                 <div class="flex items-center justify-between">
-                  <div class="flex items-baseline gap-1">
-                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿650</span>
-                    <span class="text-gray-500 text-[12px] font-medium price-unit">/ห่อ</span>
+                  <div class="flex items-baseline gap-1 mt-2.5">
+                    <span class="text-[#FF3B30] font-bold text-[19px] price-display">฿650</span>
+                    <span class="text-gray-900 text-[12px] font-medium price-unit">/ห่อ</span>
                   </div>
                   <div class="cart-control flex justify-end" data-unit="ห่อ">
                     <button class="btn-add w-8 h-8 md:w-9 md:h-9 bg-brand-green hover:bg-[#8eb543] text-white flex items-center justify-center rounded-lg shadow-sm transition-transform hover:scale-105 shrink-0">
@@ -1661,7 +1641,7 @@ document.querySelector('#app').innerHTML = `
                         </svg>
                       </button>
                       <div class="px-1 font-bold text-[13px] text-gray-800 flex items-center justify-center min-w-[3rem] select-none">
-                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-500 font-medium unit-text">ห่อ</span>
+                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-900 font-medium unit-text">ห่อ</span>
                       </div>
                       <button class="btn-plus w-8 h-full flex items-center justify-center bg-brand-green text-white hover:bg-[#8eb543] transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -1682,18 +1662,18 @@ document.querySelector('#app').innerHTML = `
               <h3 class="font-semibold text-gray-800 text-[15px] md:text-[17px] leading-tight mb-2 line-clamp-2">
                 ลวดเชื่อมเหล็กเหนียว YAWATA FT-51 ขนาด 3.2 มม. (5 กก.)
               </h3>
-              <p class="text-[14px] text-gray-500 line-clamp-3 mb-3 leading-[1.6]">
+              <p class="text-[14px] text-gray-900 line-clamp-3 mb-3 leading-[1.6]">
                 เหล็กเหนียว | เชื่อมท่าตั้งดีเยี่ยม | ควันน้อย | สะเก็ดไฟน้อย
               </p>
               <div class="mt-auto flex flex-col">
                 <div class="flex items-center bg-gray-100 p-0.5 rounded-[4px] w-fit mb-2.5">
                   <button class="unit-toggle active px-2.5 py-1 bg-white shadow-sm rounded-[3px] text-[11px] text-gray-900 font-medium transition-all" data-price="450" data-unit="ห่อ">ห่อ</button>
-                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-500 hover:text-gray-900 font-medium transition-all" data-price="1,750" data-unit="ลัง">ลัง (4 ห่อ)</button>
+                  <button class="unit-toggle px-2.5 py-1 text-[11px] text-gray-900 font-medium transition-all" data-price="1,750" data-unit="ลัง">ลัง (4 ห่อ)</button>
                 </div>
                 <div class="flex items-center justify-between">
-                  <div class="flex items-baseline gap-1">
-                    <span class="text-[#E12427] font-bold text-[18px] price-display">฿450</span>
-                    <span class="text-gray-500 text-[12px] font-medium price-unit">/ห่อ</span>
+                  <div class="flex items-baseline gap-1 mt-2.5">
+                    <span class="text-[#FF3B30] font-bold text-[19px] price-display">฿450</span>
+                    <span class="text-gray-900 text-[12px] font-medium price-unit">/ห่อ</span>
                   </div>
                   <div class="cart-control flex justify-end" data-unit="ห่อ">
                     <button class="btn-add w-8 h-8 md:w-9 md:h-9 bg-brand-green hover:bg-[#8eb543] text-white flex items-center justify-center rounded-lg shadow-sm transition-transform hover:scale-105 shrink-0">
@@ -1708,7 +1688,7 @@ document.querySelector('#app').innerHTML = `
                         </svg>
                       </button>
                       <div class="px-1 font-bold text-[13px] text-gray-800 flex items-center justify-center min-w-[3rem] select-none">
-                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-500 font-medium unit-text">ห่อ</span>
+                        <span class="qty-text">1</span> <span class="ml-1 text-[11px] text-gray-900 font-medium unit-text">ห่อ</span>
                       </div>
                       <button class="btn-plus w-8 h-full flex items-center justify-center bg-brand-green text-white hover:bg-[#8eb543] transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -1770,7 +1750,7 @@ document.querySelector('#app').innerHTML = `
       </section>
 
 <!-- Section: Articles / Portfolio (Apple Store Bleed Style) -->
-    <section class="w-full bg-[#F8F8F8] pt-18 md:pt-26 lg:pt-32 pb-20 md:pb-28 lg:pb-32 overflow-hidden">
+    <section class="w-full bg-[#F8F8F8] pt-12 md:pt-16 lg:pt-24 pb-20 md:pb-28 lg:pb-32 overflow-hidden">
       <!-- Header (Contained in 1360px) -->
       <div class="max-w-[1360px] mx-auto px-4 md:px-8 lg:px-12 mb-8 md:mb-10 lg:mb-12">
         <div class="flex items-baseline justify-between">
@@ -1855,163 +1835,154 @@ document.querySelector('#app').innerHTML = `
 
 <!-- Footer -->
   <footer class="bg-white w-full mt-0">
-    <!-- Features Row -->
-    <div class="max-w-[1360px] mx-auto px-4 md:px-8 xl:px-16">
-      <div class="grid grid-cols-2 lg:grid-cols-4 border-b border-gray-200">
-        <!-- Item 1 -->
-        <div class="flex items-center justify-center gap-4 py-8 px-4 border-r border-gray-200 lg:last:border-r-0">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
-          </svg>
-          <div>
-            <div class="font-bold text-gray-900 text-[15px]">ส่งฟรีทั่วไทย</div>
-            <div class="text-gray-600 text-[13px]">เมื่อสั่งซื้อครบ 5,000.- ขึ้นไป</div>
-          </div>
-        </div>
-        <!-- Item 2 -->
-        <div class="flex items-center justify-center gap-4 py-8 px-4 lg:border-r border-gray-200 lg:last:border-r-0">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <div>
-            <div class="font-bold text-gray-900 text-[15px]">ส่งด่วนภายใน 3 ชั่วโมง</div>
-            <div class="text-gray-600 text-[13px]">กรุงเทพฯ และพื้นที่ให้บริการ</div>
-          </div>
-        </div>
-        <!-- Item 3 -->
-        <div class="flex items-center justify-center gap-4 py-8 px-4 border-t lg:border-t-0 border-r border-gray-200 lg:last:border-r-0">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016a3.001 3.001 0 003.75.614m-16.5 0a3.004 3.004 0 01-.621-4.72L4.318 3.44A1.5 1.5 0 015.378 3h13.243a1.5 1.5 0 011.06.44l1.19 1.189a3 3 0 01-.621 4.72m-13.5 8.65h3.75a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75H6.75a.75.75 0 00-.75.75v3.75c0 .415.336.75.75.75z" />
-          </svg>
-          <div>
-            <div class="font-bold text-gray-900 text-[15px]">รับเองที่หน้าโรงงาน</div>
-            <div class="text-gray-600 text-[13px]">รับสินค้าและเช็คของทันที</div>
-          </div>
-        </div>
-        <!-- Item 4 -->
-        <div class="flex items-center justify-center gap-4 py-8 px-4 border-t lg:border-t-0">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
-          </svg>
-          <div>
-            <div class="font-bold text-gray-900 text-[15px]">เปลี่ยน คืน ง่าย</div>
-            <div class="text-gray-600 text-[13px]">ภายใน 7 วัน*</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- Main Footer Content -->
     <div class="max-w-[1360px] mx-auto px-4 md:px-8 xl:px-16 py-12">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10">
+            <!-- Trust Bar (Top Footer) -->
+      <div class="border-b border-gray-200 mb-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 divide-y md:divide-y-0 lg:divide-x divide-gray-200 pt-16 pb-8">
+          
+          <!-- 1. Expertise (Trust) -->
+          <div class="flex items-center justify-center gap-3.5 px-4 py-2 lg:py-1">
+            <svg class="w-10 h-10 text-gray-900 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+            <div class="flex flex-col justify-center">
+              <div class="text-[15px] font-bold text-gray-900 leading-snug">สินค้าคุณภาพมาตรฐาน</div>
+              <div class="text-[13px] text-gray-800 leading-snug">ทีมงานผู้เชี่ยวชาญให้คำปรึกษา</div>
+            </div>
+          </div>
+
+          <!-- 2. Shipping -->
+          <div class="flex items-center justify-center gap-3.5 px-4 py-2 lg:py-1">
+            <svg class="w-10 h-10 text-gray-900 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 21a2 2 0 11-4 0 2 2 0 014 0zM20 21a2 2 0 11-4 0 2 2 0 014 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M4 19H2v-9a2 2 0 012-2h10a2 2 0 012 2v3m4 0h-4v6h4a2 2 0 002-2v-3l-2.5-3.5H16"/>
+            </svg>
+            <div class="flex flex-col justify-center">
+              <div class="text-[15px] font-bold text-gray-900 leading-snug">จัดส่งทั่วประเทศ</div>
+              <div class="text-[13px] text-gray-800 leading-snug">รวดเร็ว ทันใจ ปลอดภัย</div>
+            </div>
+          </div>
+
+          <!-- 3. Contact (Phone) -->
+          <div class="flex items-center justify-center gap-3.5 px-4 py-2 lg:py-1">
+            <svg class="w-10 h-10 text-gray-900 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+            </svg>
+            <div class="flex flex-col justify-center">
+              <div class="text-[15px] font-bold text-gray-900 leading-snug">062-815-9999</div>
+              <div class="text-[13px] text-gray-800 leading-snug">บริการทุกวัน 09.00 - 18.00 น.</div>
+            </div>
+          </div>
+
+          <!-- 4. Email -->
+          <div class="flex items-center justify-center gap-3.5 px-4 py-2 lg:py-1">
+            <svg class="w-10 h-10 text-gray-900 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+            <div class="flex flex-col justify-center">
+              <div class="text-[15px] font-bold text-gray-900 leading-snug">ส่งอีเมล</div>
+              <div class="text-[13px] text-gray-800 leading-snug">ถึงเรา</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 lg:gap-10">
         
         <!-- Col 1 -->
-        <div class="flex flex-col">
+        <div class="flex flex-col lg:col-span-2 pr-0 lg:pr-8">
           <!-- Logo -->
-          <a href="/" class="shrink-0 mb-4 inline-block group">
-            <img src="/images/logos/logo.svg" alt="UDO Welding Products" class="h-[42px] md:h-[52px] w-auto object-contain grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-400" />
+          <a href="/" class="shrink-0 mb-4 inline-block hover:opacity-80 transition-opacity w-fit">
+            <img src="/images/logos/logo.svg" alt="UDO Welding Products" class="h-[42px] md:h-[52px] w-auto object-contain object-left" />
           </a>
-          <!-- Operating Hours -->
-          <div class="mt-2 text-[13px] md:text-[14px] text-gray-800 leading-[1.8]">
-            <p class="mb-0"><span class="font-bold text-gray-900">เวลาทำการ UDO Call Center :</span><br>วันจันทร์ - วันอาทิตย์ 09.00-18.00 น.</p>
-            <p class="mb-0 mt-3"><span class="font-bold text-gray-900">เวลาจัดส่งสินค้า :</span><br>จันทร์ - เสาร์ 08:30 - 17:30 น.</p>
-          </div>
+          
+          <!-- Brand Description -->
+          <p class="text-gray-900 text-[13.5px] md:text-[14.5px] leading-relaxed mb-4">
+            ผู้จัดจำหน่ายลวดเชื่อมและอุปกรณ์งานเชื่อม สำหรับโรงงานอุตสาหกรรมและช่างเชื่อมทั่วไป
+          </p>
+
+
+
         </div>
 
         <!-- Col 2: หมวดหมู่สินค้า -->
         <div class="flex flex-col gap-2.5">
           <h3 class="font-bold text-gray-900 text-[14px] mb-1">หมวดหมู่สินค้า</h3>
-          <a href="#" class="text-gray-700 hover:text-black text-[13.5px] transition-colors">ลวดเชื่อม</a>
-          <a href="#" class="text-gray-700 hover:text-black text-[13.5px] transition-colors">เครื่องเชื่อม</a>
-          <a href="#" class="text-gray-700 hover:text-black text-[13.5px] transition-colors">อุปกรณ์งานเชื่อม</a>
-          <a href="#" class="text-gray-700 hover:text-black text-[13.5px] transition-colors">อะไหล่ปืนเชื่อม</a>
-          <a href="#" class="text-gray-700 hover:text-black text-[13.5px] transition-colors">น้ำยาเคมีภัณฑ์</a>
-          <a href="#" class="text-gray-700 hover:text-black text-[13.5px] transition-colors">อุปกรณ์เซฟตี้</a>
+          <a href="#" class="text-gray-900 hover:text-brand-red text-[13.5px] transition-colors">กลุ่มลวดเชื่อม</a>
+          <a href="#" class="text-gray-900 hover:text-brand-red text-[13.5px] transition-colors">เครื่องเชื่อมและเครื่องตัดพลาสม่า</a>
+          <a href="#" class="text-gray-900 hover:text-brand-red text-[13.5px] transition-colors">อุปกรณ์เชื่อมตัดเผาแก๊ส</a>
+          <a href="#" class="text-gray-900 hover:text-brand-red text-[13.5px] transition-colors">ท่อบรรจุก๊าซและวาล์ว</a>
+          <a href="#" class="text-gray-900 hover:text-brand-red text-[13.5px] transition-colors">ใบตัดใบเจียร</a>
+          <a href="#" class="text-gray-900 hover:text-brand-red text-[13.5px] transition-colors">อะไหล่สิ้นเปลือง เครื่องเชื่อม-พลาสม่า</a>
+          <a href="#" class="text-gray-900 hover:text-brand-red text-[13.5px] transition-colors">วัสดุอุปกรณ์เคมีภัณฑ์สำหรับงานเชื่อม</a>
+          <a href="#" class="text-gray-900 hover:text-brand-red text-[13.5px] transition-colors">เครื่องมือช่าง</a>
         </div>
 
-        <!-- Col 3 (เดิม Col 2) -->
+        <!-- Col 3 -->
         <div class="flex flex-col gap-2.5">
           <h3 class="font-bold text-gray-900 text-[14px] mb-1">เกี่ยวกับ UDO</h3>
-          <a href="#" class="text-gray-700 hover:text-black text-[13.5px] transition-colors">ติดต่อเรา</a>
-          <a href="#" class="text-gray-700 hover:text-black text-[13.5px] transition-colors">เกี่ยวกับ UDO.co.th</a>
-          <a href="#" class="text-gray-700 hover:text-black text-[13.5px] transition-colors">สมัครสมาชิก UDO PLUS</a>
-          <a href="#" class="text-gray-700 hover:text-black text-[13.5px] transition-colors">ข้อกำหนดและเงื่อนไข</a>
-          <a href="#" class="text-gray-700 hover:text-black text-[13.5px] transition-colors">ร่วมงานกับเรา</a>
+          <a href="#" class="text-gray-900 hover:text-brand-red text-[13.5px] transition-colors">เกี่ยวกับเรา</a>
+          <a href="#" class="text-gray-900 hover:text-brand-red text-[13.5px] transition-colors">ติดต่อเรา</a>
+          <a href="#" class="text-gray-900 hover:text-brand-red text-[13.5px] transition-colors">ข้อตกลงและเงื่อนไข</a>
+          <a href="#" class="text-gray-900 hover:text-brand-red text-[13.5px] transition-colors">นโยบายความเป็นส่วนตัว</a>
+          <a href="#" class="text-gray-900 hover:text-brand-red text-[13.5px] transition-colors">นโยบายคุกกี้</a>
         </div>
 
-        <!-- Col 4 (เดิม Col 3) -->
+        <!-- Col 4 -->
         <div class="flex flex-col gap-2.5">
-          <h3 class="font-bold text-gray-900 text-[14px] mb-1">บริการ</h3>
-          <a href="#" class="text-gray-700 hover:text-black text-[13.5px] transition-colors">ขั้นตอนการสั่งซื้อบน UDO.co.th แบบง่ายๆ</a>
-          <a href="#" class="text-gray-700 hover:text-black text-[13.5px] transition-colors">ใช้จ่ายผ่านช่องทางต่างๆ</a>
-          <a href="#" class="text-gray-700 hover:text-black text-[13.5px] transition-colors">การจัดส่งสินค้า</a>
-          <a href="#" class="text-gray-700 hover:text-black text-[13.5px] transition-colors">บริการหน้าโรงงาน</a>
-          <a href="#" class="text-gray-700 hover:text-black text-[13.5px] transition-colors">นโยบายการรับประกันและการเคลม</a>
+          <h3 class="font-bold text-gray-900 text-[14px] mb-1">บริการลูกค้า</h3>
+          <a href="#" class="text-gray-900 hover:text-brand-red text-[13.5px] transition-colors">ขั้นตอนการสั่งซื้อบน UDO.co.th แบบง่ายๆ</a>
+          <a href="#" class="text-gray-900 hover:text-brand-red text-[13.5px] transition-colors">ขอใบเสนอราคา</a>
+          <a href="#" class="text-gray-900 hover:text-brand-red text-[13.5px] transition-colors">การจัดส่งสินค้า</a>
+          <a href="#" class="text-gray-900 hover:text-brand-red text-[13.5px] transition-colors">คำถามที่พบบ่อย</a>
         </div>
 
-        <!-- Col 5 (เดิม Col 4) -->
+        <!-- Col 5 -->
         <div class="flex flex-col">
+          <!-- Verified By -->
           <h3 class="font-bold text-gray-900 text-[14px] mb-3">Verified by</h3>
-          <div class="flex items-center gap-3 mb-8">
-            <div class="flex flex-col items-center justify-center gap-0">
-              <span class="text-[#3b5998] font-black text-lg italic leading-none">DBD</span>
-              <span class="text-[#3b5998] text-[8px] font-bold">Registered</span>
-            </div>
-            <div class="flex flex-col items-center">
-              <div class="flex">
-                <div class="w-4 h-4 rounded-full bg-[#eb001b] -mr-1.5 opacity-90 mix-blend-multiply"></div>
-                <div class="w-4 h-4 rounded-full bg-[#f79e1b] opacity-90 mix-blend-multiply"></div>
-              </div>
-              <span class="text-[8px] font-bold text-gray-800 mt-1">Mastercard</span>
-            </div>
-            <div class="flex flex-col items-center">
-              <span class="text-[#1434CB] font-black text-xl italic leading-none mt-1">VISA</span>
-            </div>
+          <div class="flex items-center gap-3.5 mb-8">
+            <img src="/images/footer-logos/dbd.png" alt="DBD Registered" class="h-6 md:h-[30px] w-auto object-contain" />
+            <img src="/images/footer-logos/mastercard.png" alt="Mastercard" class="h-4 md:h-[22px] w-auto object-contain" />
+            <img src="/images/footer-logos/visa.png" alt="Visa" class="h-4 md:h-[22px] w-auto object-contain" />
           </div>
 
+          <!-- ติดตามเรา -->
           <h3 class="font-bold text-gray-900 text-[14px] mb-3">ติดตามเรา</h3>
-          <div class="flex items-center gap-2 mb-8">
-            <a href="#" class="w-7 h-7 bg-[#1877F2] rounded-full flex items-center justify-center text-white hover:opacity-80 transition-opacity"><svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg></a>
-            <a href="#" class="w-7 h-7 rounded-full flex items-center justify-center text-white hover:opacity-80 transition-opacity" style="background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);"><svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm3.98-10.181a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/></svg></a>
-            <a href="#" class="w-7 h-7 bg-[#00B900] rounded-full flex items-center justify-center text-white hover:opacity-80 transition-opacity font-bold text-[12px]">L</a>
-            <a href="#" class="w-7 h-7 bg-black rounded-full flex items-center justify-center text-white hover:opacity-80 transition-opacity"><svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 2.78-1.15 5.54-3.33 7.37-1.92 1.62-4.52 2.27-6.94 1.83-2.93-.53-5.32-2.73-6.19-5.61-.83-2.72-.11-5.83 1.81-7.91 1.71-1.85 4.32-2.77 6.81-2.5v4.06c-1.37-.15-2.8.21-3.79 1.14-.99.93-1.45 2.37-1.19 3.7.25 1.28 1.25 2.35 2.5 2.73 1.65.5 3.51-.01 4.54-1.35.83-1.07 1.22-2.45 1.19-3.79-.06-4.99-.03-9.98-.03-14.97-.01-.48.01-.96 0-1.44z"/></svg></a>
-            <a href="#" class="w-7 h-7 bg-[#FF0000] rounded-full flex items-center justify-center text-white hover:opacity-80 transition-opacity"><svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.377.55a3.015 3.015 0 00-2.122 2.136C0 8.07 0 12 0 12s0 3.93.501 5.814a3.016 3.016 0 002.122 2.136c1.871.55 9.377.55 9.377.55s7.505 0 9.377-.55a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+          <div class="flex items-center gap-2.5 mb-8 flex-wrap">
+            <a href="#" class="hover:opacity-80 transition-opacity"><img src="/images/footer-logos/facebook.webp" alt="Facebook" class="w-6 h-6 md:w-7 md:h-7 object-contain" /></a>
+            <a href="#" class="hover:opacity-80 transition-opacity"><img src="/images/footer-logos/instagram.webp" alt="Instagram" class="w-6 h-6 md:w-7 md:h-7 object-contain" /></a>
+            <a href="#" class="hover:opacity-80 transition-opacity"><img src="/images/footer-logos/line.webp" alt="Line" class="w-6 h-6 md:w-7 md:h-7 object-contain" /></a>
+            <a href="#" class="hover:opacity-80 transition-opacity"><img src="/images/footer-logos/tiktok.webp" alt="TikTok" class="w-6 h-6 md:w-7 md:h-7 object-contain" /></a>
+            <a href="#" class="hover:opacity-80 transition-opacity"><img src="/images/footer-logos/x.webp" alt="X" class="w-6 h-6 md:w-7 md:h-7 object-contain" /></a>
+            <a href="#" class="hover:opacity-80 transition-opacity"><img src="/images/footer-logos/youtube.webp" alt="YouTube" class="w-6 h-6 md:w-7 md:h-7 object-contain" /></a>
           </div>
 
-          <h3 class="font-bold text-gray-900 text-[14px] mb-2">บริการจัดส่ง</h3>
+          <!-- บริการจัดส่ง -->
+          <h3 class="font-bold text-gray-900 text-[14px] mb-3">บริการจัดส่ง</h3>
           <div class="flex items-center gap-4">
-            <span class="text-[#F37021] font-black text-lg italic tracking-tighter">KERRY</span>
-            <div class="bg-[#FFCC00] text-[#D40511] font-black text-sm px-1.5 py-0.5 tracking-tight italic">DHL</div>
+            <img src="/images/footer-logos/kerry.webp" alt="Kerry Express" class="h-5 md:h-[24px] w-auto object-contain" />
+            <img src="/images/footer-logos/dhl.webp" alt="DHL" class="h-[18px] md:h-[22px] w-auto object-contain" />
+            <img src="/images/footer-logos/thai-post.png" alt="Thailand Post" class="h-6 md:h-[30px] w-auto object-contain" />
           </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Company Info -->
-    <div class="border-t border-gray-200 bg-white">
-      <div class="max-w-[1360px] mx-auto px-4 md:px-8 xl:px-16 py-8">
-        <div class="text-[13px] md:text-[14px] text-gray-800 leading-[1.8]">
-          <p class="mb-0 text-gray-600">Copyright © 2026 UDO จัดจำหน่ายสินค้าและบริการ โดย บริษัท ยู.ดี.โอ. จำกัด (สำนักงานใหญ่) 61,63,65 ซอยพระราม 3 ซอย 54 แขวงช่องนนทรี เขตยานนาวา กรุงเทพฯ 10120</p>
-          <p class="mb-0 text-gray-600">เบอร์โทร. : 02-123-4567 | อีเมล : contact@udo.co.th | เลขทะเบียนพาณิชย์อิเล็กทรอนิกส์ : 0101234567890</p>
         </div>
       </div>
     </div>
 
     <!-- Copyright Bar -->
     <div class="bg-black text-white w-full border-t border-gray-800">
-      <div class="max-w-[1360px] mx-auto px-4 md:px-8 xl:px-16 py-4 flex flex-col md:flex-row items-center justify-between text-[13px]">
-        <div class="text-gray-300 mb-3 md:mb-0">
-          © Copyright 2026 UDO Public Company Limited All Rights Reserved.
+      <div class="max-w-[1360px] mx-auto px-4 md:px-8 xl:px-16 py-4 flex flex-col md:flex-row items-center justify-between text-[13px] gap-2 md:gap-0">
+        <div class="text-gray-300 text-center md:text-left">
+          &copy; Copyright 2019 UDO Welding Wire Center. All Rights Reserved.
         </div>
-        <div class="flex items-center gap-3 text-gray-300">
-          <a href="#" class="hover:text-white transition-colors">ข้อกำหนดการใช้</a>
-          <span class="text-gray-600">|</span>
-          <a href="#" class="hover:text-white transition-colors">นโยบายความเป็นส่วนตัว</a>
-          <span class="text-gray-600">|</span>
-          <a href="#" class="hover:text-white transition-colors">การจัดการ Cookies</a>
+        <div class="text-gray-300 text-center md:text-right">
+          149 ถ. จันทน์ แขวงทุ่งวัดดอน เขตสาทร กรุงเทพมหานคร 10120
         </div>
       </div>
     </div>
+
+
   </footer>
 
 
@@ -2039,29 +2010,31 @@ document.querySelector('#app').innerHTML = `
     
     <!-- Item 1: ถาม UDO AI -->
     <a href="#" class="flex flex-col items-center justify-center gap-0 md:gap-0.5 group px-2 md:px-4">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 md:w-[26px] md:h-[26px] group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke-width="1.8">
-        <path stroke="#71C04C" stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
-        <path stroke="#E12427" stroke-linecap="round" stroke-linejoin="round" d="M19.128 6.554l-.45-1.554-.45 1.554a2.25 2.25 0 00-1.554 1.554l-1.554.45 1.554.45a2.25 2.25 0 001.554 1.554l.45 1.554.45-1.554a2.25 2.25 0 001.554-1.554l1.554-.45-1.554-.45a2.25 2.25 0 00-1.554-1.554z" />
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 md:w-[26px] md:h-[26px] group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke-width="1.4">
+        <!-- Magnifying Glass -->
+        <path stroke="#71C04C" stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+        <!-- AI Sparkle (Top Right) -->
+        <path stroke="#E12427" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M19.128 6.554l-.45-1.554-.45 1.554a2.25 2.25 0 00-1.554 1.554l-1.554.45 1.554.45a2.25 2.25 0 001.554 1.554l.45 1.554.45-1.554a2.25 2.25 0 001.554-1.554l1.554-.45-1.554-.45a2.25 2.25 0 00-1.554-1.554z" />
       </svg>
-      <span class="text-[16px] md:text-[17px] font-semibold text-gray-900 group-hover:text-[#71C04C] transition-colors whitespace-nowrap tracking-tight">ถาม UDO AI</span>
+      <span class="text-[16px] md:text-[17px] font-semibold text-gray-900 group-hover:text-brand-red transition-colors whitespace-nowrap tracking-tight">ถาม UDO AI</span>
     </a>
 
     <!-- Item 2: โทรเช็กสต็อก -->
     <a href="#" class="flex flex-col items-center justify-center gap-0 md:gap-0.5 group px-2 md:px-4">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 md:w-[26px] md:h-[26px] group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke-width="1.8">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 md:w-[26px] md:h-[26px] group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke-width="1.4">
         <path stroke="#71C04C" stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-2.896-1.596-5.25-3.95-6.847-6.847l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
         
       </svg>
-      <span class="text-[16px] md:text-[17px] font-semibold text-gray-900 group-hover:text-[#71C04C] transition-colors whitespace-nowrap tracking-tight">โทรเช็กสต็อก</span>
+      <span class="text-[16px] md:text-[17px] font-semibold text-gray-900 group-hover:text-brand-red transition-colors whitespace-nowrap tracking-tight">โทรเช็กสต็อก</span>
     </a>
 
     <!-- Item 3: ขอใบเสนอราคา -->
     <a href="#" class="flex flex-col items-center justify-center gap-0 md:gap-0.5 group px-2 md:px-4">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 md:w-[26px] md:h-[26px] group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke-width="1.8">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 md:w-[26px] md:h-[26px] group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke-width="1.4">
         <path stroke="#71C04C" stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
         <path stroke="#E12427" stroke-linecap="round" stroke-linejoin="round" d="M15 11.25h.008v.008H15v-.008z" />
       </svg>
-      <span class="text-[16px] md:text-[17px] font-semibold text-gray-900 group-hover:text-[#71C04C] transition-colors whitespace-nowrap tracking-tight">ขอใบเสนอราคา</span>
+      <span class="text-[16px] md:text-[17px] font-semibold text-gray-900 group-hover:text-brand-red transition-colors whitespace-nowrap tracking-tight">ขอใบเสนอราคา</span>
     </a>
   </div>
 
@@ -2246,12 +2219,12 @@ document.querySelectorAll('.unit-toggle').forEach(btn => {
     const parent = btn.parentElement;
     parent.querySelectorAll('.unit-toggle').forEach(sibling => {
       sibling.classList.remove('active', 'bg-white', 'shadow-sm', 'text-gray-900');
-      sibling.classList.add('text-gray-500');
+      sibling.classList.add('text-gray-900');
     });
 
     // Add active state to clicked button
     btn.classList.add('active', 'bg-white', 'shadow-sm', 'text-gray-900');
-    btn.classList.remove('text-gray-500');
+    btn.classList.remove('text-gray-900');
 
     // Update Price and Unit Display
     const cardContent = btn.closest('.flex-col'); // get the wrapper
