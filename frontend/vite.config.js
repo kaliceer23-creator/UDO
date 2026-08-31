@@ -9,7 +9,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: 'index.html',
-        product: 'product.html'
+        product: 'product.html',
+        category: 'category.html'
       }
     },
     outDir: '../public_html',

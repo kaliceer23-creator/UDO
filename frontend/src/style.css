@@ -3,7 +3,7 @@
 @theme {
   /* เปลี่ยนสีแดงให้สดขึ้น เป็น True Red ที่ไม่ติดชมพู (R>G=B) */
   --color-brand-red: rgb(226, 30, 30);
-  --color-brand-green: rgb(118, 184, 63);
+  --color-brand-green: #71C04C;
   --color-muji-bg: #f8f8f8;
   --color-muji-gray-light: #e5e5e5;
   --color-muji-gray-dark: #333333;
@@ -26,3 +26,28 @@ body {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+/* Article Carousel Right Bleed (Aligns perfectly with 1360px container on the left) */
+.article-bleed-track {
+  padding-left: 1rem;
+  padding-right: 1.5rem;
+  scroll-padding-left: 1rem;
+  scroll-padding-right: 1.5rem;
+}
+@media (min-width: 768px) {
+  .article-bleed-track {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    scroll-padding-left: 2rem;
+    scroll-padding-right: 2rem;
+  }
+}
+@media (min-width: 1024px) {
+  .article-bleed-track {
+    padding-left: max(3rem, calc((100vw - 1360px) / 2 + 3rem));
+    padding-right: 3rem;
+    scroll-padding-left: max(3rem, calc((100vw - 1360px) / 2 + 3rem));
+    scroll-padding-right: 3rem;
+  }
+}
+

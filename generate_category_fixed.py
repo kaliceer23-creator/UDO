@@ -3,14 +3,18 @@ import re
 with open('/Users/aliceer/UDO/frontend/src/main.js', 'r') as f:
     main_content = f.read()
 
-# Extract everything before <main>
-before_main = main_content.split('<main class="w-full flex-grow flex flex-col">')[0]
+# The correct split strings
+start_tag = '<main class="w-full bg-white pb-20">'
+end_tag = '</main>'
 
-# Extract everything after </main>
-after_main = main_content.split('</main>')[1]
+if start_tag not in main_content or end_tag not in main_content:
+    print("Could not find main tags in main.js")
+    exit(1)
 
-# Reconstruct the category logic
-category_main = """<main class="w-full flex-grow flex flex-col bg-white">
+before_main = main_content.split(start_tag)[0]
+after_main = main_content.split(end_tag)[1]
+
+category_main = """<main class="w-full bg-white pb-20">
   
   <!-- Breadcrumbs -->
   <div class="max-w-[1250px] mx-auto px-4 md:px-8 lg:px-12 w-full mt-6 mb-2">
@@ -79,8 +83,8 @@ category_main = """<main class="w-full flex-grow flex flex-col bg-white">
 
         <!-- ขนาดลวด Dropdown Pill -->
         <div class="relative group/filter">
-          <button class="flex items-center gap-2 px-4 py-1.5 rounded-full border border-gray-300 text-[14px] text-gray-700 hover:border-brand-red hover:text-brand-red transition-colors bg-white shadow-sm">
-            ขนาดลวด <span class="text-gray-400 text-[10px]">▼</span>
+          <button class="flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-red text-[14px] text-brand-red transition-colors bg-red-50 shadow-sm">
+            ขนาดลวด (2) <span class="text-brand-red text-[10px]">▼</span>
           </button>
           
           <!-- Dropdown Menu -->
@@ -99,7 +103,7 @@ category_main = """<main class="w-full flex-grow flex flex-col bg-white">
       </div>
       
       <!-- Right: Sort By -->
-      <div class="relative group/filter">
+      <div class="relative group/filter ml-auto">
         <button class="flex items-center gap-2 px-4 py-1.5 rounded-full border border-transparent text-[14px] text-gray-600 hover:bg-gray-50 transition-colors">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
@@ -124,9 +128,9 @@ category_main = """<main class="w-full flex-grow flex flex-col bg-white">
       </button>
 
       <!-- Active Pill 1 -->
-      <div class="flex items-center gap-1.5 bg-gray-200/80 px-3 py-1 rounded-full text-[13px] text-gray-700">
+      <div class="flex items-center gap-1.5 bg-gray-200/80 px-3 py-1.5 rounded-full text-[13px] text-gray-700">
         2.6 mm
-        <button class="hover:text-red-500 transition-colors">
+        <button class="hover:text-brand-red transition-colors text-gray-400">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
@@ -134,9 +138,9 @@ category_main = """<main class="w-full flex-grow flex flex-col bg-white">
       </div>
       
       <!-- Active Pill 2 -->
-      <div class="flex items-center gap-1.5 bg-gray-200/80 px-3 py-1 rounded-full text-[13px] text-gray-700">
+      <div class="flex items-center gap-1.5 bg-gray-200/80 px-3 py-1.5 rounded-full text-[13px] text-gray-700">
         3.2 mm
-        <button class="hover:text-red-500 transition-colors">
+        <button class="hover:text-brand-red transition-colors text-gray-400">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
@@ -149,7 +153,6 @@ category_main = """<main class="w-full flex-grow flex flex-col bg-white">
   <!-- Product Grid -->
   <div class="max-w-[1250px] mx-auto px-4 md:px-8 lg:px-12 w-full mb-16">
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4 lg:gap-5">
-      
 """
 
 # Extract the product card HTML from main.js to duplicate it 8 times
@@ -158,6 +161,7 @@ if card_match:
     card_html = card_match.group(1)
     # Remove snap-start shrink-0 and w-[...] classes because we are in a grid now
     card_html = re.sub(r'snap-start shrink-0 w-\[[^\]]+\] md:w-\[[^\]]+\] lg:w-\[[^\]]+\]', 'w-full h-full', card_html)
+    # Ensure aspect-square is there
     category_main += (card_html + '\n') * 8
 else:
     category_main += "<!-- Add product cards here -->"
@@ -176,10 +180,10 @@ category_main += """
 </main>
 """
 
-new_content = before_main + '<main class="w-full flex-grow flex flex-col">' + category_main.split('<main class="w-full flex-grow flex flex-col bg-white">')[1] + '</main>' + after_main
+new_content = before_main + category_main + after_main
 
 # Let's write this directly to src/category.js
 with open('/Users/aliceer/UDO/frontend/src/category.js', 'w') as f:
     f.write(new_content)
 
-print("Generated category.js")
+print("Generated category.js successfully")

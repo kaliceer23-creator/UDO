@@ -1,15 +1,13 @@
 import re
 
-with open('/Users/aliceer/UDO/frontend/src/product.js', 'r') as f:
+filepath = '/Users/aliceer/UDO/frontend/src/category.js'
+with open(filepath, 'r') as f:
     content = f.read()
 
-# Change Breadcrumb background
-content = content.replace('<div class="bg-[#e9e9e9] border-b border-gray-200">', '<div class="bg-white border-b border-gray-200">')
+# Replace bg-[#FAFAFA] with bg-white in the main tag
+content = content.replace('<main class="w-full bg-[#FAFAFA] pb-20 min-h-screen">', '<main class="w-full bg-white pb-20 min-h-screen">')
 
-# Change Main background
-content = content.replace('<main class="bg-[#e9e9e9] min-h-screen pb-24 pt-6">', '<main class="bg-white min-h-screen pb-24 pt-6">')
-
-with open('/Users/aliceer/UDO/frontend/src/product.js', 'w') as f:
+with open(filepath, 'w') as f:
     f.write(content)
 
-print("Changed background to white successfully.")
+print("Changed background to white")
