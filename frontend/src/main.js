@@ -532,16 +532,3 @@ productSliders.forEach(sliderWrapper => {
       });
     }
   }
-
-
-
-
-import { ProductCard } from './components/ProductCard.js';
-import { sampleProducts } from './demo_data.js';
-
-// ---- Data Injection: Product Cards ----
-const similarGrid = document.getElementById('similar-products-grid');
-if (similarGrid) {
-  // จำลองการรับข้อมูล JSON มา 5 ชิ้น แล้วสร้างการ์ดใส่ Grid ทันที
-  similarGrid.innerHTML = sampleProducts.map(product => ProductCard(product)).join('');
-}
