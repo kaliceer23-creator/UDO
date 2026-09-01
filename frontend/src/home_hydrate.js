@@ -95,11 +95,11 @@ const generateCardHTML = (product) => {
   }
 
   return `
-    <div class="snap-start shrink-0 w-[85vw] md:w-[calc(50%-10px)] lg:w-[calc(25%-15px)] flex flex-col bg-white rounded-[20px] p-4 hover:shadow-[0_4px_24px_rgba(0,0,0,0.06)] transition-shadow border border-gray-100 group relative h-full">
+    <div class="snap-start shrink-0 w-[85vw] md:w-[calc(50%-8px)] lg:w-[calc(25%-12px)] flex flex-col bg-white rounded-[16px] p-4 hover:shadow-[0_4px_24px_rgba(0,0,0,0.06)] transition-shadow border border-gray-100 group relative h-full">
       ${discountBadgeHTML}
       
       <!-- 1. รูปภาพ -->
-      <a href="/product.html?id=${product.id}" class="block relative w-full aspect-square bg-white rounded-xl overflow-hidden flex justify-center items-center">
+      <a href="/product.html?id=${product.id}" class="block relative w-full aspect-square bg-white rounded-lg overflow-hidden flex justify-center items-center">
          <img src="${image}" alt="${product.name}" class="w-full h-full object-contain p-4 mix-blend-multiply" onerror="this.src='https://via.placeholder.com/400x500/F9FAFB/9CA3AF?text=No+Image'"/>
       </a>
       
@@ -107,9 +107,9 @@ const generateCardHTML = (product) => {
       ${sizeHTML}
 
       <!-- 3. ชื่อสินค้า & รายละเอียด (ชิดซ้ายตามแบบ) -->
-      <div class="flex flex-col text-left px-1 h-[80px]">
+      <div class="flex flex-col text-left px-1 h-[78px]">
           <a href="/product.html?id=${product.id}" class="block">
-              <h3 class="font-semibold text-gray-900 text-[17px] leading-tight line-clamp-2" title="${product.name}">
+              <h3 class="font-medium text-gray-900 text-[17px] leading-tight line-clamp-2" title="${product.name}">
                 ${product.name}
               </h3>
           </a>
@@ -117,9 +117,10 @@ const generateCardHTML = (product) => {
       </div>
       
       <!-- 4. ราคา (ชิดซ้าย มีคำว่าประหยัดไปตามแบบ) -->
-      <div class="pt-1 pb-1 text-left px-1">
+      <div class="pb-1 text-left px-1">
          ${priceHTML}
       </div>
+
     </div>
   `;
 };
@@ -141,6 +142,48 @@ injectTrack('recommended-track', (db) => {
 
 // Animations & Interactions
 document.addEventListener('click', (e) => {
+    // Add to Cart Interaction
+    const addToCartBtn = e.target.closest('.di-cart') || e.target.closest('.btn-direct-add');
+    if (addToCartBtn) {
+        e.preventDefault();
+        
+        // Update Navbar Badge
+        const badge = document.getElementById('cart-badge');
+        if (badge) {
+            let count = parseInt(badge.textContent || '0');
+            badge.textContent = count + 1;
+            badge.style.transform = 'scale(1.6)';
+            badge.style.transition = 'transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            setTimeout(() => {
+                badge.style.transform = 'scale(1)';
+            }, 250);
+        }
+        
+        // Change button briefly for feedback (Minimalist)
+        const originalContent = addToCartBtn.innerHTML;
+        const isDirect = addToCartBtn.classList.contains('btn-direct-add');
+        
+        if (isDirect) {
+            addToCartBtn.innerHTML = 'เพิ่มสำเร็จ';
+            addToCartBtn.classList.add('text-brand-green');
+        } else {
+            addToCartBtn.innerHTML = '✓';
+        }
+        
+        setTimeout(() => {
+            addToCartBtn.innerHTML = originalContent;
+            if (isDirect) addToCartBtn.classList.remove('text-brand-green');
+            
+            // Close dynamic island if open
+            const container = addToCartBtn.closest('.size-container');
+            if (container) closeDynamicIsland(container);
+        }, 800);
+        
+        return;
+    }
+
+
+
     const sizeDot = e.target.closest('.size-dot');
     if (sizeDot) {
         e.preventDefault();
