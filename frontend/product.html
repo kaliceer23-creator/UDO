@@ -18,7 +18,7 @@
   <!-- 3. พื้นที่เนื้อหาหลัก (Main Content) -->
   <!-- Breadcrumb -->
     <div class="bg-white">
-      <div class="max-w-[1360px] mx-auto px-4 md:px-8 py-3 text-[14px] font-normal text-gray-700 flex items-center gap-4 overflow-x-auto whitespace-nowrap border-b border-black/10">
+      <div id="product-breadcrumb-container" class="max-w-[1360px] mx-auto px-4 md:px-8 py-3 text-[14px] font-normal text-gray-700 flex items-center gap-4 overflow-x-auto whitespace-nowrap border-b border-black/10">
         <a href="/" class="hover:text-[#8ac353]">หน้าหลัก</a>
         <span class="text-gray-400">&gt;</span>
         <a href="#" id="breadcrumb-category" class="hover:text-[#8ac353]">เกม & สตรีมมิ่งและอุปกรณ์เสริม</a>
@@ -39,8 +39,8 @@
           <!-- LEFT COLUMN: Images -->
           <div class="w-full lg:w-[40%]">
             <!-- Main Image Box -->
-            <div class="bg-white rounded-[24px] relative overflow-hidden flex flex-col shadow-sm">
-              <div class="relative w-full aspect-square flex items-center justify-center p-8 bg-[#f5f5f5] group">
+            <div class="relative overflow-hidden flex flex-col">
+              <div class="relative w-full aspect-square flex items-center justify-center p-6 md:p-10 group">
                 <img id="product-image" src="/images/bg-welding.jpeg" alt="Product" class="w-full h-full object-contain">
                 
                 <!-- Arrows (Matching Home Page Slider) -->
@@ -55,7 +55,7 @@
               </div>
 
             <!-- Thumbnails -->
-            <div class="grid grid-cols-5 gap-2 mt-4">
+            <div id="product-thumbnails-container" class="grid grid-cols-5 gap-2 mt-4">
               <div class="aspect-square bg-white border-2 border-[#71C04C] rounded-lg overflow-hidden cursor-pointer"><img src="/images/bg-welding.jpeg" class="w-full h-full object-cover rounded"></div>
               <div class="aspect-square bg-white rounded-lg overflow-hidden cursor-pointer opacity-70 hover:opacity-100"><img src="/images/bg-welding.jpeg" class="w-full h-full object-cover rounded"></div>
               <div class="aspect-square bg-white rounded-lg overflow-hidden cursor-pointer opacity-70 hover:opacity-100"><img src="/images/bg-welding.jpeg" class="w-full h-full object-cover rounded"></div>
@@ -92,15 +92,15 @@
                 <div id="product-price" class="text-[30px] md:text-[34px] font-medium text-[#E12427] leading-none">฿18,412</div>
                 <span id="product-unit" class="text-black/45 text-[15px] font-medium">/ห่อ</span>
               </div>
-              <div class="text-[18px] text-black/45 line-through mb-1">฿18,000</div>
-              <div class="text-[#E12427] text-[13px] font-medium border border-[#E12427] rounded px-2 py-0.5 mb-1 flex items-center gap-1">
+              <div id="product-original-price" class="text-[18px] text-black/45 line-through mb-1">฿18,000</div>
+              <div id="product-discount-badge" class="text-[#E12427] text-[13px] font-medium border border-[#E12427] rounded px-2 py-0.5 mb-1 flex items-center gap-1">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" /></svg>
                 ราคาหลังหักส่วนลด
               </div>
             </div>
 
             <!-- Installment -->
-            <div class="flex items-center gap-2 mb-6 text-[13px] text-black/60">
+            <div id="product-warranty" class="flex items-center gap-2 mb-6 text-[13px] text-black/60">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-black/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
               </svg>
@@ -111,27 +111,25 @@
 
             <p id="product-desc" class="text-[16px] text-[#252525] mb-6 leading-[1.6]">เครื่องเล่นเกม Nintendo Switch 2...</p>
 
-            <!-- Capacity / บรรจุ -->
+            <!-- Wire Size (ขนาดลวด) -->
             <div class="mb-10">
-              <span class="block text-[16px] text-[#252525] mb-4">บรรจุ</span>
-              <div class="flex items-center gap-3">
-                <button class="px-4 py-1 rounded-[4px] bg-[#333333] border border-[#333333] text-white font-medium text-[14px] shadow-sm transition-colors">ห่อ</button>
-                <button class="px-4 py-1 rounded-[4px] bg-white border border-gray-300 text-[#252525] font-medium text-[14px] hover:border-[#333333] transition-colors">ลัง (4 ห่อ)</button>
+              <div class="flex items-baseline gap-4 mb-4">
+                <span class="text-[16px] text-[#252525]">ขนาดลวด</span>
+                <span id="selected-size-label" class="text-[16px] font-bold text-[#252525]"></span>
+              </div>
+              <div class="flex flex-wrap items-center gap-3" id="size-buttons">
+                <!-- Buttons will be injected by JS -->
               </div>
             </div>
 
-            <!-- Color Selection (Mockup) -->
+            <!-- Packaging (บรรจุ) -->
             <div class="mb-12">
-              <div class="flex items-baseline gap-4 mb-5">
-                <span class="text-[16px] text-[#252525]">สี</span>
-                <span class="text-[16px] font-bold text-[#252525]">ดำ</span>
+              <div class="flex items-baseline gap-4 mb-4">
+                <span class="text-[16px] text-[#252525]">บรรจุ</span>
+                <span id="selected-package-label" class="text-[16px] font-bold text-[#252525]"></span>
               </div>
-              <div class="flex items-center gap-5">
-                <button class="w-[24px] h-[24px] rounded-full bg-[#1c1c1c] ring-[1.5px] ring-offset-[4px] ring-[#252525]"></button>
-                <button class="w-[24px] h-[24px] rounded-full bg-[#efefef] border border-gray-300 hover:ring-[1.5px] hover:ring-offset-[4px] hover:ring-gray-300 transition-all"></button>
-                <button class="w-[24px] h-[24px] rounded-full bg-[#a9b9cc] border border-gray-300 hover:ring-[1.5px] hover:ring-offset-[4px] hover:ring-gray-300 transition-all"></button>
-                <button class="w-[24px] h-[24px] rounded-full bg-[#beb6c8] border border-gray-300 hover:ring-[1.5px] hover:ring-offset-[4px] hover:ring-gray-300 transition-all"></button>
-                <button class="w-[24px] h-[24px] rounded-full bg-[#aab38d] border border-gray-300 hover:ring-[1.5px] hover:ring-offset-[4px] hover:ring-gray-300 transition-all"></button>
+              <div class="flex flex-wrap items-center gap-3" id="package-buttons">
+                <!-- Buttons will be injected by JS -->
               </div>
             </div>
 
@@ -140,17 +138,17 @@
               <span class="text-[16px] font-medium text-[#252525]">จำนวน</span>
               <div class="flex items-center gap-4">
                 <!-- Minus Button (Disabled state) -->
-                <button class="flex items-center justify-center text-gray-300 hover:text-gray-400 transition-colors cursor-not-allowed">
+                <button id="btn-qty-minus" onclick="window.decreaseQty()" class="flex items-center justify-center text-gray-300 transition-colors cursor-not-allowed">
                   <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4" /></svg>
                 </button>
                 
                 <!-- Number Box -->
-                <div class="w-[70px] h-[40px] flex items-center justify-center font-medium text-[16px] text-[#252525] bg-white border border-gray-300 rounded-[4px]">
+                <div id="product-qty" class="w-[70px] h-[40px] flex items-center justify-center font-medium text-[16px] text-[#252525] bg-white border border-gray-300 rounded-[4px]">
                   1
                 </div>
                 
                 <!-- Plus Button -->
-                <button class="flex items-center justify-center text-gray-600 hover:text-gray-900 transition-colors">
+                <button id="btn-qty-plus" onclick="window.increaseQty()" class="flex items-center justify-center text-gray-600 hover:text-gray-900 transition-colors">
                   <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
                 </button>
               </div>
@@ -180,77 +178,15 @@
         </div>
       </div>
 
-      <!-- Sticky Tab Bar -->
-      <div class="w-full bg-white mt-16">
-        <div class="max-w-[1360px] mx-auto px-4 md:px-8 flex items-center gap-10 overflow-x-auto whitespace-nowrap">
-          <a href="#" class="py-4 text-[#252525] text-[16px] font-normal">ภาพรวม</a>
-          <a href="#" class="py-4 text-[#252525] text-[16px] font-normal">คุณสมบัติ</a>
-          <a href="#" class="py-4 text-[#252525] text-[16px] font-normal">รายละเอียดสินค้า</a>
-          <a href="#" class="py-4 text-[#252525] text-[16px] font-normal">ชื่อสินค้า</a>
-        </div>
-      </div>
+
 
       <!-- Specs Section -->
       <div class="w-full bg-[#F8F8F8] py-16 border-b border-gray-200">
         <div class="max-w-[1360px] mx-auto px-4 md:px-8">
-          <h2 class="text-[22px] font-bold text-[#252525] mb-6">คุณสมบัติสินค้า</h2>
+          <h2 class="text-[22px] font-bold text-[#252525] mb-6">รายละเอียดสินค้า</h2>
           
-          <div class="w-full flex flex-col text-[16px] text-[#252525]">
-            <!-- Row 1 -->
-            <div class="flex bg-white py-2 px-6 rounded-t-sm">
-              <div class="w-[40%] md:w-[30%]">Type</div>
-              <div class="w-[60%] md:w-[70%]">Nintendo Switch 2</div>
-            </div>
-            <!-- Row 2 -->
-            <div class="flex bg-[#F8F8F8] py-2 px-6">
-              <div class="w-[40%] md:w-[30%]">Wireless technology</div>
-              <div class="w-[60%] md:w-[70%]">Wireless LAN (Wi-Fi 6), Bluetooth</div>
-            </div>
-            <!-- Row 3 -->
-            <div class="flex bg-white py-2 px-6">
-              <div class="w-[40%] md:w-[30%]">Wireless Operating Distance</div>
-              <div class="w-[60%] md:w-[70%]">N/A</div>
-            </div>
-            <!-- Row 4 -->
-            <div class="flex bg-[#F8F8F8] py-2 px-6">
-              <div class="w-[40%] md:w-[30%]">Connection Wired</div>
-              <div class="w-[60%] md:w-[70%]">Audio jack 3.5mm. 4-contact stereo mini-plug (CTIA Standard)</div>
-            </div>
-            <!-- Row 5 -->
-            <div class="flex bg-white py-2 px-6">
-              <div class="w-[40%] md:w-[30%]">Battery Type</div>
-              <div class="w-[60%] md:w-[70%]">Lithium-ion / 5220mAh</div>
-            </div>
-            <!-- Row 6 -->
-            <div class="flex bg-[#F8F8F8] py-2 px-6">
-              <div class="w-[40%] md:w-[30%]">Battery Life</div>
-              <div class="w-[60%] md:w-[70%]">Approx. 2-6.5 Hours</div>
-            </div>
-            <!-- Row 7 -->
-            <div class="flex bg-white py-2 px-6">
-              <div class="w-[40%] md:w-[30%]">Interface</div>
-              <div class="w-[60%] md:w-[70%]">2x USB-C</div>
-            </div>
-            <!-- Row 8 -->
-            <div class="flex bg-[#F8F8F8] py-2 px-6">
-              <div class="w-[40%] md:w-[30%]">Number of buttons</div>
-              <div class="w-[60%] md:w-[70%]">N/A</div>
-            </div>
-            <!-- Row 9 -->
-            <div class="flex bg-white py-2 px-6">
-              <div class="w-[40%] md:w-[30%]">Color</div>
-              <div class="w-[60%] md:w-[70%]">Black</div>
-            </div>
-            <!-- Row 10 -->
-            <div class="flex bg-[#F8F8F8] py-2 px-6">
-              <div class="w-[40%] md:w-[30%]">Warranty</div>
-              <div class="w-[60%] md:w-[70%]">18 Months</div>
-            </div>
-            <!-- Row 11 -->
-            <div class="flex bg-white py-2 px-6 rounded-b-sm">
-              <div class="w-[40%] md:w-[30%]">Option</div>
-              <div class="w-[60%] md:w-[70%]">Mario Kart World Bundle</div>
-            </div>
+          <div id="product-specs-container" class="w-full flex flex-col text-[16px] text-[#252525]">
+            <!-- JS will inject specs here -->
           </div>
         </div>
       </div>
@@ -260,32 +196,34 @@
         <div id="rich-content-container" class="max-w-[900px] mx-auto px-4 text-center relative overflow-hidden transition-[max-height] duration-500 ease-in-out max-h-[500px]">
           
           <!-- Headline -->
-          <h3 class="text-[24px] font-semibold text-[#252525] mb-8">
+          <h3 id="rich-headline" class="text-[24px] font-semibold text-[#252525] mb-4">
             เครื่องเล่นเกม Nintendo Switch 2 + Mario Kart World Bundle (TH)
           </h3>
           
-          <!-- Image 1 -->
-          <div class="w-full rounded-xl overflow-hidden mb-12 shadow-sm border border-gray-100">
-            <!-- Using existing placeholder image -->
-            <img src="/images/bg-welding.jpeg" alt="Product Detail 1" class="w-full h-auto object-cover aspect-[2/1]">
-          </div>
-          
-          <!-- Image 2 -->
-          <div class="w-full rounded-xl overflow-hidden mb-8 shadow-sm border border-gray-100">
-            <img src="/images/bg-welding.jpeg" alt="Product Detail 2" class="w-full h-auto object-cover aspect-[2/1]">
-          </div>
-          
           <!-- Feature Text Block -->
           <div class="mb-8">
-            <h4 class="text-[19px] font-semibold text-[#252525] mb-4">เมื่อเป็น 2 ทุกอย่างก็ใหม่หมด</h4>
-            <p class="text-[16px] text-[#252525] leading-relaxed max-w-[800px] mx-auto">
+            <h4 id="rich-subheadline" class="text-[19px] font-semibold text-[#252525] mb-4">เมื่อเป็น 2 ทุกอย่างก็ใหม่หมด</h4>
+            <p id="rich-desc" class="text-[16px] text-[#252525] leading-relaxed max-w-[800px] mx-auto">
               New Nintendo Switch พัฒนาขึ้นอีกขั้นเป็น "2" หน้าจอใหญ่ขึ้น สีสันสดใส และลื่นไหล Joy-Con รุ่นใหม่ติดแน่นกับตัวเครื่องด้วยแรงแม่เหล็ก และใช้เป็นเมาส์ได้ สนุกไปกับเกมใหม่ๆ ที่เล่นได้เฉพาะบน Nintendo Switch 2 รวมถึงเล่นเกม Nintendo Switch ได้ด้วย
             </p>
           </div>
           
+          <!-- Image 1 -->
+          <div class="w-full rounded-xl overflow-hidden mb-12 shadow-sm border border-gray-100">
+            <!-- Using existing placeholder image -->
+            <img id="rich-img-1" src="/images/bg-welding.jpeg" alt="Product Detail 1" class="w-full h-auto object-cover ">
+          </div>
+          
+          <!-- Image 2 -->
+          <div class="w-full rounded-xl overflow-hidden mb-8 shadow-sm border border-gray-100">
+            <img id="rich-img-2" src="/images/bg-welding.jpeg" alt="Product Detail 2" class="w-full h-auto object-cover ">
+          </div>
+          
+          
+          
           <!-- Image 3 -->
           <div class="w-full rounded-xl overflow-hidden shadow-sm border border-gray-100">
-            <img src="/images/bg-welding.jpeg" alt="Product Detail 3" class="w-full h-auto object-cover aspect-[2/1]">
+            <img id="rich-img-3" src="/images/bg-welding.jpeg" alt="Product Detail 3" class="w-full h-auto object-cover ">
           </div>
           
         </div>

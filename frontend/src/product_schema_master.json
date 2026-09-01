@@ -1,0 +1,78 @@
+{
+  "_comment_00": "===== MASTER PRODUCT SCHEMA TEMPLATE =====",
+  "_comment_01": "กฎสำคัญ: ห้ามแก้ไขโครงสร้าง (Key) ของไฟล์นี้เด็ดขาด ให้แก้ไขเฉพาะข้อมูล (Value) เท่านั้น",
+  
+  "_comment_1_Core": "1. ข้อมูลหลัก (Core Information)",
+  "id": "gem-308l",
+  "name": "ลวดเชื่อมสเตนเลสไฟฟ้า GEMINI 308L (E308L-16)",
+  "brand": "GEMINI",
+  "sku": "GEM-308L",
+  "description": "ลวดเชื่อมเจมินี่ 308L เป็นลวดเชื่อมสเตนเลสออสเทนนิติก สารพอกหุ้มประเภทไทเทเนีย มีธาตุคาร์บอนผสมในปริมาณต่ำ ใช้สำหรับงานเชื่อมสเตนเลสทั่วไป",
+
+  "_comment_2_Stats": "2. ระบบสถิติสำหรับดึงโชว์หน้าแรก (Dynamic Sorting)",
+  "created_at": "2026-08-15T10:30:00Z",
+  "sold_count": 1250,
+
+  "_comment_3_Collections": "3. ป้ายติดหมวดหมู่พิเศษ (Curated Collections) เช่น popular, new_arrival",
+  "collections": ["popular", "just_for_you"],
+
+  "_comment_4_Breadcrumbs": "4. ระบบโครงสร้างต้นไม้ (Breadcrumbs) นำทางด้านบน",
+  "categories": [
+    { "level": 1, "name": "เครื่องมือช่างและฮาร์ดแวร์", "url_slug": "hardware" },
+    { "level": 2, "name": "เครื่องเชื่อมและอุปกรณ์", "url_slug": "welding-equipment" },
+    { "level": 3, "name": "ลวดเชื่อมสเตนเลส", "url_slug": "stainless-wire" }
+  ],
+
+  "_comment_5_Filters": "5. ข้อมูลสำหรับการกรองค้นหา (Filter Attributes) สำหรับ Sidebar",
+  "filter_attributes": {
+    "material": "สเตนเลส",
+    "process": "ธูปเชื่อม (MMA)"
+  },
+  "tags": ["ทนการกัดกร่อน", "ออสเทนนิติก"],
+
+  "_comment_6_Images": "6. ระบบรูปภาพอัจฉริยะ (Smart Image Gallery)",
+  "images": [
+    "https://www.udo.co.th/storage/products/May2026/FdE0amQIiBJB06u9rNCn.jpg"
+  ],
+
+  "_comment_7_Conditional": "7. ป้ายโปรโมชั่นและการรับประกัน (ถ้าไม่มีให้ใส่ null)",
+  "warranty": null,
+
+  "_comment_8_Variants": "8. ตัวเลือกขนาด, ราคา และสต็อก (Variants / SKU Level)",
+  "variants": [
+    { "size": "2.0 mm", "price": 370.00, "original_price": null, "stock": 10 },
+    { "size": "2.6 mm", "price": 305.00, "original_price": 350.00, "stock": 100 },
+    { "size": "4.0 mm", "price": 305.00, "original_price": null, "stock": 0 }
+  ],
+
+  "_comment_9_Packages": "9. หน่วยบรรจุภัณฑ์ (Packaging Base)",
+  "packages": [
+    { "name": "ห่อ", "weight": "1 กก.", "is_active": true },
+    { "name": "ลัง", "weight": "10 กก.", "is_active": false }
+  ],
+
+  "_comment_10_Specs": "10. ตารางสเปควิศวกรรม (Dynamic Technical Specs) ลูปสร้างตารางอัตโนมัติ",
+  "specsTable": [
+    { "key": "ส่วนผสมทางเคมี", "value": "C: 0.01%, Mn: 0.70%, Si: 0.60%, Ni: 10.0%, Cr: 19.3%" },
+    { "key": "คุณสมบัติทางกล", "value": "Yield stress: 520 N/mm², Tensile strength: 590 N/mm², Elongation: 40%" },
+    { "key": "กระแสไฟฟ้าที่ใช้เชื่อม", "value": "AC หรือ DC±" },
+    { "key": "กระแสไฟ (Ø 2.0 x 300 mm)", "value": "30-50 A" },
+    { "key": "กระแสไฟ (Ø 2.6 x 300 mm)", "value": "50-75 A" },
+    { "key": "สีแต้มปลายลวด", "value": "เหลือง" },
+    { "key": "สีแต้มข้างลวด", "value": "ฟ้า" },
+    { "key": "ชื่อพิมพ์", "value": "AWS E308L-16" },
+    { "key": "การจำแนกประเภท", "value": "AWS/SFA5.4 E308L-16" },
+    { "key": "มาตรฐานรับรอง", "value": "LR, มอก. 730-2530" },
+    { "key": "ท่าเชื่อม", "value": "ท่าราบ, ท่าขนานนอน, ท่าเชื่อมขึ้น, ท่าเชื่อมเหนือศีรษะ" }
+  ],
+
+  "_comment_11_RichContent": "11. โซนภาพโฆษณาด้านล่างสุด (Rich Content / A+ Content)",
+  "richContent": {
+    "headline": "ลวดเชื่อมสเตนเลสไฟฟ้า GEMINI 308L คุณภาพมาตรฐานสากล",
+    "subheadline": "แนวเชื่อมสวยงาม ทนต่อการกัดกร่อนได้อย่างดีเยี่ยม",
+    "description": "เมื่อเป็นงานเชื่อมสเตนเลส GEMINI 308L คือคำตอบสุดท้าย สามารถเชื่อมเหล็กที่มีส่วนผสมของธาตุโครเมียม-นิเกิล...",
+    "image1": "https://via.placeholder.com/1200x600/e5e7eb/6b7280?text=Mockup+Banner+1",
+    "image2": "https://via.placeholder.com/1200x600/e5e7eb/6b7280?text=Mockup+Banner+2",
+    "image3": "https://via.placeholder.com/1200x600/e5e7eb/6b7280?text=Mockup+Banner+3"
+  }
+}

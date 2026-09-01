@@ -1,4 +1,5 @@
-import './style.css'
+import './style.css';
+import { hydrateProduct } from './product_hydrate.js';
 
 
 
@@ -74,6 +75,8 @@ import './style.css'
         container.style.maxHeight = container.scrollHeight + 'px';
         fade.classList.remove('h-[200px]', 'from-white', 'via-white/80');
         fade.classList.add('h-[80px]', 'from-transparent', 'via-transparent');
+        text.innerText = 'ย่อรายละเอียด';
+        icon.classList.add('rotate-180');
         // After transition, set to none so it responds to window resize
         setTimeout(() => {
           if(container.style.maxHeight !== '500px') {
@@ -118,5 +121,5 @@ if (searchInput && animatedPlaceholder) {
 }
 
 
-import { hydrateProduct } from './product_hydrate.js';
+
 hydrateProduct();
