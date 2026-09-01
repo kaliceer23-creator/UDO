@@ -532,3 +532,5 @@ productSliders.forEach(sliderWrapper => {
       });
     }
   }
+
+import './home_hydrate.js';
