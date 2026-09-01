@@ -11,6 +11,7 @@ This project adheres to strict client requirements while maintaining a modern de
 ## 2. The "Trojan Horse" Architecture (Our Vibe Code)
 We maintain modern DX while delivering the exact native files the client expects.
 - **Frontend (Public Website):** Authored using Vite + Vanilla JS + Tailwind CSS (Multi-Page Application). To guarantee perfect SEO and performance, the built `.html` files will be served as `.php` files (e.g., `product.php`) strictly to inject dynamic `<title>` and `<meta>` tags on the server-side. Content is hydrated via Vanilla JS (fetch API). No heavy JS frameworks (React/Vue) are used here to ensure it passes the client's code inspection.
+- **Component Management (HTML Partials):** To avoid code duplication (like Navbar, Footer, Product Cards) across multiple pages, we strictly use **Vite Build-Time HTML Includes** (via Vite plugins). Developers write modular `.html` components in a `components/` directory. During the build process, Vite compiles and merges these components into flat, standard HTML5 files. This provides a React-like developer experience (edit once, update everywhere) while delivering the 100% pure, framework-free HTML5/CSS3/JS output the client strictly demands.
 - **Custom CMS (Admin):** Authored as a separate Vite + React SPA. Built into static assets and deployed to `/admin`. It communicates exclusively with the PHP REST API.
 - **Backend (API):** Written in pure Native PHP 8.1. Acts strictly as a RESTful API returning JSON. Placed in `/api`. ABSOLUTELY NO HTML mixed inside the API logic files.
 
