@@ -104,7 +104,7 @@ export const generateCardHTML = (product, isGrid = false) => {
       
       <!-- 1. รูปภาพ -->
       <a href="/product.html?id=${product.id}" class="block relative w-full aspect-square bg-white rounded-lg overflow-hidden flex justify-center items-center">
-         <img src="${image}" alt="${product.name}" class="w-full h-full object-contain p-4 mix-blend-multiply" onerror="this.src='https://via.placeholder.com/400x500/F9FAFB/9CA3AF?text=No+Image'"/>
+         <img src="${image}" alt="${product.name}" class="w-full h-full object-contain p-4 mix-blend-multiply" loading="lazy" decoding="async" onerror="this.src='https://via.placeholder.com/400x500/F9FAFB/9CA3AF?text=No+Image'"/>
       </a>
       
       <!-- 2. Dynamic Island Size Dots -->
