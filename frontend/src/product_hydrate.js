@@ -1,4 +1,5 @@
 import { mockDatabase } from './mock_database.js';
+import { generateCardHTML } from './home_hydrate.js';
 
 export function hydrateProduct() {
   const params = new URLSearchParams(window.location.search);
@@ -17,9 +18,9 @@ export function hydrateProduct() {
     // --- Dynamic Breadcrumbs Rendering ---
     const breadcrumbContainer = document.getElementById('product-breadcrumb-container');
     if(breadcrumbContainer && productData.categories) {
-      let breadcrumbHTML = `<a href="/" class="hover:text-[#8ac353]">หน้าหลัก</a>`;
+      let breadcrumbHTML = `<a href="/" class="hover:text-[#8ac353] hover:underline hover:underline-offset-2">หน้าหลัก</a>`;
       productData.categories.forEach(cat => {
-        breadcrumbHTML += `<span class="text-gray-400">&gt;</span><a href="/category.html?cat=${cat.url_slug}" class="hover:text-[#8ac353]">${cat.name}</a>`;
+        breadcrumbHTML += `<span class="text-gray-400">&gt;</span><a href="/category.html?cat=${cat.url_slug}" class="hover:text-[#8ac353] hover:underline hover:underline-offset-2">${cat.name}</a>`;
       });
       breadcrumbHTML += `<span class="text-gray-400">&gt;</span><span class="text-[#252525]">${productData.name}</span>`;
       breadcrumbContainer.innerHTML = breadcrumbHTML;
@@ -36,8 +37,8 @@ export function hydrateProduct() {
       } else {
         el_thumbnails.style.display = 'grid';
         el_thumbnails.innerHTML = productData.images.map((imgUrl, index) => {
-          const borderClass = index === 0 ? "border-2 border-[#71C04C]" : "opacity-70 hover:opacity-100";
-          return `<div class="aspect-square bg-white rounded-lg overflow-hidden cursor-pointer ${borderClass}" onclick="document.getElementById('product-image').src='${imgUrl}'"><img src="${imgUrl}" class="w-full h-full object-cover rounded"></div>`;
+          const borderClass = index === 0 ? "border-2 border-brand-green" : "border border-gray-300 hover:border-gray-400";
+          return `<div class="aspect-square bg-white rounded-lg overflow-hidden cursor-pointer ${borderClass}" onclick="window.selectThumbnail('${imgUrl}', ${index})"><img src="${imgUrl}" class="w-full h-full object-contain p-1"></div>`;
         }).join('');
       }
     }
@@ -219,6 +220,21 @@ export function hydrateProduct() {
         }
       }
     };
+    window.selectThumbnail = (imgUrl, index) => {
+      const mainImg = document.getElementById('product-image');
+      if (mainImg) mainImg.src = imgUrl;
+      const container = document.getElementById('product-thumbnails-container');
+      if (container) {
+        const thumbs = container.children;
+        for (let i = 0; i < thumbs.length; i++) {
+          if (i === index) {
+            thumbs[i].className = "aspect-square bg-white rounded-lg overflow-hidden cursor-pointer border-2 border-brand-green";
+          } else {
+            thumbs[i].className = "aspect-square bg-white rounded-lg overflow-hidden cursor-pointer border border-gray-300 hover:border-gray-400";
+          }
+        }
+      }
+    };
     window.increaseQty = () => { currentQty++; updateQtyDisplay(); };
     window.decreaseQty = () => { if(currentQty > 1) { currentQty--; updateQtyDisplay(); } };
     updateQtyDisplay();
@@ -272,6 +288,23 @@ export function hydrateProduct() {
     updateDisplay();
 
     // Hide read-more button entirely if content is short
+    
+    // --- Related Products ---
+    const relatedTrack = document.getElementById('related-products-track');
+    if (relatedTrack && productData) {
+      let related = mockDatabase.filter(p => p.id !== productData.id && 
+         (p.category_id === productData.category_id || p.subcategory_id === productData.subcategory_id));
+      
+      if (related.length < 4) {
+         const extras = mockDatabase.filter(p => p.id !== productData.id && !related.find(r => r.id === p.id));
+         related = [...related, ...extras].slice(0, 8);
+      } else {
+         related = related.slice(0, 8);
+      }
+      
+      relatedTrack.innerHTML = related.map(p => generateCardHTML(p, false)).join('');
+    }
+
     setTimeout(() => {
       const richContainer = document.getElementById('rich-content-container');
       const richFade = document.getElementById('rich-content-fade');

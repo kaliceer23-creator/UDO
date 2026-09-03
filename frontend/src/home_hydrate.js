@@ -24,7 +24,7 @@ const extractNumberSize = (sizeStr) => {
     return match ? match[0] : sizeStr;
 };
 
-const generateCardHTML = (product) => {
+export const generateCardHTML = (product, isGrid = false) => {
   window.homeProducts[product.id] = product;
   const minPrice = getStartingPrice(product);
   const originalPrice = getOriginalPriceForStarting(product, minPrice);
@@ -94,8 +94,12 @@ const generateCardHTML = (product) => {
       `;
   }
 
+  const wrapperClass = isGrid 
+    ? "w-full h-full flex flex-col bg-white rounded-[16px] p-4 hover:shadow-[0_4px_24px_rgba(0,0,0,0.06)] transition-shadow border border-gray-100 group relative"
+    : "snap-start shrink-0 w-[85vw] md:w-[calc(50%-8px)] lg:w-[calc(25%-12px)] flex flex-col bg-white rounded-[16px] p-4 hover:shadow-[0_4px_24px_rgba(0,0,0,0.06)] transition-shadow border border-gray-100 group relative h-full";
+
   return `
-    <div class="snap-start shrink-0 w-[85vw] md:w-[calc(50%-8px)] lg:w-[calc(25%-12px)] flex flex-col bg-white rounded-[16px] p-4 hover:shadow-[0_4px_24px_rgba(0,0,0,0.06)] transition-shadow border border-gray-100 group relative h-full">
+    <div class="${wrapperClass}">
       ${discountBadgeHTML}
       
       <!-- 1. รูปภาพ -->
@@ -107,7 +111,7 @@ const generateCardHTML = (product) => {
       ${sizeHTML}
 
       <!-- 3. ชื่อสินค้า & รายละเอียด (ชิดซ้ายตามแบบ) -->
-      <div class="flex flex-col text-left px-1 h-[78px]">
+      <div class="flex flex-col text-left px-1 h-[90px]">
           <a href="/product.html?id=${product.id}" class="block">
               <h3 class="font-medium text-gray-900 text-[17px] leading-tight line-clamp-2" title="${product.name}">
                 ${product.name}
@@ -129,7 +133,7 @@ const injectTrack = (id, filterSortFn) => {
   const track = document.getElementById(id);
   if (track) {
     const products = filterSortFn([...mockDatabase]);
-    track.innerHTML = products.map(generateCardHTML).join('');
+    track.innerHTML = products.map(p => generateCardHTML(p, false)).join('');
   }
 };
 

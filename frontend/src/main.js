@@ -42,6 +42,13 @@ if (searchInput && animatedPlaceholder) {
     }
   });
 
+  
+  searchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && searchInput.value.trim().length > 0) {
+       window.location.href = '/category.html?type=search&q=' + encodeURIComponent(searchInput.value.trim());
+    }
+  });
+
   searchInput.addEventListener('input', () => {
     if (searchInput.value.trim().length > 0) {
       animatedPlaceholder.style.opacity = '0';
