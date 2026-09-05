@@ -26,6 +26,7 @@ export default defineConfig({
     htmlPartials()
   ],
   build: {
+    cssMinify: false,
     rollupOptions: {
       input: {
         main: 'index.html',

@@ -2143,4 +2143,106 @@ export const mockDatabase = [
       "image3": null
     }
   }
+,
+  {
+    "id": "nkk-supercut-awa80p-4inch",
+    "name": "ใบตัดเหล็ก/สแตนเลส SUPERCUT NKK (AWA80P) ขนาด 4 นิ้ว หนา 1.1 มม.",
+    "brand": "NKK",
+    "sku": "NKK-AWA80P-4IN",
+    "description": "ใบตัดเหล็กและสแตนเลส NKK SUPERCUT ขนาด 4 นิ้ว หนา 1.1 มิล ผลิตจากวัตถุดิบคุณภาพ เสริมด้วยใยแก้ว ใบตัดมีความคม ทน ปลอดภัย ไม่แตกหักร่อน ตัดได้รวดเร็วอย่างมีประสิทธิภาพ เหมาะสำหรับงานตัดเหล็กและสเตนเลสทั่วไป",
+    "created_at": "2026-09-14T10:00:00Z",
+    "sold_count": 2450,
+    "collections": [
+      "popular",
+      "just_for_you"
+    ],
+    "categories": [
+      {
+        "level": 1,
+        "name": "เครื่องมือช่างและฮาร์ดแวร์",
+        "url_slug": "hardware"
+      },
+      {
+        "level": 2,
+        "name": "ใบตัดใบเจียร",
+        "url_slug": "cutting-grinding-discs"
+      },
+      {
+        "level": 3,
+        "name": "ใบตัดเหล็กและสแตนเลส",
+        "url_slug": "cutting-discs"
+      }
+    ],
+    "filter_attributes": {
+      "material": "เหล็ก / สแตนเลส",
+      "process": "งานตัด (Cutting)"
+    },
+    "tags": [
+      "ใบตัด",
+      "SUPERCUT",
+      "NKK",
+      "AWA80P",
+      "ขนาด 4 นิ้ว",
+      "ตัดเหล็ก",
+      "ตัดสแตนเลส"
+    ],
+    "images": [
+      "https://www.udo.co.th/storage/products/August2018/WHjMlvmlEHPUj3PCjms7.jpg"
+    ],
+    "warranty": "รับประกันคุณภาพของแท้ 100%",
+    "variants": [
+      {
+        "size": "มาตรฐาน",
+        "package": "กล่องละ 40 ใบ",
+        "price": 320,
+        "original_price": null,
+        "stock": 1000
+      },
+      {
+        "size": "มาตรฐาน",
+        "package": "ลังละ 400 ใบ",
+        "price": 2850,
+        "original_price": null,
+        "stock": 1000
+      }
+    ],
+    "specsTable": [
+      {
+        "key": "แบรนด์ / รุ่น",
+        "value": "NKK SUPERCUT (AWA80P)"
+      },
+      {
+        "key": "ขนาดใบตัด",
+        "value": "4 นิ้ว (105 x 1.1 x 16 มม.)"
+      },
+      {
+        "key": "ความหนา",
+        "value": "1.1 มม."
+      },
+      {
+        "key": "ประเภทการใช้งาน",
+        "value": "ตัดเหล็กและสแตนเลส"
+      },
+      {
+        "key": "วัสดุเม็ดทราย",
+        "value": "อลูมิเนียมอ๊อกไซด์คุณภาพสูง (AWA)"
+      },
+      {
+        "key": "โครงสร้างเสริม",
+        "value": "เสริมใยแก้วเคลือบเรซินชนิดพิเศษจากเยอรมัน แผ่นตัดคม ทน ปลอดภัย ไม่แตกหักร่อน"
+      },
+      {
+        "key": "ขนาดบรรจุสินค้า",
+        "value": "1 ลัง บรรจุ 10 กล่อง / กล่องละ 40 ใบ (รวม 400 ใบ/ลัง)"
+      }
+    ],
+    "richContent": {
+      "headline": "ใบตัดเหล็ก/สแตนเลส SUPERCUT NKK (AWA80P) ขนาด 4 นิ้ว หนา 1.1 มม.",
+      "subheadline": "คม ทน ปลอดภัย ด้วยใยแก้วเคลือบเรซินชนิดพิเศษจากเยอรมัน",
+      "description": "ใบตัดเหล็ก/สแตนเลส NKK ผลิตจากเม็ดทรายอลูมิเนียมอ๊อกไซด์คุณภาพสูง เสริมด้วยใยแก้วเคลือบเรซินชนิดพิเศษจากเยอรมัน จึงทำให้ แผ่นตัดมีความคม ทน ปลอดภัย ไม่แตกหักร่อน ตัดได้รวดเร็วอย่างมีประสิทธิภาพ",
+      "image1": "https://www.udo.co.th/storage/products/August2018/leaflet-super-cut-v-04-.jpg",
+      "image2": null,
+      "image3": null
+    }
+  }
 ];
