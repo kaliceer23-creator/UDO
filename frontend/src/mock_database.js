@@ -2355,4 +2355,141 @@ export const mockDatabase = [
       "image3": null
     }
   }
+,
+  {
+    "id": "nkk-grinding-disc-a24r-4x6mm",
+    "name": "แผ่นเจียรเหล็กหนา NKK (A24R) 4\"X6 mm.",
+    "brand": "NKK",
+    "sku": "NKK-A24R-4X6",
+    "description": "แผ่นเจียรเหล็กหนา NKK (A24R) 4\"X6 mm. เหมาะสำหรับใช้เจียรหรือขัดผิวเหล็กให้เรียบ และทำความสะอาดผิวงาน เช่น งานขัดสนิม งานลบรอยเชื่อม และเจียรส่วนเกินของชิ้นงาน ผลิตจากเม็ดทรายอลูมินาเกรด A24R คม แข็งแรง ทนทาน ไม่แตกหักร่อนง่าย คุ้มค่าและปลอดภัยต่อการใช้งาน",
+    "created_at": "2026-09-14T12:00:00Z",
+    "sold_count": 3600,
+    "collections": [
+      "popular",
+      "just_for_you"
+    ],
+    "categories": [
+      {
+        "level": 1,
+        "name": "เครื่องมือช่างและฮาร์ดแวร์",
+        "url_slug": "hardware"
+      },
+      {
+        "level": 2,
+        "name": "ใบตัดใบเจียร",
+        "url_slug": "cutting-grinding-discs"
+      },
+      {
+        "level": 3,
+        "name": "แผ่นเจียรเหล็กหนา",
+        "url_slug": "grinding-discs"
+      }
+    ],
+    "filter_attributes": {
+      "material": "เหล็ก (A24R)",
+      "process": "งานเจียรและขัดผิว (Grinding)"
+    },
+    "tags": [
+      "ใบเจียร",
+      "แผ่นเจียร",
+      "NKK",
+      "A24R",
+      "4 นิ้ว",
+      "เจียรเหล็ก",
+      "ขัดสนิม"
+    ],
+    "images": [
+      "https://www.udo.co.th/storage/products/August2018/RvtizTBBKX1VWh26y6m4.jpg",
+      "https://www.udo.co.th/storage/products/August2018/LpnRzFLD7MwsFTGxntVA.jpg",
+      "https://www.udo.co.th/storage/products/August2018/dbbGyn52uTDtg8X3cCBF.jpg",
+      "https://www.udo.co.th/storage/products/August2018/qr4p2nv3y6GUV26jhcGz.jpg"
+    ],
+    "warranty": "รับประกันคุณภาพของแท้ 100%",
+    "variants": [
+      {
+        "size": "มาตรฐาน",
+        "package": "กล่องละ 25 ใบ",
+        "price": 280,
+        "original_price": null,
+        "stock": 1000
+      },
+      {
+        "size": "มาตรฐาน",
+        "package": "1 ลัง (200 ใบ)",
+        "price": 1880,
+        "original_price": 2240,
+        "stock": 1000
+      },
+      {
+        "size": "มาตรฐาน",
+        "package": "5 ลัง (1,000 ใบ)",
+        "price": 1800,
+        "original_price": 2240,
+        "stock": 1000
+      },
+      {
+        "size": "มาตรฐาน",
+        "package": "10 ลัง (2,000 ใบ)",
+        "price": 1750,
+        "original_price": 2240,
+        "stock": 1000
+      },
+      {
+        "size": "มาตรฐาน",
+        "package": "20 ลัง (4,000 ใบ)",
+        "price": 1680,
+        "original_price": 2240,
+        "stock": 1000
+      },
+      {
+        "size": "มาตรฐาน",
+        "package": "50 ลัง (10,000 ใบ)",
+        "price": 1610,
+        "original_price": 2240,
+        "stock": 1000
+      }
+    ],
+    "specsTable": [
+      {
+        "key": "แบรนด์ / รุ่น",
+        "value": "NKK (A24R)"
+      },
+      {
+        "key": "ขนาดแผ่นเจียร",
+        "value": "4 นิ้ว (100 x 6 x 16 มม.)"
+      },
+      {
+        "key": "ความหนา",
+        "value": "6 มม."
+      },
+      {
+        "key": "ความเร็วรอบสูงสุด",
+        "value": "15,300 RPM (80 m/s)"
+      },
+      {
+        "key": "ประเภทการใช้งาน",
+        "value": "เจียรหรือขัดผิวเหล็กให้เรียบ ทำความสะอาดผิวงาน ขัดสนิม ลบรอยเชื่อม"
+      },
+      {
+        "key": "วัสดุเม็ดทราย",
+        "value": "A24R (Aluminium Oxide คม ทนทาน ปลอดภัย)"
+      },
+      {
+        "key": "ขนาดบรรจุภัณฑ์",
+        "value": "1 ลัง บรรจุ 8 กล่อง / กล่องละ 25 ใบ (รวม 200 ใบ/ลัง)"
+      },
+      {
+        "key": "ข้อมูลราคาส่ง",
+        "value": "มีราคาส่งพิเศษสำหรับ 1 ลัง, 5 ลัง, 10 ลัง, 20 ลัง และ 50 ลังขึ้นไป"
+      }
+    ],
+    "richContent": {
+      "headline": "แผ่นเจียรเหล็กหนา NKK (A24R) 4\"X6 mm.",
+      "subheadline": "แผ่นเจียรคุณภาพสูง คม ทนทาน เจียรได้เรียบเนียน",
+      "description": "แผ่นเจียรเหล็กหนา NKK (A24R) 4\"X6 mm. เหมาะสำหรับใช้เจียรหรือขัดผิวเหล็กให้เรียบ และทำความสะอาดผิวงาน เช่น งานขัดสนิม งานลบรอยเชื่อม และเจียรส่วนเกินของชิ้นงาน",
+      "image1": "https://www.udo.co.th/storage/products/August2018/nkg.jpg",
+      "image2": null,
+      "image3": null
+    }
+  }
 ];
