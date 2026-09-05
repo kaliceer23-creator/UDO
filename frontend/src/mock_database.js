@@ -2245,4 +2245,114 @@ export const mockDatabase = [
       "image3": null
     }
   }
+,
+  {
+    "id": "nkk-grinding-disc-a24r-7x6mm",
+    "name": "แผ่นเจียรเหล็กหนา NKK (A24R) 7\"X6 mm.",
+    "brand": "NKK",
+    "sku": "NKK-A24R-7X6",
+    "description": "แผ่นเจียรเหล็กหนา NKK 7\"X6 mm. (A24R) เหมาะสำหรับใช้เจียรหรือขัดผิวเหล็กให้เรียบ และทำความสะอาดผิวงาน เช่น งานขัดสนิม งานลบรอยเชื่อม และเจียรส่วนเกินของชิ้นงาน ผลิตจากเม็ดทรายอลูมินาคุณภาพสูง คม แข็งแรง ทนทาน ใช้งานได้ยาวนาน ปลอดภัยต่อผู้ใช้งาน",
+    "created_at": "2026-09-14T11:00:00Z",
+    "sold_count": 1850,
+    "collections": [
+      "popular",
+      "just_for_you"
+    ],
+    "categories": [
+      {
+        "level": 1,
+        "name": "เครื่องมือช่างและฮาร์ดแวร์",
+        "url_slug": "hardware"
+      },
+      {
+        "level": 2,
+        "name": "ใบตัดใบเจียร",
+        "url_slug": "cutting-grinding-discs"
+      },
+      {
+        "level": 3,
+        "name": "แผ่นเจียรเหล็กหนา",
+        "url_slug": "grinding-discs"
+      }
+    ],
+    "filter_attributes": {
+      "material": "เหล็ก (A24R)",
+      "process": "งานเจียรและขัดผิว (Grinding)"
+    },
+    "tags": [
+      "ใบเจียร",
+      "แผ่นเจียร",
+      "NKK",
+      "A24R",
+      "7 นิ้ว",
+      "เจียรเหล็ก",
+      "ขัดสนิม"
+    ],
+    "images": [
+      "https://www.udo.co.th/storage/products/August2018/pq1MaJ5MY6GjCY2fxFH9.jpg",
+      "https://www.udo.co.th/storage/products/August2018/U6FWQESe0x5YwBmBGJcA.jpg"
+    ],
+    "warranty": "รับประกันคุณภาพของแท้ 100%",
+    "variants": [
+      {
+        "size": "มาตรฐาน",
+        "package": "กล่องละ 25 ใบ",
+        "price": 800,
+        "original_price": null,
+        "stock": 1000
+      },
+      {
+        "size": "มาตรฐาน",
+        "package": "1 ลัง (50 ใบ)",
+        "price": 1415,
+        "original_price": 1600,
+        "stock": 1000
+      },
+      {
+        "size": "มาตรฐาน",
+        "package": "5 ลัง (250 ใบ)",
+        "price": 1360,
+        "original_price": 1600,
+        "stock": 1000
+      }
+    ],
+    "specsTable": [
+      {
+        "key": "แบรนด์ / รุ่น",
+        "value": "NKK (A24R)"
+      },
+      {
+        "key": "ขนาดแผ่นเจียร",
+        "value": "7 นิ้ว (180 x 6 x 22.23 มม.)"
+      },
+      {
+        "key": "ความหนา",
+        "value": "6 มม."
+      },
+      {
+        "key": "ประเภทการใช้งาน",
+        "value": "เจียรและขัดผิวเหล็กให้เรียบ ขัดสนิม ลบรอยเชื่อม"
+      },
+      {
+        "key": "วัสดุเม็ดทราย",
+        "value": "A24R (Aluminium Oxide เม็ดหยาบ คม ทนทาน)"
+      },
+      {
+        "key": "คุณสมบัติเด่น",
+        "value": "ทนต่อแรงกด กินเนื้อเหล็กได้รวดเร็ว ปลอดภัย ไม่แตกร่อนง่าย"
+      },
+      {
+        "key": "ขนาดบรรจุสินค้า",
+        "value": "กล่องละ 25 ใบ / 1 ลัง บรรจุ 50 ใบ (2 กล่อง)"
+      }
+    ],
+    "richContent": {
+      "headline": "แผ่นเจียรเหล็กหนา NKK (A24R) 7\"X6 mm.",
+      "subheadline": "แผ่นเจียรคุณภาพสูง คม ทนทาน เจียรได้เรียบเนียน",
+      "description": "แผ่นเจียรเหล็กหนา NKK (A24R) 7\"X6 mm. เหมาะสำหรับใช้เจียรหรือขัดผิวเหล็กให้เรียบ และทำความสะอาดผิวงาน เช่น งานขัดสนิม งานลบรอยเชื่อม และเจียรส่วนเกินของชิ้นงาน ผลิตได้มาตรฐานความปลอดภัยสูงสุด",
+      "image1": "https://www.udo.co.th/storage/products/August2018/nkg.jpg",
+      "image2": null,
+      "image3": null
+    }
+  }
 ];
