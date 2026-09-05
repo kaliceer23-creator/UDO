@@ -163,8 +163,45 @@ setTimeout(() => {
   const query = urlParams.get('q') || '';
 
   const categoryName = rawName ? rawName.trim() : 'ลวดเชื่อม';
+
+  const weldingSubgroups = {
+    'เชื่อมเหล็ก': {
+      title: 'ลวดเชื่อมเหล็ก',
+      filter: (p) => p.name.includes('6013') || p.id.includes('coremax') || p.id.includes('supershield') || (p.filter_attributes?.material || '').includes('เหล็กเหนียว')
+    },
+    'เชื่อมสแตนเลส': {
+      title: 'ลวดเชื่อมสแตนเลส',
+      filter: (p) => p.name.includes('สเตนเลส') || p.name.includes('สแตนเลส') || p.id.includes('308l')
+    },
+    'เชื่อมอลูมิเนียม': {
+      title: 'ลวดเชื่อมอลูมิเนียม',
+      filter: (p) => p.name.includes('อลูมิเนียม') || p.id.includes('4043') || p.id.includes('zinal4')
+    },
+    'เชื่อมเหล็กหล่อ': {
+      title: 'ลวดเชื่อมเหล็กหล่อ',
+      filter: (p) => p.name.includes('เหล็กหล่อ') || p.id.includes('nicast')
+    },
+    'เชื่อมทองเหลือง-ทองแดงและเงิน': {
+      title: 'ลวดเชื่อมทองเหลือง ทองแดง เงิน',
+      filter: (p) => p.name.includes('ทองเหลือง') || p.name.includes('เงิน') || p.id.includes('phosbraz') || p.id.includes('bronze')
+    },
+    'เชื่อมพอกผิวแข็ง': {
+      title: 'ลวดเชื่อมพอกผิวแข็ง',
+      filter: (p) => p.name.includes('พอกผิวแข็ง') || p.id.includes('gold-330')
+    },
+    'เชื่อมตัดเซาะร่อง': {
+      title: 'ลวดเชื่อมตัดเซาะร่อง',
+      filter: (p) => p.name.includes('ตัดเซาะร่อง')
+    },
+    'เชื่อมวัสดุเกรดพิเศษ': {
+      title: 'ลวดเชื่อมวัสดุเกรดพิเศษ',
+      filter: (p) => p.id.includes('gold-330') || p.name.includes('พิเศษ')
+    }
+  };
+
+  const isSubgroup = weldingSubgroups[categoryName] !== undefined;
   const isCuttingGrinding = categoryName === 'ใบตัดใบเจียร' || categoryName.includes('ใบตัด') || categoryName.includes('ใบเจียร') || slug === 'cutting-grinding-discs' || slug === 'cutting-discs' || slug === 'grinding-discs';
-  const isWeldingWire = categoryName === 'กลุ่มลวดเชื่อม' || categoryName === 'ลวดเชื่อม' || slug.includes('wire') || (!rawName && type === 'category');
+  const isWeldingWire = isSubgroup || categoryName === 'กลุ่มลวดเชื่อม' || categoryName === 'ลวดเชื่อม' || slug.includes('wire') || (!rawName && type === 'category');
 
   const titleEl = document.getElementById('category-title');
   const countEl = document.getElementById('category-count');
@@ -183,7 +220,13 @@ setTimeout(() => {
      baseProducts = mockDatabase.filter(p => p.brand.toLowerCase() === categoryName.toLowerCase());
   } else {
      // Category Filter
-     if (isCuttingGrinding) {
+     if (isSubgroup) {
+       const allWire = mockDatabase.filter(p => 
+         p.categories && p.categories.some(c => c.name.includes('ลวดเชื่อม') || c.url_slug.includes('wire'))
+       );
+       const subMatched = allWire.filter(weldingSubgroups[categoryName].filter);
+       baseProducts = subMatched.length > 0 ? subMatched : allWire;
+     } else if (isCuttingGrinding) {
        baseProducts = mockDatabase.filter(p => 
          p.categories && p.categories.some(c => c.name === 'ใบตัดใบเจียร' || c.url_slug === 'cutting-grinding-discs' || c.url_slug === 'cutting-discs' || c.url_slug === 'grinding-discs')
        );
@@ -230,11 +273,21 @@ setTimeout(() => {
     }
   } else {
     // Category type
-    const displayTitle = (categoryName === 'กลุ่มลวดเชื่อม' || categoryName === 'ลวดเชื่อม') ? 'ลวดเชื่อม' : categoryName;
+    const displayTitle = isSubgroup ? weldingSubgroups[categoryName].title : (categoryName === 'กลุ่มลวดเชื่อม' || categoryName === 'ลวดเชื่อม') ? 'ลวดเชื่อม' : categoryName;
     if(titleEl) titleEl.textContent = displayTitle;
 
     if (breadcrumbsEl) {
-      if (isCuttingGrinding) {
+      if (isSubgroup) {
+        breadcrumbsEl.innerHTML = `
+          <a href="/" class="hover:text-[#8ac353] hover:underline hover:underline-offset-2">หน้าหลัก</a>
+          <span class="text-gray-400">&gt;</span>
+          <a href="/category.html?type=category&name=เครื่องมือช่างและฮาร์ดแวร์" class="hover:text-[#8ac353] hover:underline hover:underline-offset-2">เครื่องมือช่างและฮาร์ดแวร์</a>
+          <span class="text-gray-400">&gt;</span>
+          <a href="/category.html?type=category&name=กลุ่มลวดเชื่อม" class="hover:text-[#8ac353] hover:underline hover:underline-offset-2">กลุ่มลวดเชื่อม</a>
+          <span class="text-gray-400">&gt;</span>
+          <span class="text-[#252525]">${displayTitle}</span>
+        `;
+      } else if (isCuttingGrinding) {
         breadcrumbsEl.innerHTML = `
           <a href="/" class="hover:text-[#8ac353] hover:underline hover:underline-offset-2">หน้าหลัก</a>
           <span class="text-gray-400">&gt;</span>
