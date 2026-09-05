@@ -158,15 +158,48 @@ document.querySelector('#category-content').innerHTML = `
 setTimeout(() => {
   const urlParams = new URLSearchParams(window.location.search);
   const type = urlParams.get('type') || 'category'; 
-  const name = urlParams.get('name') || 'ลวดเชื่อม';
+  const rawName = urlParams.get('name') || '';
+  const slug = urlParams.get('slug') || '';
   const query = urlParams.get('q') || '';
+
+  const categoryName = rawName ? rawName.trim() : 'ลวดเชื่อม';
+  const isCuttingGrinding = categoryName === 'ใบตัดใบเจียร' || categoryName.includes('ใบตัด') || categoryName.includes('ใบเจียร') || slug === 'cutting-grinding-discs' || slug === 'cutting-discs' || slug === 'grinding-discs';
+  const isWeldingWire = categoryName === 'กลุ่มลวดเชื่อม' || categoryName === 'ลวดเชื่อม' || slug.includes('wire') || (!rawName && type === 'category');
 
   const titleEl = document.getElementById('category-title');
   const countEl = document.getElementById('category-count');
   const breadcrumbsEl = document.getElementById('category-breadcrumbs');
   const gridEl = document.getElementById('category-product-grid');
   
-  // 1. Update Breadcrumbs and Title
+  // 1. Initial Filter of mockDatabase based on URL
+  let baseProducts = [];
+  if (type === 'search') {
+    baseProducts = mockDatabase.filter(p => p.name.toLowerCase().includes(query.toLowerCase()) || p.brand.toLowerCase().includes(query.toLowerCase()));
+  } else if (type === 'collection') {
+     const colMapping = { 'new-arrivals': 'new_arrival', 'top-sale': 'popular', 'for-you': 'just_for_you' };
+     const mapKey = colMapping[categoryName] || categoryName;
+     baseProducts = mockDatabase.filter(p => p.collections && p.collections.includes(mapKey));
+  } else if (type === 'brand') {
+     baseProducts = mockDatabase.filter(p => p.brand.toLowerCase() === categoryName.toLowerCase());
+  } else {
+     // Category Filter
+     if (isCuttingGrinding) {
+       baseProducts = mockDatabase.filter(p => 
+         p.categories && p.categories.some(c => c.name === 'ใบตัดใบเจียร' || c.url_slug === 'cutting-grinding-discs' || c.url_slug === 'cutting-discs' || c.url_slug === 'grinding-discs')
+       );
+     } else if (isWeldingWire) {
+       baseProducts = mockDatabase.filter(p => 
+         p.categories && p.categories.some(c => c.name.includes('ลวดเชื่อม') || c.url_slug.includes('wire'))
+       );
+     } else {
+       const matched = mockDatabase.filter(p => 
+         p.categories && p.categories.some(c => c.name.toLowerCase() === categoryName.toLowerCase() || c.url_slug.toLowerCase() === categoryName.toLowerCase())
+       );
+       baseProducts = matched.length > 0 ? matched : mockDatabase;
+     }
+  }
+
+  // 2. Update Breadcrumbs and Title
   if (type === 'search') {
     if(titleEl) titleEl.textContent = `ผลการค้นหา "${query}"`;
     if (breadcrumbsEl) {
@@ -177,7 +210,7 @@ setTimeout(() => {
       `;
     }
   } else if (type === 'collection') {
-    const colName = name === 'new-arrivals' ? 'สินค้าเข้าใหม่' : name === 'top-sale' ? 'ขายดีประจำเดือน' : 'คัดมาเพื่อคุณ';
+    const colName = categoryName === 'new-arrivals' ? 'สินค้าเข้าใหม่' : categoryName === 'top-sale' ? 'ขายดีประจำเดือน' : 'คัดมาเพื่อคุณ';
     if(titleEl) titleEl.textContent = colName;
     if (breadcrumbsEl) {
       breadcrumbsEl.innerHTML = `
@@ -186,29 +219,61 @@ setTimeout(() => {
         <span class="text-[#252525]">${colName}</span>
       `;
     }
-  } else {
-    if(titleEl) titleEl.textContent = name;
+  } else if (type === 'brand') {
+    if(titleEl) titleEl.textContent = `แบรนด์ ${categoryName}`;
     if (breadcrumbsEl) {
       breadcrumbsEl.innerHTML = `
         <a href="/" class="hover:text-[#8ac353] hover:underline hover:underline-offset-2">หน้าหลัก</a>
         <span class="text-gray-400">&gt;</span>
-        <span class="text-[#252525]">${name}</span>
+        <span class="text-[#252525]">${categoryName}</span>
       `;
     }
-  }
-
-  // 2. Initial Filter of mockDatabase based on URL
-  let baseProducts = [];
-  if (type === 'search') {
-    baseProducts = mockDatabase.filter(p => p.name.toLowerCase().includes(query.toLowerCase()) || p.brand.toLowerCase().includes(query.toLowerCase()));
-  } else if (type === 'collection') {
-     const colMapping = { 'new-arrivals': 'new_arrival', 'top-sale': 'popular', 'for-you': 'just_for_you' };
-     const mapKey = colMapping[name] || name;
-     baseProducts = mockDatabase.filter(p => p.collections && p.collections.includes(mapKey));
-  } else if (type === 'brand') {
-     baseProducts = mockDatabase.filter(p => p.brand.toLowerCase() === name.toLowerCase());
   } else {
-     baseProducts = mockDatabase; 
+    // Category type
+    const displayTitle = (categoryName === 'กลุ่มลวดเชื่อม' || categoryName === 'ลวดเชื่อม') ? 'ลวดเชื่อม' : categoryName;
+    if(titleEl) titleEl.textContent = displayTitle;
+
+    if (breadcrumbsEl) {
+      if (isCuttingGrinding) {
+        breadcrumbsEl.innerHTML = `
+          <a href="/" class="hover:text-[#8ac353] hover:underline hover:underline-offset-2">หน้าหลัก</a>
+          <span class="text-gray-400">&gt;</span>
+          <a href="/category.html?type=category&name=เครื่องมือช่างและฮาร์ดแวร์" class="hover:text-[#8ac353] hover:underline hover:underline-offset-2">เครื่องมือช่างและฮาร์ดแวร์</a>
+          <span class="text-gray-400">&gt;</span>
+          <span class="text-[#252525]">ใบตัดใบเจียร</span>
+        `;
+      } else if (isWeldingWire) {
+        breadcrumbsEl.innerHTML = `
+          <a href="/" class="hover:text-[#8ac353] hover:underline hover:underline-offset-2">หน้าหลัก</a>
+          <span class="text-gray-400">&gt;</span>
+          <a href="/category.html?type=category&name=เครื่องมือช่างและฮาร์ดแวร์" class="hover:text-[#8ac353] hover:underline hover:underline-offset-2">เครื่องมือช่างและฮาร์ดแวร์</a>
+          <span class="text-gray-400">&gt;</span>
+          <a href="/category.html?type=category&name=เครื่องเชื่อมและอุปกรณ์" class="hover:text-[#8ac353] hover:underline hover:underline-offset-2">เครื่องเชื่อมและอุปกรณ์</a>
+          <span class="text-gray-400">&gt;</span>
+          <span class="text-[#252525]">ลวดเชื่อม</span>
+        `;
+      } else {
+        const sample = baseProducts[0];
+        if (sample && sample.categories && sample.categories.length > 0) {
+          let bHtml = `<a href="/" class="hover:text-[#8ac353] hover:underline hover:underline-offset-2">หน้าหลัก</a>`;
+          sample.categories.forEach((c, idx) => {
+            bHtml += `<span class="text-gray-400">&gt;</span>`;
+            if (idx === sample.categories.length - 1) {
+              bHtml += `<span class="text-[#252525]">${c.name}</span>`;
+            } else {
+              bHtml += `<a href="/category.html?type=category&name=${encodeURIComponent(c.name)}" class="hover:text-[#8ac353] hover:underline hover:underline-offset-2">${c.name}</a>`;
+            }
+          });
+          breadcrumbsEl.innerHTML = bHtml;
+        } else {
+          breadcrumbsEl.innerHTML = `
+            <a href="/" class="hover:text-[#8ac353] hover:underline hover:underline-offset-2">หน้าหลัก</a>
+            <span class="text-gray-400">&gt;</span>
+            <span class="text-[#252525]">${displayTitle}</span>
+          `;
+        }
+      }
+    }
   }
 
   // 3. Dynamic Filtering Setup
@@ -223,11 +288,47 @@ setTimeout(() => {
   baseProducts.forEach(p => {
     if(p.variants) {
       p.variants.forEach(v => {
-        if(v.size) allSizes.add(v.size);
+        if(v.size && v.size !== 'มาตรฐาน' && v.size !== 'ฟรีไซส์') allSizes.add(v.size);
       });
     }
   });
   const availableSizes = [...allSizes];
+
+  const defaultLabels = isCuttingGrinding ? {
+    'material': 'วัสดุที่ใช้งาน',
+    'process': 'ลักษณะงาน',
+    'size': 'ขนาด'
+  } : isWeldingWire ? {
+    'material': 'วัสดุที่เชื่อม',
+    'process': 'กระบวนการเชื่อม',
+    'size': 'ขนาดลวด'
+  } : {
+    'material': 'วัสดุ',
+    'process': 'ประเภทการใช้งาน',
+    'size': 'ขนาด'
+  };
+
+  ['material', 'process', 'size'].forEach(type => {
+    const btn = document.querySelector(`button[data-filter-type="${type}"]`);
+    if (!btn) return;
+    const textSpan = btn.querySelector('.filter-btn-text');
+    if (textSpan) textSpan.textContent = defaultLabels[type];
+  });
+
+  const sizeFilterWrapper = document.querySelector('button[data-filter-type="size"]')?.parentElement;
+  if (sizeFilterWrapper) {
+    sizeFilterWrapper.style.display = availableSizes.length === 0 ? 'none' : '';
+  }
+
+  const matFilterWrapper = document.querySelector('button[data-filter-type="material"]')?.parentElement;
+  if (matFilterWrapper) {
+    matFilterWrapper.style.display = availableMaterials.length === 0 ? 'none' : '';
+  }
+
+  const procFilterWrapper = document.querySelector('button[data-filter-type="process"]')?.parentElement;
+  if (procFilterWrapper) {
+    procFilterWrapper.style.display = availableProcesses.length === 0 ? 'none' : '';
+  }
 
   const generateCheckboxList = (values, filterKey) => {
     return values.map(val => `
@@ -328,12 +429,6 @@ setTimeout(() => {
       const textSpan = btn.querySelector('.filter-btn-text');
       const count = activeFilters[type].length;
       
-      const defaultLabels = {
-        'material': 'วัสดุที่เชื่อม',
-        'process': 'กระบวนการเชื่อม',
-        'size': 'ขนาดลวด'
-      };
-
       if (count > 0) {
         textSpan.textContent = `${defaultLabels[type]} (${count})`;
         btn.classList.remove('border-[#252525]', 'text-[#252525]', 'bg-transparent');
