@@ -2174,7 +2174,10 @@ export const mockDatabase = [
       }
     ],
     "filter_attributes": {
-      "material": "เหล็ก / สแตนเลส",
+      "material": [
+        "เหล็ก",
+        "สแตนเลส"
+      ],
       "process": "งานตัด (Cutting)"
     },
     "tags": [
@@ -2276,7 +2279,9 @@ export const mockDatabase = [
       }
     ],
     "filter_attributes": {
-      "material": "เหล็ก (A24R)",
+      "material": [
+        "เหล็ก"
+      ],
       "process": "งานเจียรและขัดผิว (Grinding)"
     },
     "tags": [
@@ -2386,7 +2391,9 @@ export const mockDatabase = [
       }
     ],
     "filter_attributes": {
-      "material": "เหล็ก (A24R)",
+      "material": [
+        "เหล็ก"
+      ],
       "process": "งานเจียรและขัดผิว (Grinding)"
     },
     "tags": [

@@ -281,7 +281,21 @@ setTimeout(() => {
   const activePillsContainer = document.getElementById('active-pills-container');
 
   const availableBrands = [...new Set(baseProducts.map(p => p.brand).filter(Boolean))];
-  const availableMaterials = [...new Set(baseProducts.map(p => p.filter_attributes?.material).filter(Boolean))];
+
+  let allMaterials = new Set();
+  baseProducts.forEach(p => {
+    const mat = p.filter_attributes?.material;
+    if (Array.isArray(mat)) {
+      mat.forEach(m => allMaterials.add(m.trim()));
+    } else if (mat) {
+      if (mat.includes(' / ')) {
+        mat.split(' / ').forEach(m => allMaterials.add(m.trim()));
+      } else {
+        allMaterials.add(mat.replace(/\s*\(.*?\)\s*/g, '').trim());
+      }
+    }
+  });
+  const availableMaterials = [...allMaterials];
   const availableProcesses = [...new Set(baseProducts.map(p => p.filter_attributes?.process).filter(Boolean))];
   
   let allSizes = new Set();
@@ -413,7 +427,14 @@ setTimeout(() => {
   const applyFilters = () => {
     let filtered = baseProducts.filter(p => {
       let matchBrand = activeFilters.brand.length === 0 || activeFilters.brand.includes(p.brand);
-      let matchMaterial = activeFilters.material.length === 0 || activeFilters.material.includes(p.filter_attributes?.material);
+      let matchMaterial = activeFilters.material.length === 0;
+      if (!matchMaterial) {
+        const pMat = p.filter_attributes?.material;
+        const pMatArr = Array.isArray(pMat) 
+          ? pMat 
+          : (pMat ? pMat.split(' / ').map(m => m.replace(/\s*\(.*?\)\s*/g, '').trim()) : []);
+        matchMaterial = pMatArr.some(m => activeFilters.material.includes(m));
+      }
       let matchProcess = activeFilters.process.length === 0 || activeFilters.process.includes(p.filter_attributes?.process);
       let matchSize = activeFilters.size.length === 0;
       if (!matchSize && p.variants) matchSize = p.variants.some(v => activeFilters.size.includes(v.size));
