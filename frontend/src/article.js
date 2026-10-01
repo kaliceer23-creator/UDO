@@ -451,36 +451,23 @@ function initMegaMenu() {
 function initStickyNavObserver() {
   const sentinel = document.getElementById('nav-sticky-sentinel');
   const navEl = document.getElementById('article-sticky-nav');
-  const navInner = document.getElementById('article-nav-inner');
 
-  if (!navEl || !navInner) return;
+  if (!navEl) return;
 
-  function setStickyVisuals(isSticky) {
-    if (isSticky) {
-      // Sticky position: full-width black line spanning edge-to-edge
-      navEl.classList.add('border-b-2', 'border-[#160808]', 'shadow-xs');
-      navEl.classList.remove('border-b-transparent');
-      navInner.classList.remove('border-b-2', 'border-[#160808]');
-    } else {
-      // Top position: contained black line within max-w container
-      navEl.classList.remove('border-b-2', 'border-[#160808]', 'shadow-xs');
-      navEl.classList.add('border-b-transparent');
-      navInner.classList.add('border-b-2', 'border-[#160808]');
-    }
+  function updateSticky() {
+    const navRect = navEl.getBoundingClientRect();
+    const isSticky = navRect.top <= 1 || window.scrollY > 25;
+    navEl.classList.toggle('is-sticky', isSticky);
   }
 
-  // Synchronous scroll listener for immediate edge-to-edge response
-  const onScroll = () => {
-    const navRect = navEl.getBoundingClientRect();
-    const isSticky = navRect.top <= 1;
-    setStickyVisuals(isSticky);
-  };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  window.addEventListener('scroll', updateSticky, { passive: true });
+  window.addEventListener('resize', updateSticky, { passive: true });
+  updateSticky();
 
   if (sentinel && 'IntersectionObserver' in window) {
     const observer = new IntersectionObserver(([entry]) => {
-      setStickyVisuals(!entry.isIntersecting);
+      const isSticky = !entry.isIntersecting || window.scrollY > 25;
+      navEl.classList.toggle('is-sticky', isSticky);
     }, { threshold: [0, 1] });
     observer.observe(sentinel);
   }

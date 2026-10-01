@@ -28,9 +28,9 @@
 <div id="nav-sticky-sentinel" class="h-px w-full pointer-events-none -mb-px"></div>
 
 <!-- 2. Sticky Category Bar (Article Categories, contained line at top, full-width line when sticky) -->
-<nav id="article-sticky-nav" class="sticky top-0 z-40 w-full bg-white/98 backdrop-blur-md border-b-2 border-transparent transition-[border-color,box-shadow] duration-200">
+<nav id="article-sticky-nav" class="sticky top-0 z-40 w-full bg-white/98 backdrop-blur-md">
   <div class="max-w-[1440px] mx-auto px-4 md:px-8">
-    <div id="article-nav-inner" class="flex items-center justify-start md:justify-center gap-6 sm:gap-8 md:gap-10 overflow-x-auto no-scrollbar py-3 sm:py-3.5 text-[13px] sm:text-[14px] md:text-[15px] font-bold uppercase tracking-[0.06em] text-[#160808] whitespace-nowrap border-b-2 border-[#160808] transition-[border-color] duration-200">
+    <div id="article-nav-inner" class="flex items-center justify-start md:justify-center gap-6 sm:gap-8 md:gap-10 overflow-x-auto no-scrollbar py-3 sm:py-3.5 text-[13px] sm:text-[14px] md:text-[15px] font-bold uppercase tracking-[0.06em] text-[#160808] whitespace-nowrap">
       <a href="/#articles-section" class="hover:text-[#c5161b] transition-colors py-0.5">เทคนิคการเชื่อม</a>
       <a href="/#articles-section" class="hover:text-[#c5161b] transition-colors py-0.5">เลือกใช้ลวดเชื่อม</a>
       <a href="/#articles-section" class="hover:text-[#c5161b] transition-colors py-0.5">คู่มือ & ทริคช่าง</a>
@@ -41,3 +41,21 @@
     </div>
   </div>
 </nav>
+
+<style>
+  #article-sticky-nav {
+    border-bottom: 2px solid transparent !important;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  #article-sticky-nav.is-sticky {
+    border-bottom: 2px solid #160808 !important;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.06);
+  }
+  #article-nav-inner {
+    border-bottom: 2px solid #160808;
+    transition: border-color 0.15s ease;
+  }
+  #article-sticky-nav.is-sticky #article-nav-inner {
+    border-bottom-color: transparent !important;
+  }
+</style>

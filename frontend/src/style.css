@@ -775,3 +775,21 @@ html.is-chat-handoff #chatGlassFrame {
   -moz-appearance: textfield;
 }
 
+/* Article Sticky Nav Underline Transition: Contained at top, 100% full-width when sticky */
+#article-sticky-nav {
+  border-bottom: 2px solid transparent !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+#article-sticky-nav.is-sticky {
+  border-bottom: 2px solid #160808 !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+}
+#article-nav-inner {
+  border-bottom: 2px solid #160808;
+  transition: border-color 0.15s ease;
+}
+#article-sticky-nav.is-sticky #article-nav-inner {
+  border-bottom-color: transparent !important;
+}
+
+
