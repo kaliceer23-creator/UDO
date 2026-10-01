@@ -81,6 +81,7 @@
       "Courier New", monospace;
     --color-red-50: oklch(97.1% .013 17.38);
     --color-red-100: oklch(93.6% .032 17.717);
+    --color-red-200: oklch(88.5% .062 18.334);
     --color-red-500: oklch(63.7% .237 25.331);
     --color-red-600: oklch(57.7% .245 27.325);
     --color-amber-50: oklch(98.7% .022 95.277);
@@ -2882,6 +2883,10 @@
     border-color: var(--color-red-100);
   }
 
+  .border-red-200 {
+    border-color: var(--color-red-200);
+  }
+
   .border-rose-200 {
     border-color: var(--color-rose-200);
   }
@@ -4796,6 +4801,10 @@
 
   .text-purple-900 {
     color: var(--color-purple-900);
+  }
+
+  .text-red-500 {
+    color: var(--color-red-500);
   }
 
   .text-red-600 {

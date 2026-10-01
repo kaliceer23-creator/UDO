@@ -100,12 +100,11 @@ class UdoAdminStockService
             $product['availability'] = $hasStock ? 'in_stock' : 'out_of_stock';
         }
 
-        $allProducts[$targetIndex] = $product;
-        $saved = $this->productsService->saveProducts($allProducts);
+        $saved = $this->productsService->saveSingleProduct($product);
 
         if (!$saved) {
             http_response_code(500);
-            echo json_encode(['success' => false, 'error' => 'Failed to save stock update']);
+            echo json_encode(['success' => false, 'error' => 'Failed to save stock update in database']);
             return;
         }
 

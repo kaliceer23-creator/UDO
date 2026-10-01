@@ -18,9 +18,9 @@ export async function fetchLiveDatabase() {
 
   liveFetchPromise = (async () => {
     try {
-      // 1. Attempt to fetch fresh JSON from API endpoint
+      // 1. Attempt to fetch fresh JSON from MariaDB REST API endpoint
       const timestamp = Date.now();
-      const res = await fetch(`/api/data/welding_products.json?v=${timestamp}`, {
+      const res = await fetch(`/api/products.php?v=${timestamp}`, {
         cache: 'no-store',
         headers: { 'Accept': 'application/json' }
       });

@@ -8,24 +8,24 @@ export async function hydrateProduct(productOverride = null) {
 
   let productData = productOverride;
   if (!productData && productId) {
-    productData = mockDatabase.find(p => p.id === productId);
+    try {
+      const res = await fetch(`/api/products.php?id=${encodeURIComponent(productId)}`);
+      if (res.ok) {
+        const json = await res.json();
+        if (json.success && json.product) {
+          productData = json.product;
+        }
+      }
+    } catch (e) {
+      // Fallback to in-memory cache
+    }
+
     if (!productData) {
-      await fetchLiveDatabase();
       productData = mockDatabase.find(p => p.id === productId);
     }
     if (!productData) {
-      try {
-        const res = await fetch(`/api/data/welding_products.json?v=${Date.now()}`);
-        if (res.ok) {
-          const freshData = await res.json();
-          if (Array.isArray(freshData)) {
-            mockDatabase.splice(0, mockDatabase.length, ...freshData);
-            productData = mockDatabase.find(p => p.id === productId);
-          }
-        }
-      } catch (e) {
-        // Fallback
-      }
+      await fetchLiveDatabase();
+      productData = mockDatabase.find(p => p.id === productId);
     }
   }
 

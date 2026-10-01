@@ -10,14 +10,13 @@
  */
 
 import { generateCardHTML, formatPrice, getStartingPrice, resolveImageSrc } from './components/ProductCard.js';
-import localProductsFallback from './welding_products.json';
 
 // Application State
 const state = {
   activeTab: 'inventory', // 'inventory' | 'merchandising' | 'logs'
   products: [],
-  allProductsCache: Array.isArray(localProductsFallback) ? localProductsFallback : [],
-  totalProducts: 1307,
+  allProductsCache: [],
+  totalProducts: 0,
   currentPage: 1,
   limit: 20,
   totalPages: 1,
@@ -26,12 +25,12 @@ const state = {
   categoryFilter: 'all',
   sortOrder: 'sort_priority',
   summary: {
-    total: 1307,
-    in_stock: 1275,
-    out_of_stock: 32,
-    best_seller: 69,
-    recommended: 277,
-    promotion: 20
+    total: 0,
+    in_stock: 0,
+    out_of_stock: 0,
+    best_seller: 0,
+    recommended: 0,
+    promotion: 0
   },
   activeProduct: null,
   inlineStockTarget: null,
@@ -351,176 +350,24 @@ function showToast(message, type = 'success') {
 }
 
 /**
- * Local Fallback Filter Engine
- * Used when Vite dev server is running without Apache/PHP 8.1 backend.
+ * Load Full Catalog from MariaDB into Cache for Brand Taxonomy & Shelves
  */
-function runLocalFallbackFilter() {
-  let list = [...state.allProductsCache];
-
-  // 1. Search Query
-  if (state.searchQuery) {
-    const q = state.searchQuery.toLowerCase();
-    list = list.filter(p => {
-      const matchName = (p.name || '').toLowerCase().includes(q);
-      const matchEn = (p.name_en || '').toLowerCase().includes(q);
-      const matchBrand = (p.brand || '').toLowerCase().includes(q);
-      const matchId = (p.id || '').toLowerCase().includes(q);
-      const matchSku = Array.isArray(p.variants) && p.variants.some(v => (v.sku || '').toLowerCase().includes(q));
-      const matchTags = Array.isArray(p.tags) && p.tags.some(t => t.toLowerCase().includes(q));
-      return matchName || matchEn || matchBrand || matchId || matchSku || matchTags;
-    });
+async function loadAllProductsCatalog() {
+  try {
+    const res = await fetch('/api/admin/products.php?all=1', { credentials: 'include' });
+    if (!res.ok) return;
+    const data = await res.json();
+    if (data.success && Array.isArray(data.products)) {
+      state.allProductsCache = data.products;
+      if (data.summary) {
+        state.summary = data.summary;
+        renderMetrics();
+      }
+      buildBrandTaxonomy(state.allProductsCache);
+    }
+  } catch (err) {
+    console.warn('Failed to load full catalog cache:', err.message);
   }
-
-  // 2. Status & Availability Filter (Multi-Criteria & Single)
-  if (state.filterStatuses.size > 0) {
-    list = list.filter(p => state.filterStatuses.has(p.status || 'publish'));
-  } else if (state.statusFilter === 'publish') {
-    list = list.filter(p => (p.status || 'publish') === 'publish');
-  } else if (state.statusFilter === 'draft') {
-    list = list.filter(p => p.status === 'draft');
-  } else if (state.statusFilter === 'suspended') {
-    list = list.filter(p => p.status === 'suspended');
-  } else if (state.statusFilter === 'in_stock') {
-    list = list.filter(p => (p.availability || 'in_stock') === 'in_stock');
-  } else if (state.statusFilter === 'out_of_stock') {
-    list = list.filter(p => (p.availability || 'out_of_stock') === 'out_of_stock');
-  } else if (state.statusFilter === 'special_order') {
-    list = list.filter(p => p.availability === 'special_order');
-  } else if (state.statusFilter === 'best_seller') {
-    list = list.filter(p => Boolean(p.storefront_shelves?.best_seller));
-  } else if (state.statusFilter === 'new_arrival') {
-    list = list.filter(p => Boolean(p.storefront_shelves?.new_arrival));
-  } else if (state.statusFilter === 'recommended') {
-    list = list.filter(p => Boolean(p.storefront_shelves?.recommended));
-  } else if (state.statusFilter === 'promotion') {
-    list = list.filter(p => Boolean(p.storefront_shelves?.promotion));
-  }
-
-  // Multi-Availabilities Filter
-  if (state.filterAvailabilities.size > 0) {
-    list = list.filter(p => {
-      const totalStock = (p.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
-      const avail = p.availability || (totalStock > 0 ? 'in_stock' : 'out_of_stock');
-      return state.filterAvailabilities.has(avail);
-    });
-  }
-
-  // Multi-Badges Filter
-  if (state.filterBadges.size > 0) {
-    list = list.filter(p => {
-      return Array.from(state.filterBadges).some(b => Boolean(p.storefront_shelves?.[b]) || Boolean(p.flags?.[`is_${b}`]));
-    });
-  }
-
-  // 3. Category Filter (Multi-Criteria & Single)
-  if (state.filterCategories.size > 0) {
-    list = list.filter(p => {
-      const cats = p.categories || [];
-      return cats.some(c => state.filterCategories.has(c.url_slug) || state.filterCategories.has(c.name) || state.filterCategories.has(c.id))
-        || state.filterCategories.has(p.root_category_id)
-        || state.filterCategories.has(p.category_id);
-    });
-  } else if (state.categoryFilter !== 'all') {
-    list = list.filter(p => (p.root_category_id === state.categoryFilter) || (p.category_id === state.categoryFilter));
-  }
-
-  // 4. Sort
-  list.sort((a, b) => {
-    if (state.sortOrder === 'stock_desc') {
-      const stockA = (a.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
-      const stockB = (b.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
-      return stockB - stockA;
-    }
-    if (state.sortOrder === 'stock_asc') {
-      const stockA = (a.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
-      const stockB = (b.variants || []).reduce((acc, v) => acc + (v.stock || 0), 0);
-      return stockA - stockB;
-    }
-    if (state.sortOrder === 'sold_desc') {
-      return (b.sold_count || 0) - (a.sold_count || 0);
-    }
-    if (state.sortOrder === 'price_asc') {
-      return getStartingPrice(a) - getStartingPrice(b);
-    }
-    if (state.sortOrder === 'price_desc') {
-      return getStartingPrice(b) - getStartingPrice(a);
-    }
-    if (state.sortOrder === 'name_asc') {
-      return (a.name || '').localeCompare(b.name || '', 'th');
-    }
-    // Default: sort_priority (with deterministic tie-breakers)
-    const prioA = a.sort_priority ?? 100;
-    const prioB = b.sort_priority ?? 100;
-    if (prioA !== prioB) {
-      return prioA - prioB;
-    }
-    // Tie-breaker 1: Best seller items come first within same priority tier
-    const bestA = a.flags?.is_best_seller ? 1 : 0;
-    const bestB = b.flags?.is_best_seller ? 1 : 0;
-    if (bestA !== bestB) {
-      return bestB - bestA;
-    }
-    // Tie-breaker 2: Alphabetical name order for consistent stability
-    return (a.name || '').localeCompare(b.name || '', 'th');
-  });
-
-  // Calculate Metrics from full master list
-  const total = state.allProductsCache.length;
-  let pubCount = 0;
-  let draftCount = 0;
-  let suspendedCount = 0;
-  let inStock = 0;
-  let outStock = 0;
-  let specialOrder = 0;
-  let bestSeller = 0;
-  let newArrival = 0;
-  let recommended = 0;
-  let promotion = 0;
-
-  state.allProductsCache.forEach(p => {
-    const st = p.status || 'publish';
-    if (st === 'publish') pubCount++;
-    else if (st === 'draft') draftCount++;
-    else if (st === 'suspended') suspendedCount++;
-
-    const av = p.availability || (p.flags?.is_in_stock ? 'in_stock' : 'out_of_stock');
-    if (av === 'in_stock') inStock++;
-    else if (av === 'out_of_stock') outStock++;
-    else if (av === 'special_order') specialOrder++;
-
-    const sh = p.storefront_shelves || {};
-    if (sh.best_seller) bestSeller++;
-    if (sh.new_arrival) newArrival++;
-    if (sh.recommended) recommended++;
-    if (sh.promotion) promotion++;
-  });
-
-  state.summary = {
-    total,
-    publish: pubCount,
-    draft: draftCount,
-    suspended: suspendedCount,
-    in_stock: inStock,
-    out_of_stock: outStock,
-    special_order: specialOrder,
-    best_seller: bestSeller,
-    new_arrival: newArrival,
-    recommended,
-    promotion
-  };
-
-  // Pagination
-  state.totalProducts = list.length;
-  state.totalPages = Math.ceil(list.length / state.limit) || 1;
-  if (state.currentPage > state.totalPages) state.currentPage = 1;
-
-  const startIdx = (state.currentPage - 1) * state.limit;
-  state.products = list.slice(startIdx, startIdx + state.limit);
-
-  renderMetrics();
-  updateStatusPillVisuals();
-  renderProductRows();
-  renderPagination();
 }
 
 /**
@@ -579,18 +426,11 @@ async function fetchProducts(page = 1) {
       throw new Error(data.error || 'Invalid API data format');
     }
 
-    // If API returned 0 products for default unfiltered view, fall back to master cache
-    if (data.products.length === 0 && (!state.searchQuery && state.statusFilter === 'all' && state.categoryFilter === 'all') && state.allProductsCache.length > 0) {
-      console.warn('API returned 0 products for default view, activating in-memory catalog');
-      runLocalFallbackFilter();
-      return;
-    }
-
     // Update State from API
     state.products = data.products;
-    state.totalProducts = data.total_products || 0;
+    state.totalProducts = data.total_products || data.total || 0;
     state.totalPages = data.total_pages || 1;
-    state.currentPage = data.current_page || 1;
+    state.currentPage = data.current_page || data.page || 1;
 
     if (data.summary) {
       state.summary = data.summary;
@@ -601,8 +441,24 @@ async function fetchProducts(page = 1) {
     renderProductRows();
     renderPagination();
   } catch (err) {
-    console.warn('API fetch notice, activating in-memory data engine:', err.message);
-    runLocalFallbackFilter();
+    console.error('API fetch error from MariaDB:', err.message);
+    state.products = [];
+    state.totalProducts = 0;
+    state.totalPages = 1;
+    if (dom.productRowsContainer) {
+      dom.productRowsContainer.innerHTML = `
+        <div class="bg-white rounded-2xl p-12 text-center text-red-500 border border-red-200">
+          <p class="text-sm font-semibold mb-1">ไม่สามารถเชื่อมต่อฐานข้อมูลสินค้า MariaDB</p>
+          <p class="text-xs text-gray-500 mb-4">${err.message}</p>
+          <button onclick="window.fetchProducts && window.fetchProducts(1)" class="px-4 py-2 text-xs font-medium text-white bg-black rounded-lg hover:bg-neutral-800 transition">
+            ลองใหม่อีกครั้ง
+          </button>
+        </div>
+      `;
+    }
+    renderMetrics();
+    renderPagination();
+    showToast('เกิดข้อผิดพลาดในการโหลดสินค้า: ' + err.message, 'error');
   }
 }
 
@@ -1016,7 +872,7 @@ async function handleSelectStatus(newStatus) {
   const labelText = labels[newStatus] || newStatus;
   showToast(`เปลี่ยนสถานะสินค้าเป็น [${labelText}] สำเร็จ`);
 
-  // Persist to Native Modern PHP 8.1 API
+  // Persist to Native Modern PHP 8.1 API (MariaDB)
   try {
     const res = await fetch('/api/admin/products.php', {
       method: 'POST',
@@ -1029,12 +885,14 @@ async function handleSelectStatus(newStatus) {
       credentials: 'include'
     });
 
-    if (res.ok) {
-      const data = await res.json();
-      if (!data.success) throw new Error(data.error || 'Failed to update status');
+    const data = await res.json();
+    if (!res.ok || !data.success) {
+      throw new Error(data.error || 'Failed to update status in database');
     }
   } catch (err) {
-    console.warn('Status update local fallback notice:', err.message);
+    console.error('Status update database error:', err.message);
+    showToast('เกิดข้อผิดพลาดในการเปลี่ยนสถานะ: ' + err.message, 'error');
+    fetchProducts(state.currentPage);
   }
 }
 
@@ -1187,14 +1045,14 @@ async function handleSaveInlineStock() {
       credentials: 'include'
     });
 
-    if (res.ok) {
-      const data = await res.json();
-      if (!data.success) throw new Error(data.error || 'Failed to update stock');
-    } else {
-      console.warn('Backend endpoint unavailable, applying local update state');
+    const data = await res.json();
+    if (!res.ok || !data.success) {
+      throw new Error(data.error || 'Failed to update stock in database');
     }
   } catch (err) {
-    console.warn('Inline stock update local fallback:', err.message);
+    console.error('Stock update database error:', err.message);
+    showToast('เกิดข้อผิดพลาดในการอัปเดตสต็อก: ' + err.message, 'error');
+    return;
   }
 
   // Update in-memory state
@@ -4457,6 +4315,12 @@ async function handleSaveDrawer() {
     payload.is_new = true;
   }
 
+  const originalBtnText = dom.drawerSaveBtn ? dom.drawerSaveBtn.textContent : 'บันทึกข้อมูล';
+  if (dom.drawerSaveBtn) {
+    dom.drawerSaveBtn.disabled = true;
+    dom.drawerSaveBtn.textContent = 'กำลังบันทึกลงฐานข้อมูล...';
+  }
+
   try {
     const res = await fetch('/api/admin/products.php', {
       method: 'POST',
@@ -4464,48 +4328,30 @@ async function handleSaveDrawer() {
       body: JSON.stringify(payload)
     });
 
-    if (res.ok) {
-      const data = await res.json();
-      if (!data.success) throw new Error(data.error || 'Failed to update product');
-    } else {
-      console.warn('API update endpoint unavailable, applying local state update');
+    const data = await res.json();
+    if (!res.ok || !data.success) {
+      throw new Error(data.error || 'Failed to save product in database');
     }
+
+    const toastMsg = state.isCreateMode 
+      ? `เพิ่มสินค้าใหม่ "${name || 'สินค้าใหม่'}" เข้าสู่ฐานข้อมูลเรียบร้อย`
+      : `บันทึกข้อมูลสินค้า ${name} ลงฐานข้อมูลเรียบร้อย`;
+
+    state.isCreateMode = false;
+    closeProductDrawer();
+    showToast(toastMsg);
+
+    fetchProducts(state.currentPage);
+    loadAllProductsCatalog();
   } catch (err) {
-    console.warn('Save product local fallback:', err.message);
+    console.error('Save product database error:', err);
+    showToast('เกิดข้อผิดพลาดในการบันทึกข้อมูล: ' + err.message, 'error');
+  } finally {
+    if (dom.drawerSaveBtn) {
+      dom.drawerSaveBtn.disabled = false;
+      dom.drawerSaveBtn.textContent = originalBtnText;
+    }
   }
-
-  // Update in-memory collections
-  if (state.isCreateMode) {
-    state.products.unshift(payload);
-    state.allProductsCache.unshift(payload);
-    recalculateMetrics();
-  } else {
-    const updateProductInList = (list) => {
-      const idx = list.findIndex(p => p.id === pid);
-      if (idx !== -1) {
-        list[idx] = {
-          ...list[idx],
-          ...payload
-        };
-      }
-    };
-
-    updateProductInList(state.products);
-    updateProductInList(state.allProductsCache);
-  }
-
-  // Re-synchronize dynamic brand taxonomy
-  buildBrandTaxonomy(state.allProductsCache);
-
-  const toastMsg = state.isCreateMode 
-    ? `เพิ่มสินค้าใหม่ "${name || 'สินค้าใหม่'}" เข้าสู่ระบบเรียบร้อย`
-    : `บันทึกข้อมูลสินค้า ${name} ขึ้นระบบเรียบร้อย`;
-
-  state.isCreateMode = false;
-  closeProductDrawer();
-  renderProductRows();
-  renderMetrics();
-  showToast(toastMsg);
 }
 
 /**
@@ -6003,14 +5849,14 @@ async function executeBatchStatusUpdate(newStatus = null, newAvailability = null
       credentials: 'include'
     });
 
-    if (res.ok) {
-      const data = await res.json();
-      if (!data.success) throw new Error(data.error || 'Failed to batch update products');
-    } else {
-      console.warn('Backend endpoint unavailable, applying local update state');
+    const data = await res.json();
+    if (!res.ok || !data.success) {
+      throw new Error(data.error || 'Failed to batch update products in database');
     }
   } catch (err) {
-    console.warn('Batch update local fallback notice:', err.message);
+    console.error('Batch update database error:', err.message);
+    showToast('เกิดข้อผิดพลาดในการอัปเดตกลุ่ม: ' + err.message, 'error');
+    return;
   }
 
   // Update in-memory state
@@ -6976,5 +6822,6 @@ document.addEventListener('DOMContentLoaded', () => {
   updateActiveFilterBadge();
   renderActiveFilterPills();
   fetchProducts(1);
+  loadAllProductsCatalog();
 });
 
