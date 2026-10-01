@@ -279,22 +279,22 @@ export function renderMarkdownToHTML(markdownInput) {
 
       if (trimmed.startsWith('#### ')) {
         const text = trimmed.slice(5).trim();
-        htmlParts.push(`<h5 class="text-[15px] sm:text-[15.5px] font-semibold text-[#160808] mt-4 mb-2 tracking-tight leading-snug">${parseInlineMarkdown(text)}</h5>`);
+        htmlParts.push(`<h5 class="text-[15.5px] sm:text-[16px] font-semibold text-[#160808] mt-4 mb-2 tracking-tight leading-snug">${parseInlineMarkdown(text)}</h5>`);
         continue;
       }
       if (trimmed.startsWith('### ')) {
         const text = trimmed.slice(4).trim();
-        htmlParts.push(`<h4 class="text-[16.5px] sm:text-[17px] font-semibold text-[#160808] mt-5 mb-2.5 tracking-tight leading-snug">${parseInlineMarkdown(text)}</h4>`);
+        htmlParts.push(`<h4 class="text-[17.5px] sm:text-[18.5px] font-semibold text-[#160808] mt-5 mb-2.5 tracking-tight leading-snug">${parseInlineMarkdown(text)}</h4>`);
         continue;
       }
       if (trimmed.startsWith('## ')) {
         const text = trimmed.slice(3).trim();
-        htmlParts.push(`<h3 class="text-[19px] sm:text-[20px] font-bold text-[#160808] mt-7 mb-3 tracking-tight leading-snug">${parseInlineMarkdown(text)}</h3>`);
+        htmlParts.push(`<h3 class="text-[20px] sm:text-[22px] font-bold text-[#160808] mt-7 mb-3 tracking-tight leading-snug">${parseInlineMarkdown(text)}</h3>`);
         continue;
       }
       if (trimmed.startsWith('# ')) {
         const text = trimmed.slice(2).trim();
-        htmlParts.push(`<h2 class="text-[21px] sm:text-[23px] font-bold text-[#160808] mt-7 mb-3 tracking-tight leading-snug">${parseInlineMarkdown(text)}</h2>`);
+        htmlParts.push(`<h2 class="text-[22px] sm:text-[24px] font-bold text-[#160808] mt-7 mb-3 tracking-tight leading-snug">${parseInlineMarkdown(text)}</h2>`);
         continue;
       }
     }
@@ -306,7 +306,7 @@ export function renderMarkdownToHTML(markdownInput) {
         flushList();
         inList = true;
         listType = 'ul';
-        htmlParts.push('<ul class="space-y-2 list-disc pl-5 my-3 text-[15.5px] sm:text-[16px] leading-[1.75] text-[#2c2c2e] marker:text-[#160808]">');
+        htmlParts.push('<ul class="space-y-2 list-disc pl-5 my-3 text-[16px] sm:text-[16.5px] leading-[1.8] text-[#1c1c1e] font-normal marker:text-[#160808]">');
       }
       htmlParts.push(`<li>${parseInlineMarkdown(ulMatch[1])}</li>`);
       continue;
@@ -319,7 +319,7 @@ export function renderMarkdownToHTML(markdownInput) {
         flushList();
         inList = true;
         listType = 'ol';
-        htmlParts.push('<ol class="space-y-2 list-decimal pl-5 my-3 text-[15.5px] sm:text-[16px] leading-[1.75] text-[#2c2c2e] marker:text-[#160808]">');
+        htmlParts.push('<ol class="space-y-2 list-decimal pl-5 my-3 text-[16px] sm:text-[16.5px] leading-[1.8] text-[#1c1c1e] font-normal marker:text-[#160808]">');
       }
       htmlParts.push(`<li>${parseInlineMarkdown(olMatch[2])}</li>`);
       continue;
@@ -329,7 +329,7 @@ export function renderMarkdownToHTML(markdownInput) {
     flushList();
 
     // 7. Regular Paragraph
-    htmlParts.push(`<p class="my-3 text-[15.5px] sm:text-[16px] leading-[1.8] text-[#2c2c2e] font-light">${parseInlineMarkdown(trimmed)}</p>`);
+    htmlParts.push(`<p class="my-3 text-[16.5px] sm:text-[17px] leading-[1.85] text-[#1c1c1e] font-normal">${parseInlineMarkdown(trimmed)}</p>`);
   }
 
   flushList();

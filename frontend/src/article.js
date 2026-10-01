@@ -87,11 +87,11 @@ async function fetchArticleData(slug, id) {
 
 async function fetchRelatedArticles(currentSlug) {
   try {
-    const res = await fetch('/api/articles.php?limit=8');
+    const res = await fetch('/api/articles.php?limit=12');
     if (res.ok) {
       const data = await res.json();
       if (data.success && Array.isArray(data.articles)) {
-        return data.articles.filter(a => a.slug !== currentSlug).slice(0, 3);
+        return data.articles.filter(a => a.slug !== currentSlug).slice(0, 10);
       }
     }
   } catch (e) {
@@ -103,7 +103,7 @@ async function fetchRelatedArticles(currentSlug) {
     if (res.ok) {
       const all = await res.json();
       if (Array.isArray(all)) {
-        return all.filter(a => a.slug !== currentSlug).slice(0, 3);
+        return all.filter(a => a.slug !== currentSlug).slice(0, 10);
       }
     }
   } catch (e) {
@@ -315,7 +315,7 @@ async function renderRecommendedProducts(article) {
 }
 
 async function renderRelatedArticles(currentSlug) {
-  const relatedGrid = document.getElementById('article-related-articles-grid');
+  const relatedTrack = document.getElementById('article-related-articles-track') || document.getElementById('article-related-articles-grid');
   const sidebarTrending = document.getElementById('sidebar-trending-articles');
 
   const articles = await fetchRelatedArticles(currentSlug);
@@ -325,45 +325,93 @@ async function renderRelatedArticles(currentSlug) {
     return;
   }
 
-  // 1. Hydrate bottom More Articles grid (100% preserved)
-  if (relatedGrid) {
-    relatedGrid.innerHTML = articles.map(a => `
-      <a href="/article.html?slug=${encodeURIComponent(a.slug)}" class="article-card flex flex-col group cursor-pointer">
-        <div class="w-full aspect-[16/10] bg-gray-100 rounded-xl overflow-hidden mb-3.5 relative border border-gray-200/70">
-          ${a.cover_image ? `
-            <img 
-              src="${escapeHtml(a.cover_image)}" 
-              alt="${escapeHtml(a.title)}" 
-              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" 
-              loading="lazy"
-            />
-          ` : `
-            <div class="w-full h-full flex items-center justify-center text-gray-300 font-bold text-lg">UDO</div>
-          `}
-        </div>
-        <div class="text-xs text-gray-400 font-medium mb-1">
-          ${formatDateThai(a.created_at) || 'บทความวิศวกรรม'}
-        </div>
-        <h3 class="font-semibold text-[#160808] group-hover:text-[#c5161b] transition-colors text-[16px] sm:text-[17px] leading-[1.38] line-clamp-2 h-[48px] overflow-hidden text-ellipsis mb-1.5" title="${escapeHtml(a.title)}">
-          ${escapeHtml(a.title)}
-        </h3>
-        <p class="text-[13.5px] text-[#555555] font-light line-clamp-2 leading-[1.48] h-[40px] overflow-hidden text-ellipsis">
-          ${escapeHtml(a.excerpt || '')}
-        </p>
-      </a>
-    `).join('');
+  // 1. Hydrate bottom More Articles horizontal peek carousel
+  if (relatedTrack) {
+    relatedTrack.innerHTML = articles.map(a => {
+      const tags = Array.isArray(a.tags) ? a.tags.slice(0, 3) : [];
+      const tagsHtml = tags.map(t => `
+        <span class="inline-block text-[11px] font-medium text-gray-500 bg-[#F5F5F7] border border-gray-200/80 px-2 py-0.5 rounded-[3px]">
+          ${escapeHtml(t)}
+        </span>
+      `).join('');
+
+      return `
+        <article class="article-card-peek-3 snap-start shrink-0 flex flex-col justify-between group cursor-pointer text-left">
+          <div>
+            <a href="/article.html?slug=${encodeURIComponent(a.slug || a.id)}" class="block w-full aspect-[16/10] bg-gray-100 rounded-[8px] overflow-hidden mb-3.5 border border-gray-200/80 shadow-2xs relative">
+              <img 
+                src="${escapeHtml(a.cover_image || '/images/banners/backup/BANNER 1.png')}" 
+                alt="${escapeHtml(a.title)}" 
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" 
+                loading="lazy" 
+              />
+            </a>
+
+            <div class="text-[11.5px] uppercase tracking-wider text-gray-400 font-medium mb-1.5">
+              ${escapeHtml(a.author || 'UDO TECHNICAL TEAM')} • ${formatDateThai(a.created_at)}
+            </div>
+
+            <h3 class="text-[17.5px] sm:text-[18.5px] font-bold text-[#160808] leading-snug line-clamp-2 h-[50px] overflow-hidden mb-2 group-hover:text-[#c5161b] transition-colors" title="${escapeHtml(a.title)}">
+              <a href="/article.html?slug=${encodeURIComponent(a.slug || a.id)}">
+                ${escapeHtml(a.title)}
+              </a>
+            </h3>
+
+            <p class="text-[13px] sm:text-[13.5px] text-gray-600 leading-relaxed font-light line-clamp-2 md:line-clamp-3 h-[40px] md:h-[58px] overflow-hidden text-ellipsis mb-3.5">
+              ${escapeHtml(a.excerpt || '')}
+            </p>
+          </div>
+
+          <div class="flex flex-wrap gap-1.5 pt-2 border-t border-gray-100">
+            ${tagsHtml}
+          </div>
+        </article>
+      `;
+    }).join('');
+
+    // Wire up slider navigation buttons
+    const sliderWrapper = relatedTrack.closest('.group\\/pslider');
+    if (sliderWrapper) {
+      const btnPrev = sliderWrapper.querySelector('.pslider-prev');
+      const btnNext = sliderWrapper.querySelector('.pslider-next');
+      if (btnPrev && btnNext) {
+        const updateUI = () => {
+          if (relatedTrack.scrollLeft <= 4) {
+            btnPrev.classList.add('opacity-0', 'pointer-events-none');
+          } else {
+            btnPrev.classList.remove('opacity-0', 'pointer-events-none');
+          }
+          if (Math.ceil(relatedTrack.scrollLeft + relatedTrack.clientWidth) >= relatedTrack.scrollWidth - 8) {
+            btnNext.classList.add('opacity-0', 'pointer-events-none');
+          } else {
+            btnNext.classList.remove('opacity-0', 'pointer-events-none');
+          }
+        };
+
+        btnPrev.onclick = (e) => {
+          e.preventDefault();
+          relatedTrack.scrollBy({ left: -(relatedTrack.clientWidth * 0.8), behavior: 'smooth' });
+        };
+        btnNext.onclick = (e) => {
+          e.preventDefault();
+          relatedTrack.scrollBy({ left: relatedTrack.clientWidth * 0.8, behavior: 'smooth' });
+        };
+        relatedTrack.onscroll = () => requestAnimationFrame(updateUI);
+        setTimeout(updateUI, 150);
+      }
+    }
   }
 
-  // 2. Hydrate sidebar trending guides list
+  // 2. Hydrate sidebar trending guides list with legible high-contrast typography
   if (sidebarTrending) {
     sidebarTrending.innerHTML = articles.slice(0, 3).map((a, idx) => `
-      <a href="/article.html?slug=${encodeURIComponent(a.slug)}" class="flex items-start gap-3 py-2.5 group cursor-pointer">
-        <span class="text-lg font-black text-gray-300 group-hover:text-[#c5161b] transition-colors shrink-0 w-6">0${idx + 1}</span>
+      <a href="/article.html?slug=${encodeURIComponent(a.slug || a.id)}" class="flex items-start gap-3 py-2.5 group cursor-pointer">
+        <span class="text-base sm:text-lg font-bold text-gray-400 group-hover:text-[#c5161b] transition-colors shrink-0 w-6">0${idx + 1}</span>
         <div class="flex-1 min-w-0">
-          <h5 class="text-[13px] font-semibold text-[#160808] group-hover:text-[#c5161b] line-clamp-2 leading-snug transition-colors">
+          <h5 class="text-[14px] sm:text-[14.5px] font-semibold text-[#160808] group-hover:text-[#c5161b] line-clamp-2 leading-snug transition-colors">
             ${escapeHtml(a.title)}
           </h5>
-          <span class="text-[11px] text-gray-400 mt-1 block">
+          <span class="text-[11.5px] text-gray-500 font-medium mt-1 block">
             ${formatDateThai(a.created_at) || 'สาระงานช่าง'}
           </span>
         </div>
