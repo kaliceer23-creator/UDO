@@ -11,34 +11,31 @@
       <span class="sm:hidden">หน้าหลัก</span>
     </a>
 
-    <!-- Center: UDO Logo with Inspirer Journal (Large & balanced) -->
+    <!-- Center: UDO Logo with Inspirer Journal (Large font, brand red) -->
     <div class="flex items-center justify-center text-center">
       <a href="/" class="inline-flex items-center gap-2.5 sm:gap-3 hover:opacity-90 transition-opacity">
         <img src="/images/logos/logo_main.svg" alt="UDO Welding Products" class="h-[30px] sm:h-[38px] md:h-[42px] w-auto object-contain" />
-        <span class="text-[26px] sm:text-[34px] md:text-[38px] font-serif italic text-[#160808] leading-none tracking-tight select-none">inspirer</span>
+        <span class="text-[26px] sm:text-[34px] md:text-[38px] font-serif italic text-[#c5161b] leading-none tracking-tight select-none">inspirer</span>
       </a>
     </div>
 
-    <!-- Right: AI Technical Consultant Link -->
-    <a href="/chat.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-1.5 bg-[#160808] hover:bg-black text-white text-xs font-semibold rounded-full shadow-2xs transition-all shrink-0">
-      <svg class="w-3.5 h-3.5 text-[#90DE3C]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
-      </svg>
-      <span class="hidden sm:inline">ปรึกษาช่าง UDO AI</span>
-      <span class="sm:hidden">AI ช่าง</span>
-    </a>
+    <!-- Right Optical Balance Spacer (Maintains perfect center alignment) -->
+    <div class="w-[90px] sm:w-[130px] hidden sm:block"></div>
   </div>
 </header>
 
-<!-- 2. Sticky Category Bar (Central Inspirer Layout with Bold Titles & Crisp Bottom Line) -->
-<nav class="sticky top-0 z-40 w-full bg-white/98 backdrop-blur-md border-b-2 border-[#160808] shadow-2xs">
+<!-- Sticky Sentinel: Detects when the category bar hits the viewport top -->
+<div id="nav-sticky-sentinel" class="h-px w-full pointer-events-none -mb-px"></div>
+
+<!-- 2. Sticky Category Bar (Article Categories, contained line at top, full-width line when sticky) -->
+<nav id="article-sticky-nav" class="sticky top-0 z-40 w-full bg-white/98 backdrop-blur-md border-b-2 border-transparent transition-[border-color,box-shadow] duration-200">
   <div class="max-w-[1440px] mx-auto px-4 md:px-8">
-    <div class="flex items-center justify-start md:justify-center gap-6 sm:gap-8 md:gap-10 overflow-x-auto no-scrollbar py-3 sm:py-3.5 text-[13px] sm:text-[14px] md:text-[15px] font-bold uppercase tracking-[0.06em] text-[#160808] whitespace-nowrap">
-      <a href="/category.html" class="hover:text-[#c5161b] transition-colors py-0.5">งานเชื่อมไฟฟ้า</a>
-      <a href="/category.html" class="hover:text-[#c5161b] transition-colors py-0.5">ท่อทองแดง & ความเย็น</a>
-      <a href="/category.html" class="hover:text-[#c5161b] transition-colors py-0.5">เครื่องมืองานช่าง</a>
-      <a href="/category.html" class="hover:text-[#c5161b] transition-colors py-0.5">ความปลอดภัย & EHS</a>
+    <div id="article-nav-inner" class="flex items-center justify-start md:justify-center gap-6 sm:gap-8 md:gap-10 overflow-x-auto no-scrollbar py-3 sm:py-3.5 text-[13px] sm:text-[14px] md:text-[15px] font-bold uppercase tracking-[0.06em] text-[#160808] whitespace-nowrap border-b-2 border-[#160808] transition-[border-color] duration-200">
+      <a href="/#articles-section" class="hover:text-[#c5161b] transition-colors py-0.5">เทคนิคการเชื่อม</a>
+      <a href="/#articles-section" class="hover:text-[#c5161b] transition-colors py-0.5">เลือกใช้ลวดเชื่อม</a>
       <a href="/#articles-section" class="hover:text-[#c5161b] transition-colors py-0.5">คู่มือ & ทริคช่าง</a>
+      <a href="/#articles-section" class="hover:text-[#c5161b] transition-colors py-0.5">ความปลอดภัย & มาตรฐาน</a>
+      <a href="/#articles-section" class="hover:text-[#c5161b] transition-colors py-0.5">ดูแลรักษาเครื่องมือ</a>
       <a href="/#articles-section" class="hover:text-[#c5161b] transition-colors py-0.5">สาระวิศวกรรม</a>
       <a href="/#articles-section" class="text-[#c5161b] font-extrabold hover:underline py-0.5"># TRENDING</a>
     </div>

@@ -13,11 +13,11 @@
       /* Prevent FOUC (Flash of Unstyled Content) for SVGs */
       svg:not([class*="w-"]) { max-width: 40px; max-height: 40px; }
     </style>
-    <script type="module" crossorigin src="/assets/article-C1MTHKRj.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/ProductCard-bFt9wM61.js">
+    <script type="module" crossorigin src="/assets/article-CACfdf3Q.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/ProductCard-WyyXdgiQ.js">
     <link rel="modulepreload" crossorigin href="/assets/dock-Bf_qABMp.js">
     <link rel="modulepreload" crossorigin href="/assets/markdown_parser-D8q2R349.js">
-    <link rel="stylesheet" crossorigin href="/assets/ProductCard-C_BVgb3J.css">
+    <link rel="stylesheet" crossorigin href="/assets/ProductCard-ZU_bL3RU.css">
   </head>
   <body class="bg-white font-['Prompt',sans-serif] antialiased text-gray-900 selection:bg-[#8fc101] selection:text-white pb-[80px] md:pb-0">
     <div id="app">
@@ -36,34 +36,31 @@
       <span class="sm:hidden">หน้าหลัก</span>
     </a>
 
-    <!-- Center: UDO Logo with Inspirer Journal (Large & balanced) -->
+    <!-- Center: UDO Logo with Inspirer Journal (Large font, brand red) -->
     <div class="flex items-center justify-center text-center">
       <a href="/" class="inline-flex items-center gap-2.5 sm:gap-3 hover:opacity-90 transition-opacity">
         <img src="/images/logos/logo_main.svg" alt="UDO Welding Products" class="h-[30px] sm:h-[38px] md:h-[42px] w-auto object-contain" />
-        <span class="text-[26px] sm:text-[34px] md:text-[38px] font-serif italic text-[#160808] leading-none tracking-tight select-none">inspirer</span>
+        <span class="text-[26px] sm:text-[34px] md:text-[38px] font-serif italic text-[#c5161b] leading-none tracking-tight select-none">inspirer</span>
       </a>
     </div>
 
-    <!-- Right: AI Technical Consultant Link -->
-    <a href="/chat.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-1.5 bg-[#160808] hover:bg-black text-white text-xs font-semibold rounded-full shadow-2xs transition-all shrink-0">
-      <svg class="w-3.5 h-3.5 text-[#90DE3C]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
-      </svg>
-      <span class="hidden sm:inline">ปรึกษาช่าง UDO AI</span>
-      <span class="sm:hidden">AI ช่าง</span>
-    </a>
+    <!-- Right Optical Balance Spacer (Maintains perfect center alignment) -->
+    <div class="w-[90px] sm:w-[130px] hidden sm:block"></div>
   </div>
 </header>
 
-<!-- 2. Sticky Category Bar (Central Inspirer Layout with Bold Titles & Crisp Bottom Line) -->
-<nav class="sticky top-0 z-40 w-full bg-white/98 backdrop-blur-md border-b-2 border-[#160808] shadow-2xs">
+<!-- Sticky Sentinel: Detects when the category bar hits the viewport top -->
+<div id="nav-sticky-sentinel" class="h-px w-full pointer-events-none -mb-px"></div>
+
+<!-- 2. Sticky Category Bar (Article Categories, contained line at top, full-width line when sticky) -->
+<nav id="article-sticky-nav" class="sticky top-0 z-40 w-full bg-white/98 backdrop-blur-md border-b-2 border-transparent transition-[border-color,box-shadow] duration-200">
   <div class="max-w-[1440px] mx-auto px-4 md:px-8">
-    <div class="flex items-center justify-start md:justify-center gap-6 sm:gap-8 md:gap-10 overflow-x-auto no-scrollbar py-3 sm:py-3.5 text-[13px] sm:text-[14px] md:text-[15px] font-bold uppercase tracking-[0.06em] text-[#160808] whitespace-nowrap">
-      <a href="/category.html" class="hover:text-[#c5161b] transition-colors py-0.5">งานเชื่อมไฟฟ้า</a>
-      <a href="/category.html" class="hover:text-[#c5161b] transition-colors py-0.5">ท่อทองแดง & ความเย็น</a>
-      <a href="/category.html" class="hover:text-[#c5161b] transition-colors py-0.5">เครื่องมืองานช่าง</a>
-      <a href="/category.html" class="hover:text-[#c5161b] transition-colors py-0.5">ความปลอดภัย & EHS</a>
+    <div id="article-nav-inner" class="flex items-center justify-start md:justify-center gap-6 sm:gap-8 md:gap-10 overflow-x-auto no-scrollbar py-3 sm:py-3.5 text-[13px] sm:text-[14px] md:text-[15px] font-bold uppercase tracking-[0.06em] text-[#160808] whitespace-nowrap border-b-2 border-[#160808] transition-[border-color] duration-200">
+      <a href="/#articles-section" class="hover:text-[#c5161b] transition-colors py-0.5">เทคนิคการเชื่อม</a>
+      <a href="/#articles-section" class="hover:text-[#c5161b] transition-colors py-0.5">เลือกใช้ลวดเชื่อม</a>
       <a href="/#articles-section" class="hover:text-[#c5161b] transition-colors py-0.5">คู่มือ & ทริคช่าง</a>
+      <a href="/#articles-section" class="hover:text-[#c5161b] transition-colors py-0.5">ความปลอดภัย & มาตรฐาน</a>
+      <a href="/#articles-section" class="hover:text-[#c5161b] transition-colors py-0.5">ดูแลรักษาเครื่องมือ</a>
       <a href="/#articles-section" class="hover:text-[#c5161b] transition-colors py-0.5">สาระวิศวกรรม</a>
       <a href="/#articles-section" class="text-[#c5161b] font-extrabold hover:underline py-0.5"># TRENDING</a>
     </div>
@@ -71,10 +68,10 @@
 </nav>
 
 
-    <!-- 2. Breadcrumb Navigation -->
-    <div class="bg-white border-b border-gray-100">
+    <!-- 2. Breadcrumb Navigation (Line contained within max-w, not edge-to-edge) -->
+    <div class="bg-white">
       <div class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div id="article-breadcrumb-container" class="pt-3 pb-3 text-[13px] sm:text-[14px] font-normal text-gray-500 flex items-center gap-2.5 overflow-x-auto whitespace-nowrap">
+        <div id="article-breadcrumb-container" class="pt-3 pb-3 border-b border-gray-100 text-[13px] sm:text-[14px] font-normal text-gray-500 flex items-center gap-2.5 overflow-x-auto whitespace-nowrap">
           <a href="/" class="hover:text-[#c5161b] hover:underline underline-offset-2">หน้าหลัก</a>
           <span class="text-gray-300">/</span>
           <a href="/#articles-section" class="hover:text-[#c5161b] hover:underline underline-offset-2">เทคนิค & สาระงานช่าง</a>
@@ -147,32 +144,16 @@
           <!-- Right Column: Sticky Spotlight Sidebar (~30%) -->
           <aside class="w-full lg:w-[32%] xl:w-[30%] lg:sticky lg:top-20 space-y-6">
             
-            <!-- Box 1: UDO Spotlight Equipment (Mirroring Central Promotion) -->
-            <div id="sidebar-spotlight-card" class="bg-[#FBFBFC] rounded-2xl border border-gray-200/90 p-5 shadow-2xs">
-              <div class="flex items-center justify-between pb-3 border-b border-gray-200/70 mb-4">
-                <span class="text-[11px] font-bold uppercase tracking-wider text-[#c5161b]">UDO Spotlight Tools</span>
+            <!-- Box 1: UDO Spotlight Equipment (Real Homepage Product Card) -->
+            <div id="sidebar-spotlight-card" class="bg-[#F8F9FA] rounded-[16px] border border-gray-200/90 p-4 sm:p-5 shadow-2xs">
+              <div class="flex items-center justify-between pb-3 border-b border-gray-200/80 mb-3.5">
+                <span class="text-[12px] font-bold uppercase tracking-wider text-[#c5161b]">UDO SPOTLIGHT TOOLS</span>
                 <span class="text-[11px] text-gray-400 font-medium">อุปกรณ์แนะนำ</span>
               </div>
 
-              <div id="sidebar-spotlight-content" class="space-y-3.5">
-                <div class="aspect-4/3 bg-white rounded-xl border border-gray-200/70 overflow-hidden flex items-center justify-center p-3">
-                  <img id="sidebar-spotlight-img" src="" alt="Spotlight Tool" class="max-h-full max-w-full object-contain" />
-                </div>
-                <div>
-                  <h4 id="sidebar-spotlight-title" class="text-sm font-bold text-[#160808] line-clamp-2 leading-snug">
-                    กำลังโหลดสินค้าแนะนำ...
-                  </h4>
-                  <p id="sidebar-spotlight-desc" class="text-xs text-gray-500 line-clamp-2 mt-1">
-                    มาตรฐานสากล สำหรับงานช่างมืออาชีพ
-                  </p>
-                </div>
-                <div class="pt-2 flex items-baseline justify-between border-t border-gray-200/60">
-                  <span class="text-xs text-gray-500">ราคาพิเศษ</span>
-                  <span id="sidebar-spotlight-price" class="text-base font-bold text-[#c5161b]">-</span>
-                </div>
-                <a id="sidebar-spotlight-btn" href="/category.html" class="w-full py-2.5 px-4 bg-[#160808] hover:bg-black text-white text-xs font-semibold rounded-xl text-center block transition-all shadow-xs">
-                  ดูรายละเอียด / สั่งซื้อ &rarr;
-                </a>
+              <!-- Real Product Card Container (Hydrated by article.js with generateCardHTML) -->
+              <div id="sidebar-spotlight-card-wrapper" class="w-full">
+                <!-- Injected dynamically by article.js -->
               </div>
             </div>
 

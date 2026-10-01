@@ -290,35 +290,16 @@ async function renderRecommendedProducts(article) {
     }
   }
 
-  // 2. Hydrate sidebar spotlight tool card (Central Inspirer layout)
-  if (products && products.length > 0) {
-    const featuredProduct = products[0];
-    const spotImg = document.getElementById('sidebar-spotlight-img');
-    const spotTitle = document.getElementById('sidebar-spotlight-title');
-    const spotDesc = document.getElementById('sidebar-spotlight-desc');
-    const spotPrice = document.getElementById('sidebar-spotlight-price');
-    const spotBtn = document.getElementById('sidebar-spotlight-btn');
-
-    if (spotImg) {
-      spotImg.src = featuredProduct.image || featuredProduct.thumbnail || '/images/products/welding-sample.png';
-      spotImg.alt = featuredProduct.name || featuredProduct.title;
-    }
-    if (spotTitle) {
-      spotTitle.textContent = featuredProduct.name || featuredProduct.title;
-      spotTitle.title = featuredProduct.name || featuredProduct.title;
-    }
-    if (spotDesc) {
-      spotDesc.textContent = featuredProduct.description || featuredProduct.short_description || 'อุปกรณ์งานช่างและงานเชื่อมมาตรฐานอุตสาหกรรม';
-    }
-    if (spotPrice) {
-      const price = featuredProduct.price || featuredProduct.price_start;
-      spotPrice.textContent = price ? `฿${Number(price).toLocaleString()}` : 'ขอใบเสนอราคา';
-    }
-    if (spotBtn) {
-      const link = featuredProduct.slug 
-        ? `/product.html?slug=${encodeURIComponent(featuredProduct.slug)}` 
-        : (featuredProduct.id ? `/product.html?id=${encodeURIComponent(featuredProduct.id)}` : '/category.html');
-      spotBtn.href = link;
+  // 2. Hydrate sidebar spotlight tool card (Real Homepage Product Card)
+  const spotWrapper = document.getElementById('sidebar-spotlight-card-wrapper');
+  const spotCard = document.getElementById('sidebar-spotlight-card');
+  if (spotWrapper && spotCard) {
+    if (products && products.length > 0) {
+      const featuredProduct = products[0];
+      spotWrapper.innerHTML = generateCardHTML(featuredProduct, true);
+      spotCard.classList.remove('hidden');
+    } else {
+      spotCard.classList.add('hidden');
     }
   }
 }
@@ -467,9 +448,35 @@ function initMegaMenu() {
   });
 }
 
+function initStickyNavObserver() {
+  const sentinel = document.getElementById('nav-sticky-sentinel');
+  const navEl = document.getElementById('article-sticky-nav');
+  const navInner = document.getElementById('article-nav-inner');
+
+  if (!sentinel || !navEl || !navInner) return;
+
+  const observer = new IntersectionObserver(([entry]) => {
+    const atTop = entry.isIntersecting;
+    if (atTop) {
+      // Top position: contained line within max-w container
+      navEl.classList.remove('border-b-2', 'border-[#160808]', 'shadow-xs');
+      navEl.classList.add('border-b-transparent');
+      navInner.classList.add('border-b-2', 'border-[#160808]');
+    } else {
+      // Sticky position: full-width line spanning edge-to-edge
+      navEl.classList.add('border-b-2', 'border-[#160808]', 'shadow-xs');
+      navEl.classList.remove('border-b-transparent');
+      navInner.classList.remove('border-b-2', 'border-[#160808]');
+    }
+  }, { threshold: [0, 1] });
+
+  observer.observe(sentinel);
+}
+
 // Initialize on DOM ready
 document.addEventListener('DOMContentLoaded', async () => {
   initMegaMenu();
+  initStickyNavObserver();
 
   const params = new URLSearchParams(window.location.search);
   const slug = params.get('slug');
