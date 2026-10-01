@@ -2499,14 +2499,14 @@ function renderDrawerVariants() {
       const isSelected = currentSizes.includes(preset);
       if (isSelected) {
         return `
-          <button type="button" class="btn-size-preset-chip px-2.5 py-1 rounded-lg text-xs font-semibold bg-black text-white border border-black shadow-2xs inline-flex items-center gap-1.5 cursor-default select-none" data-size="${preset}" data-active="true">
+          <button type="button" class="btn-size-preset-chip px-3 py-1.5 rounded-xl text-xs sm:text-[12.5px] font-bold bg-[#160808] text-white border border-[#160808] shadow-2xs inline-flex items-center gap-1.5 cursor-default select-none" data-size="${preset}" data-active="true">
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
             <span>${preset}</span>
           </button>
         `;
       } else {
         return `
-          <button type="button" class="btn-size-preset-chip px-2.5 py-1 rounded-lg text-xs font-medium bg-white text-gray-700 hover:text-black hover:border-black border border-gray-300 transition-colors inline-flex items-center gap-1 cursor-pointer select-none" data-size="${preset}" data-active="false" title="คลิกเพื่อเพิ่มขนาด ${preset}">
+          <button type="button" class="btn-size-preset-chip px-3 py-1.5 rounded-xl text-xs sm:text-[12.5px] font-semibold bg-white text-[#424245] hover:text-[#160808] hover:border-[#160808] border border-gray-300 transition-colors inline-flex items-center gap-1 cursor-pointer select-none" data-size="${preset}" data-active="false" title="คลิกเพื่อเพิ่มขนาด ${preset}">
             <span>+ ${preset}</span>
           </button>
         `;
@@ -2537,13 +2537,13 @@ function renderDrawerVariants() {
     return `
       <div id="size-group-${encodeURIComponent(sizeName)}" class="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-2xs space-y-0">
         <!-- Size Group Header -->
-        <div class="px-3.5 py-2.5 bg-gray-50 border-b border-gray-200 flex items-center justify-between flex-wrap gap-2">
-          <div class="flex items-center gap-2">
-            <span class="font-bold text-xs text-gray-900">ขนาด: <span class="text-black bg-white px-2 py-0.5 rounded border border-gray-300 font-mono">${sizeName}</span></span>
-            <span class="text-[11px] font-medium text-gray-500 bg-gray-200/70 px-2 py-0.5 rounded-full">${sizeVariants.length} ระดับหน่วยขาย/ราคาส่ง</span>
+        <div class="px-4 py-3 bg-gray-50/80 border-b border-gray-200 flex items-center justify-between flex-wrap gap-2">
+          <div class="flex items-center gap-2.5">
+            <span class="font-bold text-sm text-[#160808]">ขนาด: <span class="text-[#160808] bg-white px-2.5 py-0.5 rounded-lg border border-gray-300 font-mono font-bold">${sizeName}</span></span>
+            <span class="text-xs font-semibold text-[#424245] bg-gray-200/80 px-2.5 py-0.5 rounded-full">${sizeVariants.length} ระดับหน่วยขาย/ราคาส่ง</span>
           </div>
           ${currentSizes.length > 1 ? `
-            <button type="button" class="btn-remove-size-group text-[11px] text-rose-600 hover:text-rose-800 font-medium hover:underline inline-flex items-center gap-1 cursor-pointer" data-size="${sizeName}" title="ลบขนาด ${sizeName} และทุกหน่วยบรรจุย่อย">
+            <button type="button" class="btn-remove-size-group text-xs text-rose-600 hover:text-rose-800 font-semibold hover:underline inline-flex items-center gap-1 cursor-pointer" data-size="${sizeName}" title="ลบขนาด ${sizeName} และทุกหน่วยบรรจุย่อย">
               ลบทั้งขนาดนี้
             </button>
           ` : ''}
@@ -2552,14 +2552,14 @@ function renderDrawerVariants() {
         <!-- Packaging & Wholesale Tiers Table -->
         <div class="overflow-x-auto">
           <table class="w-full text-left text-xs">
-            <thead class="bg-gray-50/50 text-[10px] uppercase font-bold text-gray-500 border-b border-gray-100 tracking-wider">
+            <thead class="bg-gray-50/80 text-xs uppercase font-bold text-[#160808] border-b border-gray-200 tracking-wide">
               <tr>
-                <th class="py-2 px-3 w-[26%]">หน่วยบรรจุ / แพ็กเกจ</th>
-                <th class="py-2 px-3 w-[22%]">รหัส SKU ตัวเลือก</th>
-                <th class="py-2 px-3 w-[16%]">ราคาขาย (บาท)</th>
-                <th class="py-2 px-3 w-[18%]">ราคาเดิม (ก่อนลด)</th>
-                <th class="py-2 px-3 w-[12%]">สต็อก</th>
-                <th class="py-2 px-2 w-[6%] text-center">ลบ</th>
+                <th class="py-2.5 px-3 w-[26%]">หน่วยบรรจุ / แพ็กเกจ</th>
+                <th class="py-2.5 px-3 w-[22%]">รหัส SKU ตัวเลือก</th>
+                <th class="py-2.5 px-3 w-[16%]">ราคาขาย (บาท)</th>
+                <th class="py-2.5 px-3 w-[18%]">ราคาเดิม (ก่อนลด)</th>
+                <th class="py-2.5 px-3 w-[12%]">สต็อก</th>
+                <th class="py-2.5 px-2 w-[6%] text-center">ลบ</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">
@@ -2575,31 +2575,31 @@ function renderDrawerVariants() {
                   <tr class="variant-item-row hover:bg-gray-50/60 transition-colors" data-vindex="${idx}">
                     <td class="py-2.5 px-3 align-top">
                       <input type="hidden" class="v-input-size" value="${sizeName}">
-                      <input type="text" list="common-packages-list" class="v-input-package w-full bg-white border border-gray-300 rounded-lg px-2.5 py-1.5 text-xs text-gray-900 focus:outline-none focus:ring-1 focus:ring-black" value="${v.package || 'ชิ้น'}" placeholder="เช่น ม้วน (5 กก.) หรือ ลัง (20 กก.)">
+                      <input type="text" list="common-packages-list" class="v-input-package w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[13px] font-semibold text-[#160808] focus:outline-none focus:ring-1 focus:ring-black" value="${v.package || 'ชิ้น'}" placeholder="เช่น ม้วน (5 กก.) หรือ ลัง (20 กก.)">
                     </td>
                     <td class="py-2.5 px-3 align-top">
-                      <input type="text" class="v-input-sku w-full bg-white border border-gray-300 rounded-lg px-2.5 py-1.5 text-xs font-mono text-gray-800 focus:outline-none focus:ring-1 focus:ring-black" value="${v.sku || ''}" placeholder="SKU-XXXX">
+                      <input type="text" class="v-input-sku w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[13px] font-mono font-medium text-[#160808] focus:outline-none focus:ring-1 focus:ring-black" value="${v.sku || ''}" placeholder="SKU-XXXX">
                     </td>
                     <td class="py-2.5 px-3 align-top">
-                      <input type="number" min="0" step="any" class="v-input-price w-full bg-white border border-gray-300 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-gray-900 focus:outline-none focus:ring-1 focus:ring-black" value="${v.price ?? 0}">
+                      <input type="number" min="0" step="any" class="v-input-price w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[13px] font-bold text-[#160808] focus:outline-none focus:ring-1 focus:ring-black" value="${v.price ?? 0}">
                     </td>
                     <td class="py-2.5 px-3 align-top">
-                      <input type="number" min="0" step="any" class="v-input-original-price w-full bg-white border border-gray-300 rounded-lg px-2.5 py-1.5 text-xs text-gray-600 focus:outline-none focus:ring-1 focus:ring-black" value="${v.original_price ?? ''}" placeholder="ราคาเต็ม">
+                      <input type="number" min="0" step="any" class="v-input-original-price w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[13px] font-medium text-[#160808] focus:outline-none focus:ring-1 focus:ring-black" value="${v.original_price ?? ''}" placeholder="ราคาเต็ม">
                       <div class="v-discount-badge-container mt-1 min-h-[16px]">
                         ${hasDiscount ? `
-                          <span class="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
+                          <span class="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
                             -${discountPct}% (ลด ฿${formatPrice(discountSavings)})
                           </span>
                         ` : ''}
                       </div>
                     </td>
                     <td class="py-2.5 px-3 align-top">
-                      <input type="number" min="0" class="v-input-stock w-full bg-white border border-gray-300 rounded-lg px-2.5 py-1.5 text-xs text-gray-900 focus:outline-none focus:ring-1 focus:ring-black" value="${v.stock ?? 0}">
+                      <input type="number" min="0" class="v-input-stock w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[13px] font-semibold text-[#160808] focus:outline-none focus:ring-1 focus:ring-black" value="${v.stock ?? 0}">
                     </td>
                     <td class="py-2.5 px-2 align-middle text-center">
                       ${variants.length > 1 ? `
-                        <button type="button" class="btn-remove-variant text-gray-400 hover:text-rose-600 p-1 rounded hover:bg-rose-50 transition-colors cursor-pointer" data-vindex="${idx}" title="ลบหน่วยบรรจุนี้">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <button type="button" class="btn-remove-variant text-gray-400 hover:text-rose-600 p-1.5 rounded-lg hover:bg-rose-50 transition-colors cursor-pointer" data-vindex="${idx}" title="ลบหน่วยบรรจุนี้">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                           </svg>
                         </button>
@@ -2613,8 +2613,8 @@ function renderDrawerVariants() {
         </div>
 
         <!-- Add Package Tier for this Size Button -->
-        <div class="px-3.5 py-2 bg-gray-50/70 border-t border-gray-100 flex items-center justify-between">
-          <button type="button" class="btn-add-package-tier text-[11px] font-semibold text-gray-800 hover:text-black hover:underline inline-flex items-center gap-1 cursor-pointer" data-size="${sizeName}">
+        <div class="px-4 py-2.5 bg-gray-50/80 border-t border-gray-200 flex items-center justify-between">
+          <button type="button" class="btn-add-package-tier text-xs sm:text-[13px] font-semibold text-[#160808] hover:underline inline-flex items-center gap-1 cursor-pointer" data-size="${sizeName}">
             <span>+ เพิ่มหน่วยบรรจุ / ราคาส่ง สำหรับขนาด ${sizeName}</span>
           </button>
         </div>
@@ -2662,7 +2662,7 @@ function attachVariantRowListeners() {
             const pct = Math.round(((origPriceVal - priceVal) / origPriceVal) * 100);
             const savings = origPriceVal - priceVal;
             discountContainer.innerHTML = `
-              <span class="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
+              <span class="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
                 -${pct}% (ลด ฿${formatPrice(savings)})
               </span>
             `;
@@ -2854,14 +2854,14 @@ function renderDrawerSpecs() {
       const isUsed = existingKeys.has(preset);
       if (isUsed) {
         return `
-          <button type="button" class="btn-spec-preset-chip px-2 py-0.5 rounded-md text-[11px] font-semibold bg-gray-200 text-gray-700 border border-gray-300 inline-flex items-center gap-1 cursor-default select-none" data-key="${preset}" data-used="true">
+          <button type="button" class="btn-spec-preset-chip px-3 py-1 rounded-xl text-xs sm:text-[12.5px] font-bold bg-gray-200 text-[#160808] border border-gray-300 inline-flex items-center gap-1.5 cursor-default select-none" data-key="${preset}" data-used="true">
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
             <span>${preset}</span>
           </button>
         `;
       } else {
         return `
-          <button type="button" class="btn-spec-preset-chip px-2 py-0.5 rounded-md text-[11px] font-medium bg-white text-gray-700 hover:text-black hover:border-black border border-gray-300 transition-colors inline-flex items-center gap-1 cursor-pointer select-none" data-key="${preset}" data-used="false" title="คลิกเพื่อเพิ่มหัวข้อ ${preset}">
+          <button type="button" class="btn-spec-preset-chip px-3 py-1 rounded-xl text-xs sm:text-[12.5px] font-semibold bg-white text-[#424245] hover:text-[#160808] hover:border-[#160808] border border-gray-300 transition-colors inline-flex items-center gap-1 cursor-pointer select-none" data-key="${preset}" data-used="false" title="คลิกเพื่อเพิ่มหัวข้อ ${preset}">
             <span>+ ${preset}</span>
           </button>
         `;
@@ -2898,36 +2898,36 @@ function renderDrawerSpecs() {
 
     return `
       <tr class="spec-item-row hover:bg-gray-50/70 transition-colors" data-sindex="${idx}">
-        <td class="py-2 px-3 align-top">
+        <td class="py-2.5 px-3.5 align-top">
           <input 
             type="text" 
-            class="spec-key-input w-full bg-white border border-gray-300 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-gray-900 focus:outline-none focus:ring-1 focus:ring-black" 
+            class="spec-key-input w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[13px] font-bold text-[#160808] focus:outline-none focus:ring-1 focus:ring-black" 
             value="${escapeHtml(item.key || '')}" 
             placeholder="เช่น มาตรฐานรับรอง, กระบวนการเชื่อม"
           >
         </td>
-        <td class="py-2 px-3 align-top">
+        <td class="py-2.5 px-3.5 align-top">
           <input 
             type="text" 
-            class="spec-value-input w-full bg-white border border-gray-300 rounded-lg px-2.5 py-1.5 text-xs text-gray-800 focus:outline-none focus:ring-1 focus:ring-black" 
+            class="spec-value-input w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[13px] font-medium text-[#160808] focus:outline-none focus:ring-1 focus:ring-black" 
             value="${escapeHtml(item.value || '')}" 
             placeholder="เช่น AWS A5.18, 90-250A"
           >
         </td>
-        <td class="py-2 px-2 align-top text-center whitespace-nowrap">
+        <td class="py-2.5 px-2 align-top text-center whitespace-nowrap">
           <div class="flex items-center justify-center gap-1 mt-1">
-            <button type="button" class="btn-move-spec-up p-1 rounded text-gray-400 hover:text-black hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer" data-sindex="${idx}" ${isFirst ? 'disabled' : ''} title="เลื่อนขึ้น">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <button type="button" class="btn-move-spec-up p-1.5 rounded-lg text-gray-400 hover:text-black hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer" data-sindex="${idx}" ${isFirst ? 'disabled' : ''} title="เลื่อนขึ้น">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
               </svg>
             </button>
-            <button type="button" class="btn-move-spec-down p-1 rounded text-gray-400 hover:text-black hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer" data-sindex="${idx}" ${isLast ? 'disabled' : ''} title="เลื่อนลง">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <button type="button" class="btn-move-spec-down p-1.5 rounded-lg text-gray-400 hover:text-black hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer" data-sindex="${idx}" ${isLast ? 'disabled' : ''} title="เลื่อนลง">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
               </svg>
             </button>
-            <button type="button" class="btn-remove-spec p-1 rounded text-gray-400 hover:text-rose-600 hover:bg-rose-50 cursor-pointer" data-sindex="${idx}" title="ลบรายการนี้">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <button type="button" class="btn-remove-spec p-1.5 rounded-lg text-gray-400 hover:text-rose-600 hover:bg-rose-50 cursor-pointer" data-sindex="${idx}" title="ลบรายการนี้">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
               </svg>
             </button>
@@ -3210,8 +3210,8 @@ function renderDrawerGallery() {
         <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-gray-400 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
           <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
         </svg>
-        <p class="text-xs font-semibold text-gray-700">ยังไม่มีรูปภาพสำหรับสินค้านี้</p>
-        <p class="text-[11px] text-gray-400 mt-0.5">กดปุ่ม "เพิ่มรูปภาพ" ด้านบน หรือกด "จัดตำแหน่งรูปภาพ 1:1" ทางขวามือ</p>
+        <p class="text-sm font-semibold text-[#160808]">ยังไม่มีรูปภาพสำหรับสินค้านี้</p>
+        <p class="text-xs text-[#424245] mt-1">กดปุ่ม "+ เพิ่มรูปภาพ" ด้านบน หรือกด "จัดตำแหน่งรูปภาพ 1:1" ทางขวามือ</p>
       </div>
     `;
     return;
@@ -3230,12 +3230,12 @@ function renderDrawerGallery() {
           <!-- Primary or Index Badge -->
           <div class="absolute top-1.5 left-1.5 flex items-center gap-1">
             ${isPrimary ? `
-              <span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-[#160808] text-white shadow-xs inline-flex items-center gap-1">
+              <span class="px-2 py-0.5 rounded-md text-[11px] font-bold bg-[#160808] text-white shadow-xs inline-flex items-center gap-1">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                 <span>รูปหลัก</span>
               </span>
             ` : `
-              <span class="px-1.5 py-0.5 rounded-md text-[10px] font-mono font-bold bg-black/60 backdrop-blur-xs text-white">
+              <span class="px-1.5 py-0.5 rounded-md text-[11px] font-mono font-bold bg-black/60 backdrop-blur-xs text-white">
                 #${index + 1}
               </span>
             `}
@@ -3257,13 +3257,13 @@ function renderDrawerGallery() {
         </div>
 
         <!-- Tile Bottom Bar -->
-        <div class="flex items-center justify-between gap-1 pt-1 border-t border-gray-100">
+        <div class="flex items-center justify-between gap-1 pt-1.5 border-t border-gray-100">
           ${isPrimary ? `
-            <span class="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-1 rounded-md text-center flex-1">
+            <span class="text-[11px] font-bold text-emerald-800 bg-emerald-50 px-2 py-1 rounded-md text-center flex-1 border border-emerald-200/60">
               แสดงเป็นการ์ดหน้าร้าน
             </span>
           ` : `
-            <button type="button" class="btn-set-primary flex-1 py-1 px-1.5 bg-gray-100 hover:bg-black hover:text-white rounded-md text-[10px] font-semibold text-gray-800 transition-colors cursor-pointer text-center" data-index="${index}">
+            <button type="button" class="btn-set-primary flex-1 py-1.5 px-2 bg-gray-100 hover:bg-black hover:text-white rounded-lg text-xs font-semibold text-[#160808] transition-colors cursor-pointer text-center" data-index="${index}">
               ตั้งเป็นรูปหลัก
             </button>
           `}
