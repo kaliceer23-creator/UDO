@@ -212,6 +212,8 @@ const dom = {
   drawerBrandChevron: document.getElementById('drawer-brand-chevron'),
   drawerBrandChevronBtn: document.getElementById('drawer-brand-chevron-btn'),
   drawerBrandScopeToggle: document.getElementById('drawer-brand-scope-toggle'),
+  drawerBrandScopeDot: document.getElementById('drawer-brand-scope-dot'),
+  drawerBrandScopeText: document.getElementById('drawer-brand-scope-text'),
   drawerBrandCategoryName: document.getElementById('drawer-brand-category-name'),
   drawerBrandCountBadge: document.getElementById('drawer-brand-count-badge'),
   drawerBrandList: document.getElementById('drawer-brand-list'),
@@ -1187,48 +1189,119 @@ async function handleSaveInlineStock() {
 }
 
 /**
+ * Canonical 8 Category Definitions & Baseline Industry Brands
+ */
+const CANONICAL_CATEGORY_MAP = {
+  'cat-12': ['cat-12', 'กลุ่มลวดเชื่อม', 'ลวดเชื่อม'],
+  'cat-298': ['cat-298', 'ใบตัดใบเจียร', 'ใบตัด', 'ใบเจียร'],
+  'cat-312': ['cat-312', 'อุปกรณ์เชื่อมตัดเผาแก๊ส', 'ตัดแก๊ส', 'เกจ์ปรับแรงดันแก๊ส'],
+  'cat-327': ['cat-327', 'ท่อบรรจุก๊าซ และวาล์ว', 'ท่อบรรจุก๊าซและวาล์ว', 'ท่อบรรจุก๊าซ'],
+  'cat-339': ['cat-339', 'เครื่องเชื่อมและเครื่องตัดพลาสม่า', 'เครื่องเชื่อม'],
+  'cat-344': ['cat-344', 'อะไหล่สิ้นเปลือง เครื่องเชื่อม/พลาสม่า', 'อะไหล่สิ้นเปลือง เครื่องตัดพลาสม่า เครื่องเชื่อม', 'อะไหล่สิ้นเปลือง'],
+  'cat-382': ['cat-382', 'วัสดุอุปกรณ์เคมีภัณฑ์งานเชื่อม', 'วัสดุอุปกรณ์เคมีภัณฑ์สำหรับงานเชื่อม', 'เคมีภัณฑ์'],
+  'cat-398': ['cat-398', 'เครื่องมือช่าง']
+};
+
+const BASELINE_CATEGORY_BRANDS = {
+  'cat-12': ['UDO', 'GEMINI', 'HYUNDAI', 'POWERWELD', 'YAWATA', 'KOBE', 'NSSW', 'NICHIA', 'METRODE', 'BOHLER', 'CHOSUN', 'TASETO', 'LINCOLN', 'ARCWELD', 'KISWEL'],
+  'cat-298': ['NKK', 'SUMO', 'YAWATA'],
+  'cat-312': ['CHAMP', 'WELDSTAR', 'GOLD', 'NANKAI', 'UDO', 'TANAKA', 'IOXYGEN', 'GASWORK', 'HARRIS'],
+  'cat-327': ['CHAMP', 'HERO', 'CHAMPION', 'ตราร่ม'],
+  'cat-339': ['AUTOWEL', 'HYUNDAI', 'KENZO'],
+  'cat-344': ['TRAFIMET', 'CHAMP', 'KENZO', 'HYUNDAI', 'OTC', 'OPTECH', 'UDO', 'AMERICAN'],
+  'cat-382': ['WHALESPRAY', 'NABAKEM', 'CHAMP', 'HARRIS', 'TASETO'],
+  'cat-398': ['EMTOP']
+};
+
+function getCanonicalCategorySlug(input) {
+  if (!input) return 'cat-12';
+  const clean = String(input).trim().toLowerCase();
+  
+  if (CANONICAL_CATEGORY_MAP[clean]) return clean;
+
+  for (const [slug, aliases] of Object.entries(CANONICAL_CATEGORY_MAP)) {
+    if (aliases.some(a => a.toLowerCase() === clean)) {
+      return slug;
+    }
+  }
+
+  let bestSlug = 'cat-12';
+  let maxMatchLen = 0;
+  for (const [slug, aliases] of Object.entries(CANONICAL_CATEGORY_MAP)) {
+    for (const a of aliases) {
+      const aLower = a.toLowerCase();
+      if (clean.includes(aLower) || aLower.includes(clean)) {
+        if (aLower.length > maxMatchLen) {
+          maxMatchLen = aLower.length;
+          bestSlug = slug;
+        }
+      }
+    }
+  }
+
+  return bestSlug;
+}
+
+function getCategoryDisplayName(input) {
+  const slug = getCanonicalCategorySlug(input);
+  return CANONICAL_CATEGORY_MAP[slug]?.[1] || input || 'หมวดนี้';
+}
+
+/**
  * Brand Taxonomy & Category Scoping Engine
  */
 function buildBrandTaxonomy(productsList) {
-  if (!Array.isArray(productsList) || productsList.length === 0) return;
-
   const allBrandsMap = new Map();
   const catBrandsMap = new Map();
 
-  productsList.forEach(p => {
-    const brand = (p.brand || 'UDO').trim();
-    if (!brand) return;
-
-    allBrandsMap.set(brand, (allBrandsMap.get(brand) || 0) + 1);
-
-    const catKeys = new Set();
-    if (p.category) catKeys.add(p.category.trim());
-    if (Array.isArray(p.categories)) {
-      p.categories.forEach(c => {
-        if (c.name) catKeys.add(c.name.trim());
-        if (c.id) catKeys.add(String(c.id).trim());
-        if (c.url_slug) catKeys.add(c.url_slug.trim());
-      });
-    }
-
-    catKeys.forEach(ck => {
-      if (!catBrandsMap.has(ck)) {
-        catBrandsMap.set(ck, new Map());
+  // Initialize all 8 canonical categories
+  Object.keys(CANONICAL_CATEGORY_MAP).forEach(slug => {
+    catBrandsMap.set(slug, new Map());
+    const seeds = BASELINE_CATEGORY_BRANDS[slug] || [];
+    seeds.forEach(seed => {
+      catBrandsMap.get(slug).set(seed, 0);
+      if (!allBrandsMap.has(seed)) {
+        allBrandsMap.set(seed, 0);
       }
-      const bMap = catBrandsMap.get(ck);
-      bMap.set(brand, (bMap.get(brand) || 0) + 1);
     });
   });
 
+  // Dynamically augment from real products catalog
+  if (Array.isArray(productsList)) {
+    productsList.forEach(p => {
+      const brand = (p.brand || 'UDO').trim();
+      if (!brand) return;
+
+      allBrandsMap.set(brand, (allBrandsMap.get(brand) || 0) + 1);
+
+      const rawCat = p.category || (p.categories?.[0]?.name) || (p.categories?.[0]?.url_slug) || '';
+      const canonicalSlug = getCanonicalCategorySlug(rawCat);
+
+      if (!catBrandsMap.has(canonicalSlug)) {
+        catBrandsMap.set(canonicalSlug, new Map());
+      }
+      const bMap = catBrandsMap.get(canonicalSlug);
+      bMap.set(brand, (bMap.get(brand) || 0) + 1);
+    });
+  }
+
+  // Sort global brands: items with products first, then alphabetical
   const sortedAll = Array.from(allBrandsMap.entries())
     .map(([name, count]) => ({ name, count }))
     .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
 
   const byCategoryObj = {};
-  catBrandsMap.forEach((bMap, ck) => {
-    byCategoryObj[ck] = Array.from(bMap.entries())
+  catBrandsMap.forEach((bMap, slug) => {
+    const list = Array.from(bMap.entries())
       .map(([name, count]) => ({ name, count }))
       .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
+    byCategoryObj[slug] = list;
+
+    // Cross-alias with Thai names
+    const aliases = CANONICAL_CATEGORY_MAP[slug] || [];
+    aliases.forEach(alias => {
+      byCategoryObj[alias] = list;
+    });
   });
 
   state.brandTaxonomy = {
@@ -1252,7 +1325,8 @@ function closeBrandDropdown() {
 
 function getAvailableBrandsForCurrentScope() {
   if (state.brandScopeMode === 'category' && state.activeProductCategory) {
-    const list = state.brandTaxonomy.byCategory[state.activeProductCategory];
+    const slug = getCanonicalCategorySlug(state.activeProductCategory);
+    const list = state.brandTaxonomy.byCategory[slug] || state.brandTaxonomy.byCategory[state.activeProductCategory];
     if (Array.isArray(list) && list.length > 0) {
       return list;
     }
@@ -1269,14 +1343,15 @@ function renderBrandComboboxOptions(searchQuery = '') {
 
   // Category Header Label
   if (dom.drawerBrandCategoryName) {
-    if (state.brandScopeMode === 'category' && state.activeProductCategory) {
-      dom.drawerBrandCategoryName.textContent = `แบรนด์ในหมวด: ${state.activeProductCategory}`;
+    if (state.brandScopeMode === 'category') {
+      const friendlyName = getCategoryDisplayName(state.activeProductCategory);
+      dom.drawerBrandCategoryName.textContent = `แบรนด์แนะนำใน: ${friendlyName}`;
     } else {
       dom.drawerBrandCategoryName.textContent = 'แบรนด์ทั้งหมดในระบบ UDO';
     }
   }
 
-  // Filter list
+  // Filter list by search query
   const filtered = q
     ? availableBrands.filter(b => b.name.toLowerCase().includes(q))
     : availableBrands;
@@ -1287,22 +1362,26 @@ function renderBrandComboboxOptions(searchQuery = '') {
 
   if (filtered.length === 0) {
     dom.drawerBrandList.innerHTML = `
-      <div class="px-3 py-2 text-xs text-gray-400 text-center">
-        ไม่พบแบรนด์ในระบบ
+      <div class="px-3 py-3 text-xs text-gray-400 text-center">
+        ไม่พบแบรนด์ "${escapeHtml(searchQuery)}" ในระบบ
       </div>
     `;
   } else {
     dom.drawerBrandList.innerHTML = filtered.map(b => {
       const isSelected = b.name.toLowerCase() === currentBrand.toLowerCase();
+      const countLabel = b.count > 0 ? `${b.count.toLocaleString()} รายการ` : 'แนะนำ';
       return `
         <button 
           type="button" 
-          class="brand-option-item w-full text-left px-3 py-2 rounded-xl text-xs flex items-center justify-between transition-colors cursor-pointer ${isSelected ? 'bg-black text-white font-semibold' : 'text-gray-800 hover:bg-[#F2F2F7]'}" 
-          data-brand="${b.name}"
+          class="brand-option-item w-full text-left px-3 py-2 rounded-xl text-xs sm:text-[13px] flex items-center justify-between transition-colors cursor-pointer ${isSelected ? 'bg-black text-white font-bold shadow-2xs' : 'text-[#160808] font-medium hover:bg-gray-100'}" 
+          data-brand="${escapeHtml(b.name)}"
         >
-          <span class="truncate">${b.name}</span>
-          <span class="text-[10px] px-2 py-0.5 rounded-full ${isSelected ? 'bg-white/20 text-white' : 'bg-[#EAEAEF] text-gray-500'} font-mono">
-            ${b.count} รายการ
+          <span class="truncate flex items-center gap-1.5">
+            ${isSelected ? '<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>' : ''}
+            <span>${escapeHtml(b.name)}</span>
+          </span>
+          <span class="text-[11px] px-2 py-0.5 rounded-md ${isSelected ? 'bg-white/20 text-white font-bold' : 'bg-gray-200/80 text-[#424245] font-semibold'} font-mono">
+            ${countLabel}
           </span>
         </button>
       `;
@@ -1322,7 +1401,7 @@ function renderBrandComboboxOptions(searchQuery = '') {
   const exactMatch = availableBrands.some(b => b.name.toLowerCase() === q);
   if (q && !exactMatch && dom.drawerBrandAddSection && dom.btnAddNewBrandText) {
     dom.drawerBrandAddSection.classList.remove('hidden');
-    dom.btnAddNewBrandText.textContent = `+ เพิ่มแบรนด์ใหม่ "${searchQuery}"`;
+    dom.btnAddNewBrandText.textContent = `+ เพิ่มแบรนด์ใหม่ "${searchQuery}" เข้าสู่หมวดหมู่นี้`;
   } else if (dom.drawerBrandAddSection) {
     dom.drawerBrandAddSection.classList.add('hidden');
   }
@@ -1335,6 +1414,10 @@ function selectBrand(brandName) {
   if (dom.drawerBrand) dom.drawerBrand.value = cleanName;
   if (dom.drawerBrandSearch) dom.drawerBrandSearch.value = cleanName;
 
+  if (state.activeProduct) {
+    state.activeProduct.brand = cleanName;
+  }
+
   closeBrandDropdown();
   updateDrawerLivePreview();
 }
@@ -1343,12 +1426,22 @@ function handleAddNewBrand() {
   const q = dom.drawerBrandSearch ? dom.drawerBrandSearch.value.trim() : '';
   if (!q) return;
 
-  const exists = state.brandTaxonomy.all.some(b => b.name.toLowerCase() === q.toLowerCase());
-  if (!exists) {
+  // Add to global taxonomy
+  const existsGlobal = state.brandTaxonomy.all.find(b => b.name.toLowerCase() === q.toLowerCase());
+  if (existsGlobal) {
+    existsGlobal.count = (existsGlobal.count || 0) + 1;
+  } else {
     state.brandTaxonomy.all.unshift({ name: q, count: 1 });
-    if (state.activeProductCategory) {
-      state.brandTaxonomy.byCategory[state.activeProductCategory] = state.brandTaxonomy.byCategory[state.activeProductCategory] || [];
-      state.brandTaxonomy.byCategory[state.activeProductCategory].unshift({ name: q, count: 1 });
+  }
+
+  // Add to active category taxonomy
+  const canonicalSlug = getCanonicalCategorySlug(state.activeProductCategory);
+  if (state.brandTaxonomy.byCategory[canonicalSlug]) {
+    const existsCat = state.brandTaxonomy.byCategory[canonicalSlug].find(b => b.name.toLowerCase() === q.toLowerCase());
+    if (existsCat) {
+      existsCat.count = (existsCat.count || 0) + 1;
+    } else {
+      state.brandTaxonomy.byCategory[canonicalSlug].unshift({ name: q, count: 1 });
     }
   }
 
@@ -1361,9 +1454,25 @@ function initBrandComboboxEvents() {
     dom.drawerBrandSearch.addEventListener('focus', () => {
       openBrandDropdown();
     });
+    dom.drawerBrandSearch.addEventListener('click', () => {
+      openBrandDropdown();
+    });
     dom.drawerBrandSearch.addEventListener('input', (e) => {
       openBrandDropdown();
       renderBrandComboboxOptions(e.target.value.trim());
+    });
+    dom.drawerBrandSearch.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeBrandDropdown();
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        const firstOption = dom.drawerBrandList?.querySelector('.brand-option-item');
+        if (firstOption) {
+          selectBrand(firstOption.getAttribute('data-brand'));
+        } else if (dom.drawerBrandAddSection && !dom.drawerBrandAddSection.classList.contains('hidden')) {
+          handleAddNewBrand();
+        }
+      }
     });
   }
 
@@ -1385,13 +1494,24 @@ function initBrandComboboxEvents() {
       e.stopPropagation();
       if (state.brandScopeMode === 'category') {
         state.brandScopeMode = 'all';
-        dom.drawerBrandScopeToggle.textContent = 'แสดงทุกแบรนด์';
-        dom.drawerBrandScopeToggle.classList.add('text-purple-600', 'font-bold');
+        if (dom.drawerBrandScopeText) dom.drawerBrandScopeText.textContent = 'แสดงทุกแบรนด์';
+        if (dom.drawerBrandScopeDot) {
+          dom.drawerBrandScopeDot.classList.remove('bg-emerald-500');
+          dom.drawerBrandScopeDot.classList.add('bg-purple-500');
+        }
+        dom.drawerBrandScopeToggle.classList.add('bg-neutral-900', 'text-white', 'border-neutral-900');
+        dom.drawerBrandScopeToggle.classList.remove('bg-gray-50', 'text-[#424245]', 'border-gray-200');
       } else {
         state.brandScopeMode = 'category';
-        dom.drawerBrandScopeToggle.textContent = 'เฉพาะหมวดนี้';
-        dom.drawerBrandScopeToggle.classList.remove('text-purple-600', 'font-bold');
+        if (dom.drawerBrandScopeText) dom.drawerBrandScopeText.textContent = 'เฉพาะหมวดนี้';
+        if (dom.drawerBrandScopeDot) {
+          dom.drawerBrandScopeDot.classList.remove('bg-purple-500');
+          dom.drawerBrandScopeDot.classList.add('bg-emerald-500');
+        }
+        dom.drawerBrandScopeToggle.classList.remove('bg-neutral-900', 'text-white', 'border-neutral-900');
+        dom.drawerBrandScopeToggle.classList.add('bg-gray-50', 'text-[#424245]', 'border-gray-200');
       }
+      openBrandDropdown();
       renderBrandComboboxOptions(dom.drawerBrandSearch ? dom.drawerBrandSearch.value.trim() : '');
     });
   }
@@ -2214,9 +2334,15 @@ function openProductDrawer(productId) {
     if (!matchedOption) dom.drawerCategory.value = 'cat-12';
   }
 
+  state.brandScopeMode = 'category';
   if (dom.drawerBrandScopeToggle) {
-    dom.drawerBrandScopeToggle.textContent = 'เฉพาะหมวดนี้';
-    dom.drawerBrandScopeToggle.classList.remove('text-purple-600', 'font-bold');
+    if (dom.drawerBrandScopeText) dom.drawerBrandScopeText.textContent = 'เฉพาะหมวดนี้';
+    if (dom.drawerBrandScopeDot) {
+      dom.drawerBrandScopeDot.classList.remove('bg-purple-500');
+      dom.drawerBrandScopeDot.classList.add('bg-emerald-500');
+    }
+    dom.drawerBrandScopeToggle.classList.remove('bg-neutral-900', 'text-white', 'border-neutral-900');
+    dom.drawerBrandScopeToggle.classList.add('bg-gray-50', 'text-[#424245]', 'border-gray-200');
   }
 
   const currentBrand = state.activeProduct.brand || 'UDO';
@@ -2335,6 +2461,15 @@ function openCreateProductDrawer() {
 
   state.activeProductCategory = 'กลุ่มลวดเชื่อม';
   state.brandScopeMode = 'category';
+  if (dom.drawerBrandScopeToggle) {
+    if (dom.drawerBrandScopeText) dom.drawerBrandScopeText.textContent = 'เฉพาะหมวดนี้';
+    if (dom.drawerBrandScopeDot) {
+      dom.drawerBrandScopeDot.classList.remove('bg-purple-500');
+      dom.drawerBrandScopeDot.classList.add('bg-emerald-500');
+    }
+    dom.drawerBrandScopeToggle.classList.remove('bg-neutral-900', 'text-white', 'border-neutral-900');
+    dom.drawerBrandScopeToggle.classList.add('bg-gray-50', 'text-[#424245]', 'border-gray-200');
+  }
   if (dom.drawerCategory) dom.drawerCategory.value = 'cat-12';
   if (dom.drawerBrand) dom.drawerBrand.value = 'UDO';
   if (dom.drawerBrandSearch) dom.drawerBrandSearch.value = 'UDO';
@@ -3788,6 +3923,9 @@ async function handleSaveDrawer() {
     updateProductInList(state.allProductsCache);
   }
 
+  // Re-synchronize dynamic brand taxonomy
+  buildBrandTaxonomy(state.allProductsCache);
+
   const toastMsg = state.isCreateMode 
     ? `เพิ่มสินค้าใหม่ "${name || 'สินค้าใหม่'}" เข้าสู่ระบบเรียบร้อย`
     : `บันทึกข้อมูลสินค้า ${name} ขึ้นระบบเรียบร้อย`;
@@ -5172,9 +5310,10 @@ function initEvents() {
           }
         ];
       }
-      renderBrandCombobox();
+      renderBrandComboboxOptions('');
       renderDrawerVariants();
       renderDrawerSpecs();
+      updateDrawerLivePreview();
     });
   }
 
