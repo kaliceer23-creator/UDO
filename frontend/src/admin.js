@@ -234,19 +234,16 @@ const dom = {
   drawerSpecPresetsBar: document.getElementById('drawer-spec-presets-bar'),
   drawerSpecsTbody: document.getElementById('drawer-specs-tbody'),
   drawerDesc: document.getElementById('drawer-desc'),
-  drawerRichHeadline: document.getElementById('drawer-rich-headline'),
-  drawerRichSubheadline: document.getElementById('drawer-rich-subheadline'),
-  drawerRichDesc: document.getElementById('drawer-rich-desc'),
   drawerRichIsDocument: document.getElementById('drawer-rich-is-document'),
-  drawerRichImg1: document.getElementById('drawer-rich-img-1'),
-  drawerRichImg2: document.getElementById('drawer-rich-img-2'),
-  drawerRichImg3: document.getElementById('drawer-rich-img-3'),
-  richPreview1: document.getElementById('rich-preview-1'),
-  richPreview2: document.getElementById('rich-preview-2'),
-  richPreview3: document.getElementById('rich-preview-3'),
-  richPlaceholder1: document.getElementById('rich-placeholder-1'),
-  richPlaceholder2: document.getElementById('rich-placeholder-2'),
-  richPlaceholder3: document.getElementById('rich-placeholder-3'),
+  drawerRichBlocksContainer: document.getElementById('drawer-rich-blocks-container'),
+  btnAddRichBlock: document.getElementById('btn-add-rich-block'),
+  btnOpenShowcasePreview: document.getElementById('btn-open-showcase-preview'),
+  showcasePreviewModal: document.getElementById('showcase-preview-modal'),
+  showcasePreviewContent: document.getElementById('showcase-preview-content'),
+  showcasePreviewFrame: document.getElementById('showcase-preview-frame'),
+  btnShowcaseViewDesktop: document.getElementById('btn-showcase-view-desktop'),
+  btnShowcaseViewMobile: document.getElementById('btn-showcase-view-mobile'),
+  btnCloseShowcasePreview: document.getElementById('btn-close-showcase-preview'),
   btnOpenImageFraming: document.getElementById('btn-open-image-framing'),
   drawerImageStatus: document.getElementById('drawer-image-status'),
 
@@ -3211,167 +3208,547 @@ function attachSpecRowListeners() {
 }
 
 /**
- * Update Rich Content Image Preview Box
+ * Normalizes richContent story blocks with full backward compatibility
  */
-function updateRichImagePreview(target, url) {
-  const previewImg = document.getElementById(`rich-preview-${target}`);
-  const placeholder = document.getElementById(`rich-placeholder-${target}`);
-  if (!previewImg || !placeholder) return;
+function normalizeRichBlocks(product) {
+  if (!product) return [];
+  product.richContent = product.richContent || product.rich_content || {};
 
-  if (url && url.trim()) {
-    previewImg.src = url.trim();
-    previewImg.classList.remove('hidden');
-    placeholder.classList.add('hidden');
-  } else {
-    previewImg.src = '';
-    previewImg.classList.add('hidden');
-    placeholder.classList.remove('hidden');
+  // If blocks already exist as a non-empty array, return them
+  if (Array.isArray(product.richContent.blocks) && product.richContent.blocks.length > 0) {
+    return product.richContent.blocks;
   }
-}
 
-/**
- * Render Rich / A+ Content Manager Fields
- */
-function renderDrawerRichContent() {
-  if (!state.activeProduct) return;
+  const rich = product.richContent;
+  const blocks = [];
 
-  const rich = state.activeProduct.richContent || {};
   let firstImgUrl = '';
-  if (state.activeProduct.images && state.activeProduct.images.length > 0) {
-    const raw0 = state.activeProduct.images[0];
+  if (product.images && product.images.length > 0) {
+    const raw0 = product.images[0];
     firstImgUrl = typeof raw0 === 'string' ? raw0 : (raw0.large || raw0.card || raw0.original || raw0.thumb || '');
   }
 
-  const defaultHeadline = rich.headline || state.activeProduct.name || '';
-  const defaultSubheadline = rich.subheadline || '';
-  const defaultDesc = rich.description || state.activeProduct.description || '';
-  const isDocument = Boolean(rich.isDocument);
+  const legacyHeadline = rich.headline || product.name || '';
+  const legacySubheadline = rich.subheadline || '';
+  const legacyDesc = rich.description || product.description || '';
   const img1 = rich.image1 || firstImgUrl || '';
   const img2 = rich.image2 || '';
   const img3 = rich.image3 || '';
 
-  if (dom.drawerRichHeadline) dom.drawerRichHeadline.value = defaultHeadline;
-  if (dom.drawerRichSubheadline) dom.drawerRichSubheadline.value = defaultSubheadline;
-  if (dom.drawerRichDesc) dom.drawerRichDesc.value = defaultDesc;
-  if (dom.drawerRichIsDocument) dom.drawerRichIsDocument.checked = isDocument;
-  if (dom.drawerRichImg1) dom.drawerRichImg1.value = img1;
-  if (dom.drawerRichImg2) dom.drawerRichImg2.value = img2;
-  if (dom.drawerRichImg3) dom.drawerRichImg3.value = img3;
+  if (legacyHeadline || legacyDesc || img1) {
+    blocks.push({
+      id: 'block-' + Date.now() + '-1',
+      headline: legacyHeadline,
+      subheadline: legacySubheadline,
+      paragraph: legacyDesc,
+      image: img1
+    });
+  }
 
-  updateRichImagePreview('1', img1);
-  updateRichImagePreview('2', img2);
-  updateRichImagePreview('3', img3);
+  if (img2) {
+    blocks.push({
+      id: 'block-' + Date.now() + '-2',
+      headline: '',
+      subheadline: '',
+      paragraph: '',
+      image: img2
+    });
+  }
+
+  if (img3) {
+    blocks.push({
+      id: 'block-' + Date.now() + '-3',
+      headline: '',
+      subheadline: '',
+      paragraph: '',
+      image: img3
+    });
+  }
+
+  // If completely empty, seed 1 initial block
+  if (blocks.length === 0) {
+    blocks.push({
+      id: 'block-' + Date.now() + '-1',
+      headline: product.name || '',
+      subheadline: '',
+      paragraph: product.description || '',
+      image: firstImgUrl || ''
+    });
+  }
+
+  product.richContent.blocks = blocks;
+  return blocks;
 }
 
 /**
- * Attach Event Listeners to Rich / A+ Content Manager
+ * Render Rich / A+ Modular Story Blocks in Drawer
  */
-function attachRichContentListeners() {
-  // Real-time URL input changes
-  ['1', '2', '3'].forEach(num => {
-    const input = document.getElementById(`drawer-rich-img-${num}`);
-    if (input) {
-      input.addEventListener('input', () => {
-        updateRichImagePreview(num, input.value);
-      });
-    }
-  });
+function renderDrawerRichContent() {
+  if (!state.activeProduct) return;
 
-  // Clear Image buttons
-  document.querySelectorAll('.btn-clear-rich-img').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const target = btn.dataset.target;
-      const input = document.getElementById(`drawer-rich-img-${target}`);
-      if (input) {
-        input.value = '';
-        updateRichImagePreview(target, '');
-      }
+  const blocks = normalizeRichBlocks(state.activeProduct);
+  const isDocument = Boolean(state.activeProduct.richContent?.isDocument);
+  if (dom.drawerRichIsDocument) {
+    dom.drawerRichIsDocument.checked = isDocument;
+  }
+
+  if (!dom.drawerRichBlocksContainer) return;
+  dom.drawerRichBlocksContainer.innerHTML = '';
+
+  const total = blocks.length;
+  blocks.forEach((block, index) => {
+    const card = document.createElement('div');
+    card.className = 'rich-block-card bg-gray-50/70 p-4 sm:p-5 rounded-2xl border border-gray-200 shadow-2xs space-y-3.5 relative transition-all';
+    card.dataset.blockId = block.id;
+    card.dataset.index = index;
+
+    // Detect summary label of what's inside this block
+    const parts = [];
+    if (block.headline) parts.push('หัวข้อหลัก');
+    if (block.paragraph) parts.push('ข้อความ');
+    if (block.image) parts.push('รูปภาพ');
+    const summary = parts.length > 0 ? parts.join(' + ') : 'บล็อกว่าง';
+
+    card.innerHTML = `
+      <div class="flex items-center justify-between pb-2.5 border-b border-gray-200/80">
+        <div class="flex items-center gap-2">
+          <span class="px-2.5 py-1 bg-black text-white text-[11px] font-bold rounded-lg tracking-wide">
+            บล็อกที่ ${index + 1}
+          </span>
+          <span class="text-xs text-gray-500 font-medium">
+            (${escapeHtml(summary)})
+          </span>
+        </div>
+        <div class="flex items-center gap-1">
+          <button type="button" class="btn-move-block-up p-1.5 text-gray-500 hover:text-black hover:bg-gray-200/70 rounded-lg transition-colors cursor-pointer ${index === 0 ? 'opacity-25 cursor-not-allowed pointer-events-none' : ''}" title="เลื่อนบล็อกขึ้น">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
+            </svg>
+          </button>
+          <button type="button" class="btn-move-block-down p-1.5 text-gray-500 hover:text-black hover:bg-gray-200/70 rounded-lg transition-colors cursor-pointer ${index === total - 1 ? 'opacity-25 cursor-not-allowed pointer-events-none' : ''}" title="เลื่อนบล็อกลง">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <button type="button" class="btn-delete-block p-1.5 text-gray-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors cursor-pointer ml-1" title="ลบบล็อกนี้">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="space-y-3">
+        <!-- Headline -->
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="text-xs sm:text-[13px] font-semibold text-[#160808]">หัวข้อหลัก (Headline - ไม่บังคับ)</label>
+            <span class="text-[11px] text-gray-400">ขนาดใหญ่ กึ่งกลาง</span>
+          </div>
+          <input 
+            type="text" 
+            class="block-field-headline w-full bg-white border border-gray-300 rounded-xl px-3.5 py-2 text-[13.5px] sm:text-sm font-semibold text-[#160808] focus:bg-white focus:outline-none focus:ring-2 focus:ring-black transition-all"
+            placeholder="เช่น เมื่อเป็น 2 ทุกอย่างก็ใหม่หมด (เว้นว่างได้)"
+            value="${escapeHtml(block.headline || '')}"
+          >
+        </div>
+
+        <!-- Subheadline -->
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="text-xs sm:text-[13px] font-semibold text-[#160808]">หัวข้อย่อย (Subheadline - ไม่บังคับ)</label>
+            <span class="text-[11px] text-gray-400">ขนาดกลาง สีเทาเข้ม</span>
+          </div>
+          <input 
+            type="text" 
+            class="block-field-subheadline w-full bg-white border border-gray-300 rounded-xl px-3.5 py-2 text-[13.5px] sm:text-sm font-medium text-[#160808] focus:bg-white focus:outline-none focus:ring-2 focus:ring-black transition-all"
+            placeholder="เช่น คอนโทรลเลอร์รุ่นใหม่จะติดกับตัวเครื่องด้วยแม่เหล็ก (เว้นว่างได้)"
+            value="${escapeHtml(block.subheadline || '')}"
+          >
+        </div>
+
+        <!-- Paragraph -->
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="text-xs sm:text-[13px] font-semibold text-[#160808]">ย่อหน้าคำบรรยาย (Paragraph - ไม่บังคับ)</label>
+            <span class="text-[11px] text-gray-400">คุมความกว้าง 760px เพื่อให้อ่านง่าย</span>
+          </div>
+          <textarea 
+            rows="3" 
+            class="block-field-paragraph w-full bg-white border border-gray-300 rounded-xl px-3.5 py-2.5 text-[14.5px] sm:text-[15px] text-[#160808] focus:bg-white focus:outline-none focus:ring-2 focus:ring-black leading-relaxed transition-all"
+            placeholder="ระบุคำบรรยายประกอบภาพ หรือจุดเด่นของฟีเจอร์นี้ (เว้นว่างได้)..."
+          >${escapeHtml(block.paragraph || '')}</textarea>
+        </div>
+
+        <!-- Showcase Image -->
+        <div class="pt-1">
+          <div class="flex items-center justify-between mb-1.5">
+            <label class="text-xs sm:text-[13px] font-semibold text-[#160808]">รูปภาพโชว์เคสประจำบล็อก (Showcase Image - ไม่บังคับ)</label>
+            <button type="button" class="btn-clear-block-image text-xs text-rose-600 hover:underline font-semibold cursor-pointer ${block.image ? '' : 'hidden'}">ลบรูปนี้</button>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-3 items-start">
+            <div class="w-full sm:w-40 aspect-video bg-white rounded-xl border border-gray-200 overflow-hidden flex items-center justify-center shrink-0 relative">
+              <img src="${escapeHtml(block.image || '')}" class="block-preview-img w-full h-full object-contain ${block.image ? '' : 'hidden'}" alt="Preview">
+              <span class="block-placeholder-text text-[11px] text-gray-400 font-medium ${block.image ? 'hidden' : ''}">ไม่มีรูปภาพ</span>
+            </div>
+
+            <div class="flex-1 w-full space-y-2">
+              <input 
+                type="text" 
+                class="block-field-image w-full bg-white border border-gray-300 rounded-xl px-3.5 py-2 text-xs sm:text-[13px] text-[#160808] focus:outline-none focus:ring-2 focus:ring-black transition-all"
+                placeholder="URL รูปภาพ (เช่น /uploads/products/...) หรืออัปโหลดจากเครื่อง"
+                value="${escapeHtml(block.image || '')}"
+              >
+              <div class="flex items-center gap-2 flex-wrap">
+                <input type="file" class="block-file-input hidden" accept="image/jpeg,image/png,image/webp">
+                <button type="button" class="btn-browse-block-file px-3 py-1.5 bg-white hover:bg-gray-100 text-[#160808] border border-gray-200 rounded-lg text-xs font-semibold cursor-pointer transition-colors shadow-2xs">
+                  เลือกจากเครื่อง
+                </button>
+                <button type="button" class="btn-use-primary-block-image px-3 py-1.5 bg-white hover:bg-gray-100 text-[#160808] border border-gray-200 rounded-lg text-xs font-semibold cursor-pointer transition-colors shadow-2xs" title="ดึงรูปสินค้าหลักมาใส่ในบล็อกนี้">
+                  ใช้รูปสินค้าหลัก
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // Bind event listeners for this block card
+    const headlineInput = card.querySelector('.block-field-headline');
+    headlineInput.addEventListener('input', (e) => {
+      block.headline = e.target.value;
     });
-  });
 
-  // Use Primary Image button
-  document.querySelectorAll('.btn-use-primary-rich-img').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
+    const subheadlineInput = card.querySelector('.block-field-subheadline');
+    subheadlineInput.addEventListener('input', (e) => {
+      block.subheadline = e.target.value;
+    });
+
+    const paragraphInput = card.querySelector('.block-field-paragraph');
+    paragraphInput.addEventListener('input', (e) => {
+      block.paragraph = e.target.value;
+    });
+
+    const imageInput = card.querySelector('.block-field-image');
+    const previewImg = card.querySelector('.block-preview-img');
+    const placeholderText = card.querySelector('.block-placeholder-text');
+    const clearImgBtn = card.querySelector('.btn-clear-block-image');
+
+    const updateCardImage = (url) => {
+      const cleanUrl = (url || '').trim();
+      block.image = cleanUrl;
+      imageInput.value = cleanUrl;
+      if (cleanUrl) {
+        previewImg.src = cleanUrl;
+        previewImg.classList.remove('hidden');
+        placeholderText.classList.add('hidden');
+        clearImgBtn.classList.remove('hidden');
+      } else {
+        previewImg.src = '';
+        previewImg.classList.add('hidden');
+        placeholderText.classList.remove('hidden');
+        clearImgBtn.classList.add('hidden');
+      }
+    };
+
+    imageInput.addEventListener('input', (e) => {
+      updateCardImage(e.target.value);
+    });
+
+    clearImgBtn.addEventListener('click', () => {
+      updateCardImage('');
+    });
+
+    const usePrimaryBtn = card.querySelector('.btn-use-primary-block-image');
+    usePrimaryBtn.addEventListener('click', () => {
       if (!state.activeProduct || !state.activeProduct.images || state.activeProduct.images.length === 0) {
         showToast('สินค้านี้ยังไม่มีรูปภาพหลัก', 'error');
         return;
       }
       const raw0 = state.activeProduct.images[0];
       const primaryUrl = typeof raw0 === 'string' ? raw0 : (raw0.large || raw0.card || raw0.original || raw0.thumb || '');
-      const input = document.getElementById('drawer-rich-img-1');
-      if (input) {
-        input.value = primaryUrl;
-        updateRichImagePreview('1', primaryUrl);
-        showToast('นำเข้ารูปหลักสินค้าสำเร็จ');
+      if (primaryUrl) {
+        updateCardImage(primaryUrl);
+        showToast('นำเข้ารูปภาพหลักสำเร็จ');
       }
     });
-  });
 
-  // File Upload buttons and hidden file inputs
-  document.querySelectorAll('.btn-browse-rich-file').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const target = btn.dataset.target;
-      const fileInput = document.getElementById(`rich-file-input-${target}`);
-      if (fileInput) {
-        fileInput.value = '';
-        fileInput.click();
+    const fileInput = card.querySelector('.block-file-input');
+    const browseBtn = card.querySelector('.btn-browse-block-file');
+    browseBtn.addEventListener('click', () => {
+      fileInput.value = '';
+      fileInput.click();
+    });
+
+    fileInput.addEventListener('change', async (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+
+      const origText = browseBtn.textContent;
+      browseBtn.disabled = true;
+      browseBtn.textContent = 'กำลังอัปโหลด...';
+
+      try {
+        const formData = new FormData();
+        formData.append('file', file);
+        if (state.activeProduct && state.activeProduct.id) {
+          formData.append('product_id', state.activeProduct.id);
+        }
+
+        const res = await fetch('/api/admin/upload.php', {
+          method: 'POST',
+          body: formData,
+          credentials: 'include'
+        });
+
+        const data = await res.json();
+        if (!res.ok || !data.success) {
+          throw new Error(data.error || 'อัปโหลดรูปภาพไม่สำเร็จ');
+        }
+
+        updateCardImage(data.image_url);
+        showToast(`อัปโหลดรูปภาพบล็อกที่ ${index + 1} สำเร็จ`);
+      } catch (err) {
+        showToast(err.message || 'เกิดข้อผิดพลาดในการอัปโหลด', 'error');
+      } finally {
+        browseBtn.disabled = false;
+        browseBtn.textContent = origText;
       }
     });
-  });
 
-  ['1', '2', '3'].forEach(num => {
-    const fileInput = document.getElementById(`rich-file-input-${num}`);
-    if (fileInput) {
-      fileInput.addEventListener('change', async (e) => {
-        const file = e.target.files?.[0];
-        if (!file) return;
-
-        const btn = document.querySelector(`.btn-browse-rich-file[data-target="${num}"]`);
-        const originalText = btn ? btn.textContent : 'เลือกจากเครื่อง';
-        if (btn) {
-          btn.disabled = true;
-          btn.textContent = 'กำลังอัปโหลด...';
-        }
-
-        try {
-          const formData = new FormData();
-          formData.append('file', file);
-          if (state.activeProduct && state.activeProduct.id) {
-            formData.append('product_id', state.activeProduct.id);
-          }
-
-          const res = await fetch('/api/admin/upload.php', {
-            method: 'POST',
-            body: formData,
-            credentials: 'include'
-          });
-
-          const data = await res.json();
-          if (!res.ok || !data.success) {
-            throw new Error(data.error || 'อัปโหลดรูปภาพไม่สำเร็จ');
-          }
-
-          const imgUrl = data.image_url;
-          const urlInput = document.getElementById(`drawer-rich-img-${num}`);
-          if (urlInput) {
-            urlInput.value = imgUrl;
-            updateRichImagePreview(num, imgUrl);
-          }
-          showToast(`อัปโหลดรูปภาพโชว์เคสที่ ${num} สำเร็จ`);
-        } catch (err) {
-          showToast(err.message || 'เกิดข้อผิดพลาดในการอัปโหลด', 'error');
-        } finally {
-          if (btn) {
-            btn.disabled = false;
-            btn.textContent = originalText;
-          }
-        }
+    // Reorder & Delete buttons
+    const moveUpBtn = card.querySelector('.btn-move-block-up');
+    if (moveUpBtn) {
+      moveUpBtn.addEventListener('click', () => {
+        moveRichBlock(index, -1);
       });
     }
+
+    const moveDownBtn = card.querySelector('.btn-move-block-down');
+    if (moveDownBtn) {
+      moveDownBtn.addEventListener('click', () => {
+        moveRichBlock(index, 1);
+      });
+    }
+
+    const deleteBtn = card.querySelector('.btn-delete-block');
+    if (deleteBtn) {
+      deleteBtn.addEventListener('click', () => {
+        removeRichBlock(index);
+      });
+    }
+
+    dom.drawerRichBlocksContainer.appendChild(card);
   });
+}
+
+function addRichBlock() {
+  if (!state.activeProduct) return;
+  state.activeProduct.richContent = state.activeProduct.richContent || {};
+  state.activeProduct.richContent.blocks = state.activeProduct.richContent.blocks || [];
+
+  const newBlock = {
+    id: 'block-' + Date.now(),
+    headline: '',
+    subheadline: '',
+    paragraph: '',
+    image: ''
+  };
+
+  state.activeProduct.richContent.blocks.push(newBlock);
+  renderDrawerRichContent();
+
+  setTimeout(() => {
+    if (dom.drawerRichBlocksContainer) {
+      const cards = dom.drawerRichBlocksContainer.querySelectorAll('.rich-block-card');
+      const lastCard = cards[cards.length - 1];
+      if (lastCard) {
+        lastCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        const input = lastCard.querySelector('.block-field-headline');
+        if (input) input.focus();
+      }
+    }
+  }, 50);
+
+  showToast('เพิ่มบล็อกเนื้อหาใหม่เรียบร้อย');
+}
+
+function removeRichBlock(index) {
+  if (!state.activeProduct || !state.activeProduct.richContent?.blocks) return;
+  const blocks = state.activeProduct.richContent.blocks;
+  if (blocks.length <= 1) {
+    blocks[0] = {
+      id: 'block-' + Date.now(),
+      headline: '',
+      subheadline: '',
+      paragraph: '',
+      image: ''
+    };
+    renderDrawerRichContent();
+    showToast('ล้างข้อมูลบล็อกเนื้อหาเรียบร้อย');
+    return;
+  }
+
+  blocks.splice(index, 1);
+  renderDrawerRichContent();
+  showToast(`ลบบล็อกที่ ${index + 1} เรียบร้อย`);
+}
+
+function moveRichBlock(index, direction) {
+  if (!state.activeProduct || !state.activeProduct.richContent?.blocks) return;
+  const blocks = state.activeProduct.richContent.blocks;
+  const targetIndex = index + direction;
+  if (targetIndex < 0 || targetIndex >= blocks.length) return;
+
+  const temp = blocks[index];
+  blocks[index] = blocks[targetIndex];
+  blocks[targetIndex] = temp;
+
+  renderDrawerRichContent();
+}
+
+/**
+ * Showcase Live Preview Modal Handlers
+ */
+function openShowcasePreviewModal() {
+  if (!dom.showcasePreviewModal) return;
+  renderShowcasePreview();
+  if (typeof dom.showcasePreviewModal.showModal === 'function') {
+    dom.showcasePreviewModal.showModal();
+  } else {
+    dom.showcasePreviewModal.classList.remove('hidden');
+  }
+}
+
+function closeShowcasePreviewModal() {
+  if (!dom.showcasePreviewModal) return;
+  if (typeof dom.showcasePreviewModal.close === 'function') {
+    dom.showcasePreviewModal.close();
+  } else {
+    dom.showcasePreviewModal.classList.add('hidden');
+  }
+}
+
+function setShowcasePreviewMode(mode) {
+  if (!dom.showcasePreviewFrame) return;
+  if (mode === 'mobile') {
+    dom.showcasePreviewFrame.classList.remove('max-w-4xl');
+    dom.showcasePreviewFrame.classList.add('max-w-[390px]');
+    if (dom.btnShowcaseViewMobile) {
+      dom.btnShowcaseViewMobile.classList.add('bg-white', 'text-black', 'shadow-2xs', 'font-bold');
+      dom.btnShowcaseViewMobile.classList.remove('text-gray-600', 'font-semibold');
+    }
+    if (dom.btnShowcaseViewDesktop) {
+      dom.btnShowcaseViewDesktop.classList.remove('bg-white', 'text-black', 'shadow-2xs', 'font-bold');
+      dom.btnShowcaseViewDesktop.classList.add('text-gray-600', 'font-semibold');
+    }
+  } else {
+    dom.showcasePreviewFrame.classList.remove('max-w-[390px]');
+    dom.showcasePreviewFrame.classList.add('max-w-4xl');
+    if (dom.btnShowcaseViewDesktop) {
+      dom.btnShowcaseViewDesktop.classList.add('bg-white', 'text-black', 'shadow-2xs', 'font-bold');
+      dom.btnShowcaseViewDesktop.classList.remove('text-gray-600', 'font-semibold');
+    }
+    if (dom.btnShowcaseViewMobile) {
+      dom.btnShowcaseViewMobile.classList.remove('bg-white', 'text-black', 'shadow-2xs', 'font-bold');
+      dom.btnShowcaseViewMobile.classList.add('text-gray-600', 'font-semibold');
+    }
+  }
+}
+
+function renderShowcasePreview() {
+  if (!dom.showcasePreviewContent || !state.activeProduct) return;
+  const blocks = normalizeRichBlocks(state.activeProduct);
+  const isDocument = Boolean(dom.drawerRichIsDocument?.checked);
+
+  // Filter out completely empty blocks
+  const visibleBlocks = blocks.filter(b => b.headline || b.subheadline || b.paragraph || b.image);
+
+  if (visibleBlocks.length === 0) {
+    dom.showcasePreviewContent.innerHTML = `
+      <div class="py-16 text-center text-gray-400">
+        <p class="text-sm font-semibold">ยังไม่มีเนื้อหาในบล็อกโชว์เคส</p>
+        <p class="text-xs mt-1">กรอกหัวข้อหรือใส่รูปภาพในบล็อกเพื่อดูตัวอย่าง</p>
+      </div>
+    `;
+    return;
+  }
+
+  dom.showcasePreviewContent.innerHTML = visibleBlocks.map((b, i) => {
+    const hasText = Boolean(b.headline || b.subheadline || b.paragraph);
+    const hasImage = Boolean(b.image);
+    const maxImgWidth = isDocument ? 'max-w-[1040px]' : 'max-w-[840px]';
+
+    return `
+      <div class="story-preview-block space-y-6">
+        ${hasText ? `
+          <div class="max-w-[760px] mx-auto space-y-3 px-4">
+            ${b.headline ? `
+              <h2 class="text-2xl sm:text-3xl font-extrabold text-[#160808] tracking-tight leading-tight">
+                ${escapeHtml(b.headline)}
+              </h2>
+            ` : ''}
+            ${b.subheadline ? `
+              <h3 class="text-base sm:text-lg font-semibold text-gray-600 leading-snug">
+                ${escapeHtml(b.subheadline)}
+              </h3>
+            ` : ''}
+            ${b.paragraph ? `
+              <p class="text-[15px] sm:text-[16px] text-gray-700 leading-relaxed whitespace-pre-line text-center">
+                ${escapeHtml(b.paragraph)}
+              </p>
+            ` : ''}
+          </div>
+        ` : ''}
+
+        ${hasImage ? `
+          <div class="w-full ${maxImgWidth} mx-auto px-2">
+            <img 
+              src="${escapeHtml(b.image)}" 
+              alt="Showcase image ${i + 1}" 
+              class="w-full h-auto object-contain rounded-2xl mx-auto shadow-xs"
+              loading="lazy"
+            >
+          </div>
+        ` : ''}
+      </div>
+    `;
+  }).join('');
+}
+
+/**
+ * Attach Event Listeners to Rich / A+ Content Manager
+ */
+function attachRichContentListeners() {
+  if (dom.btnAddRichBlock) {
+    dom.btnAddRichBlock.addEventListener('click', addRichBlock);
+  }
+
+  if (dom.btnOpenShowcasePreview) {
+    dom.btnOpenShowcasePreview.addEventListener('click', openShowcasePreviewModal);
+  }
+
+  if (dom.btnCloseShowcasePreview) {
+    dom.btnCloseShowcasePreview.addEventListener('click', closeShowcasePreviewModal);
+  }
+
+  if (dom.btnShowcaseViewDesktop) {
+    dom.btnShowcaseViewDesktop.addEventListener('click', () => setShowcasePreviewMode('desktop'));
+  }
+
+  if (dom.btnShowcaseViewMobile) {
+    dom.btnShowcaseViewMobile.addEventListener('click', () => setShowcasePreviewMode('mobile'));
+  }
+
+  if (dom.showcasePreviewModal) {
+    dom.showcasePreviewModal.addEventListener('click', (e) => {
+      if (e.target === dom.showcasePreviewModal) {
+        closeShowcasePreviewModal();
+      }
+    });
+  }
 }
 
 /**
@@ -3914,25 +4291,22 @@ async function handleSaveDrawer() {
     payload.specsTable = state.activeProduct.specsTable;
   }
 
-  // Assemble updated richContent from DOM inputs
-  const richHeadline = dom.drawerRichHeadline ? dom.drawerRichHeadline.value.trim() : (name || '');
-  const richSubheadline = dom.drawerRichSubheadline ? dom.drawerRichSubheadline.value.trim() : '';
-  const richDesc = dom.drawerRichDesc ? dom.drawerRichDesc.value.trim() : '';
+  // Assemble updated richContent with Modular Story Blocks
+  const blocks = normalizeRichBlocks(state.activeProduct);
   const richIsDocument = dom.drawerRichIsDocument ? dom.drawerRichIsDocument.checked : false;
-  const richImg1 = dom.drawerRichImg1 ? dom.drawerRichImg1.value.trim() : null;
-  const richImg2 = dom.drawerRichImg2 ? dom.drawerRichImg2.value.trim() : null;
-  const richImg3 = dom.drawerRichImg3 ? dom.drawerRichImg3.value.trim() : null;
 
   const existingRich = state.activeProduct.richContent || {};
   const updatedRichContent = {
     ...existingRich,
-    headline: richHeadline || name,
-    subheadline: richSubheadline || null,
-    description: richDesc,
     isDocument: richIsDocument,
-    image1: richImg1 || null,
-    image2: richImg2 || null,
-    image3: richImg3 || null,
+    blocks: blocks,
+    // Legacy fallback keys for full backward compatibility:
+    headline: blocks[0]?.headline || name,
+    subheadline: blocks[0]?.subheadline || null,
+    description: blocks[0]?.paragraph || '',
+    image1: blocks[0]?.image || null,
+    image2: blocks[1]?.image || null,
+    image3: blocks[2]?.image || null,
     tablesHtml: existingRich.tablesHtml || ''
   };
 
