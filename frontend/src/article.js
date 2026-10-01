@@ -212,22 +212,37 @@ function renderArticle(article) {
 
   // Author Box
   const authorEl = document.getElementById('article-author');
-  if (authorEl && article.author) {
-    authorEl.textContent = article.author;
+  if (authorEl) {
+    authorEl.textContent = (article.author || 'UDO TECHNICAL TEAM').toUpperCase();
   }
 
-  // Tags
+  // Tags (UDO Rounded-Rectangle Badges)
   const tagsContainer = document.getElementById('article-tags-container');
   if (tagsContainer) {
     const tags = Array.isArray(article.tags) ? article.tags : [];
     if (tags.length > 0) {
       tagsContainer.innerHTML = tags.map(t => `
-        <span class="px-2.5 py-1 bg-[#F5F5F7] border border-gray-200/70 rounded-lg text-xs text-gray-700 font-medium">
+        <a href="/category.html?q=${encodeURIComponent(t)}" class="px-2.5 py-1 bg-[#F5F5F7] hover:bg-gray-200 border border-gray-200/80 rounded-lg text-xs text-gray-700 font-medium transition-colors select-none">
           #${escapeHtml(t)}
-        </span>
+        </a>
       `).join('');
     } else {
       tagsContainer.innerHTML = '';
+    }
+  }
+
+  // Editorial Quote Callout
+  const quoteCallout = document.getElementById('article-quote-callout');
+  const quoteText = document.getElementById('article-quote-text');
+  if (quoteCallout && quoteText) {
+    if (article.highlight_quote) {
+      quoteText.textContent = `“${article.highlight_quote}”`;
+      quoteCallout.classList.remove('hidden');
+    } else if (article.excerpt && article.excerpt.length > 25 && article.excerpt.length < 180) {
+      quoteText.textContent = `“${article.excerpt}”`;
+      quoteCallout.classList.remove('hidden');
+    } else {
+      quoteCallout.classList.add('hidden');
     }
   }
 
@@ -256,11 +271,7 @@ function renderArticle(article) {
       `;
     } else {
       const { html } = renderMarkdownToHTML(markdown);
-      storyContainer.innerHTML = `
-        <div class="prose-udo max-w-[840px] mx-auto text-[#2c2c2e]">
-          ${html}
-        </div>
-      `;
+      storyContainer.innerHTML = html;
     }
   }
 }
@@ -268,22 +279,56 @@ function renderArticle(article) {
 async function renderRecommendedProducts(article) {
   const recSection = document.getElementById('article-recommended-products-section');
   const recGrid = document.getElementById('article-recommended-products-grid');
-  if (!recSection || !recGrid) return;
 
   const codes = article.recommended_products || [];
   const products = await fetchProductsForRecommendation(codes);
 
+  // 1. Hydrate bottom Recommended Tools grid (100% preserved)
+  if (recSection && recGrid) {
+    if (products && products.length > 0) {
+      recGrid.innerHTML = products.map(p => generateCardHTML(p, true)).join('');
+      recSection.classList.remove('hidden');
+    } else {
+      recSection.classList.add('hidden');
+    }
+  }
+
+  // 2. Hydrate sidebar spotlight tool card (Central Inspirer layout)
   if (products && products.length > 0) {
-    recGrid.innerHTML = products.map(p => generateCardHTML(p, true)).join('');
-    recSection.classList.remove('hidden');
-  } else {
-    recSection.classList.add('hidden');
+    const featuredProduct = products[0];
+    const spotImg = document.getElementById('sidebar-spotlight-img');
+    const spotTitle = document.getElementById('sidebar-spotlight-title');
+    const spotDesc = document.getElementById('sidebar-spotlight-desc');
+    const spotPrice = document.getElementById('sidebar-spotlight-price');
+    const spotBtn = document.getElementById('sidebar-spotlight-btn');
+
+    if (spotImg) {
+      spotImg.src = featuredProduct.image || featuredProduct.thumbnail || '/images/products/welding-sample.png';
+      spotImg.alt = featuredProduct.name || featuredProduct.title;
+    }
+    if (spotTitle) {
+      spotTitle.textContent = featuredProduct.name || featuredProduct.title;
+      spotTitle.title = featuredProduct.name || featuredProduct.title;
+    }
+    if (spotDesc) {
+      spotDesc.textContent = featuredProduct.description || featuredProduct.short_description || 'อุปกรณ์งานช่างและงานเชื่อมมาตรฐานอุตสาหกรรม';
+    }
+    if (spotPrice) {
+      const price = featuredProduct.price || featuredProduct.price_start;
+      spotPrice.textContent = price ? `฿${Number(price).toLocaleString()}` : 'ขอใบเสนอราคา';
+    }
+    if (spotBtn) {
+      const link = featuredProduct.slug 
+        ? `/product.html?slug=${encodeURIComponent(featuredProduct.slug)}` 
+        : (featuredProduct.id ? `/product.html?id=${encodeURIComponent(featuredProduct.id)}` : '/category.html');
+      spotBtn.href = link;
+    }
   }
 }
 
 async function renderRelatedArticles(currentSlug) {
   const relatedGrid = document.getElementById('article-related-articles-grid');
-  if (!relatedGrid) return;
+  const sidebarTrending = document.getElementById('sidebar-trending-articles');
 
   const articles = await fetchRelatedArticles(currentSlug);
   if (!articles || articles.length === 0) {
@@ -292,31 +337,51 @@ async function renderRelatedArticles(currentSlug) {
     return;
   }
 
-  relatedGrid.innerHTML = articles.map(a => `
-    <a href="/article.html?slug=${encodeURIComponent(a.slug)}" class="article-card flex flex-col group cursor-pointer">
-      <div class="w-full aspect-[16/10] bg-gray-100 rounded-xl overflow-hidden mb-3.5 relative border border-gray-200/70">
-        ${a.cover_image ? `
-          <img 
-            src="${escapeHtml(a.cover_image)}" 
-            alt="${escapeHtml(a.title)}" 
-            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" 
-            loading="lazy"
-          />
-        ` : `
-          <div class="w-full h-full flex items-center justify-center text-gray-300 font-bold text-lg">UDO</div>
-        `}
-      </div>
-      <div class="text-xs text-gray-400 font-medium mb-1">
-        ${formatDateThai(a.created_at) || 'บทความวิศวกรรม'} • อ่าน ${a.read_time_minutes || 3} นาที
-      </div>
-      <h3 class="font-semibold text-[#160808] group-hover:text-brand-red transition-colors text-[17px] sm:text-[18px] leading-[1.38] line-clamp-2 h-[50px] overflow-hidden text-ellipsis mb-1.5" title="${escapeHtml(a.title)}">
-        ${escapeHtml(a.title)}
-      </h3>
-      <p class="text-[14px] text-[#555555] font-light line-clamp-2 leading-[1.48] h-[42px] overflow-hidden text-ellipsis">
-        ${escapeHtml(a.excerpt || '')}
-      </p>
-    </a>
-  `).join('');
+  // 1. Hydrate bottom More Articles grid (100% preserved)
+  if (relatedGrid) {
+    relatedGrid.innerHTML = articles.map(a => `
+      <a href="/article.html?slug=${encodeURIComponent(a.slug)}" class="article-card flex flex-col group cursor-pointer">
+        <div class="w-full aspect-[16/10] bg-gray-100 rounded-xl overflow-hidden mb-3.5 relative border border-gray-200/70">
+          ${a.cover_image ? `
+            <img 
+              src="${escapeHtml(a.cover_image)}" 
+              alt="${escapeHtml(a.title)}" 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" 
+              loading="lazy"
+            />
+          ` : `
+            <div class="w-full h-full flex items-center justify-center text-gray-300 font-bold text-lg">UDO</div>
+          `}
+        </div>
+        <div class="text-xs text-gray-400 font-medium mb-1">
+          ${formatDateThai(a.created_at) || 'บทความวิศวกรรม'} • อ่าน ${a.read_time_minutes || 3} นาที
+        </div>
+        <h3 class="font-semibold text-[#160808] group-hover:text-[#c5161b] transition-colors text-[16px] sm:text-[17px] leading-[1.38] line-clamp-2 h-[48px] overflow-hidden text-ellipsis mb-1.5" title="${escapeHtml(a.title)}">
+          ${escapeHtml(a.title)}
+        </h3>
+        <p class="text-[13.5px] text-[#555555] font-light line-clamp-2 leading-[1.48] h-[40px] overflow-hidden text-ellipsis">
+          ${escapeHtml(a.excerpt || '')}
+        </p>
+      </a>
+    `).join('');
+  }
+
+  // 2. Hydrate sidebar trending guides list
+  if (sidebarTrending) {
+    sidebarTrending.innerHTML = articles.slice(0, 3).map((a, idx) => `
+      <a href="/article.html?slug=${encodeURIComponent(a.slug)}" class="flex items-start gap-3 py-2.5 group cursor-pointer">
+        <span class="text-lg font-black text-gray-300 group-hover:text-[#c5161b] transition-colors shrink-0 w-6">0${idx + 1}</span>
+        <div class="flex-1 min-w-0">
+          <h5 class="text-[13px] font-semibold text-[#160808] group-hover:text-[#c5161b] line-clamp-2 leading-snug transition-colors">
+            ${escapeHtml(a.title)}
+          </h5>
+          <span class="text-[11px] text-gray-400 mt-1 block">
+            ${formatDateThai(a.created_at) || 'สาระงานช่าง'}
+          </span>
+        </div>
+      </a>
+    `).join('');
+  }
 }
 
 function initMegaMenu() {
