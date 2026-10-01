@@ -211,6 +211,7 @@ const dom = {
   drawerBrandDropdown: document.getElementById('drawer-brand-dropdown'),
   drawerBrandChevron: document.getElementById('drawer-brand-chevron'),
   drawerBrandChevronBtn: document.getElementById('drawer-brand-chevron-btn'),
+  drawerBrandClearBtn: document.getElementById('drawer-brand-clear-btn'),
   drawerBrandScopeToggle: document.getElementById('drawer-brand-scope-toggle'),
   drawerBrandScopeDot: document.getElementById('drawer-brand-scope-dot'),
   drawerBrandScopeText: document.getElementById('drawer-brand-scope-text'),
@@ -1310,17 +1311,35 @@ function buildBrandTaxonomy(productsList) {
   };
 }
 
-function openBrandDropdown() {
+function updateBrandClearButtonVisibility() {
+  if (!dom.drawerBrandClearBtn || !dom.drawerBrandSearch) return;
+  const isDropdownOpen = dom.drawerBrandDropdown && !dom.drawerBrandDropdown.classList.contains('hidden');
+  const hasValue = Boolean(dom.drawerBrandSearch.value.trim());
+  if (isDropdownOpen && hasValue) {
+    dom.drawerBrandClearBtn.classList.remove('hidden');
+  } else {
+    dom.drawerBrandClearBtn.classList.add('hidden');
+  }
+}
+
+function openBrandDropdown(query = '') {
   if (!dom.drawerBrandDropdown) return;
   dom.drawerBrandDropdown.classList.remove('hidden');
   if (dom.drawerBrandChevron) dom.drawerBrandChevron.classList.add('rotate-180');
-  renderBrandComboboxOptions(dom.drawerBrandSearch ? dom.drawerBrandSearch.value.trim() : '');
+  renderBrandComboboxOptions(query);
+  updateBrandClearButtonVisibility();
 }
 
 function closeBrandDropdown() {
   if (!dom.drawerBrandDropdown) return;
   dom.drawerBrandDropdown.classList.add('hidden');
   if (dom.drawerBrandChevron) dom.drawerBrandChevron.classList.remove('rotate-180');
+  // Revert search input text to currently selected brand if user typed without picking
+  const currentBrand = dom.drawerBrand?.value || state.activeProduct?.brand || 'UDO';
+  if (dom.drawerBrandSearch) {
+    dom.drawerBrandSearch.value = currentBrand;
+  }
+  updateBrandClearButtonVisibility();
 }
 
 function getAvailableBrandsForCurrentScope() {
@@ -1339,7 +1358,7 @@ function renderBrandComboboxOptions(searchQuery = '') {
 
   const currentBrand = dom.drawerBrand ? dom.drawerBrand.value.trim() : '';
   const availableBrands = getAvailableBrandsForCurrentScope();
-  const q = searchQuery.toLowerCase().trim();
+  const q = (searchQuery || '').toLowerCase().trim();
 
   // Category Header Label
   if (dom.drawerBrandCategoryName) {
@@ -1351,7 +1370,7 @@ function renderBrandComboboxOptions(searchQuery = '') {
     }
   }
 
-  // Filter list by search query
+  // Filter list by search query if user actually typed a query
   const filtered = q
     ? availableBrands.filter(b => b.name.toLowerCase().includes(q))
     : availableBrands;
@@ -1363,7 +1382,7 @@ function renderBrandComboboxOptions(searchQuery = '') {
   if (filtered.length === 0) {
     dom.drawerBrandList.innerHTML = `
       <div class="px-3 py-3 text-xs text-gray-400 text-center">
-        ไม่พบแบรนด์ "${escapeHtml(searchQuery)}" ในระบบ
+        ไม่พบแบรนด์ "${escapeHtml(searchQuery)}" ในหมวดนี้
       </div>
     `;
   } else {
@@ -1375,6 +1394,7 @@ function renderBrandComboboxOptions(searchQuery = '') {
           type="button" 
           class="brand-option-item w-full text-left px-3 py-2 rounded-xl text-xs sm:text-[13px] flex items-center justify-between transition-colors cursor-pointer ${isSelected ? 'bg-black text-white font-bold shadow-2xs' : 'text-[#160808] font-medium hover:bg-gray-100'}" 
           data-brand="${escapeHtml(b.name)}"
+          data-selected="${isSelected ? 'true' : 'false'}"
         >
           <span class="truncate flex items-center gap-1.5">
             ${isSelected ? '<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>' : ''}
@@ -1395,6 +1415,16 @@ function renderBrandComboboxOptions(searchQuery = '') {
         selectBrand(chosen);
       });
     });
+
+    // Auto-scroll selected brand into view when list opens
+    if (!q) {
+      const selectedBtn = dom.drawerBrandList.querySelector('.brand-option-item[data-selected="true"]');
+      if (selectedBtn) {
+        requestAnimationFrame(() => {
+          selectedBtn.scrollIntoView({ block: 'nearest' });
+        });
+      }
+    }
   }
 
   // Add new brand button trigger
@@ -1451,16 +1481,24 @@ function handleAddNewBrand() {
 
 function initBrandComboboxEvents() {
   if (dom.drawerBrandSearch) {
+    // When focusing, show all brands in current category scope and select text for fast replacement
     dom.drawerBrandSearch.addEventListener('focus', () => {
-      openBrandDropdown();
+      openBrandDropdown('');
+      dom.drawerBrandSearch.select();
     });
+
+    // When clicking the input, open and select text
     dom.drawerBrandSearch.addEventListener('click', () => {
-      openBrandDropdown();
+      openBrandDropdown('');
+      dom.drawerBrandSearch.select();
     });
+
+    // When user types, filter dynamically
     dom.drawerBrandSearch.addEventListener('input', (e) => {
-      openBrandDropdown();
-      renderBrandComboboxOptions(e.target.value.trim());
+      openBrandDropdown(e.target.value.trim());
+      updateBrandClearButtonVisibility();
     });
+
     dom.drawerBrandSearch.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         closeBrandDropdown();
@@ -1476,6 +1514,19 @@ function initBrandComboboxEvents() {
     });
   }
 
+  if (dom.drawerBrandClearBtn) {
+    dom.drawerBrandClearBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (dom.drawerBrandSearch) {
+        dom.drawerBrandSearch.value = '';
+        dom.drawerBrandSearch.focus();
+      }
+      openBrandDropdown('');
+      updateBrandClearButtonVisibility();
+    });
+  }
+
   if (dom.drawerBrandChevronBtn) {
     dom.drawerBrandChevronBtn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -1483,7 +1534,9 @@ function initBrandComboboxEvents() {
       if (dom.drawerBrandDropdown && !dom.drawerBrandDropdown.classList.contains('hidden')) {
         closeBrandDropdown();
       } else {
-        openBrandDropdown();
+        openBrandDropdown('');
+        dom.drawerBrandSearch?.focus();
+        dom.drawerBrandSearch?.select();
       }
     });
   }
@@ -1511,8 +1564,9 @@ function initBrandComboboxEvents() {
         dom.drawerBrandScopeToggle.classList.remove('bg-neutral-900', 'text-white', 'border-neutral-900');
         dom.drawerBrandScopeToggle.classList.add('bg-gray-50', 'text-[#424245]', 'border-gray-200');
       }
-      openBrandDropdown();
-      renderBrandComboboxOptions(dom.drawerBrandSearch ? dom.drawerBrandSearch.value.trim() : '');
+      openBrandDropdown('');
+      dom.drawerBrandSearch?.focus();
+      dom.drawerBrandSearch?.select();
     });
   }
 
@@ -1526,7 +1580,11 @@ function initBrandComboboxEvents() {
 
   document.addEventListener('click', (e) => {
     if (dom.drawerBrandDropdown && !dom.drawerBrandDropdown.classList.contains('hidden')) {
-      const isInside = e.target.closest('#drawer-brand-dropdown') || e.target.closest('#drawer-brand-search') || e.target.closest('#drawer-brand-chevron-btn') || e.target.closest('#drawer-brand-scope-toggle');
+      const isInside = e.target.closest('#drawer-brand-dropdown') || 
+                       e.target.closest('#drawer-brand-search') || 
+                       e.target.closest('#drawer-brand-chevron-btn') || 
+                       e.target.closest('#drawer-brand-clear-btn') || 
+                       e.target.closest('#drawer-brand-scope-toggle');
       if (!isInside) {
         closeBrandDropdown();
       }
