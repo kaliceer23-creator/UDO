@@ -53,12 +53,12 @@ function renderArticleCard(a) {
   const tags = Array.isArray(a.tags) ? a.tags.slice(0, 3) : [];
   const tagsHtml = tags.map(t => `
     <a href="/category.html?q=${encodeURIComponent(t)}" class="px-2.5 py-1 bg-[#F5F5F7] hover:bg-gray-200 border border-gray-200/80 rounded-lg text-xs text-gray-700 font-medium transition-colors select-none">
-      #${escapeHtml(t)}
+      ${escapeHtml(t)}
     </a>
   `).join('');
 
   return `
-    <article class="group block text-left flex flex-col justify-between">
+    <article class="group block text-left flex flex-col">
       <div>
         <a href="/article.html?slug=${encodeURIComponent(a.slug || a.id)}" class="block w-full aspect-[16/10] bg-gray-100 rounded-[8px] overflow-hidden mb-3.5 border border-gray-200/80 shadow-2xs relative">
           <img 
@@ -79,13 +79,13 @@ function renderArticleCard(a) {
           </a>
         </h3>
 
-        <p class="text-[14.5px] sm:text-[15px] text-[#2c2c2e] leading-relaxed font-normal line-clamp-3 mb-3.5">
+        <p class="text-[14.5px] sm:text-[15px] text-[#2c2c2e] leading-relaxed font-normal line-clamp-3 mb-3">
           ${escapeHtml(a.excerpt || '')}
         </p>
-      </div>
 
-      <div class="flex flex-wrap items-center gap-2 pt-1">
-        ${tagsHtml}
+        <div class="flex flex-wrap items-center gap-2">
+          ${tagsHtml}
+        </div>
       </div>
     </article>
   `;
