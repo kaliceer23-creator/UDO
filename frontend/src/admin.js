@@ -1607,18 +1607,42 @@ function renderMerchandisingShelves() {
         return `
           <div class="shelf-item-card ${cardSizingClass} bg-white rounded-2xl p-3.5 border border-black/[0.06] shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:shadow-md transition-all flex flex-col justify-between group relative" data-product-id="${product.id}" data-shelf-id="${shelf.id}">
             
-            <!-- Top Row: Rank Badge & Move Up/Down Controls -->
+            <!-- Top Row: Direct Rank Input & Move Controls -->
             <div class="flex items-center justify-between gap-1.5 mb-2">
               <div class="flex items-center gap-1.5 flex-wrap">
-                <span class="inline-flex items-center justify-center min-w-6 h-6 px-1.5 rounded-lg bg-[#160808] text-white text-[11px] font-bold font-mono shadow-xs">
-                  #${rank}
-                </span>
+                <!-- Direct Rank Input Pill -->
+                <div class="inline-flex items-center h-6 px-1.5 rounded-lg bg-[#160808] text-white text-[11px] font-bold font-mono shadow-xs group/rank focus-within:ring-2 focus-within:ring-blue-500 transition-all cursor-text" title="คลิกเพื่อพิมพ์เปลี่ยนลำดับ แล้วกด Enter หรือคลิกข้างนอกเพื่อย้ายทันที">
+                  <span class="text-white/60 select-none mr-0.5 text-[10px]">#</span>
+                  <input 
+                    type="number" 
+                    min="1" 
+                    max="${count}" 
+                    value="${rank}" 
+                    data-original-rank="${rank}" 
+                    data-shelf-id="${shelf.id}" 
+                    data-product-id="${product.id}" 
+                    data-total-count="${count}"
+                    class="shelf-rank-input w-7 sm:w-8 h-5 text-center font-mono font-bold text-[11px] bg-transparent text-white border-0 p-0 focus:outline-none focus:bg-white/10 rounded cursor-text select-all"
+                    style="-moz-appearance: textfield; appearance: textfield;"
+                  >
+                </div>
                 ${availBadgeHTML}
                 ${statusBadgeHTML}
               </div>
 
-              <!-- Move Arrows -->
+              <!-- Move Controls: Move to Top + Up / Down -->
               <div class="flex items-center gap-0.5 bg-[#EAEAEF] p-0.5 rounded-lg shrink-0">
+                <button 
+                  type="button" 
+                  class="btn-shelf-move-top w-5 h-5 rounded flex items-center justify-center transition-all ${isFirst ? 'text-gray-300 pointer-events-none' : 'text-[#160808] hover:bg-white cursor-pointer shadow-2xs'}" 
+                  data-shelf-id="${shelf.id}"
+                  data-product-id="${product.id}"
+                  title="ย้ายไปอยู่อันดับ 1 ทันที (หัวแถว)"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 11l7-7 7 7M5 19l7-7 7 7" />
+                  </svg>
+                </button>
                 <button 
                   type="button" 
                   class="btn-shelf-move-up w-5 h-5 rounded flex items-center justify-center transition-all ${isFirst ? 'text-gray-300 pointer-events-none' : 'text-[#160808] hover:bg-white cursor-pointer shadow-2xs'}" 
@@ -1820,7 +1844,17 @@ function attachShelfEvents() {
     });
   });
 
-  // 3. Move Up in Shelf
+  // 3. Move to Top in Shelf
+  dom.merchandisingShelvesContainer.querySelectorAll('.btn-shelf-move-top').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const shelfId = btn.getAttribute('data-shelf-id');
+      const pid = btn.getAttribute('data-product-id');
+      handleDirectRankChange(shelfId, pid, 1);
+    });
+  });
+
+  // 4. Move Up in Shelf
   dom.merchandisingShelvesContainer.querySelectorAll('.btn-shelf-move-up').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -1830,7 +1864,7 @@ function attachShelfEvents() {
     });
   });
 
-  // 4. Move Down in Shelf
+  // 5. Move Down in Shelf
   dom.merchandisingShelvesContainer.querySelectorAll('.btn-shelf-move-down').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -1840,7 +1874,51 @@ function attachShelfEvents() {
     });
   });
 
-  // 5. Remove from Shelf
+  // 6. Direct Rank Number Input
+  dom.merchandisingShelvesContainer.querySelectorAll('.shelf-rank-input').forEach(input => {
+    input.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+
+    input.addEventListener('focus', (e) => {
+      e.stopPropagation();
+      input.select();
+    });
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        e.stopPropagation();
+        input.blur();
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        e.stopPropagation();
+        input.value = input.getAttribute('data-original-rank');
+        input.blur();
+      }
+    });
+
+    let isProcessing = false;
+    const processRankChange = () => {
+      if (isProcessing) return;
+      const shelfId = input.getAttribute('data-shelf-id');
+      const pid = input.getAttribute('data-product-id');
+      const origRank = parseInt(input.getAttribute('data-original-rank'), 10);
+      const newRank = parseInt(input.value.trim(), 10);
+
+      if (isNaN(newRank) || newRank === origRank) {
+        input.value = origRank;
+        return;
+      }
+      isProcessing = true;
+      handleDirectRankChange(shelfId, pid, newRank);
+    };
+
+    input.addEventListener('change', processRankChange);
+    input.addEventListener('blur', processRankChange);
+  });
+
+  // 7. Remove from Shelf
   dom.merchandisingShelvesContainer.querySelectorAll('.btn-shelf-remove').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -1850,7 +1928,7 @@ function attachShelfEvents() {
     });
   });
 
-  // 6. Edit Product Drawer
+  // 8. Edit Product Drawer
   dom.merchandisingShelvesContainer.querySelectorAll('.btn-shelf-edit').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -1858,6 +1936,77 @@ function attachShelfEvents() {
       openProductDrawer(pid);
     });
   });
+}
+
+/**
+ * Handle Direct Rank Change (Jump / Splice & Shift) within a specific Shelf
+ */
+async function handleDirectRankChange(shelfId, productId, targetRank) {
+  const shelfDef = SHELF_DEFINITIONS.find(s => s.id === shelfId);
+  if (!shelfDef) return;
+
+  let items = state.allProductsCache.filter(shelfDef.filterFn);
+  items.sort((a, b) => ((a.storefront_shelves?.[shelfId] ?? 9999) - (b.storefront_shelves?.[shelfId] ?? 9999)));
+
+  const currentIndex = items.findIndex(p => p.id === productId);
+  if (currentIndex === -1) return;
+
+  const parsedRank = parseInt(targetRank, 10);
+  if (isNaN(parsedRank)) {
+    renderMerchandisingShelves();
+    return;
+  }
+
+  const clampedRank = Math.max(1, Math.min(items.length, parsedRank));
+  const targetIndex = clampedRank - 1;
+
+  if (targetIndex === currentIndex) {
+    renderMerchandisingShelves();
+    return;
+  }
+
+  // Splice and Shift: remove from currentIndex and insert at targetIndex
+  const [movedProduct] = items.splice(currentIndex, 1);
+  items.splice(targetIndex, 0, movedProduct);
+
+  // Re-index sequentially 1, 2, 3...
+  items.forEach((p, idx) => {
+    p.storefront_shelves = p.storefront_shelves || {};
+    p.storefront_shelves[shelfId] = idx + 1;
+  });
+
+  const orderedIds = items.map(p => p.id);
+
+  try {
+    await fetch('/api/admin/products.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'reorder_shelf',
+        shelf: shelfId,
+        ordered_ids: orderedIds,
+        admin_user: 'admin'
+      })
+    });
+    broadcastCatalogUpdate();
+  } catch (err) {
+    console.warn('Reorder API notice:', err.message);
+  }
+
+  renderMerchandisingShelves();
+  showToast(`ย้ายสินค้า "${movedProduct.name}" ไปยังลำดับที่ #${clampedRank} เรียบร้อย (สินค้าเดิมเลื่อนลง 1 ลำดับ)`);
+
+  // Auto-scroll and flash highlight on the moved card
+  setTimeout(() => {
+    const movedCard = document.querySelector(`.shelf-item-card[data-product-id="${productId}"][data-shelf-id="${shelfId}"]`);
+    if (movedCard) {
+      movedCard.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      movedCard.classList.add('ring-2', 'ring-emerald-500', 'bg-emerald-50/40');
+      setTimeout(() => {
+        movedCard.classList.remove('ring-2', 'ring-emerald-500', 'bg-emerald-50/40');
+      }, 1500);
+    }
+  }, 100);
 }
 
 /**
@@ -1906,6 +2055,18 @@ async function handleReorderInShelf(shelfId, currentIndex, offset) {
 
   renderMerchandisingShelves();
   showToast(`สลับลำดับสินค้า #${currentIndex + 1} กับ #${targetIndex + 1} เรียบร้อย`);
+
+  // Auto-scroll and flash highlight on the moved card
+  setTimeout(() => {
+    const movedCard = document.querySelector(`.shelf-item-card[data-product-id="${currentProduct.id}"][data-shelf-id="${shelfId}"]`);
+    if (movedCard) {
+      movedCard.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      movedCard.classList.add('ring-2', 'ring-emerald-500', 'bg-emerald-50/40');
+      setTimeout(() => {
+        movedCard.classList.remove('ring-2', 'ring-emerald-500', 'bg-emerald-50/40');
+      }, 1500);
+    }
+  }, 100);
 }
 
 /**

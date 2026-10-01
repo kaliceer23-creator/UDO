@@ -765,3 +765,13 @@ html.is-chat-handoff #chatGlassFrame {
   object-fit: contain;
 }
 
+/* Direct Rank Input: hide number spinners across all browsers */
+.shelf-rank-input::-webkit-outer-spin-button,
+.shelf-rank-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.shelf-rank-input {
+  -moz-appearance: textfield;
+}
+
