@@ -11,6 +11,24 @@
 
 import { generateCardHTML, formatPrice, getStartingPrice, resolveImageSrc } from './components/ProductCard.js';
 
+// Cross-tab real-time catalog synchronization channel
+const adminSyncChannel = (typeof window !== 'undefined' && typeof window.BroadcastChannel === 'function')
+  ? new BroadcastChannel('udo_catalog_sync')
+  : null;
+
+function broadcastCatalogUpdate() {
+  if (adminSyncChannel) {
+    try {
+      adminSyncChannel.postMessage({
+        type: 'catalog_updated',
+        timestamp: Date.now()
+      });
+    } catch (err) {
+      console.warn('Catalog broadcast notice:', err.message);
+    }
+  }
+}
+
 // Application State
 const state = {
   activeTab: 'inventory', // 'inventory' | 'merchandising' | 'logs'
@@ -889,6 +907,7 @@ async function handleSelectStatus(newStatus) {
     if (!res.ok || !data.success) {
       throw new Error(data.error || 'Failed to update status in database');
     }
+    broadcastCatalogUpdate();
   } catch (err) {
     console.error('Status update database error:', err.message);
     showToast('เกิดข้อผิดพลาดในการเปลี่ยนสถานะ: ' + err.message, 'error');
@@ -1880,6 +1899,7 @@ async function handleReorderInShelf(shelfId, currentIndex, offset) {
         admin_user: 'admin'
       })
     });
+    broadcastCatalogUpdate();
   } catch (err) {
     console.warn('Reorder API notice:', err.message);
   }
@@ -2163,7 +2183,7 @@ async function handleBatchAddToCollection() {
     });
     if (res.ok) {
       const data = await res.json();
-      console.log('Batch curate response:', data);
+      broadcastCatalogUpdate();
     }
   } catch (err) {
     console.warn('Batch curate API notice:', err.message);
@@ -4046,6 +4066,7 @@ async function handleConfirmDelete() {
         ? `ลบสินค้า ${productName} ออกจากหน้าจอเรียบร้อย (ข้อมูลถูกลบจากเซิร์ฟเวอร์แล้ว)`
         : `ลบสินค้า ${productName} ออกจากระบบเรียบร้อย`;
       showToast(successMsg);
+      broadcastCatalogUpdate();
 
     } else if (deletionTarget.type === 'batch') {
       const ids = deletionTarget.ids;
@@ -4078,6 +4099,7 @@ async function handleConfirmDelete() {
       renderFloatingBatchDock();
       closeDeleteConfirmModal();
       showToast(`ลบสินค้าจำนวน ${ids.length} รายการเรียบร้อย`);
+      broadcastCatalogUpdate();
     }
   } catch (err) {
     console.error('Delete error:', err);
@@ -4343,6 +4365,7 @@ async function handleSaveDrawer() {
 
     fetchProducts(state.currentPage);
     loadAllProductsCatalog();
+    broadcastCatalogUpdate();
   } catch (err) {
     console.error('Save product database error:', err);
     showToast('เกิดข้อผิดพลาดในการบันทึกข้อมูล: ' + err.message, 'error');
@@ -5853,6 +5876,7 @@ async function executeBatchStatusUpdate(newStatus = null, newAvailability = null
     if (!res.ok || !data.success) {
       throw new Error(data.error || 'Failed to batch update products in database');
     }
+    broadcastCatalogUpdate();
   } catch (err) {
     console.error('Batch update database error:', err.message);
     showToast('เกิดข้อผิดพลาดในการอัปเดตกลุ่ม: ' + err.message, 'error');

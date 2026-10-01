@@ -295,12 +295,38 @@ setTimeout(async () => {
         prods = mockDatabase.filter(p => p.categories && p.categories.some(c => c.name.includes('ลวดเชื่อม')));
       }
     } else if (type === 'collection') {
-       const colMapping = { 'new-arrivals': 'new_arrival', 'top-sale': 'popular', 'for-you': 'just_for_you' };
-       const mapKey = colMapping[rawName] || rawName;
        if (rawName === 'promotion' || rawName === 'promo' || rawName === 'โปรโมชั่น') {
-         prods = mockDatabase.filter(p => p.flags?.is_promotion || p.promotion === 1 || (p.variants && p.variants.some(v => v.original_price && v.original_price > v.price)));
+         prods = mockDatabase.filter(p => 
+           p.flags?.is_promotion || 
+           p.promotion === 1 || 
+           (p.storefront_shelves && p.storefront_shelves.promotion !== null && p.storefront_shelves.promotion !== undefined) ||
+           (p.variants && p.variants.some(v => v.original_price && v.original_price > v.price))
+         );
+       } else if (rawName === 'new-arrivals' || rawName === 'new_arrival' || rawName === 'new-arrival') {
+         prods = mockDatabase.filter(p => 
+           (p.collections && (p.collections.includes('new-arrival') || p.collections.includes('new_arrival'))) ||
+           (p.storefront_shelves && p.storefront_shelves.new_arrival !== null && p.storefront_shelves.new_arrival !== undefined) ||
+           p.flags?.is_new_arrival
+         );
+         prods.sort((a, b) => (a.storefront_shelves?.new_arrival ?? 9999) - (b.storefront_shelves?.new_arrival ?? 9999));
+       } else if (rawName === 'top-sale' || rawName === 'popular' || rawName === 'best-sellers') {
+         prods = mockDatabase.filter(p => 
+           (p.collections && (p.collections.includes('top-sale') || p.collections.includes('popular'))) ||
+           (p.storefront_shelves && p.storefront_shelves.best_seller !== null && p.storefront_shelves.best_seller !== undefined) ||
+           p.flags?.is_best_seller
+         );
+         prods.sort((a, b) => (a.storefront_shelves?.best_seller ?? 9999) - (b.storefront_shelves?.best_seller ?? 9999));
+       } else if (rawName === 'for-you' || rawName === 'recommended') {
+         prods = mockDatabase.filter(p => 
+           (p.collections && (p.collections.includes('for-you') || p.collections.includes('just_for_you'))) ||
+           (p.storefront_shelves && p.storefront_shelves.recommended !== null && p.storefront_shelves.recommended !== undefined) ||
+           p.flags?.is_recommended
+         );
+         prods.sort((a, b) => (a.storefront_shelves?.recommended ?? 9999) - (b.storefront_shelves?.recommended ?? 9999));
        } else {
-         prods = mockDatabase.filter(p => p.collections && p.collections.includes(mapKey));
+         const colMapping = { 'new-arrivals': 'new_arrival', 'top-sale': 'popular', 'for-you': 'just_for_you' };
+         const mapKey = colMapping[rawName] || rawName;
+         prods = mockDatabase.filter(p => p.collections && (p.collections.includes(mapKey) || p.collections.includes(rawName)));
        }
     } else if (type === 'brand') {
        prods = mockDatabase.filter(p => p.brand.toLowerCase() === rawName.toLowerCase());
