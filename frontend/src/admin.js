@@ -4013,9 +4013,70 @@ function openBatchDeleteModal() {
 
 function closeDeleteConfirmModal() {
   if (dom.deleteConfirmModal) {
-    dom.deleteConfirmModal.close();
+    if (typeof dom.deleteConfirmModal.close === 'function') {
+      try {
+        dom.deleteConfirmModal.close();
+      } catch (e) {
+        // Safe fallback
+      }
+    }
+    dom.deleteConfirmModal.removeAttribute('open');
   }
   deletionTarget = null;
+}
+
+/**
+ * Recompute metrics and refresh statistics across UI after mutation (deletion, creation, status change)
+ */
+function updateStats() {
+  const total = state.allProductsCache.length;
+  let pubCount = 0;
+  let draftCount = 0;
+  let suspendedCount = 0;
+  let inStock = 0;
+  let outStock = 0;
+  let specialOrder = 0;
+  let bestSeller = 0;
+  let newArrival = 0;
+  let recommended = 0;
+  let promotion = 0;
+
+  state.allProductsCache.forEach(p => {
+    const st = p.status || 'publish';
+    if (st === 'publish') pubCount++;
+    else if (st === 'draft') draftCount++;
+    else if (st === 'suspended') suspendedCount++;
+
+    const av = p.availability || (p.flags?.is_in_stock ? 'in_stock' : 'out_of_stock');
+    if (av === 'in_stock') inStock++;
+    else if (av === 'out_of_stock') outStock++;
+    else if (av === 'special_order') specialOrder++;
+
+    const sh = p.storefront_shelves || {};
+    if (sh.best_seller) bestSeller++;
+    if (sh.new_arrival) newArrival++;
+    if (sh.recommended) recommended++;
+    if (sh.promotion) promotion++;
+  });
+
+  state.summary = {
+    total,
+    publish: pubCount,
+    draft: draftCount,
+    suspended: suspendedCount,
+    in_stock: inStock,
+    out_of_stock: outStock,
+    special_order: specialOrder,
+    best_seller: bestSeller,
+    new_arrival: newArrival,
+    recommended,
+    promotion
+  };
+
+  state.totalProducts = total;
+  renderMetrics();
+  updateStatusPillVisuals();
+  buildBrandTaxonomy(state.allProductsCache);
 }
 
 async function handleConfirmDelete() {
@@ -4029,15 +4090,24 @@ async function handleConfirmDelete() {
   try {
     if (deletionTarget.type === 'single') {
       const pid = deletionTarget.product.id;
+      const productName = deletionTarget.product.name || 'สินค้า';
       const res = await fetch('/api/admin/products.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ action: 'delete_product', id: pid })
       });
 
-      const data = await res.json();
-      if (!res.ok || !data.success) {
-        throw new Error(data.error || 'Failed to delete product');
+      let data = {};
+      try {
+        data = await res.json();
+      } catch (e) {
+        // Fallback for non-JSON response
+      }
+
+      // If already deleted on server (404), treat as successfully removed
+      if (!res.ok && res.status !== 404) {
+        throw new Error(data.error || `HTTP ${res.status}: ไม่สามารถลบสินค้าได้`);
       }
 
       // Remove from client state
@@ -4055,19 +4125,30 @@ async function handleConfirmDelete() {
       renderPagination();
       renderFloatingBatchDock();
       closeDeleteConfirmModal();
-      showToast(`ลบสินค้า ${deletionTarget.product.name} ออกจากระบบเรียบร้อย`);
+
+      const successMsg = res.status === 404
+        ? `ลบสินค้า ${productName} ออกจากหน้าจอเรียบร้อย (ข้อมูลถูกลบจากเซิร์ฟเวอร์แล้ว)`
+        : `ลบสินค้า ${productName} ออกจากระบบเรียบร้อย`;
+      showToast(successMsg);
 
     } else if (deletionTarget.type === 'batch') {
       const ids = deletionTarget.ids;
       const res = await fetch('/api/admin/products.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ action: 'batch_delete_products', ids })
       });
 
-      const data = await res.json();
-      if (!res.ok || !data.success) {
-        throw new Error(data.error || 'Failed to delete products');
+      let data = {};
+      try {
+        data = await res.json();
+      } catch (e) {
+        // Fallback
+      }
+
+      if (!res.ok && res.status !== 404) {
+        throw new Error(data.error || `HTTP ${res.status}: ไม่สามารถลบสินค้ากลุ่มได้`);
       }
 
       const idSet = new Set(ids);

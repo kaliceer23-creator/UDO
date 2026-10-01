@@ -1,4 +1,4 @@
-import{n as e}from"./ProductCard-D2c0gKoJ.js";import"./home_hydrate-D0wupE0z.js";import{n as t}from"./mock_database-BcIaIGFD.js";import"./main-CRf6QF2f.js";import{i as n,n as r,t as i}from"./category_taxonomy-Dxaq_VWX.js";import{r as a}from"./ai_overview-YYS865Al.js";document.querySelector(`#category-content`).innerHTML=`
+import{n as e}from"./ProductCard-BJxPK0B7.js";import"./home_hydrate-BnOL4baj.js";import{n as t}from"./mock_database-CGnFfVPv.js";import"./main-DYgf09oM.js";import{i as n,n as r,t as i}from"./category_taxonomy-Dxaq_VWX.js";import{r as a}from"./ai_overview-GNl3K6dy.js";document.querySelector(`#category-content`).innerHTML=`
 <main class="w-full bg-white pb-20 min-h-screen relative">
   <!-- Filter Drawer Backdrop -->
   <div id="filter-drawer-backdrop" class="fixed inset-0 bg-black/40 backdrop-blur-[2px] z-[110] hidden opacity-0 transition-opacity duration-300 pointer-events-none"></div>
