@@ -453,24 +453,36 @@ function initStickyNavObserver() {
   const navEl = document.getElementById('article-sticky-nav');
   const navInner = document.getElementById('article-nav-inner');
 
-  if (!sentinel || !navEl || !navInner) return;
+  if (!navEl || !navInner) return;
 
-  const observer = new IntersectionObserver(([entry]) => {
-    const atTop = entry.isIntersecting;
-    if (atTop) {
-      // Top position: contained line within max-w container
-      navEl.classList.remove('border-b-2', 'border-[#160808]', 'shadow-xs');
-      navEl.classList.add('border-b-transparent');
-      navInner.classList.add('border-b-2', 'border-[#160808]');
-    } else {
-      // Sticky position: full-width line spanning edge-to-edge
+  function setStickyVisuals(isSticky) {
+    if (isSticky) {
+      // Sticky position: full-width black line spanning edge-to-edge
       navEl.classList.add('border-b-2', 'border-[#160808]', 'shadow-xs');
       navEl.classList.remove('border-b-transparent');
       navInner.classList.remove('border-b-2', 'border-[#160808]');
+    } else {
+      // Top position: contained black line within max-w container
+      navEl.classList.remove('border-b-2', 'border-[#160808]', 'shadow-xs');
+      navEl.classList.add('border-b-transparent');
+      navInner.classList.add('border-b-2', 'border-[#160808]');
     }
-  }, { threshold: [0, 1] });
+  }
 
-  observer.observe(sentinel);
+  // Synchronous scroll listener for immediate edge-to-edge response
+  const onScroll = () => {
+    const isSticky = window.scrollY > 40;
+    setStickyVisuals(isSticky);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  if (sentinel && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(([entry]) => {
+      setStickyVisuals(!entry.isIntersecting);
+    }, { threshold: [0, 1] });
+    observer.observe(sentinel);
+  }
 }
 
 // Initialize on DOM ready

@@ -20,10 +20,10 @@
     <!-- 1. Dedicated Editorial Magazine Navigation Component -->
     <load src="./src/components/nav-article.html" />
 
-    <!-- 2. Breadcrumb Navigation (Line contained within max-w, not edge-to-edge) -->
+    <!-- 2. Breadcrumb Navigation (Line matches nav underline width and thickness) -->
     <div class="bg-white">
-      <div class="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div id="article-breadcrumb-container" class="pt-3 pb-3 border-b border-gray-100 text-[13px] sm:text-[14px] font-normal text-gray-500 flex items-center gap-2.5 overflow-x-auto whitespace-nowrap">
+      <div class="max-w-[1440px] mx-auto px-4 md:px-8">
+        <div id="article-breadcrumb-container" class="pt-2.5 pb-3 border-b-2 border-[#160808] text-[13px] sm:text-[14px] font-normal text-gray-500 flex items-center gap-2.5 overflow-x-auto whitespace-nowrap">
           <a href="/" class="hover:text-[#c5161b] hover:underline underline-offset-2">หน้าหลัก</a>
           <span class="text-gray-300">/</span>
           <a href="/#articles-section" class="hover:text-[#c5161b] hover:underline underline-offset-2">เทคนิค & สาระงานช่าง</a>
@@ -120,13 +120,34 @@
               </div>
             </div>
 
-            <!-- Box 3: Technical Help Hotline / Line OA -->
-            <div class="bg-emerald-50/70 rounded-2xl border border-emerald-200/80 p-4 text-center space-y-2">
-              <span class="text-[11.5px] font-bold text-emerald-900 block">ต้องการคำแนะนำการเลือกลวดเชื่อม?</span>
-              <p class="text-xs text-emerald-800 font-light">ทีมวิศวกรเทคนิค UDO พร้อมช่วยเทียบสเปกและแนะนำเกรดที่เหมาะกับงานของคุณ</p>
-              <a href="https://line.me/R/ti/p/@udothai" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-xl transition-all shadow-2xs">
-                <span>สอบถามทีมเทคนิคทาง LINE</span>
+            <!-- Box 3: Apple-Style LINE Technical Assistance Card -->
+            <div class="bg-gradient-to-b from-white to-[#F5F5F7] rounded-[20px] border border-gray-200/90 p-5 shadow-[0_2px_16px_rgba(0,0,0,0.04)] text-center relative overflow-hidden group hover:shadow-[0_6px_24px_rgba(0,0,0,0.08)] transition-all duration-300">
+              <!-- Live Consultant Badge -->
+              <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-[11px] font-semibold mb-3">
+                <span class="w-2 h-2 rounded-full bg-[#06C755] animate-pulse"></span>
+                <span>วิศวกรเทคนิคพร้อมบริการ</span>
+              </div>
+              
+              <!-- Punchy Heading & Microcopy -->
+              <h4 class="text-[17px] sm:text-[18px] font-bold text-[#160808] tracking-tight mb-1">
+                ปรึกษางานเชื่อม & เทียบสเปก
+              </h4>
+              <p class="text-[12.5px] text-gray-500 leading-normal max-w-[240px] mx-auto mb-4 font-light">
+                ส่งรูปชิ้นงานหรือสเปกที่ต้องการ ให้ช่างผู้เชี่ยวชาญช่วยเลือกเกรดที่ถูกต้อง
+              </p>
+
+              <!-- Irresistible Apple-Style Pill Button -->
+              <a href="https://line.me/R/ti/p/@udothai" target="_blank" rel="noopener noreferrer" class="group/btn relative w-full py-3 px-5 rounded-full bg-[#06C755] hover:bg-[#05b34c] text-white font-semibold text-[13.5px] tracking-wide shadow-[0_4px_16px_rgba(6,199,85,0.32)] hover:shadow-[0_6px_22px_rgba(6,199,85,0.45)] hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2.5 cursor-pointer select-none">
+                <svg class="w-5 h-5 fill-current shrink-0" viewBox="0 0 24 24">
+                  <path d="M19.365 9.863c.349.004.632.288.636.637.004.348-.277.632-.625.637h-2.146v1.393h2.146c.349.004.632.288.636.637.004.349-.277.633-.625.637H16.6c-.352 0-.637-.285-.637-.637V8.575c0-.352.285-.637.637-.637h2.765c.349.004.632.288.636.637.004.349-.277.633-.625.637h-2.146v1.288h2.146v-.637zm-6.208 3.304c0 .352-.285.637-.637.637-.352 0-.637-.285-.637-.637V8.575c0-.352.285-.637.637-.637.352 0 .637.285.637.637v4.592zm-2.585-3.326L8.435 8.24c-.092-.127-.24-.202-.397-.202-.276 0-.5.224-.5.5v4.629c0 .276.224.5.5.5.276 0 .5-.224.5-.5V9.76l2.137 2.943c.092.127.24.202.397.202.276 0 .5-.224.5-.5V7.776c0-.276-.224-.5-.5-.5-.276 0-.5.224-.5.5v2.065zm-6.31 3.326c0 .352-.285.637-.637.637-.352 0-.637-.285-.637-.637V8.575c0-.352.285-.637.637-.637.352 0 .637.285.637.637v3.955h2.128c.349.004.632.288.636.637.004.349-.277.633-.625.637H4.262zM24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.084.922.258 1.057.592.121.3.079.77.039 1.085l-.171 1.026c-.053.307-.246 1.201 1.052.655 1.298-.546 7.008-4.128 9.563-7.067C23.084 14.512 24 12.519 24 10.314"/>
+                </svg>
+                <span>คุยกับวิศวกร UDO ทาง LINE</span>
               </a>
+
+              <!-- Bottom Assurance Tag -->
+              <span class="block text-[11px] text-gray-400 mt-2.5 font-normal">
+                ตอบกลับรวดเร็ว • ให้คำปรึกษาฟรีทุกกรณี
+              </span>
             </div>
 
           </aside>
