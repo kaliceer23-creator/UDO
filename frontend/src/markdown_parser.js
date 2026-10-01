@@ -72,6 +72,11 @@ function parseInlineMarkdown(text) {
 
   let out = text;
 
+  // 0. Images: ![alt](url)
+  out = out.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, url) => {
+    return `<figure class="my-6 text-center"><img src="${escapeHtml(url)}" alt="${escapeHtml(alt || 'ภาพประกอบ')}" class="w-full max-w-[800px] h-auto object-contain rounded-2xl mx-auto border border-gray-200/80 shadow-xs" loading="lazy" />${alt && alt !== 'ภาพประกอบ' && alt !== 'ภาพประกอบเนื้อหา' ? `<figcaption class="text-xs text-gray-500 mt-2 text-center">${escapeHtml(alt)}</figcaption>` : ''}</figure>`;
+  });
+
   // 1. Inline code / Specs pill: `code`
   out = out.replace(/`([^`]+)`/g, (match, code) => {
     return `<code class="inline-block px-2 py-0.5 mx-0.5 bg-[#F5F5F7] border border-gray-200/90 rounded text-[13.5px] font-medium text-[#160808] font-mono tracking-tight">${escapeHtml(code)}</code>`;
@@ -234,6 +239,23 @@ export function renderMarkdownToHTML(markdownInput) {
       flushTable();
     }
 
+    // 1.5 Standalone Image Check: ![alt](url)
+    const imgBlockMatch = trimmed.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+    if (imgBlockMatch) {
+      flushList();
+      flushBlockquote();
+      flushTable();
+      const alt = imgBlockMatch[1].trim();
+      const url = imgBlockMatch[2].trim();
+      htmlParts.push(`
+        <figure class="my-6 text-center">
+          <img src="${escapeHtml(url)}" alt="${escapeHtml(alt || 'ภาพประกอบ')}" class="w-full max-w-[800px] h-auto object-contain rounded-2xl mx-auto border border-gray-200/80 shadow-xs" loading="lazy" />
+          ${alt && alt !== 'ภาพประกอบ' && alt !== 'ภาพประกอบเนื้อหา' ? `<figcaption class="text-xs text-gray-500 mt-2 text-center">${escapeHtml(alt)}</figcaption>` : ''}
+        </figure>
+      `);
+      continue;
+    }
+
     // 2. Blockquote Check (e.g. > Warning note)
     if (trimmed.startsWith('>')) {
       flushList();
@@ -257,22 +279,22 @@ export function renderMarkdownToHTML(markdownInput) {
 
       if (trimmed.startsWith('#### ')) {
         const text = trimmed.slice(5).trim();
-        htmlParts.push(`<h5 class="text-[15px] sm:text-[15.5px] font-semibold text-[#160808] mt-4 mb-2 tracking-tight">${parseInlineMarkdown(text)}</h5>`);
+        htmlParts.push(`<h5 class="text-[15px] sm:text-[15.5px] font-semibold text-[#160808] mt-4 mb-2 tracking-tight leading-snug">${parseInlineMarkdown(text)}</h5>`);
         continue;
       }
       if (trimmed.startsWith('### ')) {
         const text = trimmed.slice(4).trim();
-        htmlParts.push(`<h4 class="text-[16.5px] sm:text-[17px] font-semibold text-[#160808] mt-5 mb-2.5 tracking-tight">${parseInlineMarkdown(text)}</h4>`);
+        htmlParts.push(`<h4 class="text-[16.5px] sm:text-[17px] font-semibold text-[#160808] mt-5 mb-2.5 tracking-tight leading-snug">${parseInlineMarkdown(text)}</h4>`);
         continue;
       }
       if (trimmed.startsWith('## ')) {
         const text = trimmed.slice(3).trim();
-        htmlParts.push(`<h3 class="text-[19px] sm:text-[20px] font-semibold text-[#160808] mt-6 mb-3 tracking-tight leading-snug">${parseInlineMarkdown(text)}</h3>`);
+        htmlParts.push(`<h3 class="text-[19px] sm:text-[20px] font-bold text-[#160808] mt-7 mb-3 tracking-tight leading-snug">${parseInlineMarkdown(text)}</h3>`);
         continue;
       }
       if (trimmed.startsWith('# ')) {
         const text = trimmed.slice(2).trim();
-        htmlParts.push(`<h2 class="text-[20px] sm:text-[21px] font-semibold text-[#160808] mt-6 mb-3 tracking-tight leading-snug">${parseInlineMarkdown(text)}</h2>`);
+        htmlParts.push(`<h2 class="text-[22px] sm:text-[24px] font-bold text-[#160808] mt-8 mb-3.5 tracking-tight leading-snug border-b border-gray-100 pb-2">${parseInlineMarkdown(text)}</h2>`);
         continue;
       }
     }
@@ -284,7 +306,7 @@ export function renderMarkdownToHTML(markdownInput) {
         flushList();
         inList = true;
         listType = 'ul';
-        htmlParts.push('<ul class="space-y-2 list-disc pl-5 my-3 text-[16px] leading-[1.7] text-[#212121] marker:text-[#160808]">');
+        htmlParts.push('<ul class="space-y-2 list-disc pl-5 my-3 text-[15.5px] sm:text-[16px] leading-[1.75] text-[#2c2c2e] marker:text-[#160808]">');
       }
       htmlParts.push(`<li>${parseInlineMarkdown(ulMatch[1])}</li>`);
       continue;
@@ -297,7 +319,7 @@ export function renderMarkdownToHTML(markdownInput) {
         flushList();
         inList = true;
         listType = 'ol';
-        htmlParts.push('<ol class="space-y-2 list-decimal pl-5 my-3 text-[16px] leading-[1.7] text-[#212121] marker:text-[#160808]">');
+        htmlParts.push('<ol class="space-y-2 list-decimal pl-5 my-3 text-[15.5px] sm:text-[16px] leading-[1.75] text-[#2c2c2e] marker:text-[#160808]">');
       }
       htmlParts.push(`<li>${parseInlineMarkdown(olMatch[2])}</li>`);
       continue;
@@ -307,7 +329,7 @@ export function renderMarkdownToHTML(markdownInput) {
     flushList();
 
     // 7. Regular Paragraph
-    htmlParts.push(`<p class="my-2.5 text-[16px] leading-[1.7] text-[#212121]">${parseInlineMarkdown(trimmed)}</p>`);
+    htmlParts.push(`<p class="my-3 text-[15.5px] sm:text-[16px] leading-[1.8] text-[#2c2c2e] font-light">${parseInlineMarkdown(trimmed)}</p>`);
   }
 
   flushList();

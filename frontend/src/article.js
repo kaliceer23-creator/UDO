@@ -10,6 +10,7 @@ import './style.css';
 import './nav_search.js';
 import './dock.js';
 import { generateCardHTML } from './components/ProductCard.js';
+import { renderMarkdownToHTML } from './markdown_parser.js';
 
 function escapeHtml(str) {
   if (!str) return '';
@@ -230,58 +231,36 @@ function renderArticle(article) {
     }
   }
 
-  // Modular Story Blocks (Showcase Architecture 100%)
+  // Technical Article Markdown Content (Obsidian / Tech Doc Architecture)
   const storyContainer = document.getElementById('article-story-blocks');
   if (storyContainer) {
-    const blocks = Array.isArray(article.content_blocks) ? article.content_blocks : [];
-    const validBlocks = blocks.filter(b => b && (b.headline || b.subheadline || b.paragraph || b.image));
+    let markdown = (article.markdown || article.content || '').trim();
 
-    if (validBlocks.length === 0) {
+    // Fallback: If no markdown field, construct from content_blocks if present
+    if (!markdown && Array.isArray(article.content_blocks) && article.content_blocks.length > 0) {
+      markdown = article.content_blocks.map(b => {
+        const parts = [];
+        if (b.headline) parts.push(`## ${b.headline}`);
+        if (b.subheadline) parts.push(`### ${b.subheadline}`);
+        if (b.image) parts.push(`![ภาพประกอบ](${b.image})`);
+        if (b.paragraph) parts.push(b.paragraph);
+        return parts.join('\n\n');
+      }).join('\n\n');
+    }
+
+    if (!markdown) {
       storyContainer.innerHTML = `
         <div class="py-12 text-center text-gray-400">
           <p class="text-sm">กำลังเตรียมเนื้อหาฉบับสมบูรณ์</p>
         </div>
       `;
     } else {
-      storyContainer.innerHTML = validBlocks.map((b, i) => {
-        const hasText = Boolean(b.headline || b.subheadline || b.paragraph);
-        const hasImg = Boolean(b.image);
-
-        return `
-          <section class="story-block">
-            ${hasText ? `
-              <div class="w-full max-w-[1040px] mx-auto px-2 sm:px-0 mb-6 sm:mb-8">
-                ${b.headline ? `
-                  <h2 class="text-[22px] sm:text-[26px] font-semibold text-[#160808] mb-4 sm:mb-6 leading-snug">
-                    ${escapeHtml(b.headline)}
-                  </h2>
-                ` : ''}
-                ${b.subheadline ? `
-                  <h3 class="text-[18px] sm:text-[20px] font-semibold text-[#160808] mb-2 sm:mb-2.5 leading-snug">
-                    ${escapeHtml(b.subheadline)}
-                  </h3>
-                ` : ''}
-                ${b.paragraph ? `
-                  <p class="text-[15.5px] sm:text-[16.5px] text-[#252525] leading-relaxed whitespace-pre-line w-full">
-                    ${escapeHtml(b.paragraph)}
-                  </p>
-                ` : ''}
-              </div>
-            ` : ''}
-
-            ${hasImg ? `
-              <div class="w-full max-w-[1040px] mx-auto px-2 sm:px-0 flex justify-center mb-8">
-                <img 
-                  src="${escapeHtml(b.image)}" 
-                  alt="ภาพประกอบเนื้อหา ${i + 1}" 
-                  class="max-w-full h-auto object-contain rounded-xl mx-auto border border-gray-200/80 shadow-2xs"
-                  loading="lazy"
-                />
-              </div>
-            ` : ''}
-          </section>
-        `;
-      }).join('');
+      const { html } = renderMarkdownToHTML(markdown);
+      storyContainer.innerHTML = `
+        <div class="prose-udo max-w-[840px] mx-auto text-[#2c2c2e]">
+          ${html}
+        </div>
+      `;
     }
   }
 }

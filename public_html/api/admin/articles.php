@@ -248,6 +248,7 @@ class UdoAdminArticlesService
             'meta_title' => trim((string)($payload['meta_title'] ?? $title)),
             'meta_description' => trim((string)($payload['meta_description'] ?? ($payload['excerpt'] ?? ''))),
             'content_blocks' => is_array($payload['content_blocks'] ?? null) ? $payload['content_blocks'] : [],
+            'markdown' => trim((string)($payload['markdown'] ?? '')),
             'created_at' => $now,
             'updated_at' => $now
         ];
@@ -324,6 +325,7 @@ class UdoAdminArticlesService
         if (isset($payload['meta_title'])) $updated['meta_title'] = trim((string)$payload['meta_title']);
         if (isset($payload['meta_description'])) $updated['meta_description'] = trim((string)$payload['meta_description']);
         if (isset($payload['content_blocks']) && is_array($payload['content_blocks'])) $updated['content_blocks'] = $payload['content_blocks'];
+        if (isset($payload['markdown'])) $updated['markdown'] = trim((string)$payload['markdown']);
         $updated['updated_at'] = $now;
 
         // 1. Update MariaDB

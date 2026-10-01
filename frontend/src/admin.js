@@ -10,6 +10,7 @@
  */
 
 import { generateCardHTML, formatPrice, getStartingPrice, resolveImageSrc } from './components/ProductCard.js';
+import { renderMarkdownToHTML } from './markdown_parser.js';
 
 // Cross-tab real-time catalog synchronization channel
 const adminSyncChannel = (typeof window !== 'undefined' && typeof window.BroadcastChannel === 'function')
@@ -152,6 +153,15 @@ const dom = {
   articleInputTags: document.getElementById('article-input-tags'),
   articleBlocksContainer: document.getElementById('article-blocks-container'),
   btnAddArticleBlock: document.getElementById('btn-add-article-block'),
+  articleInputMarkdown: document.getElementById('article-input-markdown'),
+  articleMarkdownLivePreview: document.getElementById('article-markdown-live-preview'),
+  articleEditorWrapper: document.getElementById('article-editor-wrapper'),
+  articlePreviewWrapper: document.getElementById('article-preview-wrapper'),
+  btnArticleModeEdit: document.getElementById('btn-article-mode-edit'),
+  btnArticleModePreview: document.getElementById('btn-article-mode-preview'),
+  articleMarkdownToolbar: document.getElementById('article-markdown-toolbar'),
+  articleMarkdownCharCount: document.getElementById('article-markdown-char-count'),
+  articleMarkdownUploadFile: document.getElementById('article-markdown-upload-file'),
   articleProductSearch: document.getElementById('article-product-search'),
   articleSelectedProductsList: document.getElementById('article-selected-products-list'),
   articleProductSearchResults: document.getElementById('article-product-search-results'),
@@ -6691,6 +6701,106 @@ function renderAdminArticlesTable() {
   });
 }
 
+// Markdown Studio Helper Functions
+function updateArticleMarkdownStats() {
+  if (!dom.articleMarkdownCharCount || !dom.articleInputMarkdown) return;
+  const count = (dom.articleInputMarkdown.value || '').length;
+  dom.articleMarkdownCharCount.textContent = `${count.toLocaleString()} ตัวอักษร`;
+}
+
+function renderArticleMarkdownPreview() {
+  if (!dom.articleMarkdownLivePreview || !dom.articleInputMarkdown) return;
+  const md = dom.articleInputMarkdown.value || '';
+  if (!md.trim()) {
+    dom.articleMarkdownLivePreview.innerHTML = '<div class="py-12 text-center text-gray-400">ยังไม่มีเนื้อหาที่จะแสดงพรีวิว</div>';
+    return;
+  }
+  const { html } = renderMarkdownToHTML(md);
+  dom.articleMarkdownLivePreview.innerHTML = html;
+}
+
+function setArticleMarkdownViewMode(mode) {
+  if (mode === 'preview') {
+    if (dom.articleEditorWrapper) dom.articleEditorWrapper.classList.add('hidden');
+    if (dom.articlePreviewWrapper) dom.articlePreviewWrapper.classList.remove('hidden');
+    if (dom.btnArticleModePreview) {
+      dom.btnArticleModePreview.classList.add('bg-white', 'text-[#160808]', 'shadow-2xs');
+      dom.btnArticleModePreview.classList.remove('text-gray-500');
+    }
+    if (dom.btnArticleModeEdit) {
+      dom.btnArticleModeEdit.classList.remove('bg-white', 'text-[#160808]', 'shadow-2xs');
+      dom.btnArticleModeEdit.classList.add('text-gray-500');
+    }
+    renderArticleMarkdownPreview();
+  } else {
+    if (dom.articleEditorWrapper) dom.articleEditorWrapper.classList.remove('hidden');
+    if (dom.articlePreviewWrapper) dom.articlePreviewWrapper.classList.add('hidden');
+    if (dom.btnArticleModeEdit) {
+      dom.btnArticleModeEdit.classList.add('bg-white', 'text-[#160808]', 'shadow-2xs');
+      dom.btnArticleModeEdit.classList.remove('text-gray-500');
+    }
+    if (dom.btnArticleModePreview) {
+      dom.btnArticleModePreview.classList.remove('bg-white', 'text-[#160808]', 'shadow-2xs');
+      dom.btnArticleModePreview.classList.add('text-gray-500');
+    }
+  }
+}
+
+function insertMarkdownAtCursor(prefix, suffix = '', defaultText = '') {
+  const textarea = dom.articleInputMarkdown;
+  if (!textarea) return;
+
+  const start = textarea.selectionStart;
+  const end = textarea.selectionEnd;
+  const original = textarea.value;
+  const selected = original.substring(start, end);
+  const textToInsert = selected || defaultText;
+
+  const replacement = prefix + textToInsert + suffix;
+  textarea.value = original.substring(0, start) + replacement + original.substring(end);
+
+  const newCursor = start + prefix.length + textToInsert.length;
+  textarea.focus();
+  textarea.setSelectionRange(newCursor, newCursor);
+  updateArticleMarkdownStats();
+}
+
+function handleMarkdownToolbarAction(action) {
+  switch (action) {
+    case 'bold':
+      insertMarkdownAtCursor('**', '**', 'ข้อความหนา');
+      break;
+    case 'italic':
+      insertMarkdownAtCursor('*', '*', 'ข้อความเอียง');
+      break;
+    case 'h2':
+      insertMarkdownAtCursor('\n\n## ', '\n', 'หัวข้อหลัก');
+      break;
+    case 'h3':
+      insertMarkdownAtCursor('\n\n### ', '\n', 'หัวข้อย่อย');
+      break;
+    case 'ul':
+      insertMarkdownAtCursor('\n- ', '\n', 'รายการ');
+      break;
+    case 'ol':
+      insertMarkdownAtCursor('\n1. ', '\n', 'รายการลำดับ');
+      break;
+    case 'table':
+      insertMarkdownAtCursor(
+        '\n\n| หัวข้อ 1 | หัวข้อ 2 | หัวข้อ 3 |\n|---|---|---|\n| ข้อมูล 1 | ข้อมูล 2 | ข้อมูล 3 |\n| ข้อมูล 4 | ข้อมูล 5 | ข้อมูล 6 |\n\n',
+        '',
+        ''
+      );
+      break;
+    case 'quote':
+      insertMarkdownAtCursor('\n\n> ', '\n', 'ข้อความแนะนำหรือข้อควรระวังทางวิศวกรรม');
+      break;
+    case 'hr':
+      insertMarkdownAtCursor('\n\n---\n\n', '', '');
+      break;
+  }
+}
+
 function openArticleDrawer(articleId) {
   if (!dom.articleDrawer || !dom.articleDrawerBackdrop) return;
 
@@ -6713,7 +6823,7 @@ function openArticleDrawer(articleId) {
   }
 
   // Populate form inputs
-  if (dom.articleDrawerTitle) dom.articleDrawerTitle.textContent = 'แก้ไขบทความ & Modular Story Blocks';
+  if (dom.articleDrawerTitle) dom.articleDrawerTitle.textContent = 'แก้ไขบทความ & Markdown Studio';
   if (dom.articleDrawerSlugLabel) dom.articleDrawerSlugLabel.textContent = `Slug: ${state.activeArticle.slug || '-'}`;
   if (dom.articleInputId) dom.articleInputId.value = state.activeArticle.id || '';
   if (dom.articleInputTitle) dom.articleInputTitle.value = state.activeArticle.title || '';
@@ -6728,6 +6838,25 @@ function openArticleDrawer(articleId) {
 
   // Cover image preview
   updateArticleCoverPreview(state.activeArticle.cover_image);
+
+  // Markdown Studio initialization
+  let md = state.activeArticle.markdown || '';
+  if (!md && Array.isArray(state.activeArticle.content_blocks) && state.activeArticle.content_blocks.length > 0) {
+    md = state.activeArticle.content_blocks.map(b => {
+      const parts = [];
+      if (b.headline) parts.push(`## ${b.headline}`);
+      if (b.subheadline) parts.push(`### ${b.subheadline}`);
+      if (b.image) parts.push(`![ภาพประกอบ](${b.image})`);
+      if (b.paragraph) parts.push(b.paragraph);
+      return parts.join('\n\n');
+    }).join('\n\n');
+    state.activeArticle.markdown = md;
+  }
+  if (dom.articleInputMarkdown) {
+    dom.articleInputMarkdown.value = md;
+    updateArticleMarkdownStats();
+  }
+  setArticleMarkdownViewMode('edit');
 
   // View storefront link
   if (dom.btnViewArticleFront) {
@@ -6766,9 +6895,8 @@ function openCreateArticleDrawer() {
     author: 'UDO Technical Team',
     tags: [],
     recommended_products: [],
-    content_blocks: [
-      { id: 'block-1', headline: '', subheadline: '', paragraph: '', image: '' }
-    ]
+    markdown: '',
+    content_blocks: []
   };
 
   if (dom.articleDrawerTitle) dom.articleDrawerTitle.textContent = '+ สร้างบทความใหม่';
@@ -6783,6 +6911,12 @@ function openCreateArticleDrawer() {
   if (dom.articleInputReadTime) dom.articleInputReadTime.value = 3;
   if (dom.articleInputAuthor) dom.articleInputAuthor.value = 'UDO Technical Team';
   if (dom.articleInputTags) dom.articleInputTags.value = '';
+
+  if (dom.articleInputMarkdown) {
+    dom.articleInputMarkdown.value = '';
+    updateArticleMarkdownStats();
+  }
+  setArticleMarkdownViewMode('edit');
 
   updateArticleCoverPreview('');
 
@@ -7155,6 +7289,7 @@ async function handleSaveArticle() {
     author: dom.articleInputAuthor ? dom.articleInputAuthor.value.trim() : 'UDO Technical Team',
     tags: tags,
     recommended_products: state.activeArticle.recommended_products || [],
+    markdown: dom.articleInputMarkdown ? dom.articleInputMarkdown.value.trim() : (state.activeArticle.markdown || ''),
     content_blocks: state.activeArticle.content_blocks || []
   };
 
@@ -7290,6 +7425,47 @@ function initEvents() {
       if (tab) switchArticleTab(tab);
     });
   });
+
+  // Markdown Studio Mode Toggle
+  if (dom.btnArticleModeEdit) {
+    dom.btnArticleModeEdit.addEventListener('click', () => setArticleMarkdownViewMode('edit'));
+  }
+  if (dom.btnArticleModePreview) {
+    dom.btnArticleModePreview.addEventListener('click', () => setArticleMarkdownViewMode('preview'));
+  }
+
+  // Markdown Studio Toolbar Actions
+  if (dom.articleMarkdownToolbar) {
+    dom.articleMarkdownToolbar.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-md-action]');
+      if (!btn) return;
+      e.preventDefault();
+      const action = btn.getAttribute('data-md-action');
+      handleMarkdownToolbarAction(action);
+    });
+  }
+
+  // Markdown Studio Textarea Input
+  if (dom.articleInputMarkdown) {
+    dom.articleInputMarkdown.addEventListener('input', () => {
+      updateArticleMarkdownStats();
+      if (dom.articlePreviewWrapper && !dom.articlePreviewWrapper.classList.contains('hidden')) {
+        renderArticleMarkdownPreview();
+      }
+    });
+  }
+
+  // Markdown Studio Inline Image Upload
+  if (dom.articleMarkdownUploadFile) {
+    dom.articleMarkdownUploadFile.addEventListener('change', (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      uploadArticleImageFile(file, (uploadedUrl) => {
+        insertMarkdownAtCursor(`\n\n![ภาพประกอบ](${uploadedUrl})\n\n`, '', '');
+        dom.articleMarkdownUploadFile.value = '';
+      });
+    });
+  }
 
   // Article Cover File Upload
   if (dom.btnBrowseArticleCover && dom.articleCoverFileInput) {

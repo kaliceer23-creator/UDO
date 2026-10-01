@@ -13,10 +13,11 @@
       /* Prevent FOUC (Flash of Unstyled Content) for SVGs */
       svg:not([class*="w-"]) { max-width: 40px; max-height: 40px; }
     </style>
-    <script type="module" crossorigin src="/assets/article-CPVBqbnH.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/ProductCard-CdR3ST4U.js">
+    <script type="module" crossorigin src="/assets/article-mQ2X3mVB.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/ProductCard-UcNQUNza.js">
     <link rel="modulepreload" crossorigin href="/assets/dock-Bf_qABMp.js">
-    <link rel="stylesheet" crossorigin href="/assets/ProductCard-B4YJZjj0.css">
+    <link rel="modulepreload" crossorigin href="/assets/markdown_parser-DoO8PuNu.js">
+    <link rel="stylesheet" crossorigin href="/assets/ProductCard-CETHApqQ.css">
   </head>
   <body class="bg-white font-['Prompt',sans-serif] antialiased text-gray-900 selection:bg-[#8fc101] selection:text-white pb-[80px] md:pb-0">
     <div id="app">
@@ -1145,18 +1146,18 @@ l-45 0 0 343 c0 189 3 347 7 350 12 13 277 7 293 -6z m118 -614 c28 -32 32
           </p>
         </header>
 
-        <!-- Main Cover Image (1,040px Container) -->
-        <div id="article-cover-container" class="w-full mb-10 sm:mb-14 rounded-2xl overflow-hidden bg-gray-100 border border-gray-200/80 shadow-xs hidden">
-          <img id="article-cover-img" src="" alt="ภาพหน้าปกบทความ" class="w-full h-auto object-cover max-h-[560px] mx-auto" />
+        <!-- Main Cover Image -->
+        <div id="article-cover-container" class="w-full max-w-[840px] mx-auto mb-10 sm:mb-12 rounded-2xl overflow-hidden bg-gray-50 border border-gray-200/80 shadow-xs hidden">
+          <img id="article-cover-img" src="" alt="ภาพหน้าปกบทความ" class="w-full h-auto object-cover max-h-[520px] mx-auto" />
         </div>
 
-        <!-- Modular Story Blocks Container (Showcase Architecture 100%) -->
-        <div id="article-story-blocks" class="w-full space-y-12 sm:space-y-16">
-          <!-- Injected dynamically by article.js -->
+        <!-- Markdown Editorial Article Reading Container -->
+        <div id="article-story-blocks" class="w-full max-w-[840px] mx-auto">
+          <!-- Injected dynamically by article.js via renderMarkdownToHTML -->
         </div>
 
         <!-- Author Box & Tags Footer -->
-        <div class="mt-14 pt-8 border-t border-gray-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="mt-14 pt-8 border-t border-gray-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 max-w-[840px] mx-auto">
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-full bg-[#160808] text-white flex items-center justify-center font-bold text-xs tracking-wider shrink-0">
               UDO
@@ -1174,7 +1175,7 @@ l-45 0 0 343 c0 189 3 347 7 350 12 13 277 7 293 -6z m118 -614 c28 -32 32
       </article>
 
       <!-- Related Welding Tools / Recommended Products Section -->
-      <section id="article-recommended-products-section" class="w-full bg-[#FAF9F6] border-y border-gray-200/80 py-12 md:py-16 mt-16 sm:mt-20 hidden">
+      <section id="article-recommended-products-section" class="w-full bg-white border-t border-gray-200/80 py-12 md:py-16 mt-16 sm:mt-20 hidden">
         <div class="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12">
           <div class="max-w-[1040px] mx-auto">
             <div class="flex items-baseline justify-between mb-6 md:mb-8">
