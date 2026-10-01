@@ -402,16 +402,16 @@ async function renderRelatedArticles(currentSlug) {
     }
   }
 
-  // 2. Hydrate sidebar trending guides list with legible high-contrast typography
+  // 2. Hydrate sidebar trending guides list (Original classic palette)
   if (sidebarTrending) {
     sidebarTrending.innerHTML = articles.slice(0, 3).map((a, idx) => `
       <a href="/article.html?slug=${encodeURIComponent(a.slug || a.id)}" class="flex items-start gap-3 py-2.5 group cursor-pointer">
-        <span class="text-base sm:text-lg font-bold text-gray-400 group-hover:text-[#c5161b] transition-colors shrink-0 w-6">0${idx + 1}</span>
+        <span class="text-lg font-black text-gray-300 group-hover:text-[#c5161b] transition-colors shrink-0 w-6">0${idx + 1}</span>
         <div class="flex-1 min-w-0">
-          <h5 class="text-[14px] sm:text-[14.5px] font-semibold text-[#160808] group-hover:text-[#c5161b] line-clamp-2 leading-snug transition-colors">
+          <h5 class="text-[13.5px] sm:text-[14px] font-semibold text-[#160808] group-hover:text-[#c5161b] line-clamp-2 leading-snug transition-colors">
             ${escapeHtml(a.title)}
           </h5>
-          <span class="text-[11.5px] text-gray-500 font-medium mt-1 block">
+          <span class="text-[11px] text-gray-400 mt-1 block">
             ${formatDateThai(a.created_at) || 'สาระงานช่าง'}
           </span>
         </div>
