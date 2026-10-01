@@ -471,7 +471,8 @@ function initStickyNavObserver() {
 
   // Synchronous scroll listener for immediate edge-to-edge response
   const onScroll = () => {
-    const isSticky = window.scrollY > 40;
+    const navRect = navEl.getBoundingClientRect();
+    const isSticky = navRect.top <= 1;
     setStickyVisuals(isSticky);
   };
   window.addEventListener('scroll', onScroll, { passive: true });
