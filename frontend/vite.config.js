@@ -31,6 +31,7 @@ export default defineConfig({
       input: {
         main: 'index.html',
         product: 'product.html',
+        article: 'article.html',
         category: 'category.html',
         chat: 'chat.html',
         admin: 'admin/index.html'

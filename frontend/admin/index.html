@@ -56,6 +56,16 @@
           </span>
         </button>
 
+        <!-- Tab 4: Articles (บทความ & สาระงานช่าง) -->
+        <button id="nav-tab-articles" class="nav-tab-btn group relative flex items-center justify-center w-11 h-11 md:w-12 md:h-12 rounded-2xl text-neutral-400 hover:text-white hover:bg-white/10 transition-all">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 md:w-6 md:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+          </svg>
+          <span class="absolute left-16 md:left-20 bg-black text-white text-xs px-2.5 py-1 rounded-md opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap shadow-lg z-50">
+            บทความ & สาระงานช่าง (Articles)
+          </span>
+        </button>
+
         <div class="w-6 h-px bg-neutral-800 my-1"></div>
 
         <!-- External Link 1: Storefront -->
@@ -570,6 +580,87 @@
           <div id="audit-logs-footer" class="p-4 bg-gray-50/50 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-500">
             <span id="audit-logs-count">แสดงทั้งหมด 0 รายการ</span>
             <span class="text-[11px] text-gray-400 font-mono">ระบบบันทึกแบบ Immutable Audit Trail (ไม่สามารถแก้ไขหรือลบได้)</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Articles Manager Container (Tab 4: Articles) -->
+      <section id="articles-wrapper" class="hidden space-y-4">
+        <div class="bg-white rounded-2xl md:rounded-3xl p-5 sm:p-6 border border-black/[0.06] shadow-[0_2px_8px_rgba(0,0,0,0.03)] space-y-4">
+          <!-- Header Row -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <div class="flex items-center gap-2">
+                <h2 class="text-base sm:text-lg font-bold text-[#160808]">จัดการบทความ & สาระงานช่าง (Technical Articles)</h2>
+                <span id="articles-total-badge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-neutral-100 text-[#160808]">0 บทความ</span>
+              </div>
+              <p class="text-[13px] text-[#424245] mt-0.5">ระบบจัดการบทความด้วยโครงสร้าง Modular Story Blocks (หัวข้อหลัก, หัวข้อย่อย, คำบรรยาย, รูปภาพ) พร้อมเชื่อมโยงสินค้า</p>
+            </div>
+            <div class="flex items-center gap-2 self-start sm:self-auto">
+              <button type="button" id="btn-refresh-articles" class="flex items-center gap-1.5 px-3.5 py-2 border border-gray-300 hover:border-black rounded-full text-xs font-semibold cursor-pointer transition-all bg-white text-gray-700 hover:text-black">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+                <span>รีเฟรช</span>
+              </button>
+              <button type="button" id="btn-create-article" class="flex items-center gap-1.5 px-4 py-2 bg-[#160808] hover:bg-black text-white rounded-full text-xs sm:text-[13px] font-semibold cursor-pointer transition-all shadow-xs">
+                <span>+ เพิ่มบทความใหม่</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Filter & Search Controls -->
+          <div class="flex flex-col md:flex-row items-stretch md:items-center gap-3 pt-3 border-t border-gray-100">
+            <div class="relative flex-1">
+              <input 
+                type="text" 
+                id="article-search-input" 
+                placeholder="ค้นหาชื่อบทความ หรือ Slug..." 
+                class="w-full bg-[#F8F8FA] border border-gray-200 rounded-xl pl-9 pr-4 py-2 text-xs sm:text-[13px] text-[#160808] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black focus:bg-white transition-all"
+              />
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+
+            <div class="flex items-center gap-2 overflow-x-auto no-scrollbar">
+              <select id="article-category-filter" class="bg-[#F8F8FA] border border-gray-200 rounded-xl px-3 py-2 text-xs text-[#160808] focus:outline-none focus:ring-2 focus:ring-black cursor-pointer">
+                <option value="">ทุกหมวดหมู่</option>
+                <option value="เทคนิค & สาระงานช่าง">เทคนิค & สาระงานช่าง</option>
+                <option value="ข่าวสารอัพเดท">ข่าวสารอัพเดท</option>
+              </select>
+
+              <select id="article-status-filter" class="bg-[#F8F8FA] border border-gray-200 rounded-xl px-3 py-2 text-xs text-[#160808] focus:outline-none focus:ring-2 focus:ring-black cursor-pointer">
+                <option value="">ทุกสถานะ</option>
+                <option value="published">เผยแพร่แล้ว (Published)</option>
+                <option value="draft">ฉบับร่าง (Draft)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Articles Table -->
+          <div class="overflow-x-auto rounded-xl border border-gray-200">
+            <table class="w-full text-left text-xs sm:text-[13px]">
+              <thead class="bg-gray-50/80 text-gray-500 font-semibold border-b border-gray-200">
+                <tr>
+                  <th class="py-3 px-3 sm:px-4 w-16">หน้าปก</th>
+                  <th class="py-3 px-3 sm:px-4">ชื่อบทความ / Slug</th>
+                  <th class="py-3 px-3 sm:px-4 hidden sm:table-cell">หมวดหมู่</th>
+                  <th class="py-3 px-3 sm:px-4 text-center">บล็อกเนื้อหา</th>
+                  <th class="py-3 px-3 sm:px-4 text-center">สถานะ</th>
+                  <th class="py-3 px-3 sm:px-4 text-right">การจัดการ</th>
+                </tr>
+              </thead>
+              <tbody id="articles-table-body" class="divide-y divide-gray-100 font-normal text-gray-700">
+                <!-- Dynamically populated rows -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Articles Footer -->
+          <div class="p-3 bg-gray-50/50 rounded-xl flex items-center justify-between text-xs text-gray-500 border border-gray-100">
+            <span id="articles-footer-count">แสดง 0 รายการ</span>
+            <span class="text-[11px] text-gray-400 font-mono">MariaDB Document-Store JSON (120 บทความ)</span>
           </div>
         </div>
       </section>
@@ -1256,6 +1347,187 @@
         <button id="drawer-cancel-btn" type="button" class="flex-1 sm:flex-initial px-5 py-2.5 rounded-xl text-xs sm:text-[13px] font-semibold bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all cursor-pointer">ยกเลิก</button>
         <button id="drawer-save-btn" type="button" class="flex-1 sm:flex-initial px-6 py-2.5 rounded-xl text-xs sm:text-[13px] font-bold bg-black text-white hover:bg-neutral-800 transition-all shadow-md cursor-pointer inline-flex items-center justify-center gap-1.5">
           <span>บันทึกข้อมูลหน้าบ้านทันที</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Slide-Over Drawer for Article Editing & Modular Story Blocks -->
+  <div id="article-drawer-backdrop" class="fixed inset-0 bg-black/40 backdrop-blur-xs z-50 opacity-0 pointer-events-none transition-opacity duration-300"></div>
+  <aside id="article-drawer" class="fixed inset-y-0 right-0 w-full lg:w-[92vw] lg:max-w-[1300px] bg-[#FAFAFC] shadow-2xl z-50 transform translate-x-full transition-transform duration-300 flex flex-col border-l border-gray-200">
+    <!-- Header -->
+    <div class="px-5 py-3.5 border-b border-gray-200 flex items-center justify-between bg-white sticky top-0 z-20">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-[#160808] text-white flex items-center justify-center font-bold text-xs tracking-wider shrink-0">
+          UDO
+        </div>
+        <div>
+          <h2 id="article-drawer-title" class="text-base sm:text-lg font-bold text-[#160808] leading-tight">แก้ไขบทความ & Modular Story Blocks</h2>
+          <p id="article-drawer-slug-label" class="text-[13px] text-[#424245] font-mono mt-0.5">Slug: -</p>
+        </div>
+      </div>
+      <button id="article-drawer-close-btn" class="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 hover:text-black transition-all cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div class="flex-1 overflow-y-auto p-4 sm:p-6">
+      <div class="max-w-[1100px] mx-auto space-y-4">
+        <!-- Tab Bar -->
+        <div class="bg-white p-1.5 rounded-2xl border border-gray-200 shadow-2xs">
+          <nav class="flex items-center gap-1 overflow-x-auto no-scrollbar" id="article-editor-tabs-bar">
+            <button type="button" class="article-tab-btn active flex-1 py-2.5 px-3 rounded-xl text-[13px] font-bold bg-[#160808] text-white transition-all cursor-pointer text-center whitespace-nowrap shadow-xs" data-tab="art-basic">
+              1. ข้อมูลบทความ & หน้าปก
+            </button>
+            <button type="button" class="article-tab-btn flex-1 py-2.5 px-3 rounded-xl text-[13px] font-semibold text-[#424245] hover:text-[#160808] hover:bg-gray-100 transition-all cursor-pointer text-center whitespace-nowrap" data-tab="art-blocks">
+              2. บล็อกเนื้อหา (Story Blocks)
+            </button>
+            <button type="button" class="article-tab-btn flex-1 py-2.5 px-3 rounded-xl text-[13px] font-semibold text-[#424245] hover:text-[#160808] hover:bg-gray-100 transition-all cursor-pointer text-center whitespace-nowrap" data-tab="art-products">
+              3. สินค้าที่เกี่ยวข้อง (Related Tools)
+            </button>
+          </nav>
+        </div>
+
+        <form id="article-drawer-form" class="space-y-4">
+          <input type="hidden" id="article-drawer-id">
+
+          <!-- Tab 1: Basic Info -->
+          <div id="art-panel-basic" class="article-tab-panel space-y-4">
+            <div class="bg-white p-5 rounded-2xl border border-gray-200 shadow-2xs space-y-4">
+              <!-- Title -->
+              <div>
+                <label class="text-[13px] font-semibold text-[#160808] block mb-1.5">ชื่อบทความ (Article Title) *</label>
+                <input type="text" id="article-input-title" required class="w-full bg-[#F8F8FA] border border-gray-300 rounded-xl px-4 py-2.5 text-[14px] text-[#160808] focus:outline-none focus:ring-2 focus:ring-black focus:bg-white transition-all" placeholder="เช่น ACR Copper Tube และ ASTM B280 บอกอะไร ก่อนพิจารณางาน Brazing">
+              </div>
+
+              <!-- Slug & Category -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="text-[13px] font-semibold text-[#160808] block mb-1.5">URL Slug (ถาวร) *</label>
+                  <input type="text" id="article-input-slug" required class="w-full bg-[#F8F8FA] border border-gray-300 rounded-xl px-4 py-2.5 text-[13.5px] font-mono text-[#160808] focus:outline-none focus:ring-2 focus:ring-black focus:bg-white transition-all" placeholder="acr-copper-tube-astm-b280-brazing">
+                </div>
+                <div>
+                  <label class="text-[13px] font-semibold text-[#160808] block mb-1.5">หมวดหมู่ (Category)</label>
+                  <select id="article-input-category" class="w-full bg-[#F8F8FA] border border-gray-300 rounded-xl px-4 py-2.5 text-[14px] text-[#160808] focus:outline-none focus:ring-2 focus:ring-black cursor-pointer">
+                    <option value="เทคนิค & สาระงานช่าง">เทคนิค & สาระงานช่าง</option>
+                    <option value="ข่าวสารอัพเดท">ข่าวสารอัพเดท</option>
+                    <option value="คู่มือการเลือกใช้สินค้า">คู่มือการเลือกใช้สินค้า</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Excerpt -->
+              <div>
+                <label class="text-[13px] font-semibold text-[#160808] block mb-1.5">คำอธิบายสรุปย่อ (Article Excerpt / Summary)</label>
+                <textarea id="article-input-excerpt" rows="3" class="w-full bg-[#F8F8FA] border border-gray-300 rounded-xl px-4 py-2.5 text-[14px] text-[#160808] focus:outline-none focus:ring-2 focus:ring-black focus:bg-white transition-all placeholder-gray-400 leading-relaxed" placeholder="ข้อความสรุปสั้นๆ ที่แสดงบนการ์ดบทความหน้าแรก และใช้เป็น Meta Description สำหรับ Google SEO"></textarea>
+              </div>
+
+              <!-- Cover Image Row -->
+              <div class="pt-3 border-t border-gray-100 space-y-2">
+                <label class="text-[13px] font-semibold text-[#160808] block">รูปภาพหน้าปกบทความ (Cover Image URL)</label>
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                  <input type="text" id="article-input-cover" class="flex-1 bg-[#F8F8FA] border border-gray-300 rounded-xl px-4 py-2 text-[13px] font-mono text-[#160808] focus:outline-none focus:ring-2 focus:ring-black focus:bg-white transition-all" placeholder="https://www.udo.co.th/storage/posts/... หรือ /images/...">
+                  <div class="flex items-center gap-2">
+                    <input type="file" id="article-cover-file-input" class="hidden" accept="image/*">
+                    <button type="button" id="btn-browse-article-cover" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-xl text-xs font-semibold cursor-pointer transition-all">
+                      เลือกไฟล์
+                    </button>
+                  </div>
+                </div>
+                <div id="article-cover-preview-box" class="w-full max-w-[360px] aspect-[16/10] bg-gray-100 rounded-xl overflow-hidden border border-gray-200 hidden mt-2">
+                  <img id="article-cover-preview-img" src="" class="w-full h-full object-cover">
+                </div>
+              </div>
+
+              <!-- Status & Meta Row -->
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-3 border-t border-gray-100">
+                <div>
+                  <label class="text-[13px] font-semibold text-[#160808] block mb-1.5">สถานะการเผยแพร่</label>
+                  <select id="article-input-status" class="w-full bg-[#F8F8FA] border border-gray-300 rounded-xl px-3 py-2 text-xs font-semibold text-[#160808] focus:outline-none focus:ring-2 focus:ring-black cursor-pointer">
+                    <option value="published">เผยแพร่จริง (Published)</option>
+                    <option value="draft">ฉบับร่าง (Draft)</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="text-[13px] font-semibold text-[#160808] block mb-1.5">เวลาในการอ่าน (นาที)</label>
+                  <input type="number" id="article-input-read-time" min="1" max="60" value="3" class="w-full bg-[#F8F8FA] border border-gray-300 rounded-xl px-3 py-2 text-xs text-[#160808] focus:outline-none focus:ring-2 focus:ring-black">
+                </div>
+                <div>
+                  <label class="text-[13px] font-semibold text-[#160808] block mb-1.5">ผู้เขียน (Author)</label>
+                  <input type="text" id="article-input-author" value="UDO Technical Team" class="w-full bg-[#F8F8FA] border border-gray-300 rounded-xl px-3 py-2 text-xs text-[#160808] focus:outline-none focus:ring-2 focus:ring-black">
+                </div>
+              </div>
+
+              <!-- Tags / Keywords -->
+              <div class="pt-3 border-t border-gray-100">
+                <label class="text-[13px] font-semibold text-[#160808] block mb-1.5">แท็ก / คำค้นหา (คั่นด้วยจุลภาค ,)</label>
+                <input type="text" id="article-input-tags" class="w-full bg-[#F8F8FA] border border-gray-300 rounded-xl px-4 py-2 text-xs sm:text-[13px] text-[#160808] focus:outline-none focus:ring-2 focus:ring-black focus:bg-white" placeholder="ลวดเชื่อมเงิน, ACR tube, ASTM B280, Brazing">
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 2: Modular Story Blocks -->
+          <div id="art-panel-blocks" class="article-tab-panel space-y-4 hidden">
+            <div class="bg-white p-5 rounded-2xl border border-gray-200 shadow-2xs space-y-4">
+              <div class="flex items-center justify-between border-b border-gray-100 pb-3">
+                <div>
+                  <h3 class="text-sm font-bold text-[#160808]">บล็อกเนื้อหาบทความ (Modular Story Blocks)</h3>
+                  <p class="text-xs text-[#424245] mt-0.5">แต่ละบล็อกประกอบด้วยหัวข้อหลัก, หัวข้อย่อย, คำบรรยาย และรูปภาพ จัดเรียงสลับไปมาได้อย่างอิสระ</p>
+                </div>
+                <button type="button" id="btn-add-article-block" class="px-3.5 py-1.5 bg-[#160808] hover:bg-black text-white rounded-xl text-xs font-semibold cursor-pointer transition-all shadow-xs flex items-center gap-1.5">
+                  <span>+ เพิ่มบล็อกใหม่</span>
+                </button>
+              </div>
+
+              <!-- Container for dynamic Story Blocks cards -->
+              <div id="article-blocks-container" class="space-y-4">
+                <!-- Dynamically populated by admin.js -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 3: Recommended Products Picker -->
+          <div id="art-panel-products" class="article-tab-panel space-y-4 hidden">
+            <div class="bg-white p-5 rounded-2xl border border-gray-200 shadow-2xs space-y-4">
+              <div class="border-b border-gray-100 pb-3">
+                <h3 class="text-sm font-bold text-[#160808]">เลือกสินค้าที่เกี่ยวข้องในบทความ (Recommended Tools)</h3>
+                <p class="text-xs text-[#424245] mt-0.5">สินค้าที่เลือกจะไปแสดงเป็นการ์ดสินค้าใต้บทความในหน้าอ่าน เพื่อเชื่อมโยงความรู้เข้ากับสินค้าจริง</p>
+              </div>
+
+              <div class="space-y-3">
+                <input type="text" id="article-product-search" placeholder="พิมพ์ชื่อสินค้าหรือรหัส SKU เพื่อค้นหา..." class="w-full bg-[#F8F8FA] border border-gray-300 rounded-xl px-4 py-2.5 text-xs sm:text-[13px] text-[#160808] focus:outline-none focus:ring-2 focus:ring-black">
+                <div class="text-xs text-gray-500 font-medium">สินค้าที่เลือกแล้ว:</div>
+                <div id="article-selected-products-list" class="flex flex-wrap items-center gap-2 p-2.5 bg-[#F8F8FA] rounded-xl border border-gray-200 min-h-[44px]">
+                  <!-- Picked product chips -->
+                </div>
+                <div id="article-product-search-results" class="max-h-60 overflow-y-auto divide-y divide-gray-100 border border-gray-200 rounded-xl bg-white hidden">
+                  <!-- Search items -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Footer Action Bar -->
+    <div class="px-5 py-3.5 border-t border-gray-200 bg-white flex items-center justify-between gap-3 sticky bottom-0 z-20">
+      <div class="hidden sm:flex items-center gap-2 text-xs text-[#424245]">
+        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+        <span>ระบบพร้อมบันทึกบทความลงฐานข้อมูล MariaDB และสร้างการแสดงผลหน้าบ้าน</span>
+      </div>
+      <div class="flex items-center gap-3 w-full sm:w-auto">
+        <a id="btn-view-article-front" href="#" target="_blank" class="px-4 py-2.5 rounded-xl text-xs sm:text-[13px] font-semibold bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all cursor-pointer text-center hidden">
+          เปิดดูหน้าเว็บจริง
+        </a>
+        <button id="article-drawer-cancel-btn" type="button" class="px-5 py-2.5 rounded-xl text-xs sm:text-[13px] font-semibold bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all cursor-pointer">
+          ยกเลิก
+        </button>
+        <button id="article-drawer-save-btn" type="button" class="px-6 py-2.5 rounded-xl text-xs sm:text-[13px] font-bold bg-black text-white hover:bg-neutral-800 transition-all shadow-md cursor-pointer inline-flex items-center justify-center gap-1.5">
+          <span>บันทึกบทความ</span>
         </button>
       </div>
     </div>

@@ -97,7 +97,15 @@ const state = {
   shelfRankPopoverTarget: null,
 
   // Create Product Mode
-  isCreateMode: false
+  isCreateMode: false,
+
+  // Articles Management State
+  articles: [],
+  activeArticle: null,
+  articleSearchQuery: '',
+  articleCategoryFilter: '',
+  articleStatusFilter: '',
+  activeArticleTab: 'art-basic'
 };
 
 // DOM Element Cache
@@ -106,6 +114,47 @@ const dom = {
   navInventory: document.getElementById('nav-tab-inventory'),
   navMerchandising: document.getElementById('nav-tab-merchandising'),
   navLogs: document.getElementById('nav-tab-logs'),
+  navArticles: document.getElementById('nav-tab-articles'),
+
+  // Articles Manager Elements
+  articlesWrapper: document.getElementById('articles-wrapper'),
+  articlesTotalBadge: document.getElementById('articles-total-badge'),
+  articlesTableBody: document.getElementById('articles-table-body'),
+  articlesFooterCount: document.getElementById('articles-footer-count'),
+  btnRefreshArticles: document.getElementById('btn-refresh-articles'),
+  btnCreateArticle: document.getElementById('btn-create-article'),
+  articleSearchInput: document.getElementById('article-search-input'),
+  articleCategoryFilter: document.getElementById('article-category-filter'),
+  articleStatusFilter: document.getElementById('article-status-filter'),
+  
+  // Article Drawer Elements
+  articleDrawerBackdrop: document.getElementById('article-drawer-backdrop'),
+  articleDrawer: document.getElementById('article-drawer'),
+  articleDrawerTitle: document.getElementById('article-drawer-title'),
+  articleDrawerSlugLabel: document.getElementById('article-drawer-slug-label'),
+  articleDrawerCloseBtn: document.getElementById('article-drawer-close-btn'),
+  articleDrawerCancelBtn: document.getElementById('article-drawer-cancel-btn'),
+  articleDrawerSaveBtn: document.getElementById('article-drawer-save-btn'),
+  btnViewArticleFront: document.getElementById('btn-view-article-front'),
+  articleInputId: document.getElementById('article-drawer-id'),
+  articleInputTitle: document.getElementById('article-input-title'),
+  articleInputSlug: document.getElementById('article-input-slug'),
+  articleInputCategory: document.getElementById('article-input-category'),
+  articleInputExcerpt: document.getElementById('article-input-excerpt'),
+  articleInputCover: document.getElementById('article-input-cover'),
+  articleCoverFileInput: document.getElementById('article-cover-file-input'),
+  btnBrowseArticleCover: document.getElementById('btn-browse-article-cover'),
+  articleCoverPreviewBox: document.getElementById('article-cover-preview-box'),
+  articleCoverPreviewImg: document.getElementById('article-cover-preview-img'),
+  articleInputStatus: document.getElementById('article-input-status'),
+  articleInputReadTime: document.getElementById('article-input-read-time'),
+  articleInputAuthor: document.getElementById('article-input-author'),
+  articleInputTags: document.getElementById('article-input-tags'),
+  articleBlocksContainer: document.getElementById('article-blocks-container'),
+  btnAddArticleBlock: document.getElementById('btn-add-article-block'),
+  articleProductSearch: document.getElementById('article-product-search'),
+  articleSelectedProductsList: document.getElementById('article-selected-products-list'),
+  articleProductSearchResults: document.getElementById('article-product-search-results'),
 
   // Search & Global Action
   searchInput: document.getElementById('admin-search-input'),
@@ -5915,20 +5964,21 @@ async function loadAuditLogs() {
 function switchTab(tab) {
   state.activeTab = tab;
 
-  // Reset all 3 nav tabs
-  [dom.navInventory, dom.navMerchandising, dom.navLogs].forEach(navBtn => {
+  // Reset all 4 nav tabs
+  [dom.navInventory, dom.navMerchandising, dom.navLogs, dom.navArticles].forEach(navBtn => {
     if (navBtn) {
       navBtn.classList.remove('bg-white', 'text-black', 'active');
       navBtn.classList.add('text-neutral-400', 'hover:text-white', 'hover:bg-white/10');
     }
   });
 
-  // Hide all 3 content views
+  // Hide all 4 content views
   if (dom.inventoryViewWrapper) dom.inventoryViewWrapper.classList.add('hidden');
   if (dom.inventoryWrapper) dom.inventoryWrapper.classList.add('hidden');
   if (dom.paginationWrapper) dom.paginationWrapper.classList.add('hidden');
   if (dom.merchandisingWrapper) dom.merchandisingWrapper.classList.add('hidden');
   if (dom.auditLogsWrapper) dom.auditLogsWrapper.classList.add('hidden');
+  if (dom.articlesWrapper) dom.articlesWrapper.classList.add('hidden');
 
   if (tab === 'inventory') {
     if (dom.navInventory) {
@@ -5952,6 +6002,13 @@ function switchTab(tab) {
     }
     if (dom.auditLogsWrapper) dom.auditLogsWrapper.classList.remove('hidden');
     loadAuditLogs();
+  } else if (tab === 'articles') {
+    if (dom.navArticles) {
+      dom.navArticles.classList.add('bg-white', 'text-black', 'active');
+      dom.navArticles.classList.remove('text-neutral-400', 'hover:text-white', 'hover:bg-white/10');
+    }
+    if (dom.articlesWrapper) dom.articlesWrapper.classList.remove('hidden');
+    loadAdminArticles();
   }
 }
 
@@ -6436,6 +6493,746 @@ async function executeBatchStatusUpdate(newStatus = null, newAvailability = null
 }
 
 /**
+ * =====================================================================
+ * ARTICLES & KNOWLEDGE BASE MANAGEMENT
+ * Strictly adheres to GEMINI.md: Zero frameworks, zero emojis in code or output
+ * =====================================================================
+ */
+
+async function loadAdminArticles() {
+  if (!dom.articlesTableBody) return;
+  dom.articlesTableBody.innerHTML = `
+    <tr>
+      <td colspan="6" class="py-8 text-center text-gray-400">กำลังโหลดรายการบทความ...</td>
+    </tr>
+  `;
+
+  try {
+    const res = await fetch('/api/admin/articles.php', { credentials: 'include' });
+    if (res.ok) {
+      const data = await res.json();
+      if (data.success && Array.isArray(data.articles)) {
+        state.articles = data.articles;
+        renderAdminArticlesTable();
+        return;
+      }
+    }
+  } catch (e) {
+    console.warn('API articles load failed, trying fallback:', e.message);
+  }
+
+  // Fallback to static articles.json
+  try {
+    const res = await fetch('/api/articles.json');
+    if (res.ok) {
+      const all = await res.json();
+      if (Array.isArray(all)) {
+        state.articles = all;
+        renderAdminArticlesTable();
+        return;
+      }
+    }
+  } catch (e) {
+    console.error('All articles load attempts failed:', e);
+  }
+
+  dom.articlesTableBody.innerHTML = `
+    <tr>
+      <td colspan="6" class="py-8 text-center text-rose-500 font-medium">ไม่สามารถโหลดข้อมูลบทความได้</td>
+    </tr>
+  `;
+}
+
+function renderAdminArticlesTable() {
+  if (!dom.articlesTableBody) return;
+
+  let list = state.articles || [];
+
+  // Filter by search
+  if (state.articleSearchQuery) {
+    const q = state.articleSearchQuery.toLowerCase();
+    list = list.filter(a => 
+      (a.title && a.title.toLowerCase().includes(q)) || 
+      (a.slug && a.slug.toLowerCase().includes(q))
+    );
+  }
+
+  // Filter by category
+  if (state.articleCategoryFilter) {
+    list = list.filter(a => a.category === state.articleCategoryFilter);
+  }
+
+  // Filter by status
+  if (state.articleStatusFilter) {
+    list = list.filter(a => (a.status || 'published') === state.articleStatusFilter);
+  }
+
+  if (dom.articlesTotalBadge) {
+    dom.articlesTotalBadge.textContent = `${list.length} บทความ`;
+  }
+  if (dom.articlesFooterCount) {
+    dom.articlesFooterCount.textContent = `แสดง ${list.length} จากทั้งหมด ${state.articles.length} รายการ`;
+  }
+
+  if (list.length === 0) {
+    dom.articlesTableBody.innerHTML = `
+      <tr>
+        <td colspan="6" class="py-12 text-center text-gray-400">
+          <p class="text-sm font-semibold">ไม่พบบทความที่ตรงตามเงื่อนไข</p>
+          <p class="text-xs text-gray-400 mt-1">ลองเปลี่ยนคำค้นหาหรือตัวกรองสถานะ</p>
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  dom.articlesTableBody.innerHTML = list.map(art => {
+    const isPub = (art.status || 'published') === 'published';
+    const blocksCount = Array.isArray(art.content_blocks) ? art.content_blocks.length : (art.blocks_count || 0);
+    const cover = art.cover_image || '';
+
+    return `
+      <tr class="hover:bg-gray-50/70 transition-colors group">
+        <!-- Cover Thumbnail -->
+        <td class="py-3 px-3 sm:px-4">
+          <div class="w-12 h-10 rounded-lg overflow-hidden bg-gray-100 border border-gray-200 shrink-0">
+            ${cover ? `
+              <img src="${escapeHtml(cover)}" alt="" class="w-full h-full object-cover" loading="lazy" />
+            ` : `
+              <div class="w-full h-full flex items-center justify-center text-[10px] text-gray-300 font-bold">UDO</div>
+            `}
+          </div>
+        </td>
+
+        <!-- Title & Slug -->
+        <td class="py-3 px-3 sm:px-4 max-w-[340px]">
+          <div class="font-semibold text-[#160808] line-clamp-1 group-hover:text-black cursor-pointer btn-edit-article-title" data-id="${art.id}" title="${escapeHtml(art.title)}">
+            ${escapeHtml(art.title)}
+          </div>
+          <div class="text-[11px] text-gray-400 font-mono truncate mt-0.5" title="${escapeHtml(art.slug)}">
+            /article.html?slug=${escapeHtml(art.slug)}
+          </div>
+        </td>
+
+        <!-- Category -->
+        <td class="py-3 px-3 sm:px-4 hidden sm:table-cell whitespace-nowrap">
+          <span class="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-gray-100 text-gray-700">
+            ${escapeHtml(art.category || 'เทคนิค & สาระงานช่าง')}
+          </span>
+        </td>
+
+        <!-- Story Blocks Count -->
+        <td class="py-3 px-3 sm:px-4 text-center whitespace-nowrap">
+          <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-neutral-100 text-neutral-800">
+            ${blocksCount} บล็อก
+          </span>
+        </td>
+
+        <!-- Status Toggle -->
+        <td class="py-3 px-3 sm:px-4 text-center whitespace-nowrap">
+          <button type="button" class="btn-toggle-article-status inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
+            isPub 
+              ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100' 
+              : 'bg-gray-100 text-gray-600 border border-gray-200 hover:bg-gray-200'
+          }" data-id="${art.id}">
+            <span class="w-1.5 h-1.5 rounded-full ${isPub ? 'bg-emerald-500' : 'bg-gray-400'}"></span>
+            <span>${isPub ? 'เผยแพร่' : 'ฉบับร่าง'}</span>
+          </button>
+        </td>
+
+        <!-- Actions -->
+        <td class="py-3 px-3 sm:px-4 text-right whitespace-nowrap">
+          <div class="inline-flex items-center gap-1">
+            <a href="/article.html?slug=${encodeURIComponent(art.slug)}" target="_blank" class="p-1.5 text-gray-400 hover:text-black hover:bg-gray-100 rounded-lg transition-colors" title="ดูหน้าเว็บจริง">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+            <button type="button" class="btn-edit-article p-1.5 text-gray-600 hover:text-black hover:bg-gray-100 rounded-lg transition-colors cursor-pointer" data-id="${art.id}" title="แก้ไขบทความ">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+              </svg>
+            </button>
+            <button type="button" class="btn-delete-article p-1.5 text-gray-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors cursor-pointer" data-id="${art.id}" data-title="${escapeHtml(art.title)}" title="ลบบทความ">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+            </button>
+          </div>
+        </td>
+      </tr>
+    `;
+  }).join('');
+
+  // Bind row events
+  dom.articlesTableBody.querySelectorAll('.btn-edit-article, .btn-edit-article-title').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = btn.getAttribute('data-id');
+      openArticleDrawer(id);
+    });
+  });
+
+  dom.articlesTableBody.querySelectorAll('.btn-toggle-article-status').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = btn.getAttribute('data-id');
+      handleToggleArticleStatus(id);
+    });
+  });
+
+  dom.articlesTableBody.querySelectorAll('.btn-delete-article').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = btn.getAttribute('data-id');
+      const title = btn.getAttribute('data-title');
+      handleDeleteArticle(id, title);
+    });
+  });
+}
+
+function openArticleDrawer(articleId) {
+  if (!dom.articleDrawer || !dom.articleDrawerBackdrop) return;
+
+  const found = (state.articles || []).find(a => a.id === articleId);
+  if (!found) {
+    showToast('ไม่พบบทความที่ต้องการ', 'error');
+    return;
+  }
+
+  state.activeArticle = JSON.parse(JSON.stringify(found));
+  state.activeArticle.content_blocks = Array.isArray(state.activeArticle.content_blocks) ? state.activeArticle.content_blocks : [];
+  if (state.activeArticle.content_blocks.length === 0) {
+    state.activeArticle.content_blocks.push({
+      id: 'block-1',
+      headline: '',
+      subheadline: '',
+      paragraph: '',
+      image: ''
+    });
+  }
+
+  // Populate form inputs
+  if (dom.articleDrawerTitle) dom.articleDrawerTitle.textContent = 'แก้ไขบทความ & Modular Story Blocks';
+  if (dom.articleDrawerSlugLabel) dom.articleDrawerSlugLabel.textContent = `Slug: ${state.activeArticle.slug || '-'}`;
+  if (dom.articleInputId) dom.articleInputId.value = state.activeArticle.id || '';
+  if (dom.articleInputTitle) dom.articleInputTitle.value = state.activeArticle.title || '';
+  if (dom.articleInputSlug) dom.articleInputSlug.value = state.activeArticle.slug || '';
+  if (dom.articleInputCategory) dom.articleInputCategory.value = state.activeArticle.category || 'เทคนิค & สาระงานช่าง';
+  if (dom.articleInputExcerpt) dom.articleInputExcerpt.value = state.activeArticle.excerpt || '';
+  if (dom.articleInputCover) dom.articleInputCover.value = state.activeArticle.cover_image || '';
+  if (dom.articleInputStatus) dom.articleInputStatus.value = state.activeArticle.status || 'published';
+  if (dom.articleInputReadTime) dom.articleInputReadTime.value = state.activeArticle.read_time_minutes || 3;
+  if (dom.articleInputAuthor) dom.articleInputAuthor.value = state.activeArticle.author || 'UDO Technical Team';
+  if (dom.articleInputTags) dom.articleInputTags.value = Array.isArray(state.activeArticle.tags) ? state.activeArticle.tags.join(', ') : '';
+
+  // Cover image preview
+  updateArticleCoverPreview(state.activeArticle.cover_image);
+
+  // View storefront link
+  if (dom.btnViewArticleFront) {
+    if (state.activeArticle.slug) {
+      dom.btnViewArticleFront.href = `/article.html?slug=${encodeURIComponent(state.activeArticle.slug)}`;
+      dom.btnViewArticleFront.classList.remove('hidden');
+    } else {
+      dom.btnViewArticleFront.classList.add('hidden');
+    }
+  }
+
+  // Render Story Blocks & Related Products
+  renderArticleBlocks();
+  renderArticleSelectedProducts();
+
+  // Reset tab to 1
+  switchArticleTab('art-basic');
+
+  // Open drawer
+  dom.articleDrawerBackdrop.classList.remove('opacity-0', 'pointer-events-none');
+  dom.articleDrawer.classList.remove('translate-x-full');
+}
+
+function openCreateArticleDrawer() {
+  if (!dom.articleDrawer || !dom.articleDrawerBackdrop) return;
+
+  state.activeArticle = {
+    id: '',
+    slug: '',
+    title: '',
+    category: 'เทคนิค & สาระงานช่าง',
+    status: 'published',
+    excerpt: '',
+    cover_image: '',
+    read_time_minutes: 3,
+    author: 'UDO Technical Team',
+    tags: [],
+    recommended_products: [],
+    content_blocks: [
+      { id: 'block-1', headline: '', subheadline: '', paragraph: '', image: '' }
+    ]
+  };
+
+  if (dom.articleDrawerTitle) dom.articleDrawerTitle.textContent = '+ สร้างบทความใหม่';
+  if (dom.articleDrawerSlugLabel) dom.articleDrawerSlugLabel.textContent = 'สร้างบทความใหม่ในระบบ';
+  if (dom.articleInputId) dom.articleInputId.value = '';
+  if (dom.articleInputTitle) dom.articleInputTitle.value = '';
+  if (dom.articleInputSlug) dom.articleInputSlug.value = '';
+  if (dom.articleInputCategory) dom.articleInputCategory.value = 'เทคนิค & สาระงานช่าง';
+  if (dom.articleInputExcerpt) dom.articleInputExcerpt.value = '';
+  if (dom.articleInputCover) dom.articleInputCover.value = '';
+  if (dom.articleInputStatus) dom.articleInputStatus.value = 'published';
+  if (dom.articleInputReadTime) dom.articleInputReadTime.value = 3;
+  if (dom.articleInputAuthor) dom.articleInputAuthor.value = 'UDO Technical Team';
+  if (dom.articleInputTags) dom.articleInputTags.value = '';
+
+  updateArticleCoverPreview('');
+
+  if (dom.btnViewArticleFront) dom.btnViewArticleFront.classList.add('hidden');
+
+  renderArticleBlocks();
+  renderArticleSelectedProducts();
+  switchArticleTab('art-basic');
+
+  dom.articleDrawerBackdrop.classList.remove('opacity-0', 'pointer-events-none');
+  dom.articleDrawer.classList.remove('translate-x-full');
+}
+
+function closeArticleDrawer() {
+  if (!dom.articleDrawer || !dom.articleDrawerBackdrop) return;
+  dom.articleDrawerBackdrop.classList.add('opacity-0', 'pointer-events-none');
+  dom.articleDrawer.classList.add('translate-x-full');
+  state.activeArticle = null;
+}
+
+function switchArticleTab(tabName) {
+  state.activeArticleTab = tabName;
+
+  document.querySelectorAll('.article-tab-btn').forEach(btn => {
+    const t = btn.getAttribute('data-tab');
+    if (t === tabName) {
+      btn.classList.add('bg-[#160808]', 'text-white', 'font-bold', 'active', 'shadow-xs');
+      btn.classList.remove('text-[#424245]', 'hover:text-[#160808]', 'hover:bg-gray-100', 'font-semibold');
+    } else {
+      btn.classList.remove('bg-[#160808]', 'text-white', 'font-bold', 'active', 'shadow-xs');
+      btn.classList.add('text-[#424245]', 'hover:text-[#160808]', 'hover:bg-gray-100', 'font-semibold');
+    }
+  });
+
+  document.querySelectorAll('.article-tab-panel').forEach(panel => {
+    panel.classList.add('hidden');
+  });
+
+  const activePanel = document.getElementById(tabName);
+  if (activePanel) {
+    activePanel.classList.remove('hidden');
+  }
+}
+
+function updateArticleCoverPreview(url) {
+  if (!dom.articleCoverPreviewBox || !dom.articleCoverPreviewImg) return;
+  if (url && url.trim()) {
+    dom.articleCoverPreviewImg.src = url.trim();
+    dom.articleCoverPreviewBox.classList.remove('hidden');
+  } else {
+    dom.articleCoverPreviewBox.classList.add('hidden');
+  }
+}
+
+function renderArticleBlocks() {
+  if (!dom.articleBlocksContainer || !state.activeArticle) return;
+  const blocks = state.activeArticle.content_blocks || [];
+
+  if (blocks.length === 0) {
+    dom.articleBlocksContainer.innerHTML = `
+      <div class="py-8 text-center text-gray-400">
+        ยังไม่มีบล็อกเนื้อหา คลิก "+ เพิ่มบล็อกใหม่" เพื่อเริ่มต้น
+      </div>
+    `;
+    return;
+  }
+
+  dom.articleBlocksContainer.innerHTML = blocks.map((b, idx) => `
+    <div class="article-block-card bg-[#F8F8FA] border border-gray-200 rounded-2xl p-4 sm:p-5 space-y-4 shadow-2xs" data-index="${idx}">
+      <!-- Block Header -->
+      <div class="flex items-center justify-between border-b border-gray-200 pb-2.5">
+        <div class="flex items-center gap-2">
+          <span class="w-6 h-6 rounded-lg bg-[#160808] text-white flex items-center justify-center font-mono font-bold text-xs">
+            ${idx + 1}
+          </span>
+          <span class="text-xs font-bold text-[#160808]">บล็อกเนื้อหาที่ ${idx + 1}</span>
+        </div>
+
+        <div class="flex items-center gap-1">
+          <button type="button" class="btn-art-block-up p-1 text-gray-400 hover:text-black cursor-pointer ${idx === 0 ? 'invisible' : ''}" data-index="${idx}" title="เลื่อนขึ้น">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
+            </svg>
+          </button>
+          <button type="button" class="btn-art-block-down p-1 text-gray-400 hover:text-black cursor-pointer ${idx === blocks.length - 1 ? 'invisible' : ''}" data-index="${idx}" title="เลื่อนลง">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <button type="button" class="btn-art-block-delete p-1 text-gray-400 hover:text-rose-600 cursor-pointer ml-1" data-index="${idx}" title="ลบบล็อกนี้">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Headline & Subheadline -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="text-xs font-semibold text-gray-700 block mb-1">หัวข้อหลักของบล็อก (Headline - H2)</label>
+          <input type="text" class="block-input-headline w-full bg-white border border-gray-300 rounded-xl px-3 py-2 text-xs sm:text-[13px] text-[#160808] focus:outline-none focus:ring-2 focus:ring-black" value="${escapeHtml(b.headline || '')}" placeholder="เช่น ความแตกต่างของเกรด 308L กับ 316L">
+        </div>
+        <div>
+          <label class="text-xs font-semibold text-gray-700 block mb-1">หัวข้อย่อย (Subheadline - H3)</label>
+          <input type="text" class="block-input-subheadline w-full bg-white border border-gray-300 rounded-xl px-3 py-2 text-xs sm:text-[13px] text-[#160808] focus:outline-none focus:ring-2 focus:ring-black" value="${escapeHtml(b.subheadline || '')}" placeholder="เช่น การทนทานต่อสารเคมีและไอเกลือ">
+        </div>
+      </div>
+
+      <!-- Paragraph -->
+      <div>
+        <label class="text-xs font-semibold text-gray-700 block mb-1">ย่อหน้าคำบรรยาย (Paragraph)</label>
+        <textarea rows="3" class="block-input-paragraph w-full bg-white border border-gray-300 rounded-xl px-3 py-2 text-xs sm:text-[13px] text-[#160808] focus:outline-none focus:ring-2 focus:ring-black leading-relaxed" placeholder="เนื้อหาคำบรรยายเจาะลึกของบล็อกนี้...">${escapeHtml(b.paragraph || '')}</textarea>
+      </div>
+
+      <!-- Image URL & Upload -->
+      <div class="space-y-2 pt-2 border-t border-gray-200/80">
+        <label class="text-xs font-semibold text-gray-700 block">รูปภาพประกอบบล็อก (Image URL)</label>
+        <div class="flex items-center gap-2">
+          <input type="text" class="block-input-image flex-1 bg-white border border-gray-300 rounded-xl px-3 py-2 text-xs font-mono text-[#160808] focus:outline-none focus:ring-2 focus:ring-black" value="${escapeHtml(b.image || '')}" placeholder="https://... หรือ /images/...">
+          <input type="file" class="block-file-input hidden" accept="image/*" data-index="${idx}">
+          <button type="button" class="btn-browse-block-img px-3 py-2 bg-white border border-gray-300 hover:border-black rounded-xl text-xs font-semibold cursor-pointer shrink-0" data-index="${idx}">
+            เลือกไฟล์
+          </button>
+        </div>
+        ${b.image ? `
+          <div class="max-w-[200px] aspect-[16/10] bg-white rounded-lg overflow-hidden border border-gray-200 mt-1">
+            <img src="${escapeHtml(b.image)}" alt="" class="w-full h-full object-cover">
+          </div>
+        ` : ''}
+      </div>
+    </div>
+  `).join('');
+
+  // Attach card listeners
+  dom.articleBlocksContainer.querySelectorAll('.article-block-card').forEach(card => {
+    const idx = parseInt(card.dataset.index, 10);
+    const b = state.activeArticle.content_blocks[idx];
+
+    const headlineIn = card.querySelector('.block-input-headline');
+    const subheadlineIn = card.querySelector('.block-input-subheadline');
+    const paragraphIn = card.querySelector('.block-input-paragraph');
+    const imageIn = card.querySelector('.block-input-image');
+    const fileIn = card.querySelector('.block-file-input');
+    const browseBtn = card.querySelector('.btn-browse-block-img');
+
+    if (headlineIn) headlineIn.addEventListener('input', (e) => b.headline = e.target.value);
+    if (subheadlineIn) subheadlineIn.addEventListener('input', (e) => b.subheadline = e.target.value);
+    if (paragraphIn) paragraphIn.addEventListener('input', (e) => b.paragraph = e.target.value);
+    if (imageIn) {
+      imageIn.addEventListener('input', (e) => {
+        b.image = e.target.value.trim();
+      });
+    }
+
+    if (browseBtn && fileIn) {
+      browseBtn.addEventListener('click', () => {
+        fileIn.value = '';
+        fileIn.click();
+      });
+
+      fileIn.addEventListener('change', async (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        uploadArticleImageFile(file, (uploadedUrl) => {
+          b.image = uploadedUrl;
+          renderArticleBlocks();
+        });
+      });
+    }
+
+    const upBtn = card.querySelector('.btn-art-block-up');
+    const downBtn = card.querySelector('.btn-art-block-down');
+    const delBtn = card.querySelector('.btn-art-block-delete');
+
+    if (upBtn) upBtn.addEventListener('click', () => moveArticleBlock(idx, -1));
+    if (downBtn) downBtn.addEventListener('click', () => moveArticleBlock(idx, 1));
+    if (delBtn) delBtn.addEventListener('click', () => removeArticleBlock(idx));
+  });
+}
+
+function addArticleBlock() {
+  if (!state.activeArticle) return;
+  state.activeArticle.content_blocks = state.activeArticle.content_blocks || [];
+  state.activeArticle.content_blocks.push({
+    id: 'block-' + Date.now(),
+    headline: '',
+    subheadline: '',
+    paragraph: '',
+    image: ''
+  });
+  renderArticleBlocks();
+  showToast('เพิ่มบล็อกเนื้อหาใหม่เรียบร้อย');
+}
+
+function removeArticleBlock(index) {
+  if (!state.activeArticle || !state.activeArticle.content_blocks) return;
+  if (state.activeArticle.content_blocks.length <= 1) {
+    state.activeArticle.content_blocks[0] = {
+      id: 'block-1',
+      headline: '',
+      subheadline: '',
+      paragraph: '',
+      image: ''
+    };
+    renderArticleBlocks();
+    showToast('ล้างข้อมูลบล็อกเรียบร้อย');
+    return;
+  }
+  state.activeArticle.content_blocks.splice(index, 1);
+  renderArticleBlocks();
+  showToast(`ลบบล็อกที่ ${index + 1} เรียบร้อย`);
+}
+
+function moveArticleBlock(index, direction) {
+  if (!state.activeArticle || !state.activeArticle.content_blocks) return;
+  const blocks = state.activeArticle.content_blocks;
+  const target = index + direction;
+  if (target < 0 || target >= blocks.length) return;
+
+  const temp = blocks[index];
+  blocks[index] = blocks[target];
+  blocks[target] = temp;
+  renderArticleBlocks();
+}
+
+function renderArticleSelectedProducts() {
+  if (!dom.articleSelectedProductsList || !state.activeArticle) return;
+  const picked = state.activeArticle.recommended_products || [];
+
+  if (picked.length === 0) {
+    dom.articleSelectedProductsList.innerHTML = `
+      <div class="text-xs text-gray-400 py-1 px-1">ยังไม่มีสินค้าที่เลือก (ค้นหาชื่อหรือรหัสสินค้าด้านบนเพื่อเพิ่ม)</div>
+    `;
+    return;
+  }
+
+  dom.articleSelectedProductsList.innerHTML = picked.map((code, idx) => {
+    const prod = (state.allProductsCache || []).find(p => p.id === code || p.sku === code);
+    const label = prod ? `${prod.name} (${prod.sku || prod.id})` : code;
+
+    return `
+      <div class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-lg text-xs bg-white border border-gray-300 text-[#160808] shadow-2xs">
+        <span class="max-w-[220px] truncate font-medium">${escapeHtml(label)}</span>
+        <button type="button" class="btn-remove-rec-product text-gray-400 hover:text-rose-600 cursor-pointer p-0.5" data-index="${idx}">
+          ×
+        </button>
+      </div>
+    `;
+  }).join('');
+
+  dom.articleSelectedProductsList.querySelectorAll('.btn-remove-rec-product').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const idx = parseInt(btn.dataset.index, 10);
+      state.activeArticle.recommended_products.splice(idx, 1);
+      renderArticleSelectedProducts();
+    });
+  });
+}
+
+function searchProductsForArticle(keyword) {
+  if (!dom.articleProductSearchResults) return;
+  if (!keyword || !keyword.trim()) {
+    dom.articleProductSearchResults.classList.add('hidden');
+    return;
+  }
+
+  const needle = keyword.trim().toLowerCase();
+  const matches = (state.allProductsCache || []).filter(p => 
+    (p.name && p.name.toLowerCase().includes(needle)) ||
+    (p.sku && p.sku.toLowerCase().includes(needle)) ||
+    (p.brand && p.brand.toLowerCase().includes(needle))
+  ).slice(0, 10);
+
+  if (matches.length === 0) {
+    dom.articleProductSearchResults.innerHTML = `
+      <div class="p-3 text-xs text-gray-400 text-center">ไม่พบสินค้าที่ตรงกับการค้นหา</div>
+    `;
+    dom.articleProductSearchResults.classList.remove('hidden');
+    return;
+  }
+
+  dom.articleProductSearchResults.innerHTML = matches.map(p => `
+    <div class="p-2.5 flex items-center justify-between hover:bg-gray-50 transition-colors">
+      <div class="min-w-0 pr-3">
+        <div class="text-xs font-semibold text-[#160808] truncate">${escapeHtml(p.name)}</div>
+        <div class="text-[11px] text-gray-400 font-mono">SKU: ${escapeHtml(p.sku || p.id)} • ${escapeHtml(p.brand || '')}</div>
+      </div>
+      <button type="button" class="btn-pick-product px-3 py-1 bg-[#160808] text-white hover:bg-black rounded-lg text-xs font-semibold cursor-pointer shrink-0" data-code="${escapeHtml(p.sku || p.id)}">
+        + เลือก
+      </button>
+    </div>
+  `).join('');
+
+  dom.articleProductSearchResults.classList.remove('hidden');
+
+  dom.articleProductSearchResults.querySelectorAll('.btn-pick-product').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const code = btn.dataset.code;
+      state.activeArticle.recommended_products = state.activeArticle.recommended_products || [];
+      if (!state.activeArticle.recommended_products.includes(code)) {
+        state.activeArticle.recommended_products.push(code);
+        renderArticleSelectedProducts();
+        showToast('เพิ่มสินค้าเข้าบทความเรียบร้อย');
+      } else {
+        showToast('สินค้านี้ถูกเลือกไว้แล้ว', 'error');
+      }
+    });
+  });
+}
+
+async function uploadArticleImageFile(file, callback) {
+  if (!file) return;
+  const formData = new FormData();
+  formData.append('image', file);
+
+  showToast('กำลังอัปโหลดรูปภาพ...');
+  try {
+    const res = await fetch('/api/admin/upload.php', {
+      method: 'POST',
+      body: formData,
+      credentials: 'include'
+    });
+    const json = await res.json();
+    if (json.success && json.url) {
+      showToast('อัปโหลดรูปภาพสำเร็จ');
+      if (typeof callback === 'function') callback(json.url);
+    } else {
+      showToast(json.error || 'อัปโหลดรูปภาพไม่สำเร็จ', 'error');
+    }
+  } catch (e) {
+    showToast('เกิดข้อผิดพลาดในการอัปโหลดรูปภาพ', 'error');
+  }
+}
+
+async function handleSaveArticle() {
+  if (!state.activeArticle) return;
+
+  const title = dom.articleInputTitle ? dom.articleInputTitle.value.trim() : '';
+  if (!title) {
+    showToast('กรุณาระบุชื่อบทความ', 'error');
+    switchArticleTab('art-basic');
+    if (dom.articleInputTitle) dom.articleInputTitle.focus();
+    return;
+  }
+
+  let slug = dom.articleInputSlug ? dom.articleInputSlug.value.trim() : '';
+  if (!slug) {
+    slug = 'article-' + Date.now();
+  }
+
+  const rawTags = dom.articleInputTags ? dom.articleInputTags.value.trim() : '';
+  const tags = rawTags ? rawTags.split(/[,|]/).map(t => t.trim()).filter(Boolean) : [];
+
+  const payload = {
+    id: dom.articleInputId ? dom.articleInputId.value.trim() : '',
+    title: title,
+    slug: slug,
+    category: dom.articleInputCategory ? dom.articleInputCategory.value : 'เทคนิค & สาระงานช่าง',
+    status: dom.articleInputStatus ? dom.articleInputStatus.value : 'published',
+    excerpt: dom.articleInputExcerpt ? dom.articleInputExcerpt.value.trim() : '',
+    cover_image: dom.articleInputCover ? dom.articleInputCover.value.trim() : '',
+    read_time_minutes: dom.articleInputReadTime ? parseInt(dom.articleInputReadTime.value, 10) || 3 : 3,
+    author: dom.articleInputAuthor ? dom.articleInputAuthor.value.trim() : 'UDO Technical Team',
+    tags: tags,
+    recommended_products: state.activeArticle.recommended_products || [],
+    content_blocks: state.activeArticle.content_blocks || []
+  };
+
+  if (dom.articleDrawerSaveBtn) {
+    dom.articleDrawerSaveBtn.disabled = true;
+    dom.articleDrawerSaveBtn.innerHTML = `<span>กำลังบันทึก...</span>`;
+  }
+
+  try {
+    const res = await fetch('/api/admin/articles.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      credentials: 'include'
+    });
+
+    const data = await res.json();
+    if (data.success) {
+      showToast('บันทึกบทความเรียบร้อยแล้ว');
+      closeArticleDrawer();
+      await loadAdminArticles();
+    } else {
+      showToast(data.error || 'บันทึกไม่สำเร็จ', 'error');
+    }
+  } catch (e) {
+    showToast('เกิดข้อผิดพลาดในการเชื่อมต่อเซิร์ฟเวอร์', 'error');
+  } finally {
+    if (dom.articleDrawerSaveBtn) {
+      dom.articleDrawerSaveBtn.disabled = false;
+      dom.articleDrawerSaveBtn.innerHTML = `<span>บันทึกบทความ</span>`;
+    }
+  }
+}
+
+async function handleDeleteArticle(id, title) {
+  if (!id) return;
+  const isConfirmed = confirm(`ยืนยันการลบบทความ "${title || id}" หรือไม่? การกระทำนี้ไม่สามารถย้อนกลับได้`);
+  if (!isConfirmed) return;
+
+  try {
+    const res = await fetch('/api/admin/articles.php?action=delete', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'delete', id: id }),
+      credentials: 'include'
+    });
+
+    const data = await res.json();
+    if (data.success) {
+      showToast('ลบบทความเรียบร้อยแล้ว');
+      await loadAdminArticles();
+    } else {
+      showToast(data.error || 'ลบไม่สำเร็จ', 'error');
+    }
+  } catch (e) {
+    showToast('เกิดข้อผิดพลาดในการลบบทความ', 'error');
+  }
+}
+
+async function handleToggleArticleStatus(id) {
+  if (!id) return;
+  try {
+    const res = await fetch('/api/admin/articles.php?action=toggle_status', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'toggle_status', id: id }),
+      credentials: 'include'
+    });
+
+    const data = await res.json();
+    if (data.success) {
+      showToast(`เปลี่ยนสถานะเป็น ${data.status === 'published' ? 'เผยแพร่' : 'ฉบับร่าง'} เรียบร้อย`);
+      await loadAdminArticles();
+    } else {
+      showToast(data.error || 'เปลี่ยนสถานะไม่สำเร็จ', 'error');
+    }
+  } catch (e) {
+    showToast('เกิดข้อผิดพลาดในการเปลี่ยนสถานะ', 'error');
+  }
+}
+
+/**
  * Event Listeners Initialization
  */
 function initEvents() {
@@ -6443,7 +7240,86 @@ function initEvents() {
   if (dom.navInventory) dom.navInventory.addEventListener('click', () => switchTab('inventory'));
   if (dom.navMerchandising) dom.navMerchandising.addEventListener('click', () => switchTab('merchandising'));
   if (dom.navLogs) dom.navLogs.addEventListener('click', () => switchTab('logs'));
+  if (dom.navArticles) dom.navArticles.addEventListener('click', () => switchTab('articles'));
   if (dom.refreshLogsBtn) dom.refreshLogsBtn.addEventListener('click', loadAuditLogs);
+
+  // Articles Management Event Listeners
+  if (dom.btnRefreshArticles) dom.btnRefreshArticles.addEventListener('click', loadAdminArticles);
+  if (dom.btnCreateArticle) dom.btnCreateArticle.addEventListener('click', openCreateArticleDrawer);
+  if (dom.articleDrawerCloseBtn) dom.articleDrawerCloseBtn.addEventListener('click', closeArticleDrawer);
+  if (dom.articleDrawerCancelBtn) dom.articleDrawerCancelBtn.addEventListener('click', closeArticleDrawer);
+  if (dom.articleDrawerBackdrop) dom.articleDrawerBackdrop.addEventListener('click', closeArticleDrawer);
+  if (dom.articleDrawerSaveBtn) dom.articleDrawerSaveBtn.addEventListener('click', handleSaveArticle);
+  if (dom.btnAddArticleBlock) dom.btnAddArticleBlock.addEventListener('click', addArticleBlock);
+
+  // Article Search & Filter Listeners
+  let articleSearchTimer = null;
+  if (dom.articleSearchInput) {
+    dom.articleSearchInput.addEventListener('input', (e) => {
+      clearTimeout(articleSearchTimer);
+      articleSearchTimer = setTimeout(() => {
+        state.articleSearchQuery = e.target.value.trim();
+        renderAdminArticlesTable();
+      }, 250);
+    });
+  }
+
+  if (dom.articleCategoryFilter) {
+    dom.articleCategoryFilter.addEventListener('change', (e) => {
+      state.articleCategoryFilter = e.target.value;
+      renderAdminArticlesTable();
+    });
+  }
+
+  if (dom.articleStatusFilter) {
+    dom.articleStatusFilter.addEventListener('change', (e) => {
+      state.articleStatusFilter = e.target.value;
+      renderAdminArticlesTable();
+    });
+  }
+
+  // Article Drawer Tabs
+  document.querySelectorAll('.article-tab-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const tab = btn.getAttribute('data-tab');
+      if (tab) switchArticleTab(tab);
+    });
+  });
+
+  // Article Cover File Upload
+  if (dom.btnBrowseArticleCover && dom.articleCoverFileInput) {
+    dom.btnBrowseArticleCover.addEventListener('click', () => {
+      dom.articleCoverFileInput.value = '';
+      dom.articleCoverFileInput.click();
+    });
+
+    dom.articleCoverFileInput.addEventListener('change', (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      uploadArticleImageFile(file, (uploadedUrl) => {
+        if (dom.articleInputCover) dom.articleInputCover.value = uploadedUrl;
+        updateArticleCoverPreview(uploadedUrl);
+      });
+    });
+  }
+
+  if (dom.articleInputCover) {
+    dom.articleInputCover.addEventListener('input', (e) => {
+      updateArticleCoverPreview(e.target.value.trim());
+    });
+  }
+
+  // Article Product Search in Tab 3
+  let artProdSearchTimer = null;
+  if (dom.articleProductSearch) {
+    dom.articleProductSearch.addEventListener('input', (e) => {
+      clearTimeout(artProdSearchTimer);
+      artProdSearchTimer = setTimeout(() => {
+        searchProductsForArticle(e.target.value);
+      }, 200);
+    });
+  }
 
   // Brand Combobox Events
   initBrandComboboxEvents();

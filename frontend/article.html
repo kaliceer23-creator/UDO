@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>บทความและสาระน่ารู้ - UDO</title>
+    <meta name="description" content="บทความ คู่มือช่าง และสาระความรู้งานเชื่อม เครื่องมืออุตสาหกรรม จากผู้เชี่ยวชาญ UDO" />
+    <!-- Prompt Font for Windows fallback -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+    <style id="fouc-fix">
+      /* Prevent FOUC (Flash of Unstyled Content) for SVGs */
+      svg:not([class*="w-"]) { max-width: 40px; max-height: 40px; }
+    </style>
+  </head>
+  <body class="bg-white font-['Prompt',sans-serif] antialiased text-gray-900 selection:bg-[#8fc101] selection:text-white pb-[80px] md:pb-0">
+    <div id="app">
+
+    <!-- 1. Nav Component (Loaded from shared component) -->
+    <load src="./src/components/nav.html" />
+
+    <!-- 2. Breadcrumb Navigation -->
+    <div class="bg-white">
+      <div class="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12">
+        <div id="article-breadcrumb-container" class="border-b border-gray-200 pt-3.5 pb-3 text-[14px] sm:text-[15px] font-normal text-gray-700 flex items-center gap-3 overflow-x-auto whitespace-nowrap">
+          <a href="/" class="hover:text-[#8ac353] hover:underline hover:underline-offset-2">หน้าหลัก</a>
+          <span class="text-gray-400">&gt;</span>
+          <a href="/#articles-section" class="hover:text-[#8ac353] hover:underline hover:underline-offset-2">เทคนิค & สาระงานช่าง</a>
+          <span class="text-gray-400">&gt;</span>
+          <span id="breadcrumb-article-title" class="text-[#252525] truncate max-w-[280px] sm:max-w-md font-medium">กำลังโหลด...</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Main Article Content Container (1,040px Standard Grid) -->
+    <main class="bg-white min-h-screen pt-8 md:pt-12 pb-20">
+      <article class="max-w-[1040px] mx-auto px-4 sm:px-6">
+        
+        <!-- Article Header Zone -->
+        <header class="mb-8 md:mb-12 text-center">
+          <!-- Meta Pill Row -->
+          <div class="flex items-center justify-center flex-wrap gap-2.5 mb-4 text-xs sm:text-[13px] text-gray-500 font-medium">
+            <span id="article-category" class="px-3 py-0.5 rounded-full bg-neutral-100 text-[#160808] font-semibold">เทคนิค & สาระงานช่าง</span>
+            <span>•</span>
+            <span id="article-date">กำลังโหลด...</span>
+            <span>•</span>
+            <span id="article-read-time">อ่าน 3 นาที</span>
+          </div>
+
+          <!-- Main Article Title (H1) -->
+          <h1 id="article-title" class="text-[26px] sm:text-[34px] md:text-[38px] font-bold text-[#160808] leading-[1.3] md:leading-[1.25] mb-4 sm:mb-6 max-w-[920px] mx-auto">
+            กำลังโหลดเนื้อหาบทความ...
+          </h1>
+
+          <!-- Lead Excerpt Subtitle -->
+          <p id="article-excerpt" class="text-[16px] sm:text-[18px] text-[#424245] leading-relaxed max-w-[840px] mx-auto font-light">
+          </p>
+        </header>
+
+        <!-- Main Cover Image (1,040px Container) -->
+        <div id="article-cover-container" class="w-full mb-10 sm:mb-14 rounded-2xl overflow-hidden bg-gray-100 border border-gray-200/80 shadow-xs hidden">
+          <img id="article-cover-img" src="" alt="ภาพหน้าปกบทความ" class="w-full h-auto object-cover max-h-[560px] mx-auto" />
+        </div>
+
+        <!-- Modular Story Blocks Container (Showcase Architecture 100%) -->
+        <div id="article-story-blocks" class="w-full space-y-12 sm:space-y-16">
+          <!-- Injected dynamically by article.js -->
+        </div>
+
+        <!-- Author Box & Tags Footer -->
+        <div class="mt-14 pt-8 border-t border-gray-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-[#160808] text-white flex items-center justify-center font-bold text-xs tracking-wider shrink-0">
+              UDO
+            </div>
+            <div>
+              <div id="article-author" class="text-sm font-semibold text-[#160808]">UDO Technical Team</div>
+              <div class="text-xs text-gray-500">ศูนย์รวมลวดเชื่อมและเครื่องมืออุตสาหกรรม</div>
+            </div>
+          </div>
+
+          <div id="article-tags-container" class="flex flex-wrap items-center gap-1.5">
+            <!-- Dynamic tags pills injected here -->
+          </div>
+        </div>
+      </article>
+
+      <!-- Related Welding Tools / Recommended Products Section -->
+      <section id="article-recommended-products-section" class="w-full bg-[#FAF9F6] border-y border-gray-200/80 py-12 md:py-16 mt-16 sm:mt-20 hidden">
+        <div class="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12">
+          <div class="max-w-[1040px] mx-auto">
+            <div class="flex items-baseline justify-between mb-6 md:mb-8">
+              <div>
+                <span class="text-xs font-bold uppercase tracking-wider text-brand-red block mb-1">Recommended Tools</span>
+                <h2 class="text-[22px] sm:text-[26px] font-semibold text-[#160808]">
+                  เครื่องมือและลวดเชื่อมที่เกี่ยวข้องกับบทความ
+                </h2>
+              </div>
+              <a href="/category.html" class="text-xs sm:text-sm font-medium text-gray-700 hover:text-black underline underline-offset-4">
+                ดูสินค้าทั้งหมด
+              </a>
+            </div>
+
+            <div id="article-recommended-products-grid" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5">
+              <!-- Injected by article.js -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Other Recommended Articles Section -->
+      <section id="article-related-articles-section" class="w-full bg-white py-12 md:py-16 overflow-hidden">
+        <div class="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12">
+          <div class="max-w-[1040px] mx-auto">
+            <div class="flex items-baseline justify-between mb-6 md:mb-8">
+              <div>
+                <span class="text-xs font-bold uppercase tracking-wider text-gray-500 block mb-1">More Articles</span>
+                <h2 class="text-[22px] sm:text-[26px] font-semibold text-[#160808]">
+                  บทความเทคนิคอื่นๆ ที่น่าสนใจ
+                </h2>
+              </div>
+              <a href="/" class="text-xs sm:text-sm font-medium text-gray-700 hover:text-black underline underline-offset-4">
+                กลับหน้าหลัก
+              </a>
+            </div>
+
+            <div id="article-related-articles-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+              <!-- Injected by article.js -->
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- 4. Shared Footer & Floating UI Components -->
+    <load src="./src/components/footer.html" />
+    <load src="./src/components/floating-buttons.html" />
+    <load src="./src/components/dock.html" />
+
+    </div>
+    <script type="module" src="/src/article.js"></script>
+  </body>
+</html>

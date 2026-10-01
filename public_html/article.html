@@ -2,9 +2,10 @@
 <html lang="th">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>UDO - The Leader of Welding Products</title>
+    <title>บทความและสาระน่ารู้ - UDO</title>
+    <meta name="description" content="บทความ คู่มือช่าง และสาระความรู้งานเชื่อม เครื่องมืออุตสาหกรรม จากผู้เชี่ยวชาญ UDO" />
     <!-- Prompt Font for Windows fallback -->
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
@@ -12,15 +13,14 @@
       /* Prevent FOUC (Flash of Unstyled Content) for SVGs */
       svg:not([class*="w-"]) { max-width: 40px; max-height: 40px; }
     </style>
-    <script type="module" crossorigin src="/assets/ProductCard-Bvd8vJqM.js"></script>
-    <script type="module" crossorigin src="/assets/mock_database-B1e0KBVt.js"></script>
-    <script type="module" crossorigin src="/assets/home_hydrate-D8mbk4tJ.js"></script>
-    <script type="module" crossorigin src="/assets/main-CHZWOlCI.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/style-PIcMFVLQ.css">
+    <script type="module" crossorigin src="/assets/article-Ci6V8D_H.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/ProductCard-Bvd8vJqM.js">
   </head>
-  <body>
+  <body class="bg-white font-['Prompt',sans-serif] antialiased text-gray-900 selection:bg-[#8fc101] selection:text-white pb-[80px] md:pb-0">
     <div id="app">
-  <!-- Mega Menu Overlay (Moved outside to guarantee it sits under header) -->
+
+    <!-- 1. Nav Component (Loaded from shared component) -->
+    <!-- Mega Menu Overlay (Moved outside to guarantee it sits under header) -->
   <div id="mega-menu-overlay" class="hidden fixed inset-0 bg-black/30 z-[40] cursor-pointer"></div>
   <!-- 0. แถบ Utility ด้านบนสุด (สไตล์ BaNANA) -->
   <div class="w-full bg-[#F5F5F5] hidden md:block relative z-[60]">
@@ -1104,1053 +1104,122 @@ l-45 0 0 343 c0 189 3 347 7 350 12 13 277 7 293 -6z m118 -614 c28 -32 32
     </div>
   </div>
   </div>
-  <!-- 3. พื้นที่เนื้อหาหลัก (Main Content) -->
-  <main class="w-full bg-white">
-    <!-- Hero Slider Section (ปรับเป็น Auto Height โชว์รูปเต็มกว้าง) -->
-    <section class="relative w-full bg-gray-100 overflow-hidden group">
-      <!-- Slider Container -->
-      <div id="heroSlider" class="grid w-full">
-        
-        <!-- Slide 1 -->
-        <div class="col-start-1 row-start-1 w-full opacity-100 z-10 transition-opacity duration-300 ease-in-out relative">
-          <a href="#" class="block w-full">
-            <img src="/images/banners/backup/BANNER 1.png" alt="Banner 1" class="w-full aspect-[12/5] object-cover object-center block" />
-          </a>
-        </div>
 
-        <!-- Slide 2 -->
-        <div class="col-start-1 row-start-1 w-full opacity-0 z-0 transition-opacity duration-300 ease-in-out relative">
-          <a href="#" class="block w-full">
-            <img src="/images/banners/backup/BANNER 2.png" alt="Banner 2" class="w-full aspect-[12/5] object-cover object-center block" />
-          </a>
-        </div>
-
-        <!-- Slide 3 -->
-        <div class="col-start-1 row-start-1 w-full opacity-0 z-0 transition-opacity duration-300 ease-in-out relative">
-          <a href="#" class="block w-full">
-            <img src="/images/banners/backup/BANNER 3.png" alt="Banner 3" class="w-full aspect-[12/5] object-cover object-center block" />
-          </a>
-        </div>
-        
-        <!-- Slide 4 -->
-        <div class="col-start-1 row-start-1 w-full opacity-0 z-0 transition-opacity duration-300 ease-in-out relative">
-          <a href="#" class="block w-full">
-            <img src="/images/banners/backup/BANNER 4.png" alt="Banner 4" class="w-full aspect-[12/5] object-cover object-center block" />
-          </a>
-        </div>
-
-        <!-- Slide 5 -->
-        <div class="col-start-1 row-start-1 w-full opacity-0 z-0 transition-opacity duration-300 ease-in-out relative">
-          <a href="#" class="block w-full">
-            <img src="/images/banners/backup/BANNER 5.png" alt="Banner 5" class="w-full aspect-[12/5] object-cover object-center block" />
-          </a>
-        </div>
-        
-      </div>
-
-      <!-- Navigation Arrows -->
-      <button id="prevSlide" class="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 bg-white/70 hover:bg-white backdrop-blur-sm shadow-md flex items-center justify-center text-gray-800 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 z-20 cursor-pointer">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 md:w-6 md:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-        </svg>
-      </button>
-      <button id="nextSlide" class="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 bg-white/70 hover:bg-white backdrop-blur-sm shadow-md flex items-center justify-center text-gray-800 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 z-20 cursor-pointer">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 md:w-6 md:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
-
-      <!-- Indicators (Dots) -->
-      <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20" id="sliderIndicators">
-        <!-- JS will populate -->
-      </div>
-    </section>
-
-    
-
-
-    <!-- โซน 1: แบรนด์และหมวดหมู่หลัก (พื้นหลังสีขาว เพื่อแยกส่วน) -->
-    <div class="w-full bg-white pt-8 md:pt-12 lg:pt-16 pb-0">
+    <!-- 2. Breadcrumb Navigation -->
+    <div class="bg-white">
       <div class="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12">
-      
-      <!-- Section: Category Strip (Hero Quick Access - 9 Categories) -->
-      <section class="pb-10 md:pb-14 lg:pb-16 relative">
-        <div class="relative w-full">
-          <!-- Horizontal Scroll Container -->
-          <div id="categoryStrip" class="flex items-start justify-between gap-4 sm:gap-6 md:gap-8 overflow-x-auto no-scrollbar scroll-smooth py-3 px-1">
-            
-            <!-- Category 1: ลวดเชื่อมและวัสดุประสาน -->
-            <a href="/category.html?type=category&name=กลุ่มลวดเชื่อม" class="group flex flex-col items-center justify-start shrink-0 w-[100px] sm:w-[115px] md:w-[130px] lg:w-[138px] text-center cursor-pointer">
-              <div class="h-[70px] sm:h-[80px] md:h-[90px] lg:h-[98px] w-full flex items-center justify-center mb-3 md:mb-4 transition-transform duration-300 group-hover:scale-105">
-                <img src="/images/หมวดหมู่/ลวดเชื่อม.png" alt="ลวดเชื่อมและวัสดุประสาน" class="max-h-full max-w-full object-contain mix-blend-multiply" loading="lazy" />
-              </div>
-              <span class="text-[15px] md:text-[16px] lg:text-[16.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[48px] flex items-center justify-center">
-                <span class="inline-block transform scale-y-[1.08] origin-center">ลวดเชื่อมและ<br />วัสดุประสาน</span>
-              </span>
-            </a>
-
-            <!-- Category 2: เครื่องเชื่อมและเครื่องตัดพลาสม่า -->
-            <a href="/category.html?type=category&name=เครื่องเชื่อมและอุปกรณ์" class="group flex flex-col items-center justify-start shrink-0 w-[100px] sm:w-[115px] md:w-[130px] lg:w-[138px] text-center cursor-pointer">
-              <div class="h-[70px] sm:h-[80px] md:h-[90px] lg:h-[98px] w-full flex items-center justify-center mb-3 md:mb-4 transition-transform duration-300 group-hover:scale-105">
-                <img src="/images/หมวดหมู่/เครื่องเชื่อม-ตัดพลาสม่า.png" alt="เครื่องเชื่อมและเครื่องตัดพลาสม่า" class="max-h-full max-w-full object-contain mix-blend-multiply" loading="lazy" />
-              </div>
-              <span class="text-[15px] md:text-[16px] lg:text-[16.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[48px] flex items-center justify-center">
-                <span class="inline-block transform scale-y-[1.08] origin-center">เครื่องเชื่อมและ<br />เครื่องตัดพลาสม่า</span>
-              </span>
-            </a>
-
-            <!-- Category 3: อะไหล่สิ้นเปลือง -->
-            <a href="/category.html?type=category&name=อะไหล่สิ้นเปลือง" class="group flex flex-col items-center justify-start shrink-0 w-[100px] sm:w-[115px] md:w-[130px] lg:w-[138px] text-center cursor-pointer">
-              <div class="h-[70px] sm:h-[80px] md:h-[90px] lg:h-[98px] w-full flex items-center justify-center mb-3 md:mb-4 transition-transform duration-300 group-hover:scale-105">
-                <img src="/images/หมวดหมู่/อะไหล่สิ้นเปลือง.png" alt="อะไหล่สิ้นเปลือง เครื่องเชื่อม-พลาสม่า" class="max-h-full max-w-full object-contain mix-blend-multiply" loading="lazy" />
-              </div>
-              <span class="text-[15px] md:text-[16px] lg:text-[16.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[48px] flex items-center justify-center">
-                <span class="inline-block transform scale-y-[1.08] origin-center">อะไหล่สิ้นเปลือง<br />เชื่อม-พลาสม่า</span>
-              </span>
-            </a>
-
-            <!-- Category 4: ใบตัดใบเจียร -->
-            <a href="/category.html?type=category&name=ใบตัดใบเจียร" class="group flex flex-col items-center justify-start shrink-0 w-[100px] sm:w-[115px] md:w-[130px] lg:w-[138px] text-center cursor-pointer">
-              <div class="h-[70px] sm:h-[80px] md:h-[90px] lg:h-[98px] w-full flex items-center justify-center mb-3 md:mb-4 transition-transform duration-300 group-hover:scale-105">
-                <img src="/images/หมวดหมู่/ใบตัดใบเจียร.jpg" alt="ใบตัดและใบเจียร" class="max-h-full max-w-full object-contain mix-blend-multiply" loading="lazy" />
-              </div>
-              <span class="text-[15px] md:text-[16px] lg:text-[16.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[48px] flex items-center justify-center">
-                <span class="inline-block transform scale-y-[1.08] origin-center">ใบตัดและ<br />ใบเจียร</span>
-              </span>
-            </a>
-
-            <!-- Category 5: เชื่อมตัดเผาแก๊ส -->
-            <a href="/category.html?type=category&name=อุปกรณ์แก๊สและงานตัด" class="group flex flex-col items-center justify-start shrink-0 w-[100px] sm:w-[115px] md:w-[130px] lg:w-[138px] text-center cursor-pointer">
-              <div class="h-[70px] sm:h-[80px] md:h-[90px] lg:h-[98px] w-full flex items-center justify-center mb-3 md:mb-4 transition-transform duration-300 group-hover:scale-105">
-                <img src="/images/หมวดหมู่/เชื่อมตัดเผาแก๊ส.jpg" alt="อุปกรณ์เชื่อมตัดเผาแก๊ส" class="max-h-full max-w-full object-contain mix-blend-multiply" loading="lazy" />
-              </div>
-              <span class="text-[15px] md:text-[16px] lg:text-[16.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[48px] flex items-center justify-center">
-                <span class="inline-block transform scale-y-[1.08] origin-center">อุปกรณ์เชื่อม<br />ตัดเผาแก๊ส</span>
-              </span>
-            </a>
-
-            <!-- Category 6: ท่อบรรจุก๊าซและวาล์ว -->
-            <a href="/category.html?type=category&name=ท่อบรรจุก๊าซและวาล์ว" class="group flex flex-col items-center justify-start shrink-0 w-[100px] sm:w-[115px] md:w-[130px] lg:w-[138px] text-center cursor-pointer">
-              <div class="h-[70px] sm:h-[80px] md:h-[90px] lg:h-[98px] w-full flex items-center justify-center mb-3 md:mb-4 transition-transform duration-300 group-hover:scale-105">
-                <img src="/images/หมวดหมู่/ก๊าซและวาล์ว.png" alt="ท่อบรรจุก๊าซและวาล์ว" class="max-h-full max-w-full object-contain mix-blend-multiply" loading="lazy" />
-              </div>
-              <span class="text-[15px] md:text-[16px] lg:text-[16.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[48px] flex items-center justify-center">
-                <span class="inline-block transform scale-y-[1.08] origin-center">ท่อบรรจุก๊าซ<br />และวาล์ว</span>
-              </span>
-            </a>
-
-            <!-- Category 7: เคมีภัณฑ์สำหรับงานเชื่อม -->
-            <a href="/category.html?type=category&name=วัสดุอุปกรณ์เคมีภัณฑ์สำหรับงานเชื่อม" class="group flex flex-col items-center justify-start shrink-0 w-[100px] sm:w-[115px] md:w-[130px] lg:w-[138px] text-center cursor-pointer">
-              <div class="h-[70px] sm:h-[80px] md:h-[90px] lg:h-[98px] w-full flex items-center justify-center mb-3 md:mb-4 transition-transform duration-300 group-hover:scale-105">
-                <img src="/images/หมวดหมู่/เคมีภัณฑ์.png" alt="เคมีภัณฑ์สำหรับงานเชื่อม" class="max-h-full max-w-full object-contain mix-blend-multiply" loading="lazy" />
-              </div>
-              <span class="text-[15px] md:text-[16px] lg:text-[16.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[48px] flex items-center justify-center">
-                <span class="inline-block transform scale-y-[1.08] origin-center">เคมีภัณฑ์<br />สำหรับงานเชื่อม</span>
-              </span>
-            </a>
-
-            <!-- Category 8: เครื่องมือช่าง -->
-            <a href="/category.html?type=category&name=เครื่องมือช่าง" class="group flex flex-col items-center justify-start shrink-0 w-[100px] sm:w-[115px] md:w-[130px] lg:w-[138px] text-center cursor-pointer">
-              <div class="h-[70px] sm:h-[80px] md:h-[90px] lg:h-[98px] w-full flex items-center justify-center mb-3 md:mb-4 transition-transform duration-300 group-hover:scale-105">
-                <img src="/images/หมวดหมู่/เครื่องมือช่าง.png" alt="เครื่องมือช่าง" class="max-h-full max-w-full object-contain mix-blend-multiply" loading="lazy" />
-              </div>
-              <span class="text-[15px] md:text-[16px] lg:text-[16.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[48px] flex items-center justify-center">
-                <span class="inline-block transform scale-y-[1.08] origin-center">เครื่องมือช่าง</span>
-              </span>
-            </a>
-
-            <!-- Category 9: อุปกรณ์ความปลอดภัย -->
-            <a href="/category.html?type=category&name=อุปกรณ์ความปลอดภัย" class="group flex flex-col items-center justify-start shrink-0 w-[100px] sm:w-[115px] md:w-[130px] lg:w-[138px] text-center cursor-pointer">
-              <div class="h-[70px] sm:h-[80px] md:h-[90px] lg:h-[98px] w-full flex items-center justify-center mb-3 md:mb-4 transition-transform duration-300 group-hover:scale-105">
-                <img src="/images/หมวดหมู่/อุปกรณ์ความปลอดภัย.png" alt="อุปกรณ์ความปลอดภัย" class="max-h-full max-w-full object-contain mix-blend-multiply" loading="lazy" />
-              </div>
-              <span class="text-[15px] md:text-[16px] lg:text-[16.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[48px] flex items-center justify-center">
-                <span class="inline-block transform scale-y-[1.08] origin-center">อุปกรณ์<br />ความปลอดภัย</span>
-              </span>
-            </a>
-
-          </div>
-
-          <!-- Next Button (Desktop / Tablet Scroll Control) -->
-          <button id="catStripNext" aria-label="เลื่อนหมวดหมู่ถัดไป" class="hidden md:flex absolute -right-3 lg:-right-4 top-[36%] -translate-y-1/2 w-10 h-10 md:w-11 md:h-11 bg-white shadow-[0_3px_14px_rgba(0,0,0,0.12)] border border-gray-200/90 rounded-full items-center justify-center text-gray-700 hover:text-black hover:bg-gray-50 hover:shadow-lg active:scale-95 transition-all z-10 cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 md:w-5.5 md:h-5.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
+        <div id="article-breadcrumb-container" class="border-b border-gray-200 pt-3.5 pb-3 text-[14px] sm:text-[15px] font-normal text-gray-700 flex items-center gap-3 overflow-x-auto whitespace-nowrap">
+          <a href="/" class="hover:text-[#8ac353] hover:underline hover:underline-offset-2">หน้าหลัก</a>
+          <span class="text-gray-400">&gt;</span>
+          <a href="/#articles-section" class="hover:text-[#8ac353] hover:underline hover:underline-offset-2">เทคนิค & สาระงานช่าง</a>
+          <span class="text-gray-400">&gt;</span>
+          <span id="breadcrumb-article-title" class="text-[#252525] truncate max-w-[280px] sm:max-w-md font-medium">กำลังโหลด...</span>
         </div>
-      </section>
-    </div> <!-- End max-w container (Category Strip) -->
-  </div> <!-- End white container (Category Strip) -->
-
-  <!-- Section: ประเภทลวดเชื่อม (Full-Bleed #FBEEEE Background with 10 Cards - 2 Rows of 5) -->
-  <section class="w-full bg-[#FBEEEE] py-10 md:py-14 lg:py-16">
-    <div class="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12">
-      
-      <!-- Section Header -->
-      <div class="mb-6 md:mb-8">
-        <h2 class="text-[28px] md:text-[34px] lg:text-[38px] font-bold text-gray-900 tracking-[0.008em] leading-none">
-          <span class="inline-block transform scale-y-[1.05] origin-bottom-left">ประเภทลวดเชื่อม</span>
-        </h2>
-        <p class="text-[14px] md:text-[15px] text-gray-600 mt-2 font-normal">
-          ครอบคลุมทุกการเชื่อมโลหะและชิ้นงานอุตสาหกรรม
-        </p>
-      </div>
-
-      <!-- 10 Category Cards (2 Rows of 5) -->
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 md:gap-4 lg:gap-4.5">
-        
-        <!-- Card 1: เชื่อมเหล็ก -->
-        <a href="/category.html?type=category&name=กลุ่มลวดเชื่อม&sub=เชื่อมเหล็ก" class="rounded-[8px] hover:shadow-[0_10px_30px_rgba(0,0,0,0.18)] hover:-translate-y-1.5 transition-all duration-300 group relative overflow-hidden aspect-square block bg-neutral-900">
-          <img src="/images/popular-categories/steel.png" class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out" alt="เชื่อมเหล็ก" loading="lazy" />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent pointer-events-none"></div>
-          <h3 class="text-white font-semibold text-[17px] sm:text-[18px] md:text-[18.5px] lg:text-[19.5px] leading-snug absolute bottom-3.5 inset-x-2 md:bottom-4 md:inset-x-3 z-10 [text-shadow:_0_1px_4px_rgb(0_0_0_/_70%)] text-center">
-            <span class="inline-block transform scale-y-[1.04] origin-center">เชื่อมเหล็ก</span>
-          </h3>
-        </a>
-
-        <!-- Card 2: เชื่อมสแตนเลส -->
-        <a href="/category.html?type=category&name=กลุ่มลวดเชื่อม&sub=เชื่อมสแตนเลส" class="rounded-[8px] hover:shadow-[0_10px_30px_rgba(0,0,0,0.18)] hover:-translate-y-1.5 transition-all duration-300 group relative overflow-hidden aspect-square block bg-neutral-900">
-          <img src="/images/popular-categories/stainless.png" class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out" alt="เชื่อมสแตนเลส" loading="lazy" />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent pointer-events-none"></div>
-          <h3 class="text-white font-semibold text-[17px] sm:text-[18px] md:text-[18.5px] lg:text-[19.5px] leading-snug absolute bottom-3.5 inset-x-2 md:bottom-4 md:inset-x-3 z-10 [text-shadow:_0_1px_4px_rgb(0_0_0_/_70%)] text-center">
-            <span class="inline-block transform scale-y-[1.04] origin-center">เชื่อมสแตนเลส</span>
-          </h3>
-        </a>
-
-        <!-- Card 3: เชื่อมอลูมิเนียม -->
-        <a href="/category.html?type=category&name=กลุ่มลวดเชื่อม&sub=เชื่อมอลูมิเนียม" class="rounded-[8px] hover:shadow-[0_10px_30px_rgba(0,0,0,0.18)] hover:-translate-y-1.5 transition-all duration-300 group relative overflow-hidden aspect-square block bg-neutral-900">
-          <img src="/images/popular-categories/aluminum.png" class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out" alt="เชื่อมอลูมิเนียม" loading="lazy" />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent pointer-events-none"></div>
-          <h3 class="text-white font-semibold text-[17px] sm:text-[18px] md:text-[18.5px] lg:text-[19.5px] leading-snug absolute bottom-3.5 inset-x-2 md:bottom-4 md:inset-x-3 z-10 [text-shadow:_0_1px_4px_rgb(0_0_0_/_70%)] text-center">
-            <span class="inline-block transform scale-y-[1.04] origin-center">เชื่อมอลูมิเนียม</span>
-          </h3>
-        </a>
-
-        <!-- Card 4: เชื่อมเหล็กหล่อ -->
-        <a href="/category.html?type=category&name=กลุ่มลวดเชื่อม&sub=เชื่อมเหล็กหล่อ" class="rounded-[8px] hover:shadow-[0_10px_30px_rgba(0,0,0,0.18)] hover:-translate-y-1.5 transition-all duration-300 group relative overflow-hidden aspect-square block bg-neutral-900">
-          <img src="/images/popular-categories/cast-iron.png" class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out" alt="เชื่อมเหล็กหล่อ" loading="lazy" />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent pointer-events-none"></div>
-          <h3 class="text-white font-semibold text-[17px] sm:text-[18px] md:text-[18.5px] lg:text-[19.5px] leading-snug absolute bottom-3.5 inset-x-2 md:bottom-4 md:inset-x-3 z-10 [text-shadow:_0_1px_4px_rgb(0_0_0_/_70%)] text-center">
-            <span class="inline-block transform scale-y-[1.04] origin-center">เชื่อมเหล็กหล่อ</span>
-          </h3>
-        </a>
-
-        <!-- Card 5: เชื่อมทองเหลือง ทองแดงและเงิน -->
-        <a href="/category.html?type=category&name=กลุ่มลวดเชื่อม&sub=เชื่อมทองเหลือง-ทองแดงและเงิน" class="rounded-[8px] hover:shadow-[0_10px_30px_rgba(0,0,0,0.18)] hover:-translate-y-1.5 transition-all duration-300 group relative overflow-hidden aspect-square block bg-neutral-900">
-          <img src="/images/popular-categories/brass-copper.png" class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out" alt="เชื่อมทองเหลือง ทองแดงและเงิน" loading="lazy" />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent pointer-events-none"></div>
-          <h3 class="text-white font-semibold text-[15.5px] sm:text-[16.5px] md:text-[17px] lg:text-[18px] leading-tight absolute bottom-3.5 inset-x-2 md:bottom-4 md:inset-x-2 z-10 [text-shadow:_0_1px_4px_rgb(0_0_0_/_70%)] text-center">
-            <span class="inline-block transform scale-y-[1.04] origin-center">เชื่อมทองเหลือง<br />ทองแดงและเงิน</span>
-          </h3>
-        </a>
-
-        <!-- Card 6: เชื่อมพอกผิวแข็ง -->
-        <a href="/category.html?type=category&name=กลุ่มลวดเชื่อม&sub=เชื่อมพอกผิวแข็ง" class="rounded-[8px] hover:shadow-[0_10px_30px_rgba(0,0,0,0.18)] hover:-translate-y-1.5 transition-all duration-300 group relative overflow-hidden aspect-square block bg-neutral-900">
-          <img src="/images/popular-categories/hardfacing.png" class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out" alt="เชื่อมพอกผิวแข็ง" loading="lazy" />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent pointer-events-none"></div>
-          <h3 class="text-white font-semibold text-[17px] sm:text-[18px] md:text-[18.5px] lg:text-[19.5px] leading-snug absolute bottom-3.5 inset-x-2 md:bottom-4 md:inset-x-3 z-10 [text-shadow:_0_1px_4px_rgb(0_0_0_/_70%)] text-center">
-            <span class="inline-block transform scale-y-[1.04] origin-center">เชื่อมพอกผิวแข็ง</span>
-          </h3>
-        </a>
-
-        <!-- Card 7: เชื่อมตัดเซาะร่อง -->
-        <a href="/category.html?type=category&name=กลุ่มลวดเชื่อม&sub=เชื่อมตัดเซาะร่อง" class="rounded-[8px] hover:shadow-[0_10px_30px_rgba(0,0,0,0.18)] hover:-translate-y-1.5 transition-all duration-300 group relative overflow-hidden aspect-square block bg-neutral-900">
-          <img src="/images/popular-categories/gouging.png" class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out" alt="เชื่อมตัดเซาะร่อง" loading="lazy" />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent pointer-events-none"></div>
-          <h3 class="text-white font-semibold text-[17px] sm:text-[18px] md:text-[18.5px] lg:text-[19.5px] leading-snug absolute bottom-3.5 inset-x-2 md:bottom-4 md:inset-x-3 z-10 [text-shadow:_0_1px_4px_rgb(0_0_0_/_70%)] text-center">
-            <span class="inline-block transform scale-y-[1.04] origin-center">เชื่อมตัดเซาะร่อง</span>
-          </h3>
-        </a>
-
-        <!-- Card 8: เชื่อมวัสดุเกรดพิเศษ -->
-        <a href="/category.html?type=category&name=กลุ่มลวดเชื่อม&sub=เชื่อมวัสดุเกรดพิเศษ" class="rounded-[8px] hover:shadow-[0_10px_30px_rgba(0,0,0,0.18)] hover:-translate-y-1.5 transition-all duration-300 group relative overflow-hidden aspect-square block bg-neutral-900">
-          <img src="/images/popular-categories/special-alloys.png" class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out" alt="เชื่อมวัสดุเกรดพิเศษ" loading="lazy" />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent pointer-events-none"></div>
-          <h3 class="text-white font-semibold text-[17px] sm:text-[18px] md:text-[18.5px] lg:text-[19.5px] leading-snug absolute bottom-3.5 inset-x-2 md:bottom-4 md:inset-x-3 z-10 [text-shadow:_0_1px_4px_rgb(0_0_0_/_70%)] text-center">
-            <span class="inline-block transform scale-y-[1.04] origin-center">เชื่อมวัสดุเกรดพิเศษ</span>
-          </h3>
-        </a>
-
-        <!-- Card 9: เชื่อมทังสเตน -->
-        <a href="/category.html?type=category&name=กลุ่มลวดเชื่อม&sub=เชื่อมทังสเตน" class="rounded-[8px] hover:shadow-[0_10px_30px_rgba(0,0,0,0.18)] hover:-translate-y-1.5 transition-all duration-300 group relative overflow-hidden aspect-square block bg-neutral-900">
-          <img src="https://www.udo.co.th/storage/products/July2023/NLm7EdoipGByvZ0aCleV.jpg" onerror="this.src='/images/popular-categories/special-alloys.png'" class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out" alt="เชื่อมทังสเตน" loading="lazy" />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent pointer-events-none"></div>
-          <h3 class="text-white font-semibold text-[17px] sm:text-[18px] md:text-[18.5px] lg:text-[19.5px] leading-snug absolute bottom-3.5 inset-x-2 md:bottom-4 md:inset-x-3 z-10 [text-shadow:_0_1px_4px_rgb(0_0_0_/_70%)] text-center">
-            <span class="inline-block transform scale-y-[1.04] origin-center">เชื่อมทังสเตน</span>
-          </h3>
-        </a>
-
-        <!-- Card 10: ลวดเชื่อมทั้งหมด -->
-        <a href="/category.html?type=category&name=กลุ่มลวดเชื่อม" class="rounded-[8px] hover:shadow-[0_10px_30px_rgba(0,0,0,0.18)] hover:-translate-y-1.5 transition-all duration-300 group relative overflow-hidden aspect-square block bg-neutral-900">
-          <img src="/images/หมวดหมู่/ลวดเชื่อม.png" class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out" alt="ลวดเชื่อมทั้งหมด" loading="lazy" />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent pointer-events-none"></div>
-          <h3 class="text-white font-semibold text-[17px] sm:text-[18px] md:text-[18.5px] lg:text-[19.5px] leading-snug absolute bottom-3.5 inset-x-2 md:bottom-4 md:inset-x-3 z-10 [text-shadow:_0_1px_4px_rgb(0_0_0_/_70%)] text-center">
-            <span class="inline-block transform scale-y-[1.04] origin-center">ลวดเชื่อมทั้งหมด</span>
-          </h3>
-        </a>
-
       </div>
     </div>
-  </section>
 
-  <!-- โซน 1.2: แบรนด์ชั้นนำ และแบนเนอร์ (พื้นหลังสีขาว เพื่อแยกส่วน) -->
-  <div class="w-full bg-white pt-6 md:pt-8 lg:pt-10 pb-0">
-    <div class="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12">
-
-                                                                        <!-- Section 1: Brand Strip (Real Database Brands - Apple UI Uniform Cards) -->
-      <section class="mt-1 md:mt-2 relative mb-12 md:mb-16 lg:mb-20">
-        <h2 class="text-[30px] font-semibold text-gray-900 tracking-[0.008em] mb-4 md:mb-5">
-          <span class="inline-block transform scale-y-[1.05] origin-bottom-left">ช้อปแบรนด์ดัง</span>
-        </h2>
+    <!-- 3. Main Article Content Container (1,040px Standard Grid) -->
+    <main class="bg-white min-h-screen pt-8 md:pt-12 pb-20">
+      <article class="max-w-[1040px] mx-auto px-4 sm:px-6">
         
-        <div class="relative w-full">
-          <!-- Horizontal Scroll Container -->
-          <div id="brandStrip" class="flex items-start justify-start gap-4 sm:gap-5 md:gap-6 overflow-x-auto no-scrollbar scroll-smooth py-3 md:py-4 px-1">
-            <!-- Brand: KOBE -->
-            <a href="/category.html?type=brand&name=KOBE" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/June2018/XcbbkOvt2o9nb4J8gnpr.jpg" alt="KOBE" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">KOBE</span>
-              </span>
-            </a>
-
-            <!-- Brand: YAWATA -->
-            <a href="/category.html?type=brand&name=YAWATA" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/June2026/2PaGokJeH9KB2k6Xmuca.jpg" alt="YAWATA" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">YAWATA</span>
-              </span>
-            </a>
-
-            <!-- Brand: MORRIS -->
-            <a href="/category.html?type=brand&name=MORRIS" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/April2019/fLUnBcGVovnoYujtyYLi.jpg" alt="MORRIS" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">MORRIS</span>
-              </span>
-            </a>
-
-            <!-- Brand: SELECTARC -->
-            <a href="/category.html?type=brand&name=SELECTARC" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/April2019/6q5lApkwz6SjeYNuP6O1.JPG" alt="SELECTARC" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">SELECTARC</span>
-              </span>
-            </a>
-
-            <!-- Brand: WhaleSpray -->
-            <a href="/category.html?type=brand&name=WhaleSpray" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/June2026/UyANs8dHFLenaQLsl9D1.jpg" alt="WhaleSpray" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">WhaleSpray</span>
-              </span>
-            </a>
-
-            <!-- Brand: NIKKO -->
-            <a href="/category.html?type=brand&name=NIKKO" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/July2018/XGlDvRmuyFgjyneUul5I.jpg" alt="NIKKO" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">NIKKO</span>
-              </span>
-            </a>
-
-            <!-- Brand: CHAMP -->
-            <a href="/category.html?type=brand&name=CHAMP" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/June2026/Q7z9GIFVNMS4oIqLOnWa.jpg" alt="CHAMP" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">CHAMP</span>
-              </span>
-            </a>
-
-            <!-- Brand: POWERWELD -->
-            <a href="/category.html?type=brand&name=POWERWELD" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/February2024/v7mTZPVkDbdkD6840vfU.jpg" alt="POWERWELD" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">POWERWELD</span>
-              </span>
-            </a>
-
-            <!-- Brand: HYUNDAI -->
-            <a href="/category.html?type=brand&name=HYUNDAI" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/June2018/9CMMA4vpWgd9LWlaru0Q.jpg" alt="HYUNDAI" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">HYUNDAI</span>
-              </span>
-            </a>
-
-            <!-- Brand: GEMINI -->
-            <a href="/category.html?type=brand&name=GEMINI" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/June2026/mbFQq6WAjIWIvpfu5Qeh.jpg" alt="GEMINI" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">GEMINI</span>
-              </span>
-            </a>
-
-            <!-- Brand: KENZO -->
-            <a href="/category.html?type=brand&name=KENZO" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/June2018/SgCYolBUkpEv6ILdlg3U.jpg" alt="KENZO" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">KENZO</span>
-              </span>
-            </a>
-
-            <!-- Brand: HILCO -->
-            <a href="/category.html?type=brand&name=HILCO" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/June2018/y3NgMdvtSqdE4LSKY9DL.jpg" alt="HILCO" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">HILCO</span>
-              </span>
-            </a>
-
-            <!-- Brand: TANAKA -->
-            <a href="/category.html?type=brand&name=TANAKA" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/June2018/TT8HvVcO28a3EMXAX4YC.JPG" alt="TANAKA" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">TANAKA</span>
-              </span>
-            </a>
-
-            <!-- Brand: NANKAI -->
-            <a href="/category.html?type=brand&name=NANKAI" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/June2018/KYeJ8ZngG0aPQa6eCTNm.JPG" alt="NANKAI" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">NANKAI</span>
-              </span>
-            </a>
-
-            <!-- Brand: NKK -->
-            <a href="/category.html?type=brand&name=NKK" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/June2018/D6pAuyzNiadHwL3lJk5G.jpg" alt="NKK" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">NKK</span>
-              </span>
-            </a>
-
-            <!-- Brand: NSSW -->
-            <a href="/category.html?type=brand&name=NSSW" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/July2018/aJC23YFVGyUdvBFiSjPJ.JPG" alt="NSSW" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">NSSW</span>
-              </span>
-            </a>
-
-            <!-- Brand: NICHIA -->
-            <a href="/category.html?type=brand&name=NICHIA" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/July2018/j9Peacxfuq5Stw1SHGuT.JPG" alt="NICHIA" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">NICHIA</span>
-              </span>
-            </a>
-
-            <!-- Brand: INDALCO -->
-            <a href="/category.html?type=brand&name=INDALCO" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/July2018/IDAj1sftFQ5bi14AQ1lH.png" alt="INDALCO" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">INDALCO</span>
-              </span>
-            </a>
-
-            <!-- Brand: NABAKEM -->
-            <a href="/category.html?type=brand&name=NABAKEM" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/July2018/oLLSCrXJdpQcRLYEhRaS.jpg" alt="NABAKEM" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">NABAKEM</span>
-              </span>
-            </a>
-
-            <!-- Brand: HARRIS -->
-            <a href="/category.html?type=brand&name=HARRIS" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/July2018/TIAnqukEbeEhbsrUI7ZF.jpg" alt="HARRIS" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">HARRIS</span>
-              </span>
-            </a>
-
-            <!-- Brand: GOLD -->
-            <a href="/category.html?type=brand&name=GOLD" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/June2026/pFgP6g7YH9JBK2ZIBA3e.jpg" alt="GOLD" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">GOLD</span>
-              </span>
-            </a>
-
-            <!-- Brand: AUTOWEL -->
-            <a href="/category.html?type=brand&name=AUTOWEL" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/July2018/aDPCDdlhZAZ7WrnD03pX.jpg" alt="AUTOWEL" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">AUTOWEL</span>
-              </span>
-            </a>
-
-            <!-- Brand: WELDSTAR -->
-            <a href="/category.html?type=brand&name=WELDSTAR" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/June2026/bbxN3p84j10ey2KVaIKr.jpg" alt="WELDSTAR" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">WELDSTAR</span>
-              </span>
-            </a>
-
-            <!-- Brand: TRAFIMET -->
-            <a href="/category.html?type=brand&name=TRAFIMET" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/February2019/dSgu7HCvUwcytYJVlOwi.jpg" alt="TRAFIMET" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">TRAFIMET</span>
-              </span>
-            </a>
-
-            <!-- Brand: OTC -->
-            <a href="/category.html?type=brand&name=OTC" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/March2019/FW651aAyEGXVCKcliYdJ.jpg" alt="OTC" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">OTC</span>
-              </span>
-            </a>
-
-            <!-- Brand: IOXYGEN -->
-            <a href="/category.html?type=brand&name=IOXYGEN" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/September2018/Pl61ieaHTaRw1uRcDq8y.JPG" alt="IOXYGEN" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">IOXYGEN</span>
-              </span>
-            </a>
-
-            <!-- Brand: OPTECH -->
-            <a href="/category.html?type=brand&name=OPTECH" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/March2019/V4s6y6zQBAEoVMoxUg0I.jpg" alt="OPTECH" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">OPTECH</span>
-              </span>
-            </a>
-
-            <!-- Brand: UDO -->
-            <a href="/category.html?type=brand&name=UDO" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/June2026/KPR0YTeJ0GmPt9lk462M.jpg" alt="UDO" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">UDO</span>
-              </span>
-            </a>
-
-            <!-- Brand: GASWORK -->
-            <a href="/category.html?type=brand&name=GASWORK" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/July2020/hgnaGcOaxUiIXSTdyiPx.jpg" alt="GASWORK" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">GASWORK</span>
-              </span>
-            </a>
-
-            <!-- Brand: EMTOP -->
-            <a href="/category.html?type=brand&name=EMTOP" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/February2024/9uymsK6RGFvvKMeBKlIX.jpg" alt="EMTOP" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">EMTOP</span>
-              </span>
-            </a>
-
-            <!-- Brand: KISWEL -->
-            <a href="/category.html?type=brand&name=KISWEL" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/December2022/VL6gfjF6czbszJP51YAJ.jpg" alt="KISWEL" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">KISWEL</span>
-              </span>
-            </a>
-
-            <!-- Brand: TASETO -->
-            <a href="/category.html?type=brand&name=TASETO" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/June2026/dkXIT9ghPYxBPwS9RcZO.jpg" alt="TASETO" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">TASETO</span>
-              </span>
-            </a>
-
-            <!-- Brand: ESAB -->
-            <a href="/category.html?type=brand&name=ESAB" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/August2020/k6ismQQuFRyYN6W0VkHW.png" alt="ESAB" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" onerror="this.src='/images/brands/logo-esab.webp'" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">ESAB</span>
-              </span>
-            </a>
-
-            <!-- Brand: GOLD PREMIUM -->
-            <a href="/category.html?type=brand&name=GOLD%20PREMIUM" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/June2026/f2ZKNgaAoAgYXMtFhPcK.jpg" alt="GOLD PREMIUM" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">GOLD PREMIUM</span>
-              </span>
-            </a>
-
-            <!-- Brand: POWERARC -->
-            <a href="/category.html?type=brand&name=POWERARC" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/March2026/0t6xH08oRgpZCqGYlx5E.jpg" alt="POWERARC" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">POWERARC</span>
-              </span>
-            </a>
-
-            <!-- Brand: STANVAC -->
-            <a href="/category.html?type=brand&name=STANVAC" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/October2023/U82bZ2qN7P6teRqpVhar.png" alt="STANVAC" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">STANVAC</span>
-              </span>
-            </a>
-
-            <!-- Brand: SUPERON -->
-            <a href="/category.html?type=brand&name=SUPERON" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/March2025/lP6xA9pLXXNdV1YQkpF7.jpg" alt="SUPERON" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">SUPERON</span>
-              </span>
-            </a>
-
-            <!-- Brand: VDM METALS -->
-            <a href="/category.html?type=brand&name=VDM%20METALS" class="group flex flex-col items-center justify-start shrink-0 w-[160px] sm:w-[185px] md:w-[210px] lg:w-[230px] text-center cursor-pointer">
-              <!-- Uniform Brand Card Tile (White Background) -->
-              <div class="h-[96px] sm:h-[110px] md:h-[124px] lg:h-[136px] w-full bg-white rounded-[16px] md:rounded-[18px] flex items-center justify-center p-2 sm:p-2.5 md:p-3 mb-3 md:mb-3.5 transition-all duration-300 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1">
-                <img src="https://www.udo.co.th/storage/bands/January2026/mV1zbJQbwt6xJkmz5pip.png" alt="VDM METALS" class="max-h-full max-w-full w-auto h-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-              <!-- Brand Label Below Tile -->
-              <span class="text-[14px] md:text-[15.5px] font-bold text-gray-900 group-hover:text-brand-red transition-colors text-center leading-[1.4] tracking-[0.015em] min-h-[26px] flex items-center justify-center whitespace-nowrap">
-                <span class="inline-block transform scale-y-[1.08] origin-center">VDM METALS</span>
-              </span>
-            </a>
+        <!-- Article Header Zone -->
+        <header class="mb-8 md:mb-12 text-center">
+          <!-- Meta Pill Row -->
+          <div class="flex items-center justify-center flex-wrap gap-2.5 mb-4 text-xs sm:text-[13px] text-gray-500 font-medium">
+            <span id="article-category" class="px-3 py-0.5 rounded-full bg-neutral-100 text-[#160808] font-semibold">เทคนิค & สาระงานช่าง</span>
+            <span>•</span>
+            <span id="article-date">กำลังโหลด...</span>
+            <span>•</span>
+            <span id="article-read-time">อ่าน 3 นาที</span>
           </div>
 
-          <!-- Prev Button (Desktop / Tablet Scroll Control) -->
-          <button id="brandStripPrev" aria-label="เลื่อนแบรนด์ก่อนหน้า" class="hidden md:flex absolute -left-3 lg:-left-4 top-[38%] -translate-y-1/2 w-10 h-10 md:w-11 md:h-11 bg-white shadow-[0_3px_14px_rgba(0,0,0,0.12)] border border-gray-200/90 rounded-full items-center justify-center text-gray-700 hover:text-black hover:bg-gray-50 hover:shadow-lg active:scale-95 transition-all z-10 cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 md:w-5.5 md:h-5.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
+          <!-- Main Article Title (H1) -->
+          <h1 id="article-title" class="text-[26px] sm:text-[34px] md:text-[38px] font-bold text-[#160808] leading-[1.3] md:leading-[1.25] mb-4 sm:mb-6 max-w-[920px] mx-auto">
+            กำลังโหลดเนื้อหาบทความ...
+          </h1>
 
-          <!-- Next Button (Desktop / Tablet Scroll Control) -->
-          <button id="brandStripNext" aria-label="เลื่อนแบรนด์ถัดไป" class="hidden md:flex absolute -right-3 lg:-right-4 top-[38%] -translate-y-1/2 w-10 h-10 md:w-11 md:h-11 bg-white shadow-[0_3px_14px_rgba(0,0,0,0.12)] border border-gray-200/90 rounded-full items-center justify-center text-gray-700 hover:text-black hover:bg-gray-50 hover:shadow-lg active:scale-95 transition-all z-10 cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 md:w-5.5 md:h-5.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
+          <!-- Lead Excerpt Subtitle -->
+          <p id="article-excerpt" class="text-[16px] sm:text-[18px] text-[#424245] leading-relaxed max-w-[840px] mx-auto font-light">
+          </p>
+        </header>
+
+        <!-- Main Cover Image (1,040px Container) -->
+        <div id="article-cover-container" class="w-full mb-10 sm:mb-14 rounded-2xl overflow-hidden bg-gray-100 border border-gray-200/80 shadow-xs hidden">
+          <img id="article-cover-img" src="" alt="ภาพหน้าปกบทความ" class="w-full h-auto object-cover max-h-[560px] mx-auto" />
+        </div>
+
+        <!-- Modular Story Blocks Container (Showcase Architecture 100%) -->
+        <div id="article-story-blocks" class="w-full space-y-12 sm:space-y-16">
+          <!-- Injected dynamically by article.js -->
+        </div>
+
+        <!-- Author Box & Tags Footer -->
+        <div class="mt-14 pt-8 border-t border-gray-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-[#160808] text-white flex items-center justify-center font-bold text-xs tracking-wider shrink-0">
+              UDO
+            </div>
+            <div>
+              <div id="article-author" class="text-sm font-semibold text-[#160808]">UDO Technical Team</div>
+              <div class="text-xs text-gray-500">ศูนย์รวมลวดเชื่อมและเครื่องมืออุตสาหกรรม</div>
+            </div>
+          </div>
+
+          <div id="article-tags-container" class="flex flex-wrap items-center gap-1.5">
+            <!-- Dynamic tags pills injected here -->
+          </div>
+        </div>
+      </article>
+
+      <!-- Related Welding Tools / Recommended Products Section -->
+      <section id="article-recommended-products-section" class="w-full bg-[#FAF9F6] border-y border-gray-200/80 py-12 md:py-16 mt-16 sm:mt-20 hidden">
+        <div class="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12">
+          <div class="max-w-[1040px] mx-auto">
+            <div class="flex items-baseline justify-between mb-6 md:mb-8">
+              <div>
+                <span class="text-xs font-bold uppercase tracking-wider text-brand-red block mb-1">Recommended Tools</span>
+                <h2 class="text-[22px] sm:text-[26px] font-semibold text-[#160808]">
+                  เครื่องมือและลวดเชื่อมที่เกี่ยวข้องกับบทความ
+                </h2>
+              </div>
+              <a href="/category.html" class="text-xs sm:text-sm font-medium text-gray-700 hover:text-black underline underline-offset-4">
+                ดูสินค้าทั้งหมด
+              </a>
+            </div>
+
+            <div id="article-recommended-products-grid" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5">
+              <!-- Injected by article.js -->
+            </div>
+          </div>
         </div>
       </section>
 
-      <!-- Section: Promotional Banner (LINE Consulting - In Container, Rounded Corners) -->
-      <section class="mt-8 md:mt-12 lg:mt-14 mb-4 md:mb-6 lg:mb-6">
-        <a href="https://line.me/ti/p/~@udowelding" target="_blank" rel="noopener noreferrer" class="block w-full rounded-[8px] overflow-hidden group shadow-[0_2px_12px_rgba(0,0,0,0.06)] hover:shadow-[0_6px_24px_rgba(0,0,0,0.12)] transition-all duration-300 relative">
-          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300 z-10 pointer-events-none"></div>
-          <img src="/images/campaigns/banner-line.webp" alt="ปรึกษาเรื่องลวดเชื่อม LINE @udowelding" class="w-full h-auto max-h-[150px] sm:max-h-[180px] md:max-h-[205px] lg:max-h-[225px] object-cover object-center block transition-transform duration-500 group-hover:scale-[1.012]" loading="lazy" />
-        </a>
-      </section>
+      <!-- Other Recommended Articles Section -->
+      <section id="article-related-articles-section" class="w-full bg-white py-12 md:py-16 overflow-hidden">
+        <div class="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12">
+          <div class="max-w-[1040px] mx-auto">
+            <div class="flex items-baseline justify-between mb-6 md:mb-8">
+              <div>
+                <span class="text-xs font-bold uppercase tracking-wider text-gray-500 block mb-1">More Articles</span>
+                <h2 class="text-[22px] sm:text-[26px] font-semibold text-[#160808]">
+                  บทความเทคนิคอื่นๆ ที่น่าสนใจ
+                </h2>
+              </div>
+              <a href="/" class="text-xs sm:text-sm font-medium text-gray-700 hover:text-black underline underline-offset-4">
+                กลับหน้าหลัก
+              </a>
+            </div>
 
-    </div> <!-- End max-w container -->
-  </div> <!-- End bg-white zone -->
-
-    <!-- โซน 2: สินค้าขายดี, สินค้าใหม่, สำหรับคุณ (พื้นหลังสีขาว) -->
-    <div class="w-full bg-white pt-2 md:pt-4 pb-4 md:pb-6">
-      <div class="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12">
-      
-      <!-- Section 1: สินค้าขายดี (คละหมวดหมู่ทั้งร้าน) -->
-      <section class="mb-12 md:mb-16">
-        <!-- Header -->
-        <div class="flex items-baseline justify-between mb-3 md:mb-4">
-          <h2 class="text-[30px] font-semibold text-gray-900 tracking-[0.008em]">
-            <span class="inline-block transform scale-y-[1.05] origin-bottom-left">สินค้าขายดี</span>
-          </h2>
-          <a href="/category.html?type=collection&name=top-sale" class="text-[16px] md:text-[18px] font-normal text-gray-900 hover:text-gray-600 underline underline-offset-4 transition-colors">
-            ดูทั้งหมด
-          </a>
-        </div>
-
-        <!-- Slider Wrapper -->
-        <div class="relative w-full group/pslider pb-1">
-          <div id="best-sellers-track" class="pslider-track flex items-stretch gap-3 md:gap-4 overflow-x-auto no-scrollbar pt-1 md:pt-2 pb-3 snap-x snap-mandatory">
-            <!-- Injected dynamically via home_hydrate.js -->
+            <div id="article-related-articles-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+              <!-- Injected by article.js -->
+            </div>
           </div>
-
-          <!-- Navigation Buttons -->
-          <button class="pslider-prev absolute left-0 top-1/2 -translate-y-1/2 w-8 h-14 bg-black/25 hover:bg-black/35 text-white rounded-md z-10 transition-all flex items-center justify-center opacity-0 pointer-events-none">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="0.8">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-          <button class="pslider-next absolute right-0 top-1/2 -translate-y-1/2 w-8 h-14 bg-black/25 hover:bg-black/35 text-white rounded-md z-10 transition-all flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="0.8">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
         </div>
       </section>
+    </main>
 
-      <!-- Section 3: สินค้าใหม่ -->
-      <section class="mb-12 md:mb-16">
-        <!-- Header -->
-        <div class="flex items-baseline justify-between mb-3 md:mb-4">
-          <h2 class="text-[30px] font-semibold text-gray-900 tracking-[0.008em]">
-            <span class="inline-block transform scale-y-[1.05] origin-bottom-left">สินค้าใหม่</span>
-          </h2>
-          <a href="/category.html?type=collection&name=new-arrivals" class="text-[16px] md:text-[18px] font-normal text-gray-900 hover:text-gray-600 underline underline-offset-4 transition-colors">
-            ดูทั้งหมด
-          </a>
-        </div>
-
-        <!-- Slider Wrapper -->
-        <div class="relative w-full group/pslider pb-1">
-          <div id="new-arrivals-track" class="pslider-track flex items-stretch gap-3 md:gap-4 overflow-x-auto no-scrollbar pt-1 md:pt-2 pb-3 snap-x snap-mandatory">
-            <!-- Injected dynamically via home_hydrate.js -->
-          </div>
-
-          <!-- Navigation Buttons -->
-          <button class="pslider-prev absolute left-0 top-1/2 -translate-y-1/2 w-8 h-14 bg-black/25 hover:bg-black/35 text-white rounded-md z-10 transition-all flex items-center justify-center opacity-0 pointer-events-none">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="0.8">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-          <button class="pslider-next absolute right-0 top-1/2 -translate-y-1/2 w-8 h-14 bg-black/25 hover:bg-black/35 text-white rounded-md z-10 transition-all flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="0.8">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-        </div>
-      </section>
-
-      <!-- Section 3: สำหรับคุณ -->
-      <section class="mb-2 md:mb-4">
-        <!-- Header -->
-        <div class="flex items-baseline justify-between mb-3 md:mb-4">
-          <h2 class="text-[30px] font-semibold text-gray-900 tracking-[0.008em]">
-            <span class="inline-block transform scale-y-[1.05] origin-bottom-left">สำหรับคุณ</span>
-          </h2>
-          <a href="/category.html?type=collection&name=for-you" class="text-[16px] md:text-[18px] font-normal text-gray-900 hover:text-gray-600 underline underline-offset-4 transition-colors">
-            ดูทั้งหมด
-          </a>
-        </div>
-
-        <!-- Slider Wrapper -->
-        <div class="relative w-full group/pslider pb-1">
-          <div id="for-you-track" class="pslider-track flex items-stretch gap-3 md:gap-4 overflow-x-auto no-scrollbar pt-1 md:pt-2 pb-3 snap-x snap-mandatory">
-            <!-- Injected dynamically via home_hydrate.js -->
-          </div>
-
-          <!-- Navigation Buttons -->
-          <button class="pslider-prev absolute left-0 top-1/2 -translate-y-1/2 w-8 h-14 bg-black/25 hover:bg-black/35 text-white rounded-md z-10 transition-all flex items-center justify-center opacity-0 pointer-events-none">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="0.8">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-          <button class="pslider-next absolute right-0 top-1/2 -translate-y-1/2 w-8 h-14 bg-black/25 hover:bg-black/35 text-white rounded-md z-10 transition-all flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="0.8">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-        </div>
-      </section>
-
-      <!-- Section: Promotional Banner (ใบตัด & ใบเจียรคุณภาพ - In Container, Rounded Corners) -->
-      <section class="mt-8 md:mt-12 lg:mt-14 mb-0">
-        <a href="/category.html?type=category&name=ใบตัดใบเจียร" class="block w-full rounded-[8px] md:rounded-[10px] overflow-hidden group shadow-[0_2px_12px_rgba(0,0,0,0.06)] hover:shadow-[0_6px_24px_rgba(0,0,0,0.12)] transition-all duration-300 relative">
-          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300 z-10 pointer-events-none"></div>
-          <img src="/images/campaigns/banner-commercial.webp" alt="ใบตัด & ใบเจียรคุณภาพ สำหรับงานมืออาชีพ" class="w-full h-auto object-cover object-center block transition-transform duration-500 group-hover:scale-[1.012]" loading="lazy" />
-        </a>
-      </section>
-
-      </div>
-    </div>
-      <!-- โซน: สินค้าแนะนำ (พื้นหลังสีเทาอ่อน #F7F6F4 ตามแบบ) -->
-    <section class="w-full bg-[#F7F6F4] py-12 md:py-16">
-      <div class="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12">
-        
-        <!-- Header -->
-        <div class="flex items-baseline justify-between mb-3 md:mb-4">
-          <h2 class="text-[30px] font-semibold text-gray-900 tracking-[0.008em]">
-            <span class="inline-block transform scale-y-[1.05] origin-bottom-left">สินค้าแนะนำ</span>
-          </h2>
-          <a href="/category.html?type=collection&name=recommended" class="text-[16px] md:text-[18px] font-normal text-gray-900 hover:text-gray-600 underline underline-offset-4 transition-colors">
-            ดูทั้งหมด
-          </a>
-        </div>
-
-        <!-- Slider Wrapper -->
-        <div class="relative w-full group/pslider pb-1">
-          <div id="recommended-products-track" class="pslider-track flex items-stretch gap-3 md:gap-4 overflow-x-auto no-scrollbar pt-1 md:pt-2 pb-3 snap-x snap-mandatory">
-            <!-- Injected dynamically via home_hydrate.js -->
-          </div>
-
-          <!-- Navigation Buttons -->
-          <button class="pslider-prev absolute left-0 top-1/2 -translate-y-1/2 w-8 h-14 bg-black/25 hover:bg-black/35 text-white rounded-md z-10 transition-all flex items-center justify-center opacity-0 pointer-events-none">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="0.8">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-          <button class="pslider-next absolute right-0 top-1/2 -translate-y-1/2 w-8 h-14 bg-black/25 hover:bg-black/35 text-white rounded-md z-10 transition-all flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="0.8">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-        </div>
-
-      </div>
-    </section>
-    <!-- โซน: บทความและสาระน่ารู้ (สไตล์ Central Inspirer: 3 การ์ด + เสี้ยวที่ 4) -->
-    <section class="w-full bg-white py-12 md:py-16 overflow-hidden">
-      <div class="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12">
-        
-        <!-- Header: สไตล์เดียวกับสินค้าแนะนำ และสินค้าขายดี -->
-        <div class="flex items-baseline justify-between mb-4 md:mb-6">
-          <h2 class="text-[30px] font-semibold text-gray-900 tracking-[0.008em]">
-            <span class="inline-block transform scale-y-[1.05] origin-bottom-left">เทคนิค & สาระงานช่าง</span>
-          </h2>
-          <a href="/category.html" class="text-[16px] md:text-[18px] font-normal text-gray-900 hover:text-gray-600 underline underline-offset-4 transition-colors">
-            ดูทั้งหมด
-          </a>
-        </div>
-
-        <!-- Slider Wrapper: แสดง 3 การ์ดเต็ม + เสี้ยวที่ 4 พร้อมปุ่มเลื่อนขวา -->
-        <div class="relative w-full group/pslider pb-1">
-          <div id="articles-track" class="pslider-track flex items-stretch gap-5 md:gap-6 lg:gap-7 overflow-x-auto no-scrollbar pt-1 pb-3 snap-x snap-mandatory">
-            
-            <!-- Article 1 -->
-            <a href="/article.html?slug=What_Is_Silver_Welding_Wire_Used_For" class="article-card-peek-3 snap-start shrink-0 flex flex-col group cursor-pointer">
-              <div class="w-full aspect-[16/10] bg-gray-100 rounded-[8px] overflow-hidden mb-3.5 md:mb-4 relative">
-                <img src="https://www.udo.co.th/storage/posts/September2026/Xj3wQ458wWQtN7q4NPLn.jpg" alt="BCuP-2 คืออะไร?" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" loading="lazy" />
-              </div>
-              <h3 class="font-semibold text-[#160808] group-hover:text-brand-red transition-colors text-[18.5px] md:text-[20px] leading-[1.38] md:leading-[1.4] line-clamp-2 h-[54px] md:h-[58px] overflow-hidden text-ellipsis transform scale-y-[1.035] origin-top-left" title="BCuP-2 คืออะไร? เข้าใจรหัส Copper-Phosphorus และความหมายของลวดเงิน 0%">
-                BCuP-2 คืออะไร? เข้าใจรหัส Copper-Phosphorus และความหมายของลวดเงิน 0%
-              </h3>
-              <p class="text-[15px] md:text-[16px] text-[#555555] font-light line-clamp-2 mt-1 md:mt-1.5 leading-[1.48] md:leading-[1.5] h-[44px] md:h-[48px] overflow-hidden text-ellipsis">
-                BCuP-2 ไม่ได้หมายถึงลวดที่มีเงิน แต่เป็นรหัสวัสดุประสานกลุ่ม Copper-Phosphorus สำหรับ Brazing เข้าใจความแตกต่างและข้อควรระวังในการใช้งาน
-              </p>
-            </a>
-
-            <!-- Article 2 -->
-            <a href="/article.html?slug=aluminum-filler-storage" class="article-card-peek-3 snap-start shrink-0 flex flex-col group cursor-pointer">
-              <div class="w-full aspect-[16/10] bg-gray-100 rounded-[8px] overflow-hidden mb-3.5 md:mb-4 relative">
-                <img src="https://www.udo.co.th/storage/posts/August2026/qjCNmhtNBDqFX6iQVzAu.jpg" alt="การเก็บลวดเติมและชิ้นงานอลูมิเนียม" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" loading="lazy" />
-              </div>
-              <h3 class="font-semibold text-[#160808] group-hover:text-brand-red transition-colors text-[18.5px] md:text-[20px] leading-[1.38] md:leading-[1.4] line-clamp-2 h-[54px] md:h-[58px] overflow-hidden text-ellipsis transform scale-y-[1.035] origin-top-left" title="การเก็บลวดเติมและชิ้นงานอลูมิเนียม: ลดความชื้นและสิ่งปนเปื้อนก่อนเข้าสู่งานเชื่อม">
-                การเก็บลวดเติมและชิ้นงานอลูมิเนียม: ลดความชื้นและสิ่งปนเปื้อนก่อนเข้าสู่งานเชื่อม
-              </h3>
-              <p class="text-[15px] md:text-[16px] text-[#555555] font-light line-clamp-2 mt-1 md:mt-1.5 leading-[1.48] md:leading-[1.5] h-[44px] md:h-[48px] overflow-hidden text-ellipsis">
-                การเก็บลวดเติมและชิ้นงานอลูมิเนียมอย่างเหมาะสมช่วยลดความชื้น น้ำมัน ฝุ่น และสิ่งปนเปื้อนที่อาจเกี่ยวข้องกับ Porosity เรียนรู้หลักการจัดเก็บที่ถูกต้อง
-              </p>
-            </a>
-
-            <!-- Article 3 -->
-            <a href="/article.html?slug=aluminum-steel-welding-intermetallic" class="article-card-peek-3 snap-start shrink-0 flex flex-col group cursor-pointer">
-              <div class="w-full aspect-[16/10] bg-gray-100 rounded-[8px] overflow-hidden mb-3.5 md:mb-4 relative">
-                <img src="https://www.udo.co.th/storage/posts/August2026/1UAymmnqb11qMn3GzgvD.jpg" alt="อลูมิเนียมเชื่อมกับเหล็กได้ไหม?" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" loading="lazy" />
-              </div>
-              <h3 class="font-semibold text-[#160808] group-hover:text-brand-red transition-colors text-[18.5px] md:text-[20px] leading-[1.38] md:leading-[1.4] line-clamp-2 h-[54px] md:h-[58px] overflow-hidden text-ellipsis transform scale-y-[1.035] origin-top-left" title="อลูมิเนียมเชื่อมกับเหล็กได้ไหม? เจาะบทบาท Fe-Al Intermetallic และการต่อโลหะต่างชนิด">
-                อลูมิเนียมเชื่อมกับเหล็กได้ไหม? เจาะบทบาท Fe-Al Intermetallic และการต่อโลหะต่างชนิด
-              </h3>
-              <p class="text-[15px] md:text-[16px] text-[#555555] font-light line-clamp-2 mt-1 md:mt-1.5 leading-[1.48] md:leading-[1.5] h-[44px] md:h-[48px] overflow-hidden text-ellipsis">
-                ทำความเข้าใจว่าทำไมการเชื่อมอลูมิเนียมกับเหล็กจึงซับซ้อน เจาะบทบาทของ Fe-Al Intermetallic ความต่างของ Welding, Brazing และ Joining
-              </p>
-            </a>
-
-            <!-- Article 4 (เริ่มแสดงเป็นเสี้ยวที่ 4 ในมุมมองแรก) -->
-            <a href="/article.html?slug=acr-copper-tube-astm-b280-brazing" class="article-card-peek-3 snap-start shrink-0 flex flex-col group cursor-pointer">
-              <div class="w-full aspect-[16/10] bg-gray-100 rounded-[8px] overflow-hidden mb-3.5 md:mb-4 relative">
-                <img src="https://www.udo.co.th/storage/posts/September2026/c5C8VkBlnIUntGiRcVZ8.png" alt="ACR Copper Tube และ ASTM B280 บอกอะไร" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" loading="lazy" />
-              </div>
-              <h3 class="font-semibold text-[#160808] group-hover:text-brand-red transition-colors text-[18.5px] md:text-[20px] leading-[1.38] md:leading-[1.4] line-clamp-2 h-[54px] md:h-[58px] overflow-hidden text-ellipsis transform scale-y-[1.035] origin-top-left" title="ACR Copper Tube และ ASTM B280 บอกอะไร ก่อนพิจารณางาน Brazing">
-                ACR Copper Tube และ ASTM B280 บอกอะไร ก่อนพิจารณางาน Brazing
-              </h3>
-              <p class="text-[15px] md:text-[16px] text-[#555555] font-light line-clamp-2 mt-1 md:mt-1.5 leading-[1.48] md:leading-[1.5] h-[44px] md:h-[48px] overflow-hidden text-ellipsis">
-                ASTM B280 อธิบายข้อกำหนดของ ACR copper tube ในงานทำความเย็นและการเลือก Filler Metal ในงาน Brazing อย่างถูกวิธี
-              </p>
-            </a>
-
-            <!-- Article 5 -->
-            <a href="/article.html?slug=welding-wire-mistakes-and-solutions" class="article-card-peek-3 snap-start shrink-0 flex flex-col group cursor-pointer">
-              <div class="w-full aspect-[16/10] bg-gray-100 rounded-[8px] overflow-hidden mb-3.5 md:mb-4 relative">
-                <img src="https://www.udo.co.th/storage/posts/July2025/JyT8OIEOhz02A3YmfPmf.png" alt="7 ปัญหาที่เกิดจากการใช้ลวดเชื่อมผิดประเภท" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" loading="lazy" />
-              </div>
-              <h3 class="font-semibold text-[#160808] group-hover:text-brand-red transition-colors text-[18.5px] md:text-[20px] leading-[1.38] md:leading-[1.4] line-clamp-2 h-[54px] md:h-[58px] overflow-hidden text-ellipsis transform scale-y-[1.035] origin-top-left" title="7 ปัญหาที่เกิดจากการใช้ลวดเชื่อมผิดประเภท พร้อมแนวทางการแก้ไขโดยผู้เชี่ยวชาญตัวจริง">
-                7 ปัญหาที่เกิดจากการใช้ลวดเชื่อมผิดประเภท พร้อมแนวทางการแก้ไขโดยผู้เชี่ยวชาญตัวจริง
-              </h3>
-              <p class="text-[15px] md:text-[16px] text-[#555555] font-light line-clamp-2 mt-1 md:mt-1.5 leading-[1.48] md:leading-[1.5] h-[44px] md:h-[48px] overflow-hidden text-ellipsis">
-                แนะนำ 7 ปัญหาหลักจากการใช้ลวดเชื่อมผิดประเภท ทั้งรอยแตกร้าว รูพรุน และการหลอมละลายไม่สมบูรณ์ พร้อมคำแนะนำวิธีแก้ไขอย่างถูกวิธี
-              </p>
-            </a>
-
-            <!-- Article 6 -->
-            <a href="/article.html?slug=welding-wire-safety-tips" class="article-card-peek-3 snap-start shrink-0 flex flex-col group cursor-pointer">
-              <div class="w-full aspect-[16/10] bg-gray-100 rounded-[8px] overflow-hidden mb-3.5 md:mb-4 relative">
-                <img src="https://www.udo.co.th/storage/posts/July2025/MioCeVYmijXpr7rMQIeb.png" alt="ลวดเชื่อมกับความปลอดภัย" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" loading="lazy" />
-              </div>
-              <h3 class="font-semibold text-[#160808] group-hover:text-brand-red transition-colors text-[18.5px] md:text-[20px] leading-[1.38] md:leading-[1.4] line-clamp-2 h-[54px] md:h-[58px] overflow-hidden text-ellipsis transform scale-y-[1.035] origin-top-left" title="ลวดเชื่อมกับความปลอดภัย: สิ่งที่คุณต้องรู้เพื่อหลีกเลี่ยงอุบัติเหตุจากการเชื่อมโลหะ">
-                ลวดเชื่อมกับความปลอดภัย: สิ่งที่คุณต้องรู้เพื่อหลีกเลี่ยงอุบัติเหตุจากการเชื่อมโลหะ
-              </h3>
-              <p class="text-[15px] md:text-[16px] text-[#555555] font-light line-clamp-2 mt-1 md:mt-1.5 leading-[1.48] md:leading-[1.5] h-[44px] md:h-[48px] overflow-hidden text-ellipsis">
-                เรียนรู้วิธีเลือกใช้ลวดเชื่อมและอุปกรณ์ป้องกันอย่างปลอดภัย เพื่อป้องกันอุบัติเหตุ ควันพิษ และอันตรายจากความร้อนสูง แนะนำโดยผู้เชี่ยวชาญ UDO
-              </p>
-            </a>
-
-          </div>
-
-          <!-- Navigation Buttons: ปุ่มกลมสไตล์มินิมอล ลอยอยู่บนการ์ดที่ 4 ทางขวาตามแบบภาพอ้างอิง -->
-          <button class="pslider-prev absolute left-0 top-[35%] -translate-y-1/2 -translate-x-2 md:-translate-x-3 w-10 h-10 md:w-11 md:h-11 bg-white hover:bg-gray-50 text-gray-800 rounded-full shadow-[0_4px_16px_rgba(0,0,0,0.15)] border border-gray-200 z-20 transition-all duration-200 flex items-center justify-center opacity-0 pointer-events-none hover:scale-105 active:scale-95 cursor-pointer" aria-label="บทความก่อนหน้า">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-          <button class="pslider-next absolute right-0 top-[35%] -translate-y-1/2 translate-x-2 md:translate-x-3 w-10 h-10 md:w-11 md:h-11 bg-white hover:bg-gray-50 text-gray-800 rounded-full shadow-[0_4px_16px_rgba(0,0,0,0.15)] border border-gray-200 z-20 transition-all duration-200 flex items-center justify-center hover:scale-105 active:scale-95 cursor-pointer" aria-label="บทความถัดไป">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-        </div>
-
-      </div>
-    </section>
-  </main>
-
-  <!-- Footer (สไตล์ Central Inspirer: พื้นหลังขาว, Ribbon สีเข้มคั่นกลาง, ไร้แถบดำล่างสุด) -->
+    <!-- 4. Shared Footer & Floating UI Components -->
+    <!-- Footer (สไตล์ Central Inspirer: พื้นหลังขาว, Ribbon สีเข้มคั่นกลาง, ไร้แถบดำล่างสุด) -->
 <footer class="bg-white w-full border-t border-gray-200">
   
   <!-- 1. โซนหัวข้อและ 3 ไอคอนจุดเด่น (WHY SHOP WITH US) จัดกึ่งกลาง -->
@@ -2365,7 +1434,7 @@ l-45 0 0 343 c0 189 3 347 7 350 12 13 277 7 293 -6z m118 -614 c28 -32 32
   </div>
 
 </footer>
-  <!-- Sticky Right Buttons (Why UDO & LINE) -->
+    <!-- Sticky Right Buttons (Why UDO & LINE) -->
   <div class="fixed bottom-6 md:bottom-8 right-6 md:right-8 z-[100] flex flex-col items-center gap-3 md:gap-4">
     
     <!-- Why UDO Button -->
@@ -2389,7 +1458,7 @@ l-45 0 0 343 c0 189 3 347 7 350 12 13 277 7 293 -6z m118 -614 c28 -32 32
     </a>
   </div>
 
-  <!-- Floating Apple Frosted Glass Pill Dock with Orbiting Red/Green Laser Frame -->
+    <!-- Floating Apple Frosted Glass Pill Dock with Orbiting Red/Green Laser Frame -->
 <div id="mobile-bottom-dock" class="fixed bottom-5 sm:bottom-6 left-1/2 -translate-x-1/2 z-[100] transition-all duration-300 select-none">
   
   <!-- Outer Ambient Glow Aura around the entire Dock -->
@@ -2704,6 +1773,7 @@ l-45 0 0 343 c0 189 3 347 7 350 12 13 277 7 293 -6z m118 -614 c28 -32 32
     </div>
   </div>
 </div>
-</div>
+
+    </div>
   </body>
 </html>
