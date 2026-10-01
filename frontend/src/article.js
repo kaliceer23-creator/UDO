@@ -6,6 +6,9 @@
  * Strictly adheres to GEMINI.md: Zero frameworks, zero emojis in code or output.
  */
 
+import './style.css';
+import './nav_search.js';
+import './dock.js';
 import { generateCardHTML } from './components/ProductCard.js';
 
 function escapeHtml(str) {
@@ -337,8 +340,96 @@ async function renderRelatedArticles(currentSlug) {
   `).join('');
 }
 
+function initMegaMenu() {
+  const menuBtn = document.getElementById('category-menu-btn');
+  const menuArrow = document.getElementById('category-menu-arrow');
+  const megaMenu = document.getElementById('desktop-mega-menu');
+  const overlay = document.getElementById('mega-menu-overlay');
+
+  if (!menuBtn || !megaMenu) return;
+
+  const closeMenu = () => {
+    megaMenu.classList.add('hidden');
+    megaMenu.classList.remove('flex');
+    if (menuArrow) menuArrow.classList.remove('rotate-180');
+    if (overlay) overlay.classList.add('hidden');
+    if (menuBtn) menuBtn.classList.remove('bg-white/25');
+  };
+
+  const openMenu = () => {
+    megaMenu.classList.remove('hidden');
+    megaMenu.classList.add('flex');
+    if (menuArrow) menuArrow.classList.add('rotate-180');
+    if (overlay) overlay.classList.remove('hidden');
+    if (menuBtn) menuBtn.classList.add('bg-white/25');
+  };
+
+  const megaSidebarItems = megaMenu.querySelectorAll('.mega-sidebar-item');
+  const megaPanels = megaMenu.querySelectorAll('.mega-panel');
+
+  const activateMegaTab = (tabId) => {
+    megaSidebarItems.forEach((item) => {
+      const arrow = item.querySelector('.mega-sidebar-arrow');
+      if (item.dataset.megaTab === tabId) {
+        item.classList.add('bg-brand-green', 'text-white');
+        item.classList.remove('text-[#252525]');
+        if (arrow) {
+          arrow.classList.add('text-white');
+          arrow.classList.remove('text-gray-400');
+        }
+      } else {
+        item.classList.remove('bg-brand-green', 'text-white');
+        item.classList.add('text-[#252525]');
+        if (arrow) {
+          arrow.classList.remove('text-white');
+          arrow.classList.add('text-gray-400');
+        }
+      }
+    });
+
+    megaPanels.forEach((panel) => {
+      if (panel.id === `mega-panel-${tabId}`) {
+        panel.classList.remove('hidden');
+        panel.classList.add('block');
+      } else {
+        panel.classList.add('hidden');
+        panel.classList.remove('block');
+      }
+    });
+  };
+
+  megaSidebarItems.forEach((item) => {
+    const tabId = item.dataset.megaTab;
+    item.addEventListener('mouseenter', () => activateMegaTab(tabId));
+    item.addEventListener('focus', () => activateMegaTab(tabId));
+  });
+
+  menuBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isHidden = megaMenu.classList.contains('hidden');
+    if (isHidden) {
+      openMenu();
+      activateMegaTab('12');
+    } else {
+      closeMenu();
+    }
+  });
+
+  if (overlay) {
+    overlay.addEventListener('click', closeMenu);
+  }
+
+  document.addEventListener('click', (e) => {
+    if (!menuBtn.contains(e.target) && !megaMenu.contains(e.target) && !megaMenu.classList.contains('hidden')) {
+      closeMenu();
+    }
+  });
+}
+
 // Initialize on DOM ready
 document.addEventListener('DOMContentLoaded', async () => {
+  initMegaMenu();
+
   const params = new URLSearchParams(window.location.search);
   const slug = params.get('slug');
   const id = params.get('id');
