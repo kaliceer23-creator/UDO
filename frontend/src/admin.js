@@ -3815,7 +3815,7 @@ function closeShowcasePreviewModal() {
 function setShowcasePreviewMode(mode) {
   if (!dom.showcasePreviewFrame) return;
   if (mode === 'mobile') {
-    dom.showcasePreviewFrame.classList.remove('max-w-4xl');
+    dom.showcasePreviewFrame.classList.remove('max-w-6xl');
     dom.showcasePreviewFrame.classList.add('max-w-[390px]');
     if (dom.btnShowcaseViewMobile) {
       dom.btnShowcaseViewMobile.classList.add('bg-white', 'text-black', 'shadow-2xs', 'font-bold');
@@ -3827,7 +3827,7 @@ function setShowcasePreviewMode(mode) {
     }
   } else {
     dom.showcasePreviewFrame.classList.remove('max-w-[390px]');
-    dom.showcasePreviewFrame.classList.add('max-w-4xl');
+    dom.showcasePreviewFrame.classList.add('max-w-6xl');
     if (dom.btnShowcaseViewDesktop) {
       dom.btnShowcaseViewDesktop.classList.add('bg-white', 'text-black', 'shadow-2xs', 'font-bold');
       dom.btnShowcaseViewDesktop.classList.remove('text-gray-600', 'font-semibold');
@@ -3842,7 +3842,6 @@ function setShowcasePreviewMode(mode) {
 function renderShowcasePreview() {
   if (!dom.showcasePreviewContent || !state.activeProduct) return;
   const blocks = normalizeRichBlocks(state.activeProduct);
-  const isDocument = Boolean(dom.drawerRichIsDocument?.checked);
 
   // Filter out completely empty blocks
   const visibleBlocks = blocks.filter(b => b.headline || b.subheadline || b.paragraph || b.image);
@@ -3857,22 +3856,23 @@ function renderShowcasePreview() {
     return;
   }
 
+  const maxImgWidth = 'max-w-[1040px]';
+
   dom.showcasePreviewContent.innerHTML = visibleBlocks.map((b, i) => {
     const hasText = Boolean(b.headline || b.subheadline || b.paragraph);
     const hasImage = Boolean(b.image);
-    const maxImgWidth = isDocument ? 'max-w-[1040px]' : 'max-w-[840px]';
 
     return `
-      <div class="story-preview-block mb-10 text-center">
+      <div class="story-preview-block mb-12 sm:mb-16 text-center">
         ${hasText ? `
           <div class="w-full ${maxImgWidth} mx-auto text-center px-4 sm:px-0 mb-8">
             ${b.headline ? `
-              <h3 class="text-[24px] font-semibold text-[#252525] mb-4">
+              <h3 class="text-[24px] sm:text-[26px] font-semibold text-[#252525] mb-6 sm:mb-8">
                 ${escapeHtml(b.headline)}
               </h3>
             ` : ''}
             ${b.subheadline ? `
-              <h4 class="text-[19px] font-semibold text-[#252525] mb-4">
+              <h4 class="text-[19px] sm:text-[20px] font-semibold text-[#252525] mb-2 sm:mb-2.5">
                 ${escapeHtml(b.subheadline)}
               </h4>
             ` : ''}

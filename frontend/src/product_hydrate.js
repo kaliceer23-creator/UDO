@@ -472,7 +472,7 @@ export async function hydrateProduct(productOverride = null) {
     };
 
     const isDoc = productData.richContent?.isDocument === true;
-    const imgWrapperWidthClass = isDoc ? 'max-w-[1040px]' : 'max-w-[840px]';
+    const imgWrapperWidthClass = 'max-w-[1040px]';
     const storyBlocksContainer = document.getElementById('rich-story-blocks-container');
 
     const hasModularBlocks = Array.isArray(productData.richContent?.blocks) && 
@@ -494,16 +494,16 @@ export async function hydrateProduct(productOverride = null) {
         const hasImg = Boolean(b.image);
 
         return `
-          <div class="story-block mb-10">
+          <div class="story-block mb-12 sm:mb-16">
             ${hasText ? `
               <div class="w-full ${imgWrapperWidthClass} mx-auto text-center px-4 sm:px-0 mb-8">
                 ${b.headline ? `
-                  <h3 class="text-[24px] font-semibold text-[#252525] mb-4">
+                  <h3 class="text-[24px] sm:text-[26px] font-semibold text-[#252525] mb-6 sm:mb-8">
                     ${b.headline.replace(/</g, '&lt;').replace(/>/g, '&gt;')}
                   </h3>
                 ` : ''}
                 ${b.subheadline ? `
-                  <h4 class="text-[19px] font-semibold text-[#252525] mb-4">
+                  <h4 class="text-[19px] sm:text-[20px] font-semibold text-[#252525] mb-2 sm:mb-2.5">
                     ${b.subheadline.replace(/</g, '&lt;').replace(/>/g, '&gt;')}
                   </h4>
                 ` : ''}
