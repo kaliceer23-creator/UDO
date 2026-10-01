@@ -43,23 +43,14 @@ class UdoAdminStockService
         $sku = (string)($payload['sku'] ?? '');
         $reason = trim((string)($payload['reason'] ?? 'Manual stock adjustment'));
 
-        $allProducts = $this->productsService->loadProducts();
-        $targetIndex = -1;
+        $product = $this->productsService->loadSingleProduct($productId);
 
-        foreach ($allProducts as $idx => $p) {
-            if (($p['id'] ?? '') === $productId) {
-                $targetIndex = $idx;
-                break;
-            }
-        }
-
-        if ($targetIndex === -1) {
+        if (!$product) {
             http_response_code(404);
             echo json_encode(['success' => false, 'error' => 'Product not found']);
             return;
         }
 
-        $product = $allProducts[$targetIndex];
         $variants = $product['variants'] ?? [];
         if (empty($variants)) {
             http_response_code(400);
@@ -100,12 +91,11 @@ class UdoAdminStockService
             $product['availability'] = $hasStock ? 'in_stock' : 'out_of_stock';
         }
 
-        $allProducts[$targetIndex] = $product;
-        $saved = $this->productsService->saveProducts($allProducts);
+        $saved = $this->productsService->saveSingleProduct($product);
 
         if (!$saved) {
             http_response_code(500);
-            echo json_encode(['success' => false, 'error' => 'Failed to save stock update']);
+            echo json_encode(['success' => false, 'error' => 'Failed to save stock update in database']);
             return;
         }
 

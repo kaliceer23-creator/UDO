@@ -72,10 +72,33 @@ class UdoAdminProductsService
     }
 
     /**
-     * Load products list from Master JSON
+     * Load products list from MariaDB document store
      */
     public function loadProducts(): array
     {
+        $db = $this->getDbConnection();
+        if ($db !== null) {
+            try {
+                $stmt = $db->query("SELECT id, sku, name, brand, category, status, availability, sort_priority, data FROM products ORDER BY sort_priority ASC, id ASC");
+                $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                $products = [];
+                foreach ($rows as $row) {
+                    $item = json_decode($row['data'], true);
+                    if ($item !== null) {
+                        $item['id'] = $row['id'];
+                        $item['status'] = $row['status'];
+                        $item['availability'] = $row['availability'];
+                        $item['sort_priority'] = (int)$row['sort_priority'];
+                        $products[] = $item;
+                    }
+                }
+                return $products;
+            } catch (Throwable $e) {
+                error_log('MariaDB loadProducts error: ' . $e->getMessage());
+            }
+        }
+
+        // Fallback to JSON file if database is not reachable
         if (!empty($this->jsonFilePath) && file_exists($this->jsonFilePath)) {
             $content = file_get_contents($this->jsonFilePath);
             if ($content !== false) {
@@ -89,34 +112,207 @@ class UdoAdminProductsService
     }
 
     /**
-     * Save products list back to Master JSON and mirror to frontend sync paths
+     * Load a single product document by ID from MariaDB
      */
-    public function saveProducts(array $products): bool
+    public function loadSingleProduct(string $id): ?array
     {
-        if (empty($this->jsonFilePath)) {
-            return false;
-        }
+        if (empty($id)) return null;
 
-        $jsonText = json_encode($products, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-        if ($jsonText === false) {
-            return false;
-        }
-
-        $res = file_put_contents($this->jsonFilePath, $jsonText, LOCK_EX);
-
-        // Mirror to frontend directories if they exist
-        $mirrorPaths = [
-            dirname(__DIR__, 2) . '/frontend/public/api/data/welding_products.json',
-            dirname(__DIR__, 2) . '/frontend/src/welding_products.json',
-            dirname(__DIR__) . '/data/welding_products.json'
-        ];
-        foreach ($mirrorPaths as $mp) {
-            if ($mp !== $this->jsonFilePath && file_exists(dirname($mp))) {
-                @file_put_contents($mp, $jsonText, LOCK_EX);
+        $db = $this->getDbConnection();
+        if ($db !== null) {
+            try {
+                $stmt = $db->prepare("SELECT id, sku, name, brand, category, status, availability, sort_priority, data FROM products WHERE id = ? LIMIT 1");
+                $stmt->execute([$id]);
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                if ($row) {
+                    $item = json_decode($row['data'], true);
+                    if ($item !== null) {
+                        $item['id'] = $row['id'];
+                        $item['status'] = $row['status'];
+                        $item['availability'] = $row['availability'];
+                        $item['sort_priority'] = (int)$row['sort_priority'];
+                        return $item;
+                    }
+                }
+            } catch (Throwable $e) {
+                error_log('MariaDB loadSingleProduct error: ' . $e->getMessage());
             }
         }
 
-        return $res !== false;
+        // Fallback scan if database is not reachable
+        $all = $this->loadProducts();
+        foreach ($all as $p) {
+            if (($p['id'] ?? '') === $id) {
+                return $p;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Insert or update a single product document in MariaDB
+     */
+    public function saveSingleProduct(array $product): bool
+    {
+        $id = (string)($product['id'] ?? '');
+        if (empty($id)) return false;
+
+        $db = $this->getDbConnection();
+        $dbSaved = false;
+
+        if ($db !== null) {
+            try {
+                $sku = !empty($product['sku']) ? (string)$product['sku'] : null;
+                $name = (string)($product['name'] ?? '');
+                $brand = !empty($product['brand']) ? (string)$product['brand'] : null;
+                $category = 'other';
+                if (!empty($product['categories']) && is_array($product['categories'])) {
+                    $first = $product['categories'][0];
+                    $category = is_array($first) ? ($first['name'] ?? $first['url_slug'] ?? 'other') : (string)$first;
+                } elseif (!empty($product['category'])) {
+                    $category = (string)$product['category'];
+                }
+
+                $status = (string)($product['status'] ?? 'publish');
+                $availability = (string)($product['availability'] ?? (empty($product['flags']['is_in_stock']) ? 'out_of_stock' : 'in_stock'));
+                $sortPriority = (int)($product['sort_priority'] ?? 999999);
+                $jsonData = json_encode($product, JSON_UNESCAPED_UNICODE);
+
+                $stmt = $db->prepare("
+                    INSERT INTO products 
+                    (id, sku, name, brand, category, status, availability, sort_priority, data)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    ON DUPLICATE KEY UPDATE
+                    sku = VALUES(sku),
+                    name = VALUES(name),
+                    brand = VALUES(brand),
+                    category = VALUES(category),
+                    status = VALUES(status),
+                    availability = VALUES(availability),
+                    sort_priority = VALUES(sort_priority),
+                    data = VALUES(data),
+                    updated_at = NOW()
+                ");
+                $dbSaved = $stmt->execute([
+                    $id, $sku, $name, $brand, $category, $status, $availability, $sortPriority, $jsonData
+                ]);
+            } catch (Throwable $e) {
+                error_log('MariaDB saveSingleProduct error: ' . $e->getMessage());
+            }
+        }
+
+        return $dbSaved;
+    }
+
+    /**
+     * Delete a single product from MariaDB
+     */
+    public function deleteSingleProduct(string $id): bool
+    {
+        if (empty($id)) return false;
+
+        $db = $this->getDbConnection();
+        $dbDeleted = false;
+
+        if ($db !== null) {
+            try {
+                $stmt = $db->prepare("DELETE FROM products WHERE id = ?");
+                $dbDeleted = $stmt->execute([$id]);
+            } catch (Throwable $e) {
+                error_log('MariaDB deleteSingleProduct error: ' . $e->getMessage());
+            }
+        }
+
+        return $dbDeleted;
+    }
+
+    /**
+     * Delete multiple products from MariaDB in a single batch
+     */
+    public function deleteMultipleProducts(array $ids): int
+    {
+        $ids = array_values(array_filter(array_map('strval', $ids)));
+        if (empty($ids)) return 0;
+
+        $db = $this->getDbConnection();
+        $deletedCount = 0;
+
+        if ($db !== null) {
+            try {
+                $placeholders = implode(',', array_fill(0, count($ids), '?'));
+                $stmt = $db->prepare("DELETE FROM products WHERE id IN ($placeholders)");
+                $stmt->execute($ids);
+                $deletedCount = $stmt->rowCount();
+            } catch (Throwable $e) {
+                error_log('MariaDB deleteMultipleProducts error: ' . $e->getMessage());
+            }
+        }
+
+        return $deletedCount;
+    }
+
+    /**
+     * Save products list back to MariaDB document store
+     */
+    public function saveProducts(array $products): bool
+    {
+        $db = $this->getDbConnection();
+        $dbSaved = false;
+
+        if ($db !== null) {
+            try {
+                $stmt = $db->prepare("
+                    INSERT INTO products 
+                    (id, sku, name, brand, category, status, availability, sort_priority, data)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    ON DUPLICATE KEY UPDATE
+                    sku = VALUES(sku),
+                    name = VALUES(name),
+                    brand = VALUES(brand),
+                    category = VALUES(category),
+                    status = VALUES(status),
+                    availability = VALUES(availability),
+                    sort_priority = VALUES(sort_priority),
+                    data = VALUES(data),
+                    updated_at = NOW()
+                ");
+
+                $db->beginTransaction();
+                foreach ($products as $p) {
+                    $id = (string)($p['id'] ?? '');
+                    if (empty($id)) continue;
+
+                    $sku = !empty($p['sku']) ? (string)$p['sku'] : null;
+                    $name = (string)($p['name'] ?? '');
+                    $brand = !empty($p['brand']) ? (string)$p['brand'] : null;
+                    $category = 'other';
+                    if (!empty($p['categories']) && is_array($p['categories'])) {
+                        $first = $p['categories'][0];
+                        $category = is_array($first) ? ($first['name'] ?? $first['url_slug'] ?? 'other') : (string)$first;
+                    } elseif (!empty($p['category'])) {
+                        $category = (string)$p['category'];
+                    }
+
+                    $status = (string)($p['status'] ?? 'publish');
+                    $availability = (string)($p['availability'] ?? (empty($p['flags']['is_in_stock']) ? 'out_of_stock' : 'in_stock'));
+                    $sortPriority = (int)($p['sort_priority'] ?? 999999);
+                    $jsonData = json_encode($p, JSON_UNESCAPED_UNICODE);
+
+                    $stmt->execute([
+                        $id, $sku, $name, $brand, $category, $status, $availability, $sortPriority, $jsonData
+                    ]);
+                }
+                $db->commit();
+                $dbSaved = true;
+            } catch (Throwable $e) {
+                if ($db->inTransaction()) {
+                    $db->rollBack();
+                }
+                error_log('MariaDB saveProducts error: ' . $e->getMessage());
+            }
+        }
+
+        return $dbSaved;
     }
 
     /**
@@ -272,6 +468,18 @@ class UdoAdminProductsService
             if (!empty($shelves['new_arrival'])) $summary['new_arrival']++;
             if (!empty($shelves['recommended'])) $summary['recommended']++;
             if (!empty($shelves['promotion'])) $summary['promotion']++;
+        }
+
+        // Return full catalog for admin cache / taxonomy if requested
+        if (isset($_GET['all']) && ($_GET['all'] === '1' || $_GET['all'] === 'true')) {
+            echo json_encode([
+                'success' => true,
+                'total' => $totalProducts,
+                'filtered_total' => $totalProducts,
+                'summary' => $summary,
+                'products' => $allProducts
+            ], JSON_UNESCAPED_UNICODE);
+            return;
         }
 
         // Filtering
@@ -491,17 +699,9 @@ class UdoAdminProductsService
         }
 
         $productId = (string)$payload['id'];
-        $allProducts = $this->loadProducts();
-        $targetIndex = -1;
+        $existing = $this->loadSingleProduct($productId);
 
-        foreach ($allProducts as $idx => $p) {
-            if (($p['id'] ?? '') === $productId) {
-                $targetIndex = $idx;
-                break;
-            }
-        }
-
-        if ($targetIndex === -1) {
+        if (!$existing) {
             if (!empty($payload['is_new'])) {
                 $this->handleCreateProduct($payload);
                 return;
@@ -510,8 +710,6 @@ class UdoAdminProductsService
             echo json_encode(['success' => false, 'error' => 'Product not found']);
             return;
         }
-
-        $existing = $allProducts[$targetIndex];
 
         // Sanitize and update text fields
         if (isset($payload['name'])) $existing['name'] = trim((string)$payload['name']);
@@ -574,8 +772,8 @@ class UdoAdminProductsService
             $existing['variants'] = $sanitizedVariants;
             $existing['flags']['is_in_stock'] = $hasStock;
 
-            // If availability wasn't explicitly special_order, align with stock count
-            if (($existing['availability'] ?? '') !== 'special_order') {
+            // If availability wasn't explicitly provided, align with stock count
+            if (!isset($payload['availability']) && ($existing['availability'] ?? '') !== 'special_order') {
                 $existing['availability'] = $hasStock ? 'in_stock' : 'out_of_stock';
             }
 
@@ -652,13 +850,12 @@ class UdoAdminProductsService
         if (!$existing['flags']['is_promotion']) $collections = array_values(array_diff($collections, ['promotion']));
         $existing['collections'] = $collections;
 
-        // Save
-        $allProducts[$targetIndex] = $existing;
-        $saved = $this->saveProducts($allProducts);
+        // Save single product to MariaDB document store
+        $saved = $this->saveSingleProduct($existing);
 
         if (!$saved) {
             http_response_code(500);
-            echo json_encode(['success' => false, 'error' => 'Failed to persist updates']);
+            echo json_encode(['success' => false, 'error' => 'Failed to persist updates in database']);
             return;
         }
 
@@ -1052,6 +1249,12 @@ class UdoAdminProductsService
     {
         $productIds = $payload['product_ids'] ?? [];
         $updates = $payload['updates'] ?? [];
+        if (isset($payload['status'])) {
+            $updates['status'] = $payload['status'];
+        }
+        if (isset($payload['availability'])) {
+            $updates['availability'] = $payload['availability'];
+        }
 
         if (!is_array($productIds) || empty($productIds)) {
             http_response_code(400);
@@ -1059,60 +1262,88 @@ class UdoAdminProductsService
             return;
         }
 
-        if (!is_array($updates) || empty($updates)) {
-            http_response_code(400);
-            echo json_encode(['success' => false, 'error' => 'Update fields are required']);
-            return;
-        }
-
-        $allProducts = $this->loadProducts();
-        $targetIdsSet = array_flip($productIds);
-        $updatedCount = 0;
-
         $newStatus = isset($updates['status']) && in_array($updates['status'], ['publish', 'draft', 'suspended'], true) ? $updates['status'] : null;
         $newAvail = isset($updates['availability']) && in_array($updates['availability'], ['in_stock', 'out_of_stock', 'special_order'], true) ? $updates['availability'] : null;
 
-        foreach ($allProducts as $idx => $p) {
-            $pid = $p['id'] ?? '';
-            if (isset($targetIdsSet[$pid])) {
+        if ($newStatus === null && $newAvail === null) {
+            http_response_code(400);
+            echo json_encode(['success' => false, 'error' => 'Valid update fields (status or availability) are required']);
+            return;
+        }
+
+        $db = $this->getDbConnection();
+        if ($db !== null) {
+            try {
+                $db->beginTransaction();
+                $updatedCount = 0;
+
+                $setClauses = [];
+                $params = [];
+
                 if ($newStatus !== null) {
-                    $allProducts[$idx]['status'] = $newStatus;
+                    $setClauses[] = "status = :status";
+                    $setClauses[] = "data = JSON_SET(data, '$.status', :status_json)";
+                    $params[':status'] = $newStatus;
+                    $params[':status_json'] = $newStatus;
                 }
+
                 if ($newAvail !== null) {
-                    $allProducts[$idx]['availability'] = $newAvail;
-                    $allProducts[$idx]['flags'] = $allProducts[$idx]['flags'] ?? [];
-                    if ($newAvail === 'in_stock') {
-                        $allProducts[$idx]['flags']['is_in_stock'] = true;
-                    } elseif ($newAvail === 'out_of_stock') {
-                        $allProducts[$idx]['flags']['is_in_stock'] = false;
+                    $setClauses[] = "availability = :avail";
+                    $isStockJson = ($newAvail === 'in_stock') ? 'true' : 'false';
+                    $setClauses[] = "data = JSON_SET(data, '$.availability', :avail_json, '$.flags.is_in_stock', {$isStockJson})";
+                    $params[':avail'] = $newAvail;
+                    $params[':avail_json'] = $newAvail;
+                }
+
+                $setClauses[] = "updated_at = NOW()";
+                $setSql = implode(', ', $setClauses);
+
+                $stmt = $db->prepare("UPDATE products SET {$setSql} WHERE id = :id");
+
+                foreach ($productIds as $pid) {
+                    $pidStr = (string)$pid;
+                    if (empty($pidStr)) continue;
+                    $execParams = array_merge($params, [':id' => $pidStr]);
+                    $stmt->execute($execParams);
+                    if ($stmt->rowCount() > 0) {
+                        $updatedCount++;
                     }
                 }
-                $updatedCount++;
+
+                $db->commit();
+
+                $logSummary = [];
+                if ($newStatus !== null) $logSummary[] = "status: {$newStatus}";
+                if ($newAvail !== null) $logSummary[] = "availability: {$newAvail}";
+                $summaryStr = implode(', ', $logSummary);
+
+                $this->recordAuditLog([
+                    'action' => 'batch_update_products',
+                    'product_id' => 'batch',
+                    'product_name' => "Batch update {$updatedCount} items",
+                    'sku' => "Count: {$updatedCount}",
+                    'reason' => "Batch updated [{$summaryStr}]"
+                ]);
+
+                echo json_encode([
+                    'success' => true,
+                    'message' => "Successfully updated {$updatedCount} products",
+                    'updated_count' => $updatedCount
+                ], JSON_UNESCAPED_UNICODE);
+                return;
+            } catch (Throwable $e) {
+                if ($db->inTransaction()) {
+                    $db->rollBack();
+                }
+                error_log('MariaDB batch update error: ' . $e->getMessage());
+                http_response_code(500);
+                echo json_encode(['success' => false, 'error' => 'Database error during batch update']);
+                return;
             }
         }
 
-        if ($updatedCount > 0) {
-            $this->saveProducts($allProducts);
-
-            $logSummary = [];
-            if ($newStatus !== null) $logSummary[] = "status: {$newStatus}";
-            if ($newAvail !== null) $logSummary[] = "availability: {$newAvail}";
-            $summaryStr = implode(', ', $logSummary);
-
-            $this->recordAuditLog([
-                'action' => 'batch_update_products',
-                'product_id' => 'batch',
-                'product_name' => "Batch update {$updatedCount} items",
-                'sku' => "Count: {$updatedCount}",
-                'reason' => "Batch updated [{$summaryStr}]"
-            ]);
-        }
-
-        echo json_encode([
-            'success' => true,
-            'message' => "Successfully updated {$updatedCount} products",
-            'updated_count' => $updatedCount
-        ], JSON_UNESCAPED_UNICODE);
+        http_response_code(500);
+        echo json_encode(['success' => false, 'error' => 'Database connection unavailable']);
     }
 
     /**
@@ -1130,45 +1361,62 @@ class UdoAdminProductsService
             return;
         }
 
-        $allProducts = $this->loadProducts();
-        $targetIdx = -1;
+        $db = $this->getDbConnection();
+        if ($db !== null) {
+            try {
+                // Fetch previous status and name for audit logging
+                $stmtFetch = $db->prepare("SELECT status, name, data FROM products WHERE id = ? LIMIT 1");
+                $stmtFetch->execute([$productId]);
+                $current = $stmtFetch->fetch(PDO::FETCH_ASSOC);
 
-        foreach ($allProducts as $idx => $p) {
-            if (($p['id'] ?? '') === $productId) {
-                $targetIdx = $idx;
-                break;
+                if (!$current) {
+                    http_response_code(404);
+                    echo json_encode(['success' => false, 'error' => 'Product not found']);
+                    return;
+                }
+
+                $oldStatus = $current['status'] ?? 'publish';
+                $productName = $current['name'] ?? '';
+
+                // Atomic update on both column and JSON document
+                $stmtUpdate = $db->prepare("
+                    UPDATE products 
+                    SET status = :status, 
+                        data = JSON_SET(data, '$.status', :status_json), 
+                        updated_at = NOW() 
+                    WHERE id = :id
+                ");
+                $stmtUpdate->execute([
+                    ':status' => $status,
+                    ':status_json' => $status,
+                    ':id' => $productId
+                ]);
+
+                $this->recordAuditLog([
+                    'action' => 'update_status',
+                    'product_id' => $productId,
+                    'product_name' => $productName,
+                    'reason' => "Status changed from {$oldStatus} to {$status}"
+                ]);
+
+                echo json_encode([
+                    'success' => true,
+                    'product_id' => $productId,
+                    'old_status' => $oldStatus,
+                    'status' => $status,
+                    'message' => "Successfully updated product status to {$status}"
+                ], JSON_UNESCAPED_UNICODE);
+                return;
+            } catch (Throwable $e) {
+                error_log('MariaDB handleUpdateProductStatus error: ' . $e->getMessage());
+                http_response_code(500);
+                echo json_encode(['success' => false, 'error' => 'Failed to save product status: ' . $e->getMessage()]);
+                return;
             }
         }
 
-        if ($targetIdx === -1) {
-            http_response_code(404);
-            echo json_encode(['success' => false, 'error' => 'Product not found']);
-            return;
-        }
-
-        $oldStatus = $allProducts[$targetIdx]['status'] ?? 'publish';
-        $allProducts[$targetIdx]['status'] = $status;
-
-        $saved = $this->saveProducts($allProducts);
-        if ($saved) {
-            $this->recordAuditLog([
-                'action' => 'update_status',
-                'product_id' => $productId,
-                'product_name' => $allProducts[$targetIdx]['name'] ?? '',
-                'reason' => "Status changed from {$oldStatus} to {$status}"
-            ]);
-
-            echo json_encode([
-                'success' => true,
-                'product_id' => $productId,
-                'old_status' => $oldStatus,
-                'status' => $status,
-                'message' => "Successfully updated product status to {$status}"
-            ], JSON_UNESCAPED_UNICODE);
-        } else {
-            http_response_code(500);
-            echo json_encode(['success' => false, 'error' => 'Failed to save product status']);
-        }
+        http_response_code(500);
+        echo json_encode(['success' => false, 'error' => 'Database connection unavailable']);
     }
 
     private function calculateTotalStock(array $p): int
@@ -1361,13 +1609,12 @@ class UdoAdminProductsService
             'sort_priority' => $sortPriority
         ];
 
-        // Prepend so new product appears at top
-        array_unshift($allProducts, $newProduct);
-        $saved = $this->saveProducts($allProducts);
+        // Save new product document directly to MariaDB
+        $saved = $this->saveSingleProduct($newProduct);
 
         if (!$saved) {
             http_response_code(500);
-            echo json_encode(['success' => false, 'error' => 'Failed to persist new product']);
+            echo json_encode(['success' => false, 'error' => 'Failed to persist new product in database']);
             return;
         }
 
@@ -1425,26 +1672,12 @@ class UdoAdminProductsService
         $productName = (string)($targetProduct['name'] ?? $productId);
         $productSku = (string)($targetProduct['sku'] ?? ($targetProduct['variants'][0]['sku'] ?? $productId));
 
-        // Remove product from array
-        array_splice($allProducts, $targetIndex, 1);
-
-        // Save updated array to Master JSON
-        $saved = $this->saveProducts($allProducts);
+        // Delete product from MariaDB document store
+        $saved = $this->deleteSingleProduct($productId);
         if (!$saved) {
             http_response_code(500);
-            echo json_encode(['success' => false, 'error' => 'Failed to persist deletion']);
+            echo json_encode(['success' => false, 'error' => 'Failed to delete product from database']);
             return;
-        }
-
-        // Optional MariaDB sync via PDO Prepared Statement
-        $db = $this->getDbConnection();
-        if ($db !== null) {
-            try {
-                $stmt = $db->prepare("DELETE FROM products WHERE id = ?");
-                $stmt->execute([$productId]);
-            } catch (Throwable $e) {
-                // Ignore DB error if table is not configured
-            }
         }
 
         // Record Audit Log
@@ -1506,26 +1739,9 @@ class UdoAdminProductsService
             return;
         }
 
-        // Save updated products
-        $saved = $this->saveProducts($remainingProducts);
-        if (!$saved) {
-            http_response_code(500);
-            echo json_encode(['success' => false, 'error' => 'Failed to persist batch deletion']);
-            return;
-        }
-
-        // Optional MariaDB batch sync
-        $db = $this->getDbConnection();
-        if ($db !== null && !empty($deletedItems)) {
-            try {
-                $delIds = array_column($deletedItems, 'id');
-                $placeholders = implode(',', array_fill(0, count($delIds), '?'));
-                $stmt = $db->prepare("DELETE FROM products WHERE id IN ($placeholders)");
-                $stmt->execute($delIds);
-            } catch (Throwable $e) {
-                // Ignore DB error
-            }
-        }
+        // Delete products from MariaDB document store
+        $delIds = array_column($deletedItems, 'id');
+        $this->deleteMultipleProducts($delIds);
 
         // Record Audit Log for batch delete
         $this->recordAuditLog([

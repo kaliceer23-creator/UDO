@@ -791,9 +791,9 @@ function openStatusPopover(buttonEl, productId, currentStatus) {
   const rect = buttonEl.getBoundingClientRect();
   const popover = dom.globalStatusPopover;
 
-  // Position below button
-  const top = rect.bottom + window.scrollY + 6;
-  let left = rect.left + window.scrollX + (rect.width / 2) - 88; // 88 = w-44 (176px) / 2
+  // Position below button (fixed element requires viewport coordinates without scroll offsets)
+  const top = rect.bottom + 6;
+  let left = rect.left + (rect.width / 2) - 88; // 88 = w-44 (176px) / 2
   left = Math.max(12, Math.min(left, window.innerWidth - 188));
 
   popover.style.top = `${top}px`;
