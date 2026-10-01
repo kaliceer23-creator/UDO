@@ -99,7 +99,7 @@ function renderSection(title, articles, viewAllCategory = null) {
     : '';
 
   return `
-    <section class="mb-14 sm:mb-16">
+    <section class="pb-14 sm:pb-16 md:pb-20 mb-14 sm:mb-16 md:mb-20 border-b border-dotted border-gray-200/90 last:border-b-0 last:mb-0 last:pb-0">
       <div class="flex items-center justify-between gap-4 mb-6 sm:mb-8">
         <div class="flex items-center gap-4 flex-1">
           <h2 class="text-[20px] sm:text-[24px] md:text-[26px] font-bold uppercase tracking-wider text-[#160808] shrink-0">
@@ -110,7 +110,7 @@ function renderSection(title, articles, viewAllCategory = null) {
         ${viewAllLink}
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 sm:gap-x-8 gap-y-10 sm:gap-y-12">
         ${cardsHtml}
       </div>
     </section>
