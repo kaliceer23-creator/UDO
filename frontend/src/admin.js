@@ -329,6 +329,8 @@ const dom = {
   showcaseFramingApplyText: document.getElementById('showcase-framing-apply-text'),
 
   // Gallery Management Elements
+  drawerGalleryContainer: document.getElementById('drawer-gallery-container'),
+  drawerGalleryDropOverlay: document.getElementById('drawer-gallery-drop-overlay'),
   drawerGalleryGrid: document.getElementById('drawer-gallery-grid'),
   drawerGalleryCountBadge: document.getElementById('drawer-gallery-count-badge'),
   drawerGalleryFileInput: document.getElementById('drawer-gallery-file-input'),
@@ -3957,18 +3959,28 @@ function renderDrawerGallery() {
 
   if (images.length === 0) {
     dom.drawerGalleryGrid.innerHTML = `
-      <div class="col-span-full p-6 text-center bg-gray-50/70 rounded-xl border border-dashed border-gray-300">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-gray-400 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-        </svg>
-        <p class="text-sm font-semibold text-[#160808]">ยังไม่มีรูปภาพสำหรับสินค้านี้</p>
-        <p class="text-xs text-[#424245] mt-1">กดปุ่ม "+ เพิ่มรูปภาพ" ด้านบน หรือกด "จัดตำแหน่งรูปภาพ 1:1" ทางขวามือ</p>
+      <div id="btn-gallery-empty-dropzone" class="col-span-full p-8 text-center bg-gray-50/80 rounded-2xl border-2 border-dashed border-gray-300 hover:border-black hover:bg-gray-100/70 transition-all cursor-pointer group shadow-2xs">
+        <div class="w-12 h-12 rounded-full bg-white text-gray-400 group-hover:bg-[#160808] group-hover:text-white flex items-center justify-center mx-auto mb-2.5 shadow-xs transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 transition-transform group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+        </div>
+        <p class="text-sm font-bold text-[#160808]">ลากรูปภาพสินค้ามาวางที่นี่ (เลือกได้หลายรูปพร้อมกัน)</p>
+        <p class="text-xs text-[#424245] mt-1">หรือคลิกเพื่อเลือกไฟล์ภาพจากคอมพิวเตอร์ (รองรับ JPG, PNG, WebP)</p>
       </div>
     `;
+
+    const emptyDropzone = document.getElementById('btn-gallery-empty-dropzone');
+    if (emptyDropzone && dom.drawerGalleryFileInput) {
+      emptyDropzone.addEventListener('click', () => {
+        dom.drawerGalleryFileInput.value = '';
+        dom.drawerGalleryFileInput.click();
+      });
+    }
     return;
   }
 
-  dom.drawerGalleryGrid.innerHTML = images.map((img, index) => {
+  const tilesHTML = images.map((img, index) => {
     const isPrimary = index === 0;
     const imgUrl = img.card || img.thumb || img.large || img.original;
 
@@ -3993,13 +4005,14 @@ function renderDrawerGallery() {
           </div>
 
           <!-- Quick Action Controls (Hover overlay) -->
-          <div class="absolute inset-0 bg-black/40 backdrop-blur-xs opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-1.5 p-2">
-            <button type="button" class="btn-gallery-frame p-1.5 bg-white text-black hover:bg-neutral-100 rounded-lg text-xs font-medium cursor-pointer shadow-xs transition-colors" data-index="${index}" title="จัดตำแหน่ง 1:1">
+          <div class="absolute inset-0 bg-black/50 backdrop-blur-xs opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 p-2">
+            <button type="button" class="btn-gallery-frame px-2.5 py-1.5 bg-white text-[#160808] hover:bg-black hover:text-white rounded-lg text-xs font-bold inline-flex items-center gap-1 cursor-pointer shadow-md transition-all active:scale-95" data-index="${index}" title="จัดตำแหน่งและครอบตัดภาพนี้ 1:1">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
+              <span>จัดกรอบ 1:1</span>
             </button>
-            <button type="button" class="btn-gallery-remove p-1.5 bg-white text-rose-600 hover:bg-rose-50 rounded-lg text-xs font-medium cursor-pointer shadow-xs transition-colors" data-index="${index}" title="ลบรูปนี้">
+            <button type="button" class="btn-gallery-remove p-1.5 bg-white text-rose-600 hover:bg-rose-600 hover:text-white rounded-lg text-xs font-bold cursor-pointer shadow-md transition-all active:scale-95" data-index="${index}" title="ลบรูปนี้ออกจากคลัง">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
               </svg>
@@ -4036,6 +4049,30 @@ function renderDrawerGallery() {
       </div>
     `;
   }).join('');
+
+  // 3. Trailing "Add More" Card Slot
+  const addSlotHTML = `
+    <div id="btn-gallery-add-slot" class="gallery-add-slot aspect-square rounded-xl border-2 border-dashed border-gray-300 hover:border-black bg-gray-50/70 hover:bg-gray-100 transition-all cursor-pointer flex flex-col items-center justify-center p-3 text-center group shadow-2xs" title="คลิกเพื่อเลือกไฟล์ หรือ ลากรูปภาพมาวางที่นี่">
+      <div class="w-9 h-9 rounded-full bg-white group-hover:bg-[#160808] text-gray-400 group-hover:text-white flex items-center justify-center shadow-xs transition-colors mb-1.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+        </svg>
+      </div>
+      <span class="text-xs font-bold text-[#160808] block leading-tight">เพิ่มรูปภาพอีก</span>
+      <span class="text-[10px] text-[#424245] block mt-0.5">ลากวาง หรือ คลิกเลือก</span>
+    </div>
+  `;
+
+  dom.drawerGalleryGrid.innerHTML = tilesHTML + addSlotHTML;
+
+  // Bind Add Slot Click
+  const addSlot = document.getElementById('btn-gallery-add-slot');
+  if (addSlot && dom.drawerGalleryFileInput) {
+    addSlot.addEventListener('click', () => {
+      dom.drawerGalleryFileInput.value = '';
+      dom.drawerGalleryFileInput.click();
+    });
+  }
 
   // Bind Tile Buttons
   dom.drawerGalleryGrid.querySelectorAll('.btn-set-primary').forEach(btn => {
@@ -4114,7 +4151,7 @@ function removeGalleryImage(index) {
   showToast('ลบรูปภาพออกจากคลังเรียบร้อย');
 }
 
-function addGalleryImage(url) {
+function addGalleryImage(url, skipToast = false) {
   if (!state.activeProduct || !url) return;
   state.activeProduct.images = state.activeProduct.images || [];
 
@@ -4128,7 +4165,79 @@ function addGalleryImage(url) {
 
   renderDrawerGallery();
   updateDrawerLivePreview();
-  showToast('เพิ่มรูปภาพเข้าสู่คลังเรียบร้อย');
+  if (!skipToast) {
+    showToast('เพิ่มรูปภาพเข้าสู่คลังเรียบร้อย');
+  }
+}
+
+async function uploadGalleryFiles(fileList) {
+  if (!fileList || fileList.length === 0) return;
+  const files = Array.from(fileList).filter(f => f.type.startsWith('image/') || /\.(jpe?g|png|webp|gif|heic)$/i.test(f.name));
+
+  if (files.length === 0) {
+    showToast('กรุณาเลือกไฟล์ภาพที่ถูกต้อง (รองรับ JPG, PNG, WebP)', 'error');
+    return;
+  }
+
+  if (dom.btnBrowseGalleryImg) {
+    dom.btnBrowseGalleryImg.disabled = true;
+    dom.btnBrowseGalleryImg.innerHTML = `
+      <span class="inline-block w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+      <span>กำลังอัปโหลด (${files.length} รูป)...</span>
+    `;
+  }
+
+  let successCount = 0;
+  let failCount = 0;
+
+  try {
+    for (const file of files) {
+      const formData = new FormData();
+      formData.append('file', file);
+      if (state.activeProduct && state.activeProduct.id) {
+        formData.append('product_id', state.activeProduct.id);
+      }
+
+      try {
+        const res = await fetch('/api/admin/upload.php', {
+          method: 'POST',
+          body: formData,
+          credentials: 'include'
+        });
+
+        const data = await res.json();
+        if (res.ok && data.success && data.image_url) {
+          addGalleryImage(data.image_url, true);
+          successCount++;
+        } else {
+          failCount++;
+          console.error('File upload failed for', file.name, data.error);
+        }
+      } catch (err) {
+        failCount++;
+        console.error('Upload error for', file.name, err);
+      }
+    }
+
+    if (successCount > 0) {
+      showToast(`อัปโหลดรูปภาพเข้าสู่คลังสำเร็จ ${successCount} รูป${failCount > 0 ? ` (ไม่สำเร็จ ${failCount} รูป)` : ''}`);
+    } else if (failCount > 0) {
+      showToast('ไม่สามารถอัปโหลดรูปภาพได้ กรุณาตรวจสอบไฟล์', 'error');
+    }
+  } finally {
+    if (dom.drawerGalleryFileInput) {
+      dom.drawerGalleryFileInput.value = '';
+    }
+    if (dom.btnBrowseGalleryImg) {
+      dom.btnBrowseGalleryImg.disabled = false;
+      dom.btnBrowseGalleryImg.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+        </svg>
+        <span>+ เพิ่มรูปภาพ (เลือกหลายรูปได้)</span>
+      `;
+    }
+  }
 }
 
 function openFramingForGalleryIndex(index) {
@@ -4633,12 +4742,12 @@ const framingState = {
   currentProductImageUrl: ''
 };
 
-function openImageFramingModal() {
+function openImageFramingModal(targetUrl = '') {
   if (!dom.imageFramingModal) return;
 
-  // Resolve current active product image
-  let initialSrc = '';
-  if (state.activeProduct) {
+  // Resolve current active product image or passed targetUrl
+  let initialSrc = typeof targetUrl === 'string' ? targetUrl : '';
+  if (!initialSrc && state.activeProduct) {
     const rawImg = state.activeProduct.images?.[0];
     if (typeof rawImg === 'string') {
       initialSrc = rawImg;
@@ -4670,6 +4779,7 @@ function openImageFramingModal() {
 }
 
 function closeImageFramingModal() {
+  state.framingTargetIndex = null;
   if (dom.imageFramingModal) {
     if (typeof dom.imageFramingModal.close === 'function') {
       try { dom.imageFramingModal.close(); } catch (e) {}
@@ -6448,7 +6558,13 @@ function initEvents() {
   }
 
   // Product Image Framing Modal & Canvas Listeners
-  if (dom.btnOpenImageFraming) dom.btnOpenImageFraming.addEventListener('click', openImageFramingModal);
+  if (dom.btnOpenImageFraming) {
+    dom.btnOpenImageFraming.addEventListener('click', (e) => {
+      e.preventDefault();
+      state.framingTargetIndex = 0;
+      openImageFramingModal();
+    });
+  }
   if (dom.btnCloseFramingModal) dom.btnCloseFramingModal.addEventListener('click', closeImageFramingModal);
   if (dom.btnFramingCancel) dom.btnFramingCancel.addEventListener('click', closeImageFramingModal);
 
@@ -7002,49 +7118,58 @@ function initEvents() {
   }
 
   if (dom.drawerGalleryFileInput) {
-    dom.drawerGalleryFileInput.addEventListener('change', async (e) => {
-      const files = Array.from(e.target.files || []);
-      if (files.length === 0) return;
-
-      if (dom.btnBrowseGalleryImg) {
-        dom.btnBrowseGalleryImg.disabled = true;
-        dom.btnBrowseGalleryImg.textContent = 'กำลังอัปโหลด...';
+    dom.drawerGalleryFileInput.addEventListener('change', (e) => {
+      const files = e.target.files;
+      if (files && files.length > 0) {
+        uploadGalleryFiles(files);
       }
+    });
+  }
 
-      try {
-        for (const file of files) {
-          const formData = new FormData();
-          formData.append('file', file);
-          if (state.activeProduct && state.activeProduct.id) {
-            formData.append('product_id', state.activeProduct.id);
-          }
+  // Gallery Drag & Drop Multi-file Upload
+  if (dom.drawerGalleryContainer) {
+    let galleryDragCounter = 0;
 
-          const res = await fetch('/api/admin/upload.php', {
-            method: 'POST',
-            body: formData,
-            credentials: 'include'
-          });
+    dom.drawerGalleryContainer.addEventListener('dragenter', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      galleryDragCounter++;
+      if (dom.drawerGalleryDropOverlay) {
+        dom.drawerGalleryDropOverlay.classList.remove('hidden');
+      }
+    });
 
-          const data = await res.json();
-          if (res.ok && data.success && data.image_url) {
-            addGalleryImage(data.image_url);
-          } else {
-            throw new Error(data.error || 'อัปโหลดรูปภาพไม่สำเร็จ');
-          }
+    dom.drawerGalleryContainer.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      e.dataTransfer.dropEffect = 'copy';
+      if (dom.drawerGalleryDropOverlay && dom.drawerGalleryDropOverlay.classList.contains('hidden')) {
+        dom.drawerGalleryDropOverlay.classList.remove('hidden');
+      }
+    });
+
+    dom.drawerGalleryContainer.addEventListener('dragleave', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      galleryDragCounter--;
+      if (galleryDragCounter <= 0) {
+        galleryDragCounter = 0;
+        if (dom.drawerGalleryDropOverlay) {
+          dom.drawerGalleryDropOverlay.classList.add('hidden');
         }
-        showToast(`อัปโหลดรูปภาพเข้าสู่คลังสำเร็จ ${files.length} รูป`);
-      } catch (err) {
-        showToast(err.message || 'เกิดข้อผิดพลาดในการอัปโหลดรูปภาพ', 'error');
-      } finally {
-        if (dom.btnBrowseGalleryImg) {
-          dom.btnBrowseGalleryImg.disabled = false;
-          dom.btnBrowseGalleryImg.innerHTML = `
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
-            </svg>
-            <span>เพิ่มรูปภาพ</span>
-          `;
-        }
+      }
+    });
+
+    dom.drawerGalleryContainer.addEventListener('drop', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      galleryDragCounter = 0;
+      if (dom.drawerGalleryDropOverlay) {
+        dom.drawerGalleryDropOverlay.classList.add('hidden');
+      }
+      const files = e.dataTransfer?.files;
+      if (files && files.length > 0) {
+        uploadGalleryFiles(files);
       }
     });
   }

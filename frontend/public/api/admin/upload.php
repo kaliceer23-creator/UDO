@@ -65,8 +65,15 @@ class UdoAdminImageUploadService
         }
 
         // 3. Process either multipart/form-data or Base64 JSON
+        $uploadFile = null;
         if (isset($_FILES['image']) && is_uploaded_file($_FILES['image']['tmp_name'])) {
-            $this->processUploadedFile($_FILES['image']);
+            $uploadFile = $_FILES['image'];
+        } elseif (isset($_FILES['file']) && is_uploaded_file($_FILES['file']['tmp_name'])) {
+            $uploadFile = $_FILES['file'];
+        }
+
+        if ($uploadFile !== null) {
+            $this->processUploadedFile($uploadFile);
             return;
         }
 
