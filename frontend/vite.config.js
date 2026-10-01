@@ -32,6 +32,7 @@ export default defineConfig({
         main: 'index.html',
         product: 'product.html',
         article: 'article.html',
+        articles: 'articles.html',
         category: 'category.html',
         chat: 'chat.html',
         admin: 'admin/index.html'

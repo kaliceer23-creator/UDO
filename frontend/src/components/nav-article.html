@@ -13,7 +13,7 @@
 
     <!-- Center: UDO Logo with Inspirer Journal (Large font, brand red) -->
     <div class="flex items-center justify-center text-center">
-      <a href="/" class="inline-flex items-center gap-2.5 sm:gap-3 hover:opacity-90 transition-opacity">
+      <a href="/articles.html" class="inline-flex items-center gap-2.5 sm:gap-3 hover:opacity-90 transition-opacity">
         <img src="/images/logos/logo_main.svg" alt="UDO Welding Products" class="h-[30px] sm:h-[38px] md:h-[42px] w-auto object-contain" />
         <span class="text-[26px] sm:text-[34px] md:text-[38px] font-serif italic text-[#c5161b] leading-none tracking-tight select-none">inspirer</span>
       </a>
@@ -27,17 +27,17 @@
 <!-- Sticky Sentinel: Detects when the category bar hits the viewport top -->
 <div id="nav-sticky-sentinel" class="h-px w-full pointer-events-none -mb-px"></div>
 
-<!-- 2. Sticky Category Bar (Article Categories, contained line at top, full-width line when sticky) -->
+<!-- 2. Sticky Category Bar (Article Categories with active solid-black badge) -->
 <nav id="article-sticky-nav" class="sticky top-0 z-40 w-full bg-white/98 backdrop-blur-md">
   <div class="max-w-[1440px] mx-auto px-4 md:px-8">
-    <div id="article-nav-inner" class="flex items-center justify-start md:justify-center gap-6 sm:gap-8 md:gap-10 overflow-x-auto no-scrollbar py-3 sm:py-3.5 text-[13px] sm:text-[14px] md:text-[15px] font-bold uppercase tracking-[0.06em] text-[#160808] whitespace-nowrap">
-      <a href="/#articles-section" class="hover:text-[#c5161b] transition-colors py-0.5">เทคนิคการเชื่อม</a>
-      <a href="/#articles-section" class="hover:text-[#c5161b] transition-colors py-0.5">เลือกใช้ลวดเชื่อม</a>
-      <a href="/#articles-section" class="hover:text-[#c5161b] transition-colors py-0.5">คู่มือ & ทริคช่าง</a>
-      <a href="/#articles-section" class="hover:text-[#c5161b] transition-colors py-0.5">ความปลอดภัย & มาตรฐาน</a>
-      <a href="/#articles-section" class="hover:text-[#c5161b] transition-colors py-0.5">ดูแลรักษาเครื่องมือ</a>
-      <a href="/#articles-section" class="hover:text-[#c5161b] transition-colors py-0.5">สาระวิศวกรรม</a>
-      <a href="/#articles-section" class="text-[#c5161b] font-extrabold hover:underline py-0.5"># TRENDING</a>
+    <div id="article-nav-inner" class="flex items-center justify-start md:justify-center gap-4 sm:gap-6 md:gap-7 overflow-x-auto no-scrollbar py-2.5 sm:py-3 text-[13px] sm:text-[14px] md:text-[14.5px] font-bold uppercase tracking-[0.05em] whitespace-nowrap">
+      <a href="/articles.html?category=เทคนิคการเชื่อม" data-nav-cat="เทคนิคการเชื่อม" class="nav-cat-link px-3.5 py-1.5 rounded-[2px] transition-colors">เทคนิคการเชื่อม</a>
+      <a href="/articles.html?category=เลือกใช้ลวดเชื่อม" data-nav-cat="เลือกใช้ลวดเชื่อม" class="nav-cat-link px-3.5 py-1.5 rounded-[2px] transition-colors">เลือกใช้ลวดเชื่อม</a>
+      <a href="/articles.html?category=คู่มือ & ทริคช่าง" data-nav-cat="คู่มือ & ทริคช่าง" class="nav-cat-link px-3.5 py-1.5 rounded-[2px] transition-colors">คู่มือ & ทริคช่าง</a>
+      <a href="/articles.html?category=ความปลอดภัย & มาตรฐาน" data-nav-cat="ความปลอดภัย & มาตรฐาน" class="nav-cat-link px-3.5 py-1.5 rounded-[2px] transition-colors">ความปลอดภัย & มาตรฐาน</a>
+      <a href="/articles.html?category=ดูแลรักษาเครื่องมือ" data-nav-cat="ดูแลรักษาเครื่องมือ" class="nav-cat-link px-3.5 py-1.5 rounded-[2px] transition-colors">ดูแลรักษาเครื่องมือ</a>
+      <a href="/articles.html?category=สาระวิศวกรรม" data-nav-cat="สาระวิศวกรรม" class="nav-cat-link px-3.5 py-1.5 rounded-[2px] transition-colors">สาระวิศวกรรม</a>
+      <a href="/articles.html?category=TRENDING" data-nav-cat="TRENDING" class="nav-cat-link px-3.5 py-1.5 rounded-[2px] text-[#c5161b] font-extrabold hover:underline"># TRENDING</a>
     </div>
   </div>
 </nav>
@@ -58,4 +58,39 @@
   #article-sticky-nav.is-sticky #article-nav-inner {
     border-bottom-color: transparent !important;
   }
+  .nav-cat-link {
+    color: #160808;
+    background-color: transparent;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+  .nav-cat-link:hover {
+    color: #c5161b;
+  }
+  .nav-cat-link.is-active {
+    background-color: #160808 !important;
+    color: #ffffff !important;
+  }
 </style>
+
+<script>
+  (function() {
+    function initActiveNav() {
+      const params = new URLSearchParams(window.location.search);
+      const cat = params.get('category');
+      if (cat) {
+        document.querySelectorAll('.nav-cat-link').forEach(link => {
+          if (link.getAttribute('data-nav-cat') === cat) {
+            link.classList.add('is-active');
+          } else {
+            link.classList.remove('is-active');
+          }
+        });
+      }
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initActiveNav);
+    } else {
+      initActiveNav();
+    }
+  })();
+</script>

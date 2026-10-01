@@ -178,6 +178,16 @@ function renderArticle(article) {
   const catEl = document.getElementById('article-category');
   if (catEl) catEl.textContent = article.category || 'เทคนิค & สาระงานช่าง';
 
+  // Highlight active category in nav
+  if (article.category) {
+    document.querySelectorAll('.nav-cat-link').forEach(link => {
+      const linkCat = link.getAttribute('data-nav-cat');
+      if (linkCat && (article.category.includes(linkCat) || linkCat.includes(article.category))) {
+        link.classList.add('is-active');
+      }
+    });
+  }
+
   const dateEl = document.getElementById('article-date');
   if (dateEl) dateEl.textContent = formatDateThai(article.created_at) || 'บทความวิศวกรรม';
 

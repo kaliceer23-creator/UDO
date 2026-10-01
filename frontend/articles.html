@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UDO inspirer - นิตยสารและสาระวิชาการงานช่าง</title>
+    <meta name="description" content="รวมบทความ คู่มือ และสาระงานช่างเชื่อม งานโลหะ เครื่องมืออุตสาหกรรม จากทีมวิศวกร UDO" />
+    <!-- Prompt Font for Windows fallback -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+    <style id="fouc-fix">
+      /* Prevent FOUC for SVGs */
+      svg:not([class*="w-"]) { max-width: 40px; max-height: 40px; }
+    </style>
+  </head>
+  <body class="bg-white font-['Prompt',sans-serif] antialiased text-gray-900 selection:bg-[#8fc101] selection:text-white pb-[80px] md:pb-0">
+    <div id="app">
+
+    <!-- 1. Dedicated Editorial Magazine Navigation Component -->
+    <load src="./src/components/nav-article.html" />
+
+    <!-- 2. Breadcrumb Navigation (Subtle thin divider line contained within margins) -->
+    <div class="bg-white">
+      <div class="max-w-[1440px] mx-auto px-4 md:px-8">
+        <div id="article-breadcrumb-container" class="pt-2.5 pb-3 border-b border-gray-100 text-[13px] sm:text-[14px] font-normal text-gray-500 flex items-center gap-2.5 overflow-x-auto whitespace-nowrap">
+          <a href="/" class="hover:text-[#c5161b] hover:underline underline-offset-2">หน้าหลัก</a>
+          <span class="text-gray-300">/</span>
+          <a href="/articles.html" class="hover:text-[#c5161b] hover:underline underline-offset-2">บทความ & สาระงานช่าง</a>
+          <span id="breadcrumb-separator" class="text-gray-300 hidden">/</span>
+          <span id="breadcrumb-category" class="text-[#160808] truncate max-w-[280px] sm:max-w-md font-medium hidden">หมวดหมู่</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Magazine Editorial Hub Container (Matching Central Inspirer Grid) -->
+    <main class="bg-white min-h-screen pt-8 sm:pt-10 md:pt-12 pb-24">
+      <div class="max-w-[1440px] mx-auto px-4 md:px-8">
+        <!-- Injected dynamically by articles.js -->
+        <div id="articles-main-content">
+          <!-- Loading skeleton placeholder -->
+          <div class="space-y-12 animate-pulse">
+            <div>
+              <div class="flex items-center gap-4 mb-8">
+                <div class="h-6 bg-gray-200 rounded w-36"></div>
+                <div class="h-[2px] bg-gray-200 flex-1"></div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                <div class="space-y-3">
+                  <div class="w-full aspect-[16/10] bg-gray-100 rounded-[8px]"></div>
+                  <div class="h-4 bg-gray-200 rounded w-28"></div>
+                  <div class="h-5 bg-gray-200 rounded w-full"></div>
+                  <div class="h-4 bg-gray-100 rounded w-5/6"></div>
+                </div>
+                <div class="space-y-3">
+                  <div class="w-full aspect-[16/10] bg-gray-100 rounded-[8px]"></div>
+                  <div class="h-4 bg-gray-200 rounded w-28"></div>
+                  <div class="h-5 bg-gray-200 rounded w-full"></div>
+                  <div class="h-4 bg-gray-100 rounded w-5/6"></div>
+                </div>
+                <div class="space-y-3">
+                  <div class="w-full aspect-[16/10] bg-gray-100 rounded-[8px]"></div>
+                  <div class="h-4 bg-gray-200 rounded w-28"></div>
+                  <div class="h-5 bg-gray-200 rounded w-full"></div>
+                  <div class="h-4 bg-gray-100 rounded w-5/6"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- 4. Shared Footer & Floating UI Components -->
+    <load src="./src/components/footer.html" />
+    <load src="./src/components/dock.html" />
+
+    </div>
+
+    <!-- Hydration Script -->
+    <script type="module" src="./src/articles.js"></script>
+  </body>
+</html>
