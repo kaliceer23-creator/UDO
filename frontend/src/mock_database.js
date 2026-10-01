@@ -1,12 +1,11 @@
-import weldingProducts from './welding_products.json';
-
-// Master in-memory product database (initialized with bundled fallback)
-export const mockDatabase = [...weldingProducts];
+// src/mock_database.js
+// Master in-memory product database (populated live from MariaDB 10.6.13)
+export const mockDatabase = [];
 
 let liveFetchPromise = null;
 
 /**
- * Fetch latest products catalog from server and synchronize in-memory database
+ * Fetch latest products catalog from MariaDB API endpoint and synchronize in-memory database
  */
 export async function fetchLiveDatabase() {
   if (typeof window === 'undefined' || !window.fetch) {
@@ -18,16 +17,13 @@ export async function fetchLiveDatabase() {
 
   liveFetchPromise = (async () => {
     try {
-      // 1. Attempt to fetch fresh JSON from MariaDB REST API endpoint
-      const timestamp = Date.now();
-      const res = await fetch(`/api/products.php?v=${timestamp}`, {
-        cache: 'no-store',
+      const res = await fetch('/api/products.php', {
         headers: { 'Accept': 'application/json' }
       });
 
       if (res.ok) {
         const liveData = await res.json();
-        if (Array.isArray(liveData) && liveData.length > 0) {
+        if (Array.isArray(liveData)) {
           // Mutate existing array in-place so all imported references remain valid
           mockDatabase.splice(0, mockDatabase.length, ...liveData);
           window.__udoLiveCatalog = mockDatabase;
@@ -40,7 +36,7 @@ export async function fetchLiveDatabase() {
         }
       }
     } catch (err) {
-      // Silently fall back to bundled dataset on offline / dev preview
+      console.warn('Live catalog fetch notice:', err.message);
     }
     return mockDatabase;
   })();
@@ -48,7 +44,7 @@ export async function fetchLiveDatabase() {
   return liveFetchPromise;
 }
 
-// Automatically initiate background sync in browser environment (SWR pattern)
+// Automatically initiate background sync in browser environment
 if (typeof window !== 'undefined') {
   window.__udoLiveCatalog = mockDatabase;
   fetchLiveDatabase();

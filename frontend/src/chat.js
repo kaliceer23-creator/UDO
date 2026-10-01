@@ -16,7 +16,7 @@
 import { fetchAiData, getCuratedFallbackData } from './ai_overview.js';
 import { renderMarkdownToHTML, extractMetadata } from './markdown_parser.js';
 import { generateCardHTML } from './components/ProductCard.js';
-import { mockDatabase } from './mock_database.js';
+import { mockDatabase, fetchLiveDatabase } from './mock_database.js';
 import { UDO_ARTICLES, findArticle } from './udo_articles.js';
 
 const STORAGE_THREADS_KEY = 'udo_ai_chat_threads';
@@ -1514,8 +1514,11 @@ async function handleUserSubmit(queryText) {
     };
   }).filter(h => h.text.length > 0);
 
-  // 4. Fetch AI response with conversation history
-  let aiResult = await fetchAiData(cleanQ, historyPayload);
+  // 4. Fetch AI response with conversation history and synchronize catalog concurrently
+  let [aiResult] = await Promise.all([
+    fetchAiData(cleanQ, historyPayload),
+    mockDatabase.length === 0 ? fetchLiveDatabase() : Promise.resolve()
+  ]);
   if (!aiResult) {
     aiResult = getCuratedFallbackData(cleanQ);
   }

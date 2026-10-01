@@ -167,5 +167,40 @@ export const generateCardHTML = (product, isGrid = false) => {
   `;
 };
 
+/**
+ * Generates an identical, strictly uniform Skeleton Loading Card.
+ * Matches exact dimensions, padding, border-radius, and font line heights of generateCardHTML.
+ */
+export const generateSkeletonCardHTML = (isGrid = false) => {
+  const containerClasses = isGrid
+    ? 'w-full bg-[#f8f9fa] rounded-[16px] p-4 flex flex-col justify-between relative border border-gray-100/80 animate-pulse select-none'
+    : 'w-[260px] md:w-[280px] shrink-0 bg-[#f8f9fa] rounded-[16px] p-4 flex flex-col justify-between relative border border-gray-100/80 animate-pulse select-none snap-start';
+
+  return `
+    <div class="${containerClasses}" aria-hidden="true">
+      <!-- 1. Skeleton Image Box -->
+      <div class="relative w-full aspect-square bg-gray-200/70 rounded-[10px] overflow-hidden flex justify-center items-center mt-8 mb-6"></div>
+
+      <!-- 2. Skeleton Info & Typography -->
+      <div class="flex flex-col text-left flex-1 justify-between">
+        <div>
+          <!-- Title Lines -->
+          <div class="h-4 bg-gray-200/80 rounded-md w-11/12 mb-2"></div>
+          <div class="h-4 bg-gray-200/80 rounded-md w-3/4 mb-3"></div>
+          <!-- Description Lines -->
+          <div class="h-3 bg-gray-200/60 rounded-md w-5/6 mb-1.5"></div>
+          <div class="h-3 bg-gray-200/60 rounded-md w-1/2"></div>
+        </div>
+        <!-- Price & Action -->
+        <div class="mt-4 pt-1 flex items-center justify-between min-h-[42px]">
+          <div class="h-5 bg-gray-200/90 rounded-md w-24"></div>
+          <div class="w-6 h-6 bg-gray-200/60 rounded-full"></div>
+        </div>
+      </div>
+    </div>
+  `;
+};
+
 // Default export alias
 export const ProductCard = generateCardHTML;
+

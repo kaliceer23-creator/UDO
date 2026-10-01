@@ -1,6 +1,6 @@
 import './style.css'
-import { mockDatabase } from './mock_database.js'
-import { generateCardHTML } from './home_hydrate.js'
+import { mockDatabase, fetchLiveDatabase } from './mock_database.js'
+import { generateCardHTML, generateSkeletonCardHTML } from './home_hydrate.js'
 import { resolveCategory, renderCategoryBreadcrumbs, renderBreadcrumbsHTML } from './category_taxonomy.js'
 import { createAiOverviewHTML, initAiOverviewInteractions, loadAndRenderAiOverview } from './ai_overview.js'
 
@@ -162,7 +162,7 @@ document.querySelector('#category-content').innerHTML = `
 
 
 // --- Category Dynamic Hydration & Filter Logic ---
-setTimeout(() => {
+setTimeout(async () => {
   const urlParams = new URLSearchParams(window.location.search);
   const type = urlParams.get('type') || 'category'; 
   const rawSub = (urlParams.get('sub') || '').trim();
@@ -259,134 +259,148 @@ setTimeout(() => {
   const breadcrumbsEl = document.getElementById('category-breadcrumbs');
   const gridEl = document.getElementById('category-product-grid');
   
-  // 1. Initial Filter of mockDatabase based on URL
-  let applyFilters;
-  let baseProducts = [];
-  if (type === 'search' || type === 'ai_search') {
-    const qLower = query.toLowerCase();
-    baseProducts = mockDatabase.filter(p => 
-      p.name.toLowerCase().includes(qLower) || 
-      p.brand.toLowerCase().includes(qLower) ||
-      (p.description && p.description.toLowerCase().includes(qLower))
-    );
-    // Prioritize MIG / Welpro / Kobelco if query relates to MIG / Flux-cored
-    if (qLower.includes('มิก') || qLower.includes('mig') || qLower.includes('ฟลักซ์คอร์') || qLower.includes('co2')) {
-      const migMatched = mockDatabase.filter(p => 
-        p.name.toLowerCase().includes('mig') || 
-        p.name.toLowerCase().includes('มิก') || 
-        p.name.toLowerCase().includes('ฟลักซ์คอร์') || 
-        (p.filter_attributes?.process && p.filter_attributes.process.includes('MIG')) ||
-        (p.brand && (p.brand.toUpperCase() === 'WELPRO' || p.brand.toUpperCase() === 'KOVET' || p.brand.toUpperCase() === 'KOBELCO'))
-      );
-      if (migMatched.length > 0) baseProducts = migMatched;
-    }
-    if (baseProducts.length === 0) {
-      baseProducts = mockDatabase.filter(p => p.categories && p.categories.some(c => c.name.includes('ลวดเชื่อม')));
-    }
-  } else if (type === 'collection') {
-     const colMapping = { 'new-arrivals': 'new_arrival', 'top-sale': 'popular', 'for-you': 'just_for_you' };
-     const mapKey = colMapping[rawName] || rawName;
-     if (rawName === 'promotion' || rawName === 'promo' || rawName === 'โปรโมชั่น') {
-       baseProducts = mockDatabase.filter(p => p.flags?.is_promotion || p.promotion === 1 || (p.variants && p.variants.some(v => v.original_price && v.original_price > v.price)));
-     } else {
-       baseProducts = mockDatabase.filter(p => p.collections && p.collections.includes(mapKey));
-     }
-  } else if (type === 'brand') {
-     baseProducts = mockDatabase.filter(p => p.brand.toLowerCase() === rawName.toLowerCase());
-  } else {
-     // Category Filter across all 8 root categories & subcategories
-     if (isSubgroup) {
-       const allWire = mockDatabase.filter(p => 
-         p.categories && p.categories.some(c => c.name.includes('ลวดเชื่อม') || c.url_slug.includes('wire') || c.url_slug === 'cat-12' || c.url_slug === 'cat-296')
-       );
-       const subMatched = allWire.filter(p => 
-         (p.categories && p.categories.some(c => c.url_slug === `cat-${resolvedCat.id}` || c.name === resolvedCat.name)) ||
-         (weldingSubgroups[categoryName] && weldingSubgroups[categoryName].filter(p))
-       );
-       baseProducts = subMatched.length > 0 ? subMatched : allWire;
-     } else if (resolvedCat.id === 12) {
-       baseProducts = mockDatabase.filter(p => 
-         p.categories && p.categories.some(c => c.url_slug === 'cat-12' || c.name.includes('ลวดเชื่อม'))
-       );
-     } else if (resolvedCat.id === 339) {
-       baseProducts = mockDatabase.filter(p => 
-         p.categories && p.categories.some(c => c.url_slug === 'cat-339' || c.name.includes('เครื่องเชื่อมและเครื่องตัดพลาสม่า'))
-       );
-     } else if (resolvedCat.id === 344) {
-       baseProducts = mockDatabase.filter(p => 
-         p.categories && p.categories.some(c => c.url_slug === 'cat-344' || c.name.includes('อะไหล่สิ้นเปลือง'))
-       );
-     } else if (resolvedCat.id === 312) {
-       baseProducts = mockDatabase.filter(p => 
-         p.categories && p.categories.some(c => c.url_slug === 'cat-312' || c.name.includes('อุปกรณ์เชื่อมตัดเผาแก๊ส'))
-       );
-     } else if (resolvedCat.id === 298) {
-       baseProducts = mockDatabase.filter(p => 
-         p.categories && p.categories.some(c => c.url_slug === 'cat-298' || c.name.includes('ใบตัดใบเจียร'))
-       );
-     } else if (resolvedCat.id === 327) {
-       baseProducts = mockDatabase.filter(p => 
-         p.categories && p.categories.some(c => c.url_slug === 'cat-327' || c.name.includes('ท่อบรรจุก๊าซ'))
-       );
-     } else if (resolvedCat.id === 382) {
-       baseProducts = mockDatabase.filter(p => 
-         p.categories && p.categories.some(c => c.url_slug === 'cat-382' || c.name.includes('เคมีภัณฑ์'))
-       );
-     } else if (resolvedCat.id === 398) {
-       baseProducts = mockDatabase.filter(p => 
-         p.categories && p.categories.some(c => c.url_slug === 'cat-398' || c.name.includes('เครื่องมือช่าง'))
-       );
-     } else if (isMachines) {
-       const matched = mockDatabase.filter(p => 
-         p.categories && p.categories.some(c => c.url_slug === `cat-${resolvedCat.id}` || c.url_slug === resolvedCat.slug || c.name.toLowerCase() === resolvedCat.name.toLowerCase())
-       );
-       baseProducts = matched.length > 0 ? matched : mockDatabase.filter(p => p.categories && p.categories.some(c => c.url_slug === 'cat-339'));
-     } else if (isConsumables) {
-       const matched = mockDatabase.filter(p => 
-         p.categories && p.categories.some(c => c.url_slug === `cat-${resolvedCat.id}` || c.url_slug === resolvedCat.slug || c.name.toLowerCase() === resolvedCat.name.toLowerCase())
-       );
-       baseProducts = matched.length > 0 ? matched : mockDatabase.filter(p => p.categories && p.categories.some(c => c.url_slug === 'cat-344'));
-     } else if (isGasEquipment) {
-       const matched = mockDatabase.filter(p => 
-         p.categories && p.categories.some(c => c.url_slug === `cat-${resolvedCat.id}` || c.url_slug === resolvedCat.slug || c.name.toLowerCase() === resolvedCat.name.toLowerCase())
-       );
-       baseProducts = matched.length > 0 ? matched : mockDatabase.filter(p => p.categories && p.categories.some(c => c.url_slug === 'cat-312'));
-     } else if (isAbrasives) {
-       const matched = mockDatabase.filter(p => 
-         p.categories && p.categories.some(c => c.url_slug === `cat-${resolvedCat.id}` || c.url_slug === resolvedCat.slug || c.name.toLowerCase() === resolvedCat.name.toLowerCase())
-       );
-       baseProducts = matched.length > 0 ? matched : mockDatabase.filter(p => p.categories && p.categories.some(c => c.url_slug === 'cat-298'));
-     } else if (isGasCylinders) {
-       const matched = mockDatabase.filter(p => 
-         p.categories && p.categories.some(c => c.url_slug === `cat-${resolvedCat.id}` || c.url_slug === resolvedCat.slug || c.name.toLowerCase() === resolvedCat.name.toLowerCase())
-       );
-       baseProducts = matched.length > 0 ? matched : mockDatabase.filter(p => p.categories && p.categories.some(c => c.url_slug === 'cat-327'));
-     } else if (isChemicals) {
-       const matched = mockDatabase.filter(p => 
-         p.categories && p.categories.some(c => c.url_slug === `cat-${resolvedCat.id}` || c.url_slug === resolvedCat.slug || c.name.toLowerCase() === resolvedCat.name.toLowerCase())
-       );
-       baseProducts = matched.length > 0 ? matched : mockDatabase.filter(p => p.categories && p.categories.some(c => c.url_slug === 'cat-382'));
-     } else if (isTools) {
-       const matched = mockDatabase.filter(p => 
-         p.categories && p.categories.some(c => c.url_slug === `cat-${resolvedCat.id}` || c.url_slug === resolvedCat.slug || c.name.toLowerCase() === resolvedCat.name.toLowerCase())
-       );
-       baseProducts = matched.length > 0 ? matched : mockDatabase.filter(p => p.categories && p.categories.some(c => c.url_slug === 'cat-398'));
-     } else if (isWeldingWire) {
-       const matched = mockDatabase.filter(p => 
-         p.categories && p.categories.some(c => c.url_slug === `cat-${resolvedCat.id}` || c.url_slug === resolvedCat.slug || c.name.toLowerCase() === resolvedCat.name.toLowerCase())
-       );
-       baseProducts = matched.length > 0 ? matched : mockDatabase.filter(p => p.categories && p.categories.some(c => c.url_slug === 'cat-12'));
-     } else {
-       const matched = mockDatabase.filter(p => 
-         p.categories && p.categories.some(c => 
-           c.url_slug === `cat-${resolvedCat.id}` || 
-           c.url_slug === resolvedCat.slug || 
-           c.name.toLowerCase() === resolvedCat.name.toLowerCase()
-         )
-       );
-       baseProducts = matched.length > 0 ? matched : mockDatabase;
-     }
+  // Render skeleton cards immediately if live catalog is not yet in memory
+  if (gridEl && mockDatabase.length === 0) {
+    gridEl.innerHTML = Array.from({ length: 12 }, () => generateSkeletonCardHTML(true)).join('');
   }
+
+  // Ensure live catalog is synchronized from MariaDB before facet computation
+  if (mockDatabase.length === 0) {
+    await fetchLiveDatabase();
+  }
+
+  // 1. Initial Filter of products based on URL
+  let applyFilters;
+  const getBaseProducts = () => {
+    let prods = [];
+    if (type === 'search' || type === 'ai_search') {
+      const qLower = query.toLowerCase();
+      prods = mockDatabase.filter(p => 
+        p.name.toLowerCase().includes(qLower) || 
+        p.brand.toLowerCase().includes(qLower) ||
+        (p.description && p.description.toLowerCase().includes(qLower))
+      );
+      // Prioritize MIG / Welpro / Kobelco if query relates to MIG / Flux-cored
+      if (qLower.includes('มิก') || qLower.includes('mig') || qLower.includes('ฟลักซ์คอร์') || qLower.includes('co2')) {
+        const migMatched = mockDatabase.filter(p => 
+          p.name.toLowerCase().includes('mig') || 
+          p.name.toLowerCase().includes('มิก') || 
+          p.name.toLowerCase().includes('ฟลักซ์คอร์') || 
+          (p.filter_attributes?.process && p.filter_attributes.process.includes('MIG')) ||
+          (p.brand && (p.brand.toUpperCase() === 'WELPRO' || p.brand.toUpperCase() === 'KOVET' || p.brand.toUpperCase() === 'KOBELCO'))
+        );
+        if (migMatched.length > 0) prods = migMatched;
+      }
+      if (prods.length === 0) {
+        prods = mockDatabase.filter(p => p.categories && p.categories.some(c => c.name.includes('ลวดเชื่อม')));
+      }
+    } else if (type === 'collection') {
+       const colMapping = { 'new-arrivals': 'new_arrival', 'top-sale': 'popular', 'for-you': 'just_for_you' };
+       const mapKey = colMapping[rawName] || rawName;
+       if (rawName === 'promotion' || rawName === 'promo' || rawName === 'โปรโมชั่น') {
+         prods = mockDatabase.filter(p => p.flags?.is_promotion || p.promotion === 1 || (p.variants && p.variants.some(v => v.original_price && v.original_price > v.price)));
+       } else {
+         prods = mockDatabase.filter(p => p.collections && p.collections.includes(mapKey));
+       }
+    } else if (type === 'brand') {
+       prods = mockDatabase.filter(p => p.brand.toLowerCase() === rawName.toLowerCase());
+    } else {
+       // Category Filter across all 8 root categories & subcategories
+       if (isSubgroup) {
+         const allWire = mockDatabase.filter(p => 
+           p.categories && p.categories.some(c => c.name.includes('ลวดเชื่อม') || c.url_slug.includes('wire') || c.url_slug === 'cat-12' || c.url_slug === 'cat-296')
+         );
+         const subMatched = allWire.filter(p => 
+           (p.categories && p.categories.some(c => c.url_slug === `cat-${resolvedCat.id}` || c.name === resolvedCat.name)) ||
+           (weldingSubgroups[categoryName] && weldingSubgroups[categoryName].filter(p))
+         );
+         prods = subMatched.length > 0 ? subMatched : allWire;
+       } else if (resolvedCat.id === 12) {
+         prods = mockDatabase.filter(p => 
+           p.categories && p.categories.some(c => c.url_slug === 'cat-12' || c.name.includes('ลวดเชื่อม'))
+         );
+       } else if (resolvedCat.id === 339) {
+         prods = mockDatabase.filter(p => 
+           p.categories && p.categories.some(c => c.url_slug === 'cat-339' || c.name.includes('เครื่องเชื่อมและเครื่องตัดพลาสม่า'))
+         );
+       } else if (resolvedCat.id === 344) {
+         prods = mockDatabase.filter(p => 
+           p.categories && p.categories.some(c => c.url_slug === 'cat-344' || c.name.includes('อะไหล่สิ้นเปลือง'))
+         );
+       } else if (resolvedCat.id === 312) {
+         prods = mockDatabase.filter(p => 
+           p.categories && p.categories.some(c => c.url_slug === 'cat-312' || c.name.includes('อุปกรณ์เชื่อมตัดเผาแก๊ส'))
+         );
+       } else if (resolvedCat.id === 298) {
+         prods = mockDatabase.filter(p => 
+           p.categories && p.categories.some(c => c.url_slug === 'cat-298' || c.name.includes('ใบตัดใบเจียร'))
+         );
+       } else if (resolvedCat.id === 327) {
+         prods = mockDatabase.filter(p => 
+           p.categories && p.categories.some(c => c.url_slug === 'cat-327' || c.name.includes('ท่อบรรจุก๊าซ'))
+         );
+       } else if (resolvedCat.id === 382) {
+         prods = mockDatabase.filter(p => 
+           p.categories && p.categories.some(c => c.url_slug === 'cat-382' || c.name.includes('เคมีภัณฑ์'))
+         );
+       } else if (resolvedCat.id === 398) {
+         prods = mockDatabase.filter(p => 
+           p.categories && p.categories.some(c => c.url_slug === 'cat-398' || c.name.includes('เครื่องมือช่าง'))
+         );
+       } else if (isMachines) {
+         const matched = mockDatabase.filter(p => 
+           p.categories && p.categories.some(c => c.url_slug === `cat-${resolvedCat.id}` || c.url_slug === resolvedCat.slug || c.name.toLowerCase() === resolvedCat.name.toLowerCase())
+         );
+         prods = matched.length > 0 ? matched : mockDatabase.filter(p => p.categories && p.categories.some(c => c.url_slug === 'cat-339'));
+       } else if (isConsumables) {
+         const matched = mockDatabase.filter(p => 
+           p.categories && p.categories.some(c => c.url_slug === `cat-${resolvedCat.id}` || c.url_slug === resolvedCat.slug || c.name.toLowerCase() === resolvedCat.name.toLowerCase())
+         );
+         prods = matched.length > 0 ? matched : mockDatabase.filter(p => p.categories && p.categories.some(c => c.url_slug === 'cat-344'));
+       } else if (isGasEquipment) {
+         const matched = mockDatabase.filter(p => 
+           p.categories && p.categories.some(c => c.url_slug === `cat-${resolvedCat.id}` || c.url_slug === resolvedCat.slug || c.name.toLowerCase() === resolvedCat.name.toLowerCase())
+         );
+         prods = matched.length > 0 ? matched : mockDatabase.filter(p => p.categories && p.categories.some(c => c.url_slug === 'cat-312'));
+       } else if (isAbrasives) {
+         const matched = mockDatabase.filter(p => 
+           p.categories && p.categories.some(c => c.url_slug === `cat-${resolvedCat.id}` || c.url_slug === resolvedCat.slug || c.name.toLowerCase() === resolvedCat.name.toLowerCase())
+         );
+         prods = matched.length > 0 ? matched : mockDatabase.filter(p => p.categories && p.categories.some(c => c.url_slug === 'cat-298'));
+       } else if (isGasCylinders) {
+         const matched = mockDatabase.filter(p => 
+           p.categories && p.categories.some(c => c.url_slug === `cat-${resolvedCat.id}` || c.url_slug === resolvedCat.slug || c.name.toLowerCase() === resolvedCat.name.toLowerCase())
+         );
+         prods = matched.length > 0 ? matched : mockDatabase.filter(p => p.categories && p.categories.some(c => c.url_slug === 'cat-327'));
+       } else if (isChemicals) {
+         const matched = mockDatabase.filter(p => 
+           p.categories && p.categories.some(c => c.url_slug === `cat-${resolvedCat.id}` || c.url_slug === resolvedCat.slug || c.name.toLowerCase() === resolvedCat.name.toLowerCase())
+         );
+         prods = matched.length > 0 ? matched : mockDatabase.filter(p => p.categories && p.categories.some(c => c.url_slug === 'cat-382'));
+       } else if (isTools) {
+         const matched = mockDatabase.filter(p => 
+           p.categories && p.categories.some(c => c.url_slug === `cat-${resolvedCat.id}` || c.url_slug === resolvedCat.slug || c.name.toLowerCase() === resolvedCat.name.toLowerCase())
+         );
+         prods = matched.length > 0 ? matched : mockDatabase.filter(p => p.categories && p.categories.some(c => c.url_slug === 'cat-398'));
+       } else if (isWeldingWire) {
+         const matched = mockDatabase.filter(p => 
+           p.categories && p.categories.some(c => c.url_slug === `cat-${resolvedCat.id}` || c.url_slug === resolvedCat.slug || c.name.toLowerCase() === resolvedCat.name.toLowerCase())
+         );
+         prods = matched.length > 0 ? matched : mockDatabase.filter(p => p.categories && p.categories.some(c => c.url_slug === 'cat-12'));
+       } else {
+         const matched = mockDatabase.filter(p => 
+           p.categories && p.categories.some(c => 
+             c.url_slug === `cat-${resolvedCat.id}` || 
+             c.url_slug === resolvedCat.slug || 
+             c.name.toLowerCase() === resolvedCat.name.toLowerCase()
+           )
+         );
+         prods = matched.length > 0 ? matched : mockDatabase;
+       }
+    }
+    return prods;
+  };
+  let baseProducts = getBaseProducts();
 
   // 2. Update Breadcrumbs, Title and AI Overview
   if (type === 'ai_search' || type === 'search') {
@@ -2203,6 +2217,7 @@ setTimeout(() => {
   applyFilters();
 
   window.addEventListener('udo:catalog_updated', () => {
+    baseProducts = getBaseProducts();
     if (typeof applyFilters === 'function') {
       applyFilters();
     }

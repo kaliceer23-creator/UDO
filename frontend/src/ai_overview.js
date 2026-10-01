@@ -12,7 +12,7 @@
  */
 
 import { renderMarkdownToHTML } from './markdown_parser.js';
-import { mockDatabase } from './mock_database.js';
+import { mockDatabase, fetchLiveDatabase } from './mock_database.js';
 import { UDO_ARTICLES, findArticle } from './udo_articles.js';
 
 let currentLoadedQuery = '';
@@ -825,8 +825,11 @@ export async function loadAndRenderAiOverview(container, query = 'ลวดเ�
   container.classList.remove('hidden');
   initAiOverviewInteractions();
 
-  // 2. Fetch Initial Response
-  const aiData = await fetchAiData(query);
+  // 2. Fetch Initial Response and synchronize live catalog concurrently
+  const [aiData] = await Promise.all([
+    fetchAiData(query),
+    mockDatabase.length === 0 ? fetchLiveDatabase() : Promise.resolve()
+  ]);
   currentLoadedAiData = aiData || getCuratedFallbackData(query);
 
   // 3. Hydrate dynamic result

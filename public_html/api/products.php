@@ -34,6 +34,7 @@ class UdoPublicProductsService
     public function handleRequest(): void
     {
         handleCorsAndHeaders();
+        header('Cache-Control: public, max-age=60, stale-while-revalidate=300');
 
         $id = trim((string)($_GET['id'] ?? ''));
         $db = $this->getDbConnection();

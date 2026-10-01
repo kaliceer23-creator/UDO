@@ -4,6 +4,7 @@ window.homeProducts = {};
 
 import { 
   generateCardHTML, 
+  generateSkeletonCardHTML,
   ProductCard, 
   formatPrice, 
   getStartingPrice, 
@@ -13,6 +14,7 @@ import {
 
 export { 
   generateCardHTML, 
+  generateSkeletonCardHTML,
   ProductCard, 
   formatPrice, 
   getStartingPrice, 
@@ -27,10 +29,20 @@ const extractNumberSize = (sizeStr) => {
 
 const injectTrack = (id, filterSortFn, sourceDb = mockDatabase) => {
   const track = document.getElementById(id);
-  if (track) {
-    const products = filterSortFn([...sourceDb]);
-    track.innerHTML = products.map(p => generateCardHTML(p, false)).join('');
+  if (!track) return;
+
+  if (!sourceDb || sourceDb.length === 0) {
+    track.innerHTML = Array.from({ length: 5 }, () => generateSkeletonCardHTML(false)).join('');
+    return;
   }
+
+  const products = filterSortFn([...sourceDb]);
+  if (products.length === 0) {
+    track.innerHTML = Array.from({ length: 5 }, () => generateSkeletonCardHTML(false)).join('');
+    return;
+  }
+
+  track.innerHTML = products.map(p => generateCardHTML(p, false)).join('');
 };
 
 const getBrandIdentifier = (product) => {
