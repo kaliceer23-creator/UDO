@@ -261,8 +261,11 @@ const dom = {
   btnAddCustomSize: document.getElementById('btn-add-custom-size'),
   btnAddSpecRow: document.getElementById('btn-add-spec-row'),
   drawerSpecPresetsBar: document.getElementById('drawer-spec-presets-bar'),
-  drawerSpecsTbody: document.getElementById('drawer-specs-tbody'),
   drawerDesc: document.getElementById('drawer-desc'),
+  drawerTagsList: document.getElementById('drawer-tags-list'),
+  drawerTagInput: document.getElementById('drawer-tag-input'),
+  btnAddDrawerTag: document.getElementById('btn-add-drawer-tag'),
+  drawerTagsCountBadge: document.getElementById('drawer-tags-count-badge'),
   drawerRichIsDocument: document.getElementById('drawer-rich-is-document'),
   drawerRichBlocksContainer: document.getElementById('drawer-rich-blocks-container'),
   btnAddRichBlock: document.getElementById('btn-add-rich-block'),
@@ -2579,6 +2582,10 @@ function openProductDrawer(productId) {
 
   if (dom.drawerDesc) dom.drawerDesc.value = state.activeProduct.description || '';
 
+  // Pre-populate Card Highlight Tags
+  state.activeProduct.tags = Array.isArray(state.activeProduct.tags) ? [...state.activeProduct.tags] : [];
+  renderDrawerTags();
+
   // Render Variants inputs
   renderDrawerVariants();
 
@@ -2702,6 +2709,8 @@ function openCreateProductDrawer() {
   renderDrawerSpecs();
   renderDrawerRichContent();
   renderDrawerGallery();
+  state.activeProduct.tags = [];
+  renderDrawerTags();
 
   // Hide Danger Zone for new product creation
   if (dom.drawerDangerZone) dom.drawerDangerZone.classList.add('hidden');
@@ -3178,6 +3187,163 @@ function addSpecRow(key = '', value = '') {
       if (targetInput) targetInput.focus();
     }
   }
+}
+
+/**
+ * Product Card Highlight Tags Controller
+ * Displays tags with priority #1, #2, #3 badges (which appear on the storefront card with |)
+ */
+function renderDrawerTags() {
+  if (!dom.drawerTagsList || !state.activeProduct) return;
+
+  const tags = Array.isArray(state.activeProduct.tags) ? state.activeProduct.tags : [];
+  state.activeProduct.tags = tags;
+
+  if (dom.drawerTagsCountBadge) {
+    dom.drawerTagsCountBadge.textContent = `${tags.length} แท็ก`;
+  }
+
+  if (tags.length === 0) {
+    dom.drawerTagsList.innerHTML = `
+      <div class="w-full py-2.5 text-center text-xs text-gray-400 select-none">
+        ยังไม่มีแท็กคุณสมบัติเด่น (พิมพ์แท็กด้านล่างแล้วกด Enter หรือคลิก "+ เพิ่มแท็ก")
+      </div>
+    `;
+    return;
+  }
+
+  dom.drawerTagsList.innerHTML = tags.map((tag, idx) => {
+    const isTop3 = idx < 3;
+    const badgeText = `#${idx + 1}`;
+    
+    return `
+      <div class="tag-pill inline-flex items-center gap-1.5 py-1 px-2.5 rounded-lg text-xs transition-all ${
+        isTop3 
+          ? 'bg-white border border-black/25 text-[#160808] font-bold shadow-2xs' 
+          : 'bg-white/80 border border-gray-200 text-[#424245] font-medium'
+      }" data-index="${idx}">
+        <span class="inline-flex items-center gap-1">
+          <span class="px-1.5 py-0.2 rounded text-[10px] font-mono font-bold ${
+            isTop3 ? 'bg-[#160808] text-white' : 'bg-gray-200 text-gray-700'
+          }">
+            ${badgeText}
+          </span>
+          <span class="tag-label select-none max-w-[200px] truncate" title="${escapeHtml(tag)}">${escapeHtml(tag)}</span>
+          ${isTop3 ? '<span class="text-[10px] text-emerald-600 font-bold hidden sm:inline">(แสดงบนการ์ด)</span>' : ''}
+        </span>
+
+        <!-- Move Left/Right Controls -->
+        <div class="inline-flex items-center gap-0.5 ml-0.5 border-l border-gray-200 pl-1">
+          <button 
+            type="button" 
+            class="btn-tag-move-left p-0.5 text-gray-400 hover:text-black transition-colors ${idx === 0 ? 'invisible pointer-events-none' : 'cursor-pointer'}" 
+            data-index="${idx}" 
+            title="เลื่อนขึ้นหน้า"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <button 
+            type="button" 
+            class="btn-tag-move-right p-0.5 text-gray-400 hover:text-black transition-colors ${idx === tags.length - 1 ? 'invisible pointer-events-none' : 'cursor-pointer'}" 
+            data-index="${idx}" 
+            title="เลื่อนไปหลัง"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+          <button 
+            type="button" 
+            class="btn-tag-remove p-0.5 text-gray-400 hover:text-rose-600 transition-colors cursor-pointer ml-0.5" 
+            data-index="${idx}" 
+            title="ลบแท็กนี้"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Bind Tag buttons
+  dom.drawerTagsList.querySelectorAll('.btn-tag-move-left').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const idx = parseInt(btn.dataset.index, 10);
+      moveDrawerTag(idx, -1);
+    });
+  });
+
+  dom.drawerTagsList.querySelectorAll('.btn-tag-move-right').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const idx = parseInt(btn.dataset.index, 10);
+      moveDrawerTag(idx, 1);
+    });
+  });
+
+  dom.drawerTagsList.querySelectorAll('.btn-tag-remove').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const idx = parseInt(btn.dataset.index, 10);
+      removeDrawerTag(idx);
+    });
+  });
+}
+
+function addDrawerTag(tagInputString) {
+  if (!state.activeProduct || !tagInputString) return;
+  state.activeProduct.tags = state.activeProduct.tags || [];
+
+  // Support comma (,) or pipe (|) separated strings for bulk addition
+  const parts = tagInputString.split(/[,|]/).map(t => t.trim()).filter(Boolean);
+  if (parts.length === 0) return;
+
+  let addedCount = 0;
+  parts.forEach(part => {
+    if (!state.activeProduct.tags.includes(part)) {
+      state.activeProduct.tags.push(part);
+      addedCount++;
+    }
+  });
+
+  if (dom.drawerTagInput) {
+    dom.drawerTagInput.value = '';
+    dom.drawerTagInput.focus();
+  }
+
+  if (addedCount > 0) {
+    renderDrawerTags();
+    updateDrawerLivePreview();
+  } else {
+    showToast('แท็กนี้มีอยู่ในรายการแล้ว', 'error');
+  }
+}
+
+function removeDrawerTag(index) {
+  if (!state.activeProduct || !Array.isArray(state.activeProduct.tags)) return;
+  if (index < 0 || index >= state.activeProduct.tags.length) return;
+
+  state.activeProduct.tags.splice(index, 1);
+  renderDrawerTags();
+  updateDrawerLivePreview();
+}
+
+function moveDrawerTag(index, direction) {
+  if (!state.activeProduct || !Array.isArray(state.activeProduct.tags)) return;
+  const targetIndex = index + direction;
+  if (targetIndex < 0 || targetIndex >= state.activeProduct.tags.length) return;
+
+  const temp = state.activeProduct.tags[index];
+  state.activeProduct.tags[index] = state.activeProduct.tags[targetIndex];
+  state.activeProduct.tags[targetIndex] = temp;
+
+  renderDrawerTags();
+  updateDrawerLivePreview();
 }
 
 /**
@@ -4476,6 +4642,7 @@ function updateDrawerLivePreview() {
   if (dom.drawerNameEn) previewProduct.name_en = dom.drawerNameEn.value.trim();
   if (dom.drawerBrand) previewProduct.brand = dom.drawerBrand.value.trim();
   if (dom.drawerSortPriority) previewProduct.sort_priority = parseInt(dom.drawerSortPriority.value, 10) || 100;
+  previewProduct.tags = Array.isArray(state.activeProduct.tags) ? state.activeProduct.tags : [];
 
   previewProduct.flags = previewProduct.flags || {};
   if (dom.drawerFlagBest) previewProduct.flags.is_best_seller = dom.drawerFlagBest.checked;
@@ -4655,7 +4822,8 @@ async function handleSaveDrawer() {
       is_promotion: isPromo
     },
     images: state.activeProduct.images || [],
-    variants: updatedVariants
+    variants: updatedVariants,
+    tags: state.activeProduct.tags || []
   };
 
   if (state.activeProduct.specsTable) {
@@ -6523,6 +6691,25 @@ function initEvents() {
     });
   }
   attachRichContentListeners();
+
+  // Card Highlight Tags Listeners
+  if (dom.btnAddDrawerTag) {
+    dom.btnAddDrawerTag.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (dom.drawerTagInput) {
+        addDrawerTag(dom.drawerTagInput.value);
+      }
+    });
+  }
+
+  if (dom.drawerTagInput) {
+    dom.drawerTagInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        addDrawerTag(dom.drawerTagInput.value);
+      }
+    });
+  }
 
   // Tab Switching Listeners for Wide Workbench Modal
   const tabsBar = document.getElementById('editor-tabs-bar');
