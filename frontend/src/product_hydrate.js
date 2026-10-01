@@ -471,59 +471,124 @@ export async function hydrateProduct(productOverride = null) {
       }
     };
 
-    // Fallback Logic: ถ้าไม่มีข้อมูลโฆษณาเฉพาะ ให้เอาชื่อและรายละเอียดหลักมาวนซ้ำ
-    const finalHeadline = productData.richContent?.headline || productData.name || '';
-    const finalDesc = productData.richContent?.description || productData.description || '';
-
-    toggleNode('rich-headline', finalHeadline, (el) => el.innerText = finalHeadline);
     const isDoc = productData.richContent?.isDocument === true;
-    const imgWrapperWidthClass = isDoc ? 'max-w-[1040px]' : 'max-w-[760px]';
+    const imgWrapperWidthClass = isDoc ? 'max-w-[1040px]' : 'max-w-[840px]';
+    const storyBlocksContainer = document.getElementById('rich-story-blocks-container');
 
-    const setRichImg = (id, src) => {
-      toggleNode(id, src, (el) => {
-        el.src = src;
-        const parent = el.parentElement;
-        if (parent) {
-          parent.classList.remove('max-w-[800px]', 'max-w-[760px]', 'max-w-[1040px]');
-          parent.classList.add(imgWrapperWidthClass);
-        }
-      });
-    };
+    const hasModularBlocks = Array.isArray(productData.richContent?.blocks) && 
+      productData.richContent.blocks.some(b => b && (b.headline || b.subheadline || b.paragraph || b.image));
 
-    setRichImg('rich-img-1', productData.richContent?.image1);
-    setRichImg('rich-img-2', productData.richContent?.image2);
-    
-    // สำหรับ text block ที่อยู่รวมกันใน div เดียว (subheadline + desc)
-    const rawSubheadline = productData.richContent?.subheadline;
-    const isGenericSubheadline = !rawSubheadline || rawSubheadline.startsWith('ผลิตภัณฑ์คุณภาพสูง แบรนด์') || rawSubheadline.startsWith('แบรนด์ ');
-    const validSubheadline = isGenericSubheadline ? null : rawSubheadline;
+    if (hasModularBlocks && storyBlocksContainer) {
+      // Hide legacy elements
+      toggleNode('rich-headline', false, () => {});
+      const textBlockParent = document.getElementById('rich-subheadline')?.parentElement;
+      if (textBlockParent) textBlockParent.style.display = 'none';
+      toggleNode('rich-img-1', false, () => {});
+      toggleNode('rich-img-2', false, () => {});
+      toggleNode('rich-img-3', false, () => {});
 
-    const textBlockParent = document.getElementById('rich-subheadline')?.parentElement;
-    if (textBlockParent) {
-       if (validSubheadline || finalDesc) {
-           textBlockParent.style.display = '';
-           const elSub = document.getElementById('rich-subheadline');
-           if(elSub) {
-             if(validSubheadline) { 
-               elSub.innerText = validSubheadline; 
-               elSub.classList.remove('hidden');
-               elSub.style.display = ''; 
-             } else { 
-               elSub.classList.add('hidden');
-               elSub.style.display = 'none'; 
+      // Render modular story blocks (Apple / Nintendo style)
+      const validBlocks = productData.richContent.blocks.filter(b => b && (b.headline || b.subheadline || b.paragraph || b.image));
+      storyBlocksContainer.innerHTML = validBlocks.map((b, i) => {
+        const hasText = Boolean(b.headline || b.subheadline || b.paragraph);
+        const hasImg = Boolean(b.image);
+
+        return `
+          <div class="story-block space-y-6">
+            ${hasText ? `
+              <div class="max-w-[760px] mx-auto space-y-3 px-4">
+                ${b.headline ? `
+                  <h3 class="text-2xl sm:text-3xl font-extrabold text-[#252525] tracking-tight leading-tight">
+                    ${b.headline.replace(/</g, '&lt;').replace(/>/g, '&gt;')}
+                  </h3>
+                ` : ''}
+                ${b.subheadline ? `
+                  <h4 class="text-base sm:text-lg font-semibold text-gray-600 leading-snug">
+                    ${b.subheadline.replace(/</g, '&lt;').replace(/>/g, '&gt;')}
+                  </h4>
+                ` : ''}
+                ${b.paragraph ? `
+                  <p class="text-[15.5px] sm:text-[16px] text-gray-700 leading-relaxed whitespace-pre-line text-center">
+                    ${b.paragraph.replace(/</g, '&lt;').replace(/>/g, '&gt;')}
+                  </p>
+                ` : ''}
+              </div>
+            ` : ''}
+
+            ${hasImg ? `
+              <div class="w-full ${imgWrapperWidthClass} mx-auto px-2 sm:px-0 flex justify-center">
+                <img 
+                  src="${b.image.replace(/"/g, '&quot;')}" 
+                  alt="Showcase detail ${i + 1}" 
+                  class="w-full h-auto object-contain rounded-2xl mx-auto shadow-xs"
+                  loading="lazy"
+                >
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+
+      storyBlocksContainer.classList.remove('hidden');
+      storyBlocksContainer.style.display = 'block';
+    } else {
+      if (storyBlocksContainer) {
+        storyBlocksContainer.classList.add('hidden');
+        storyBlocksContainer.style.display = 'none';
+      }
+
+      // Fallback Logic: ถ้าไม่มีข้อมูลเฉพาะ ให้เอาชื่อและรายละเอียดหลักมาวนซ้ำ
+      const finalHeadline = productData.richContent?.headline || productData.name || '';
+      const finalDesc = productData.richContent?.description || productData.description || '';
+
+      toggleNode('rich-headline', finalHeadline, (el) => el.innerText = finalHeadline);
+
+      const setRichImg = (id, src) => {
+        toggleNode(id, src, (el) => {
+          el.src = src;
+          const parent = el.parentElement;
+          if (parent) {
+            parent.classList.remove('max-w-[800px]', 'max-w-[760px]', 'max-w-[1040px]');
+            parent.classList.add(imgWrapperWidthClass);
+          }
+        });
+      };
+
+      setRichImg('rich-img-1', productData.richContent?.image1);
+      setRichImg('rich-img-2', productData.richContent?.image2);
+      
+      // สำหรับ text block ที่อยู่รวมกันใน div เดียว (subheadline + desc)
+      const rawSubheadline = productData.richContent?.subheadline;
+      const isGenericSubheadline = !rawSubheadline || rawSubheadline.startsWith('ผลิตภัณฑ์คุณภาพสูง แบรนด์') || rawSubheadline.startsWith('แบรนด์ ');
+      const validSubheadline = isGenericSubheadline ? null : rawSubheadline;
+
+      const textBlockParent = document.getElementById('rich-subheadline')?.parentElement;
+      if (textBlockParent) {
+         if (validSubheadline || finalDesc) {
+             textBlockParent.style.display = '';
+             const elSub = document.getElementById('rich-subheadline');
+             if(elSub) {
+               if(validSubheadline) { 
+                 elSub.innerText = validSubheadline; 
+                 elSub.classList.remove('hidden');
+                 elSub.style.display = ''; 
+               } else { 
+                 elSub.classList.add('hidden');
+                 elSub.style.display = 'none'; 
+               }
              }
-           }
-           const elDesc = document.getElementById('rich-desc');
-           if(elDesc) {
-             if(finalDesc) { elDesc.innerText = finalDesc; elDesc.style.display = ''; }
-             else { elDesc.style.display = 'none'; }
-           }
-       } else {
-           textBlockParent.style.display = 'none';
-       }
-    }
+             const elDesc = document.getElementById('rich-desc');
+             if(elDesc) {
+               if(finalDesc) { elDesc.innerText = finalDesc; elDesc.style.display = ''; }
+               else { elDesc.style.display = 'none'; }
+             }
+         } else {
+             textBlockParent.style.display = 'none';
+         }
+      }
 
-    setRichImg('rich-img-3', productData.richContent?.image3);
+      setRichImg('rich-img-3', productData.richContent?.image3);
+    }
 
     // Engineering Tables Rendering (Chemical %, Mechanical Properties, Current Range)
     const engTablesContainer = document.getElementById('rich-engineering-tables');
