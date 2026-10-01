@@ -93,6 +93,9 @@ const state = {
   // 1-Click Status Popover Dropdown State
   statusPopoverTarget: null,
 
+  // Shelf Rank Quick Move Popover State
+  shelfRankPopoverTarget: null,
+
   // Create Product Mode
   isCreateMode: false
 };
@@ -128,6 +131,15 @@ const dom = {
 
   // 1-Click Status Popover Dropdown (Singleton)
   globalStatusPopover: document.getElementById('global-status-popover'),
+
+  // Shelf Rank Quick Move Popover (Singleton)
+  shelfRankPopover: document.getElementById('shelf-rank-popover'),
+  rankPopoverProductName: document.getElementById('rank-popover-product-name'),
+  rankPopoverCurrentInfo: document.getElementById('rank-popover-current-info'),
+  shelfRankForm: document.getElementById('shelf-rank-form'),
+  rankPopoverInput: document.getElementById('rank-popover-input'),
+  btnCloseRankPopover: document.getElementById('btn-close-rank-popover'),
+  btnCancelRankPopover: document.getElementById('btn-cancel-rank-popover'),
 
   // Floating Batch Action Dock
   floatingBatchDock: document.getElementById('floating-batch-dock'),
@@ -1607,25 +1619,25 @@ function renderMerchandisingShelves() {
         return `
           <div class="shelf-item-card ${cardSizingClass} bg-white rounded-2xl p-3.5 border border-black/[0.06] shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:shadow-md transition-all flex flex-col justify-between group relative" data-product-id="${product.id}" data-shelf-id="${shelf.id}">
             
-            <!-- Top Row: Direct Rank Input & Move Controls -->
+            <!-- Top Row: Clickable Rank Badge & Move Controls -->
             <div class="flex items-center justify-between gap-1.5 mb-2">
               <div class="flex items-center gap-1.5 flex-wrap">
-                <!-- Direct Rank Input Pill -->
-                <div class="inline-flex items-center h-6 px-1.5 rounded-lg bg-[#160808] text-white text-[11px] font-bold font-mono shadow-xs group/rank focus-within:ring-2 focus-within:ring-blue-500 transition-all cursor-text" title="คลิกเพื่อพิมพ์เปลี่ยนลำดับ แล้วกด Enter หรือคลิกข้างนอกเพื่อย้ายทันที">
-                  <span class="text-white/60 select-none mr-0.5 text-[10px]">#</span>
-                  <input 
-                    type="number" 
-                    min="1" 
-                    max="${count}" 
-                    value="${rank}" 
-                    data-original-rank="${rank}" 
-                    data-shelf-id="${shelf.id}" 
-                    data-product-id="${product.id}" 
-                    data-total-count="${count}"
-                    class="shelf-rank-input w-7 sm:w-8 h-5 text-center font-mono font-bold text-[11px] bg-transparent text-white border-0 p-0 focus:outline-none focus:bg-white/10 rounded cursor-text select-all"
-                    style="-moz-appearance: textfield; appearance: textfield;"
-                  >
-                </div>
+                <!-- Rank Badge Button (Click to Open Quick Move Popover) -->
+                <button 
+                  type="button" 
+                  class="btn-open-rank-popover inline-flex items-center gap-1 h-6 px-2 rounded-lg bg-[#160808] text-white text-[11px] font-bold font-mono shadow-xs hover:bg-black hover:ring-2 hover:ring-black/20 active:scale-95 transition-all cursor-pointer group/rank"
+                  data-shelf-id="${shelf.id}" 
+                  data-product-id="${product.id}" 
+                  data-rank="${rank}" 
+                  data-total-count="${count}"
+                  data-product-name="${escapeHtml(product.name)}"
+                  title="คลิกเพื่อเปิดหน้าต่างย้ายลำดับ (อันดับ #${rank} จากทั้งหมด ${count} รายการ)"
+                >
+                  <span class="text-white/60 text-[10px]">#</span><span>${rank}</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-2.5 h-2.5 text-white/50 group-hover/rank:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
                 ${availBadgeHTML}
                 ${statusBadgeHTML}
               </div>
@@ -1874,48 +1886,17 @@ function attachShelfEvents() {
     });
   });
 
-  // 6. Direct Rank Number Input
-  dom.merchandisingShelvesContainer.querySelectorAll('.shelf-rank-input').forEach(input => {
-    input.addEventListener('click', (e) => {
+  // 6. Open Quick Move Popover
+  dom.merchandisingShelvesContainer.querySelectorAll('.btn-open-rank-popover').forEach(btn => {
+    btn.addEventListener('click', (e) => {
       e.stopPropagation();
+      const shelfId = btn.getAttribute('data-shelf-id');
+      const pid = btn.getAttribute('data-product-id');
+      const rank = btn.getAttribute('data-rank');
+      const count = btn.getAttribute('data-total-count');
+      const name = btn.getAttribute('data-product-name');
+      openShelfRankPopover(btn, shelfId, pid, rank, count, name);
     });
-
-    input.addEventListener('focus', (e) => {
-      e.stopPropagation();
-      input.select();
-    });
-
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        e.stopPropagation();
-        input.blur();
-      } else if (e.key === 'Escape') {
-        e.preventDefault();
-        e.stopPropagation();
-        input.value = input.getAttribute('data-original-rank');
-        input.blur();
-      }
-    });
-
-    let isProcessing = false;
-    const processRankChange = () => {
-      if (isProcessing) return;
-      const shelfId = input.getAttribute('data-shelf-id');
-      const pid = input.getAttribute('data-product-id');
-      const origRank = parseInt(input.getAttribute('data-original-rank'), 10);
-      const newRank = parseInt(input.value.trim(), 10);
-
-      if (isNaN(newRank) || newRank === origRank) {
-        input.value = origRank;
-        return;
-      }
-      isProcessing = true;
-      handleDirectRankChange(shelfId, pid, newRank);
-    };
-
-    input.addEventListener('change', processRankChange);
-    input.addEventListener('blur', processRankChange);
   });
 
   // 7. Remove from Shelf
@@ -1936,6 +1917,99 @@ function attachShelfEvents() {
       openProductDrawer(pid);
     });
   });
+}
+
+/**
+ * Open Shelf Rank Quick Move Popover
+ */
+function openShelfRankPopover(triggerEl, shelfId, productId, currentRank, totalCount, productName) {
+  if (!dom.shelfRankPopover) return;
+
+  // If already open for this product, close it
+  if (state.shelfRankPopoverTarget && state.shelfRankPopoverTarget.productId === productId && state.shelfRankPopoverTarget.shelfId === shelfId) {
+    closeShelfRankPopover();
+    return;
+  }
+
+  const parsedCurrentRank = parseInt(currentRank, 10) || 1;
+  const parsedTotalCount = parseInt(totalCount, 10) || 1;
+
+  state.shelfRankPopoverTarget = {
+    triggerEl,
+    shelfId,
+    productId,
+    currentRank: parsedCurrentRank,
+    totalCount: parsedTotalCount,
+    productName
+  };
+
+  const popover = dom.shelfRankPopover;
+  if (dom.rankPopoverProductName) dom.rankPopoverProductName.textContent = productName || productId;
+  if (dom.rankPopoverCurrentInfo) dom.rankPopoverCurrentInfo.textContent = `ตำแหน่งปัจจุบัน: อันดับ #${parsedCurrentRank} จากทั้งหมด ${parsedTotalCount} รายการ`;
+  if (dom.rankPopoverInput) dom.rankPopoverInput.value = parsedCurrentRank;
+
+  // Preset buttons: update last preset label and data
+  const lastPresetBtn = popover.querySelector('.btn-rank-preset[data-preset="last"]');
+  if (lastPresetBtn) {
+    lastPresetBtn.textContent = `#${parsedTotalCount} ท้ายแถว`;
+    lastPresetBtn.setAttribute('data-target-rank', parsedTotalCount);
+  }
+
+  // Calculate position relative to triggerEl (fixed viewport coordinates)
+  const rect = triggerEl.getBoundingClientRect();
+  const popoverWidth = 288;
+  const popoverHeight = 240;
+
+  let top = rect.bottom + 8;
+  if (top + popoverHeight > window.innerHeight && rect.top - popoverHeight > 10) {
+    top = rect.top - popoverHeight - 8;
+  }
+
+  let left = rect.left + (rect.width / 2) - (popoverWidth / 2);
+  left = Math.max(12, Math.min(left, window.innerWidth - popoverWidth - 12));
+
+  popover.style.top = `${top}px`;
+  popover.style.left = `${left}px`;
+
+  popover.classList.remove('hidden');
+  requestAnimationFrame(() => {
+    popover.classList.remove('opacity-0', 'scale-95');
+    popover.classList.add('opacity-100', 'scale-100');
+    setTimeout(() => {
+      if (dom.rankPopoverInput) {
+        dom.rankPopoverInput.focus();
+        dom.rankPopoverInput.select();
+      }
+    }, 50);
+  });
+}
+
+/**
+ * Close Shelf Rank Quick Move Popover
+ */
+function closeShelfRankPopover() {
+  if (!dom.shelfRankPopover) return;
+  dom.shelfRankPopover.classList.remove('opacity-100', 'scale-100');
+  dom.shelfRankPopover.classList.add('opacity-0', 'scale-95');
+  setTimeout(() => {
+    if (dom.shelfRankPopover) dom.shelfRankPopover.classList.add('hidden');
+  }, 120);
+  state.shelfRankPopoverTarget = null;
+}
+
+/**
+ * Submit Shelf Rank Quick Move
+ */
+async function submitShelfRankPopover(targetRankValue) {
+  if (!state.shelfRankPopoverTarget) return;
+  const { shelfId, productId, currentRank } = state.shelfRankPopoverTarget;
+  closeShelfRankPopover();
+
+  const rankNum = parseInt(targetRankValue, 10);
+  if (isNaN(rankNum) || rankNum === currentRank) {
+    return;
+  }
+  await handleDirectRankChange(shelfId, productId, rankNum);
 }
 
 /**
@@ -6855,20 +6929,64 @@ function initEvents() {
     });
   }
 
-  // Dismiss status popover on click outside, scroll, or escape
+  // Shelf Rank Quick Move Popover Controls
+  if (dom.btnCloseRankPopover) {
+    dom.btnCloseRankPopover.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeShelfRankPopover();
+    });
+  }
+  if (dom.btnCancelRankPopover) {
+    dom.btnCancelRankPopover.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeShelfRankPopover();
+    });
+  }
+  if (dom.shelfRankForm) {
+    dom.shelfRankForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (dom.rankPopoverInput) {
+        submitShelfRankPopover(dom.rankPopoverInput.value.trim());
+      }
+    });
+  }
+  if (dom.shelfRankPopover) {
+    dom.shelfRankPopover.querySelectorAll('.btn-rank-preset').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const preset = btn.getAttribute('data-preset');
+        let targetRank = 1;
+        if (preset === '1') targetRank = 1;
+        else if (preset === '3') targetRank = 3;
+        else if (preset === '5') targetRank = 5;
+        else if (preset === 'last') {
+          targetRank = btn.getAttribute('data-target-rank') || (state.shelfRankPopoverTarget?.totalCount ?? 1);
+        }
+        submitShelfRankPopover(targetRank);
+      });
+    });
+  }
+
+  // Dismiss status and rank popovers on click outside, scroll, or escape
   window.addEventListener('click', (e) => {
     if (state.statusPopoverTarget && dom.globalStatusPopover && !dom.globalStatusPopover.contains(e.target)) {
       closeStatusPopover();
+    }
+    if (state.shelfRankPopoverTarget && dom.shelfRankPopover && !dom.shelfRankPopover.contains(e.target) && !e.target.closest('.btn-open-rank-popover')) {
+      closeShelfRankPopover();
     }
   });
 
   window.addEventListener('scroll', () => {
     if (state.statusPopoverTarget) closeStatusPopover();
+    if (state.shelfRankPopoverTarget) closeShelfRankPopover();
   }, { passive: true });
 
   window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && state.statusPopoverTarget) {
-      closeStatusPopover();
+    if (e.key === 'Escape') {
+      if (state.statusPopoverTarget) closeStatusPopover();
+      if (state.shelfRankPopoverTarget) closeShelfRankPopover();
     }
   });
 

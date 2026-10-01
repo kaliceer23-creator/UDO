@@ -1299,6 +1299,67 @@
     </button>
   </div>
 
+  <!-- Shelf Rank Quick Move Popover (Singleton) -->
+  <div id="shelf-rank-popover" class="fixed z-50 hidden bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-black/10 p-4 w-72 transition-all duration-150 transform scale-95 opacity-0">
+    <div class="flex items-center justify-between pb-2 mb-3 border-b border-gray-100">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-[#160808]"></span>
+        <h4 class="text-xs font-bold text-[#160808]">ย้ายลำดับสินค้า</h4>
+      </div>
+      <button type="button" id="btn-close-rank-popover" class="w-5 h-5 rounded-full flex items-center justify-center text-gray-400 hover:text-black hover:bg-gray-100 transition-colors cursor-pointer text-xs">
+        &#10005;
+      </button>
+    </div>
+
+    <!-- Product Brief & Current Rank -->
+    <div class="mb-3 space-y-1">
+      <p id="rank-popover-product-name" class="text-xs font-semibold text-[#160808] line-clamp-1 truncate"></p>
+      <p id="rank-popover-current-info" class="text-[11px] text-gray-500 font-medium"></p>
+    </div>
+
+    <!-- Input Form -->
+    <form id="shelf-rank-form" class="space-y-3">
+      <div>
+        <label for="rank-popover-input" class="block text-[11px] font-semibold text-[#424245] mb-1">
+          ระบุลำดับเป้าหมายที่ต้องการ:
+        </label>
+        <div class="relative flex items-center">
+          <span class="absolute left-3 font-mono font-bold text-gray-400 text-sm">#</span>
+          <input 
+            type="text" 
+            inputmode="numeric" 
+            pattern="[0-9]*" 
+            id="rank-popover-input" 
+            class="w-full pl-8 pr-3 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm font-bold font-mono text-[#160808] focus:bg-white focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
+            placeholder="1"
+            autocomplete="off"
+          >
+        </div>
+      </div>
+
+      <!-- Quick Preset Shortcuts -->
+      <div>
+        <div class="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">ทางลัดด่วน</div>
+        <div class="grid grid-cols-4 gap-1.5">
+          <button type="button" class="btn-rank-preset px-1.5 py-1 bg-gray-100 hover:bg-[#160808] hover:text-white rounded-lg text-xs font-bold font-mono text-gray-700 transition-colors cursor-pointer text-center" data-preset="1">#1 บนสุด</button>
+          <button type="button" class="btn-rank-preset px-1.5 py-1 bg-gray-100 hover:bg-[#160808] hover:text-white rounded-lg text-xs font-bold font-mono text-gray-700 transition-colors cursor-pointer text-center" data-preset="3">#3</button>
+          <button type="button" class="btn-rank-preset px-1.5 py-1 bg-gray-100 hover:bg-[#160808] hover:text-white rounded-lg text-xs font-bold font-mono text-gray-700 transition-colors cursor-pointer text-center" data-preset="5">#5</button>
+          <button type="button" class="btn-rank-preset px-1.5 py-1 bg-gray-100 hover:bg-[#160808] hover:text-white rounded-lg text-xs font-bold font-mono text-gray-700 transition-colors cursor-pointer text-center" data-preset="last">ท้ายแถว</button>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="pt-2 border-t border-gray-100 flex items-center gap-2">
+        <button type="button" id="btn-cancel-rank-popover" class="flex-1 py-1.5 px-3 rounded-xl text-xs font-semibold bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors cursor-pointer">
+          ยกเลิก
+        </button>
+        <button type="submit" id="btn-submit-rank-popover" class="flex-1 py-1.5 px-3 rounded-xl text-xs font-bold bg-[#160808] text-white hover:bg-black transition-colors shadow-xs cursor-pointer">
+          ย้ายไปลำดับนี้
+        </button>
+      </div>
+    </form>
+  </div>
+
   <!-- Floating Bottom Action Dock (macOS / iOS Capsule Bar) -->
   <div id="floating-batch-dock" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 transform translate-y-24 opacity-0 pointer-events-none transition-all duration-300 ease-out flex items-center gap-2.5 sm:gap-3 px-4 sm:px-5 py-2.5 sm:py-3 rounded-full bg-[#0B0B0C]/90 backdrop-blur-xl border border-neutral-700/80 text-white shadow-2xl max-w-[95vw] overflow-x-auto">
     <div class="flex items-center gap-2 pr-3 border-r border-neutral-700 shrink-0">
