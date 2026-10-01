@@ -2472,14 +2472,22 @@ function switchEditorTab(tabId) {
     tabsBar.querySelectorAll('.tab-btn').forEach(btn => {
       const isTarget = btn.dataset.tab === tabId;
       if (isTarget) {
-        btn.classList.add('active', 'bg-black', 'text-white', 'font-bold', 'shadow-2xs');
-        btn.classList.remove('text-gray-600', 'hover:text-black', 'hover:bg-gray-100', 'font-semibold');
+        btn.className = 'tab-btn active flex-1 py-2.5 px-3 rounded-xl text-[13px] font-bold bg-[#160808] text-white transition-all cursor-pointer text-center whitespace-nowrap shadow-xs';
       } else {
-        btn.classList.remove('active', 'bg-black', 'text-white', 'font-bold', 'shadow-2xs');
-        btn.classList.add('text-gray-600', 'hover:text-black', 'hover:bg-gray-100', 'font-semibold');
+        btn.className = 'tab-btn flex-1 py-2.5 px-3 rounded-xl text-[13px] font-semibold text-[#424245] hover:text-[#160808] hover:bg-gray-100 transition-all cursor-pointer text-center whitespace-nowrap';
       }
     });
   }
+
+  // Quick Tab Shortcuts in Right Preview Column
+  document.querySelectorAll('.btn-quick-tab').forEach(qBtn => {
+    const isTarget = qBtn.dataset.target === tabId;
+    if (isTarget) {
+      qBtn.className = 'btn-quick-tab py-2 px-2.5 bg-[#160808] text-white rounded-lg text-xs sm:text-[12.5px] font-bold text-left cursor-pointer transition-colors shadow-2xs';
+    } else {
+      qBtn.className = 'btn-quick-tab py-2 px-2.5 bg-gray-50 hover:bg-gray-100 rounded-lg text-xs sm:text-[12.5px] font-medium text-[#160808] text-left cursor-pointer transition-colors';
+    }
+  });
 
   const targetSuffix = tabId.replace('tab-', '');
   const panelIds = ['panel-basic', 'panel-variants', 'panel-specs', 'panel-rich'];
