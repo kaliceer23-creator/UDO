@@ -1,0 +1,28 @@
+[
+    {
+        "action": "delete_product",
+        "product_id": "udo-056290",
+        "sku": "UDO-45B27A97",
+        "name": "มาม่า",
+        "status": "deleted",
+        "reason": "ลบสินค้าออกจากระบบผ่านระบบ Admin",
+        "timestamp": "2026-10-01T01:53:25+00:00",
+        "admin_id": 1,
+        "admin_name": "เจ้าของร้าน (Super Admin)",
+        "admin_role": "super_admin",
+        "ip_address": "192.168.97.1"
+    },
+    {
+        "action": "create_product",
+        "product_id": "udo-056290",
+        "sku": "UDO-45B27A97",
+        "name": "มาม่า",
+        "status": "publish",
+        "reason": "สร้างสินค้าใหม่ผ่านระบบ Admin",
+        "timestamp": "2026-09-30T19:38:45+00:00",
+        "admin_id": 1,
+        "admin_name": "เจ้าของร้าน (Super Admin)",
+        "admin_role": "super_admin",
+        "ip_address": "192.168.97.1"
+    }
+]

@@ -31,13 +31,25 @@ export default defineConfig({
       input: {
         main: 'index.html',
         product: 'product.html',
-        category: 'category.html'
+        category: 'category.html',
+        chat: 'chat.html',
+        admin: 'admin/index.html'
       }
     },
     outDir: '../public_html',
-    emptyOutDir: true,
+    emptyOutDir: false,
   },
   server: {
-    port: 3000
+    port: 3000,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8080',
+        changeOrigin: true
+      },
+      '/images': {
+        target: 'http://localhost:8080',
+        changeOrigin: true
+      }
+    }
   }
 });

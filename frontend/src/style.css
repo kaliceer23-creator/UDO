@@ -2,22 +2,22 @@
 
 @theme {
   /* Apple Signature UI Colors (Global Override) */
-  --color-black: #1d1d1f;     /* RGB: 29 29 31 */
-  --color-gray-900: #1d1d1f;
-  --color-gray-800: #1d1d1f;
+  --color-black: #000000;     /* Pure Black */
+  --color-gray-900: #160808;  /* Primary Font Black */
+  --color-gray-800: #160808;
   
   --color-gray-700: #424245;  /* RGB: 66 66 69 */
   --color-gray-600: #424245;
   --color-gray-500: #424245;
 
   /* Brand Colors */
-  --color-brand-red: rgb(226, 30, 30);
-  --color-brand-green: #5EBB1E;
+  --color-brand-red: #E7151A;
+  --color-brand-green: #90DE3C;
   
   /* Legacy/Custom Variables */
   --color-muji-bg: #f8f8f8;
   --color-muji-gray-light: #e5e5e5;
-  --color-muji-gray-dark: #1d1d1f;
+  --color-muji-gray-dark: #160808;
 }
 
 body {
@@ -38,27 +38,730 @@ body {
   scrollbar-width: none;  /* Firefox */
 }
 
-/* Article Carousel Right Bleed (Aligns perfectly with 1280px container on the left) */
-.article-bleed-track {
-  padding-left: 1rem;
-  padding-right: 1.5rem;
-  scroll-padding-left: 1rem;
-  scroll-padding-right: 1.5rem;
+/* 3 Article Cards + 25% Peek of 4th Card (Central Inspirer Style) */
+.article-card-peek-3 {
+  width: 80vw;
 }
-@media (min-width: 768px) {
-  .article-bleed-track {
-    padding-left: 2rem;
-    padding-right: 2rem;
-    scroll-padding-left: 2rem;
-    scroll-padding-right: 2rem;
+@media (min-width: 640px) {
+  .article-card-peek-3 {
+    width: calc((100% - 24px) / 2.25);
   }
 }
 @media (min-width: 1024px) {
-  .article-bleed-track {
-    padding-left: max(3rem, calc((100vw - 1280px) / 2 + 3rem));
-    padding-right: 3rem;
-    scroll-padding-left: max(3rem, calc((100vw - 1280px) / 2 + 3rem));
-    scroll-padding-right: 3rem;
+  .article-card-peek-3 {
+    width: calc((100% - 84px) / 3.25);
   }
+}
+
+/* 5 Cards + 25% Peek of 6th Card (Apple Style Carousel) */
+@media (min-width: 1024px) {
+  .card-peek-5 {
+    width: calc((100% - 80px) / 5.25) !important;
+  }
+}
+
+/* Engineering Specs Table (Clean Modern Industrial Style) */
+.engineering-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  background-color: #ffffff;
+}
+.engineering-table th, 
+.engineering-table td {
+  border: 1px solid #e5e7eb;
+  padding: 10px 14px;
+  color: #374151;
+  text-align: left;
+}
+.engineering-table tr:first-child td[colspan],
+.engineering-table th {
+  background-color: #f8fafc;
+  font-weight: 600;
+  color: #1e293b;
+  border-bottom: 2px solid #e2e8f0;
+}
+.engineering-table tr:hover td {
+  background-color: #f8fafc;
+}
+
+/* AI Mode Button Orbiting Green Glow Animation */
+@keyframes ai-beam-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-ai-beam {
+  animation: ai-beam-spin 4.5s linear infinite;
+  will-change: transform;
+}
+
+.animate-ai-beam-fast {
+  animation: ai-beam-spin 1.1s linear infinite;
+  will-change: transform;
+}
+
+.animate-ai-beam-swift {
+  animation: ai-beam-spin 0.95s linear infinite;
+  will-change: transform;
+}
+
+/* Google-style Snappy AI Border Sweep (Fast, Quick Shimmer, Doesn't complete full lap) */
+@keyframes border-beam-sweep {
+  0% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.9;
+  }
+  100% {
+    stroke-dashoffset: -70;
+    opacity: 0;
+  }
+}
+
+.animate-border-sweep {
+  animation: border-beam-sweep 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: stroke-dashoffset, opacity;
+}
+
+/* Google-style Exact Border Beam Orbit (Tight 2px line running fast around card border) */
+@keyframes border-beam-orbit {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -100;
+  }
+}
+
+.animate-border-orbit {
+  animation: border-beam-orbit 1.05s linear infinite;
+  will-change: stroke-dashoffset;
+}
+
+/* Apple Frosted Glass Pill (Liquid Light Glass) */
+.apple-glass-dock {
+  background: rgba(255, 255, 255, 0.85);
+  -webkit-backdrop-filter: blur(30px) saturate(190%);
+  backdrop-filter: blur(30px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 
+    0 4px 16px 0 rgba(0, 0, 0, 0.05),
+    0 12px 36px -4px rgba(0, 0, 0, 0.10),
+    0 20px 48px -8px rgba(0, 0, 0, 0.08);
+}
+
+.apple-glass-modal {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(25px) saturate(160%);
+  -webkit-backdrop-filter: blur(25px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 
+    0 25px 60px rgba(0, 0, 0, 0.22),
+    inset 0 1px 1px rgba(255, 255, 255, 0.9);
+}
+
+/* AI Floating Input Box - Google-style Fast Half Sweep Animation (~0.8s) */
+@keyframes ai-input-sweep-half {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.95;
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(180deg);
+    opacity: 0;
+  }
+}
+
+.animate-ai-input-sweep {
+  animation: ai-input-sweep-half 0.8s cubic-bezier(0.2, 0.8, 0.25, 1) forwards;
+  will-change: transform, opacity;
+}
+
+/* AI Input Box Glow - Layer 1: Diffuse Outer Aura (ฟุ้งออกห่างจากกรอบ นุ่มนวล) */
+.ai-input-glow-outer {
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(144, 222, 60, 0.04) 100deg,
+    rgba(144, 222, 60, 0.25) 180deg,
+    rgba(144, 222, 60, 0.6) 260deg,
+    rgba(163, 230, 53, 0.8) 325deg,
+    transparent 360deg
+  );
+  filter: blur(12px);
+}
+
+/* AI Input Box Glow - Layer 2: Rich Sharp Inner Rim (แนบชิดเส้นขอบ สีเข้ม ชัดเจน มีมิติ) */
+.ai-input-glow-inner {
+  background: conic-gradient(
+    from 0deg,
+    rgba(144, 222, 60, 0.08) 0deg,
+    rgba(144, 222, 60, 0.08) 140deg,
+    rgba(144, 222, 60, 0.35) 220deg,
+    #65a81e 280deg,
+    #90DE3C 320deg,
+    #a3e635 350deg,
+    rgba(144, 222, 60, 0.08) 360deg
+  );
+  filter: blur(2px);
+}
+
+/* UDO AI Dual-Laser (Green + Red) Pill for Navigation Search Button */
+.nav-ai-pill-beam {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  margin-top: -100px;
+  margin-left: -100px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 75deg,
+    rgba(144, 222, 60, 0.7) 95deg,
+    #90DE3C 110deg,
+    rgba(255, 255, 255, 0.95) 118deg,
+    rgba(144, 222, 60, 0.8) 128deg,
+    transparent 150deg,
+    transparent 255deg,
+    rgba(231, 21, 26, 0.7) 275deg,
+    #e7151a 290deg,
+    rgba(255, 255, 255, 0.95) 298deg,
+    rgba(231, 21, 26, 0.8) 308deg,
+    transparent 330deg,
+    transparent 360deg
+  );
+  animation: ai-beam-spin 3s linear infinite;
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 6px rgba(144, 222, 60, 0.5)) drop-shadow(0 0 6px rgba(231, 21, 26, 0.5));
+  will-change: transform;
+}
+
+.nav-ai-pill-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  margin-top: -100px;
+  margin-left: -100px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 60deg,
+    rgba(144, 222, 60, 0.35) 85deg,
+    rgba(144, 222, 60, 0.75) 110deg,
+    rgba(255, 255, 255, 0.6) 118deg,
+    rgba(144, 222, 60, 0.4) 135deg,
+    transparent 165deg,
+    transparent 240deg,
+    rgba(231, 21, 26, 0.35) 265deg,
+    rgba(231, 21, 26, 0.75) 290deg,
+    rgba(255, 255, 255, 0.6) 298deg,
+    rgba(231, 21, 26, 0.4) 315deg,
+    transparent 345deg,
+    transparent 360deg
+  );
+  animation: ai-beam-spin 3s linear infinite;
+  filter: blur(14px);
+  opacity: 0.45;
+  will-change: transform;
+}
+
+/* Full Dock Dual-Laser (Green + Red) Orbiting Beam - Activated on Hover */
+/* Full Dock Dual-Laser (Green + Red) Orbiting Beam - Activated on Hover & Expansion */
+.dock-laser-beam {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 700px;
+  height: 700px;
+  margin-top: -350px;
+  margin-left: -350px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 75deg,
+    rgba(144, 222, 60, 0.7) 95deg,
+    #90DE3C 110deg,
+    rgba(255, 255, 255, 0.85) 118deg,
+    rgba(144, 222, 60, 0.8) 128deg,
+    transparent 150deg,
+    transparent 255deg,
+    rgba(231, 21, 26, 0.7) 275deg,
+    #e7151a 290deg,
+    rgba(255, 255, 255, 0.85) 298deg,
+    rgba(231, 21, 26, 0.8) 308deg,
+    transparent 330deg,
+    transparent 360deg
+  );
+  animation: ai-beam-spin 3.8s linear infinite;
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.75)) drop-shadow(0 0 12px rgba(144, 222, 60, 0.55)) drop-shadow(0 0 12px rgba(231, 21, 26, 0.55));
+  will-change: transform;
+  opacity: 0;
+  transition: opacity 0.5s ease, filter 0.5s ease;
+}
+
+.dock-laser-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 700px;
+  height: 700px;
+  margin-top: -350px;
+  margin-left: -350px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 60deg,
+    rgba(144, 222, 60, 0.45) 85deg,
+    rgba(144, 222, 60, 0.85) 110deg,
+    rgba(255, 255, 255, 0.7) 118deg,
+    rgba(144, 222, 60, 0.5) 135deg,
+    transparent 165deg,
+    transparent 240deg,
+    rgba(231, 21, 26, 0.45) 265deg,
+    rgba(231, 21, 26, 0.85) 290deg,
+    rgba(255, 255, 255, 0.7) 298deg,
+    rgba(231, 21, 26, 0.5) 315deg,
+    transparent 345deg,
+    transparent 360deg
+  );
+  animation: ai-beam-spin 3.8s linear infinite;
+  filter: blur(54px);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  will-change: transform;
+}
+
+/* Dock Dynamic Island Search Expansion */
+#mobile-bottom-dock {
+  width: 254px;
+  max-width: calc(100vw - 32px);
+  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1), max-width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: width, transform;
+}
+
+@media (min-width: 640px) {
+  #mobile-bottom-dock {
+    width: 280px;
+  }
+}
+
+#mobile-bottom-dock.dock-expanded {
+  width: calc(100vw - 32px);
+  max-width: 640px;
+}
+
+@media (min-width: 640px) {
+  #mobile-bottom-dock.dock-expanded {
+    width: 580px;
+  }
+}
+
+@media (min-width: 768px) {
+  #mobile-bottom-dock.dock-expanded {
+    width: 640px;
+  }
+}
+
+#mobile-bottom-dock.dock-expanded .dock-laser-beam,
+#mobile-bottom-dock.dock-ai-active .dock-laser-beam,
+#mobile-bottom-dock:has(#dock-item-ai:hover) .dock-laser-beam {
+  opacity: 0.95;
+}
+
+#mobile-bottom-dock.dock-expanded .dock-laser-glow,
+#mobile-bottom-dock.dock-ai-active .dock-laser-glow,
+#mobile-bottom-dock:has(#dock-item-ai:hover) .dock-laser-glow {
+  opacity: 0.35;
+}
+
+/* Interactive States: Focused (5.5s) & Typing (7s) Matching Main Chat Landing Pace */
+#mobile-bottom-dock.is-focused .dock-laser-beam {
+  animation-duration: 5.5s;
+  opacity: 0.85;
+}
+
+#mobile-bottom-dock.is-focused .dock-laser-glow {
+  animation-duration: 5.5s;
+  opacity: 0.28;
+}
+
+#mobile-bottom-dock.is-typing .dock-laser-beam {
+  animation-duration: 7s;
+  opacity: 0.50;
+}
+
+#mobile-bottom-dock.is-typing .dock-laser-glow {
+  animation-duration: 7s;
+  opacity: 0.20;
+}
+
+/* Search Input Placeholder Styling - Color #160808 & Weight 400 */
+#dock-search-input::placeholder,
+#searchInput::placeholder {
+  color: #160808;
+  font-weight: 400;
+  opacity: 1;
+}
+
+/* Smooth Page Handoff Transition */
+.page-fade-out {
+  opacity: 0 !important;
+  transform: translateY(-8px) scale(0.995) !important;
+  transition: opacity 300ms cubic-bezier(0.4, 0, 0.2, 1), transform 300ms cubic-bezier(0.4, 0, 0.2, 1) !important;
+  pointer-events: none !important;
+}
+
+.page-fade-in {
+  animation: udoPageFadeIn 320ms cubic-bezier(0, 0, 0.2, 1) forwards;
+}
+
+@keyframes udoPageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Chat Input Dynamic Multi-line Grid */
+.chat-form-grid {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0 10px;
+  min-height: 52px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.chat-plus-wrapper {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+}
+.chat-input-wrapper {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  width: 100%;
+}
+.chat-actions-right {
+  grid-column: 3;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+#chatInput,
+#aiFloatingInput {
+  display: block;
+  width: 100%;
+  height: 28px;
+  min-height: 28px;
+  max-height: 180px;
+  box-sizing: border-box;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+.chat-form-grid.is-multiline {
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto auto;
+  row-gap: 8px;
+  padding-top: 14px;
+  padding-bottom: 12px;
+  border-radius: 24px !important;
+}
+.chat-form-grid.is-multiline .chat-input-wrapper {
+  grid-column: 1 / span 3;
+  grid-row: 1;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+.chat-form-grid.is-multiline #chatInput,
+.chat-form-grid.is-multiline #aiFloatingInput {
+  height: auto;
+}
+.chat-form-grid.is-multiline .chat-plus-wrapper {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: end;
+}
+.chat-form-grid.is-multiline .chat-actions-right {
+  grid-column: 3;
+  grid-row: 2;
+  align-self: end;
+  justify-self: end;
+}
+
+/* User Message Bubble: 4-Line Clamp & Expand */
+.ai-turn-user-bubble {
+  max-width: 100%;
+}
+.ai-turn-user-text.is-clamped {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.ai-turn-user-bubble.is-expanded .btn-bubble-toggle svg {
+  transform: rotate(180deg);
+}
+.ai-turn-user-toggle-row.hidden {
+  display: none !important;
+}
+
+/* Dock Dynamic Multi-line Expansion */
+#dock-search-view.hidden {
+  display: none !important;
+}
+
+#dock-search-view.dock-form-grid {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0 4px;
+  width: 100%;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.dock-plus-wrapper {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+}
+.dock-input-wrapper {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  width: 100%;
+}
+.dock-actions-right {
+  grid-column: 3;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+#dock-search-input {
+  display: block;
+  width: 100%;
+  height: 26px;
+  min-height: 26px;
+  max-height: 160px;
+  resize: none;
+  box-sizing: border-box;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+#dock-search-view.is-multiline {
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto auto;
+  row-gap: 6px;
+  padding-top: 10px;
+  padding-bottom: 8px;
+  border-radius: 20px !important;
+  height: auto !important;
+}
+#dock-search-view.is-multiline .dock-input-wrapper {
+  grid-column: 1 / span 3;
+  grid-row: 1;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+#dock-search-view.is-multiline #dock-search-input {
+  height: auto;
+}
+#dock-search-view.is-multiline .dock-plus-wrapper {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: end;
+}
+#dock-search-view.is-multiline .dock-actions-right {
+  grid-column: 3;
+  grid-row: 2;
+  align-self: end;
+  justify-self: end;
+}
+#mobile-bottom-dock.is-multiline .dock-outer-frame,
+#mobile-bottom-dock.is-multiline .dock-laser-beam,
+#mobile-bottom-dock.is-multiline .dock-glass-trench,
+#mobile-bottom-dock.is-multiline .dock-inner-container {
+  border-radius: 24px !important;
+}
+
+/* Centered Handoff Indicator & Typing Indicator Pill */
+@keyframes udo-dot-wave {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 0.35;
+  }
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+.udo-dot-1 {
+  animation: udo-dot-wave 1.3s ease-in-out infinite;
+}
+.udo-dot-2 {
+  animation: udo-dot-wave 1.3s ease-in-out 0.2s infinite;
+}
+.udo-dot-3 {
+  animation: udo-dot-wave 1.3s ease-in-out 0.4s infinite;
+}
+.pill-beam-laser-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 220px;
+  height: 220px;
+  margin-top: -110px;
+  margin-left: -110px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 75deg,
+    rgba(144, 222, 60, 0.7) 95deg,
+    #90DE3C 110deg,
+    rgba(255, 255, 255, 0.95) 118deg,
+    rgba(144, 222, 60, 0.8) 128deg,
+    transparent 150deg,
+    transparent 255deg,
+    rgba(231, 21, 26, 0.7) 275deg,
+    #e7151a 290deg,
+    rgba(255, 255, 255, 0.95) 298deg,
+    rgba(231, 21, 26, 0.8) 308deg,
+    transparent 330deg,
+    transparent 360deg
+  );
+  animation: ai-beam-spin 2.6s linear infinite;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.85)) drop-shadow(0 0 8px rgba(144, 222, 60, 0.6)) drop-shadow(0 0 8px rgba(231, 21, 26, 0.6));
+  will-change: transform;
+}
+.pill-ambient-laser-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 220px;
+  height: 220px;
+  margin-top: -110px;
+  margin-left: -110px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 60deg,
+    rgba(144, 222, 60, 0.45) 85deg,
+    rgba(144, 222, 60, 0.85) 110deg,
+    rgba(255, 255, 255, 0.7) 118deg,
+    rgba(144, 222, 60, 0.5) 135deg,
+    transparent 165deg,
+    transparent 240deg,
+    rgba(231, 21, 26, 0.45) 265deg,
+    rgba(231, 21, 26, 0.85) 290deg,
+    rgba(255, 255, 255, 0.7) 298deg,
+    rgba(231, 21, 26, 0.5) 315deg,
+    transparent 345deg,
+    transparent 360deg
+  );
+  animation: ai-beam-spin 2.6s linear infinite;
+  filter: blur(24px);
+  will-change: transform;
+}
+
+/* Anti-FOUC for chat handoff: prevent landing greeting from flashing */
+html.is-chat-handoff #chatLandingGreeting,
+html.is-chat-handoff #chatAmbientAura,
+html.is-chat-handoff #chatBeamContainer,
+html.is-chat-handoff #chatGlassBezel {
+  display: none !important;
+}
+html.is-chat-handoff #chatBottomBarContainer {
+  inset: auto 0 0 0 !important;
+  top: auto !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  padding-bottom: 1.25rem !important;
+  padding-top: 0.75rem !important;
+  background: linear-gradient(to top, #ffffff, rgba(255, 255, 255, 0.95), transparent) !important;
+}
+html.is-chat-handoff #chatGlassFrame {
+  width: 100% !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+/* Admin Merchandising Shelf Specifics (Apple iOS Card Surface) */
+.admin-shelf-track-compact {
+  display: flex !important;
+  gap: 1rem !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  padding-top: 0.25rem !important;
+  padding-bottom: 0.75rem !important;
+  scroll-behavior: smooth !important;
+  scroll-snap-type: x mandatory !important;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain !important;
+  touch-action: pan-x;
+}
+
+.admin-shelf-card-compact {
+  width: 220px !important;
+  min-width: 220px !important;
+  max-width: 220px !important;
+  flex: 0 0 220px !important;
+  scroll-snap-align: start !important;
+  touch-action: pan-x;
+}
+
+.admin-shelf-img-box {
+  width: 100% !important;
+  height: 160px !important;
+  max-height: 160px !important;
+  background-color: #F9F9FB;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.625rem;
+  margin-bottom: 0.625rem;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.admin-shelf-img-box img {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 

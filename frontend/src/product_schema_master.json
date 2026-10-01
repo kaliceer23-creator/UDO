@@ -15,6 +15,13 @@
     "popular",
     "just_for_you"
   ],
+  "_comment_3_Flags": "3.1 ธงสถานะสินค้าสำหรับ Badges และการกรองค้นหา (Global Flags)",
+  "flags": {
+    "is_in_stock": true,
+    "is_best_seller": true,
+    "is_recommended": true,
+    "is_promotion": false
+  },
   "_comment_4_Breadcrumbs": "4. ระบบโครงสร้างต้นไม้ (Breadcrumbs) นำทางด้านบน",
   "categories": [
     {
@@ -33,18 +40,37 @@
       "url_slug": "stainless-wire"
     }
   ],
-  "_comment_5_Filters": "5. ข้อมูลสำหรับการกรองค้นหา (Filter Attributes) สำหรับ Sidebar",
+  "_comment_5_Filters": "5. ข้อมูลสำหรับการกรองค้นหา (Filter Attributes) สำหรับ Sidebar & Slide-over Drawer",
   "filter_attributes": {
     "material": "สเตนเลส",
-    "process": "ธูปเชื่อม (MMA)"
+    "process": "เชื่อมไฟฟ้า (MMA)",
+    "sizes": [
+      "2.0 mm",
+      "2.6 mm"
+    ],
+    "packages": [
+      "ห่อ (1 กก.)",
+      "ลัง (20 กก.)"
+    ],
+    "standards": [
+      "AWS E308L-16"
+    ],
+    "welding_positions": [
+      "ทุกท่าเชื่อม"
+    ]
   },
   "tags": [
     "ทนการกัดกร่อน",
     "ออสเทนนิติก"
   ],
-  "_comment_6_Images": "6. ระบบรูปภาพอัจฉริยะ (Smart Image Gallery)",
+  "_comment_6_Images": "6. ระบบรูปภาพอัจฉริยะ (Smart Image Gallery) แยกขนาด thumb, card, large, original เพื่อประสิทธิภาพสูงสุด",
   "images": [
-    "https://www.udo.co.th/storage/products/May2026/FdE0amQIiBJB06u9rNCn.jpg"
+    {
+      "thumb": "https://www.udo.co.th/storage/products_webp/May2026/FdE0amQIiBJB06u9rNCn_thumb.webp",
+      "card": "https://www.udo.co.th/storage/products_webp/May2026/FdE0amQIiBJB06u9rNCn_card.webp",
+      "large": "https://www.udo.co.th/storage/products_webp/May2026/FdE0amQIiBJB06u9rNCn_large.webp",
+      "original": "https://www.udo.co.th/storage/products/May2026/FdE0amQIiBJB06u9rNCn.jpg"
+    }
   ],
   "_comment_7_Conditional": "7. ป้ายโปรโมชั่นและการรับประกัน (ถ้าไม่มีให้ใส่ null)",
   "warranty": null,
@@ -117,7 +143,8 @@
     "description": "เมื่อเป็นงานเชื่อมสเตนเลส GEMINI 308L คือคำตอบสุดท้าย สามารถเชื่อมเหล็กที่มีส่วนผสมของธาตุโครเมียม-นิเกิล...",
     "image1": "https://via.placeholder.com/1200x600/e5e7eb/6b7280?text=Mockup+Banner+1",
     "image2": "https://via.placeholder.com/1200x600/e5e7eb/6b7280?text=Mockup+Banner+2",
-    "image3": "https://via.placeholder.com/1200x600/e5e7eb/6b7280?text=Mockup+Banner+3"
+    "image3": "https://via.placeholder.com/1200x600/e5e7eb/6b7280?text=Mockup+Banner+3",
+    "tablesHtml": null
   },
   "_comment_9_Specs": "9. ตารางสเปควิศวกรรม (Dynamic Technical Specs) ลูปสร้างตารางอัตโนมัติ",
   "_comment_10_RichContent": "10. โซนภาพโฆษณาด้านล่างสุด (Rich Content / A+ Content)"

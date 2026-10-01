@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/images/logos/logo.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UDO AI - ผู้ช่วยวิศวกรรมงานเชื่อมและค้นหาสินค้าอุตสาหกรรม</title>
+    <!-- Prompt Font for Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./src/style.css">
+    <style id="fouc-fix">
+      svg:not([class*="w-"]) { max-width: 40px; max-height: 40px; }
+      /* Custom clean scrollbar for chat canvas and sidebar */
+      ::-webkit-scrollbar { width: 6px; height: 6px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+      ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 9999px; }
+      ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.25); }
+
+      /* Sidebar Collapsed State (w-[68px]) */
+      #chatSidebar.is-collapsed {
+        width: 68px !important;
+        min-width: 68px !important;
+      }
+      #chatSidebar.is-collapsed .sidebar-text-item {
+        display: none !important;
+      }
+      #chatSidebar.is-collapsed .sidebar-icon-only {
+        display: flex !important;
+      }
+      #chatSidebar.is-collapsed .sidebar-header-row {
+        height: auto !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding-top: 1.1rem !important;
+        padding-bottom: 0.25rem !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        gap: 0.65rem !important;
+      }
+      #chatSidebar.is-collapsed .sidebar-toggle-btn {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+      }
+      @keyframes udo-beam-spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .beam-laser-spinner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 1000px;
+        height: 1000px;
+        margin-top: -500px;
+        margin-left: -500px;
+        background: conic-gradient(
+          from 0deg,
+          transparent 0deg,
+          transparent 75deg,
+          rgba(144, 222, 60, 0.7) 95deg,
+          #90DE3C 110deg,
+          #ffffff 118deg,
+          rgba(144, 222, 60, 0.8) 128deg,
+          transparent 150deg,
+          transparent 255deg,
+          rgba(231, 21, 26, 0.7) 275deg,
+          #e7151a 290deg,
+          #ffffff 298deg,
+          rgba(231, 21, 26, 0.8) 308deg,
+          transparent 330deg,
+          transparent 360deg
+        );
+        animation: udo-beam-spin 4s linear infinite;
+        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.95)) drop-shadow(0 0 16px rgba(144, 222, 60, 0.75)) drop-shadow(0 0 16px rgba(231, 21, 26, 0.75));
+        will-change: transform;
+      }
+      .ambient-aura-wrapper {
+        -webkit-mask-image: radial-gradient(ellipse 60% 55% at 50% 50%, black 35%, transparent 75%);
+        mask-image: radial-gradient(ellipse 60% 55% at 50% 50%, black 35%, transparent 75%);
+      }
+      .ambient-laser-glow {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 1000px;
+        height: 1000px;
+        margin-top: -500px;
+        margin-left: -500px;
+        background: conic-gradient(
+          from 0deg,
+          transparent 0deg,
+          transparent 60deg,
+          rgba(144, 222, 60, 0.5) 85deg,
+          rgba(144, 222, 60, 0.9) 110deg,
+          rgba(255, 255, 255, 0.95) 118deg,
+          rgba(144, 222, 60, 0.6) 135deg,
+          transparent 165deg,
+          transparent 240deg,
+          rgba(231, 21, 26, 0.5) 265deg,
+          rgba(231, 21, 26, 0.9) 290deg,
+          rgba(255, 255, 255, 0.95) 298deg,
+          rgba(231, 21, 26, 0.6) 315deg,
+          transparent 345deg,
+          transparent 360deg
+        );
+        animation: udo-beam-spin 4s linear infinite;
+        filter: blur(55px);
+        opacity: 0.88;
+        will-change: transform;
+      }
+      .landing-glass-frame {
+        box-shadow: 0 16px 44px -8px rgba(231, 21, 26, 0.16), 
+                    0 16px 44px -8px rgba(144, 222, 60, 0.20),
+                    0 2px 14px rgba(0, 0, 0, 0.04) !important;
+      }
+    </style>
+  </head>
+  <body class="bg-white text-gray-900 font-['Prompt',sans-serif] antialiased overflow-hidden select-text">
+    
+    <div id="app" class="flex h-screen w-screen overflow-hidden bg-white">
+      
+      <!-- ========================================== -->
+      <!-- 1. LEFT SIDEBAR (#f8f9fa, Full Height, Collapsible) -->
+      <!-- ========================================== -->
+      <aside id="chatSidebar" class="w-[260px] md:w-[280px] h-full bg-[#f8f9fa] flex flex-col shrink-0 transition-all duration-300 ease-in-out z-20 select-none border-r border-gray-200/50">
+        
+        <!-- Sidebar Top Row: Pure UDO Logo on Left + 2-Line '=' Toggle Button on Right (When Expanded) -->
+        <div class="sidebar-header-row h-[70px] px-4 flex items-center justify-between shrink-0">
+          
+          <!-- Pure UDO Full Logo (Visible when sidebar is expanded, hidden when collapsed) -->
+          <a href="/" class="sidebar-text-item flex items-center hover:opacity-85 transition-opacity shrink-0" title="หน้าแรก UDO">
+            <img src="/images/logos/logo.svg" alt="UDO" class="h-[28px] md:h-[30px] w-auto object-contain" />
+          </a>
+
+          <!-- Compact UDO Logo (Border removed, maximized size for collapsed sidebar) -->
+          <a href="/" class="sidebar-icon-only hidden w-[54px] h-[28px] items-center justify-center hover:opacity-85 transition-opacity shrink-0 cursor-pointer active:scale-95" title="หน้าแรก UDO">
+            <img src="/images/logos/logo-icon.svg" alt="UDO" class="w-full h-full object-contain" />
+          </a>
+
+          <!-- ปุ่ม 2 ขีด (ชิดขวาเมื่อขยาย, อยู่ใต้โลโก้เมื่อหด) -->
+          <button type="button" id="btnToggleSidebar" class="sidebar-toggle-btn w-9 h-9 text-gray-600 hover:text-gray-900 hover:bg-gray-200/70 rounded-full flex items-center justify-center transition-colors cursor-pointer ml-auto shrink-0" title="ย่อ/ขยายแถบข้าง">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+              <line x1="4" y1="8" x2="20" y2="8" />
+              <line x1="4" y1="16" x2="20" y2="16" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Action Buttons: แชทใหม่ & ค้นหาแชท -->
+        <div class="p-3 space-y-2 shrink-0">
+            
+            <!-- ปุ่ม แชทใหม่ (Expanded Mode) -->
+            <button type="button" id="btnNewThread" class="sidebar-text-item w-full flex items-center gap-3 px-4 py-2.5 text-gray-700 hover:text-gray-900 hover:bg-[#e8eaed] active:scale-[0.99] text-[14px] font-medium rounded-full transition-all cursor-pointer">
+              <svg class="w-4 h-4 text-gray-700 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125" />
+              </svg>
+              <span class="truncate">แชทใหม่</span>
+            </button>
+
+            <!-- ปุ่ม แชทใหม่ (Collapsed Mode: Icon Only in Circle) -->
+            <button type="button" id="btnNewThreadMini" class="sidebar-icon-only hidden w-10 h-10 mx-auto rounded-full hover:bg-[#e8eaed] items-center justify-center text-gray-700 cursor-pointer transition-transform active:scale-95" title="แชทใหม่">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125" />
+              </svg>
+            </button>
+
+            <!-- ปุ่ม ค้นหาแชท (Expanded Mode) -->
+            <div class="sidebar-text-item relative w-full">
+              <button type="button" id="btnSearchThreadsTrigger" class="w-full flex items-center gap-3 px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-[#e8eaed] text-[13.5px] rounded-full transition-colors cursor-pointer">
+                <svg class="w-4 h-4 text-gray-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                </svg>
+                <span class="truncate">ค้นหาแชท</span>
+              </button>
+              <input type="text" id="inputSearchThreads" placeholder="ค้นหาแชท..." class="hidden w-full px-4 py-1.5 bg-white border border-gray-300 rounded-full text-[13px] outline-none focus:border-[#e7151a]" />
+            </div>
+
+            <!-- ปุ่ม ค้นหาแชท (Collapsed Mode: Icon Only) -->
+            <button type="button" id="btnSearchThreadsMini" class="sidebar-icon-only hidden w-10 h-10 mx-auto rounded-full hover:bg-[#e8eaed] items-center justify-center text-gray-600 cursor-pointer" title="ค้นหาแชท">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+              </svg>
+            </button>
+
+          </div>
+
+          <!-- หมวด: ล่าสุด (Recent Threads - ซ่อนทั้งหมดเวลาหด Sidebar) -->
+          <div class="sidebar-text-item flex-1 overflow-y-auto px-3 py-2 flex flex-col min-h-0">
+            <div class="text-[11.5px] font-semibold text-gray-500 tracking-wide px-3 mb-1.5 shrink-0">
+              ล่าสุด
+            </div>
+            <div id="recentThreadsList" class="space-y-1 flex-1">
+              <!-- Dynamically populated by chat.js -->
+            </div>
+          </div>
+
+          <!-- Collapsed Mode Empty Spacer (keeps footer at bottom) -->
+          <div class="sidebar-icon-only hidden flex-1"></div>
+
+          <!-- Sidebar Footer: Shop Link & Settings -->
+          <div class="p-3 border-t border-gray-200/70 space-y-1 shrink-0 bg-[#f8f9fa] flex flex-col">
+
+            <!-- หน้าร้านค้า (Expanded) -->
+            <a href="/" class="sidebar-text-item w-full flex items-center gap-3 px-3.5 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-200/50 text-[13px] rounded-lg transition-colors cursor-pointer text-left">
+              <svg class="w-4 h-4 text-gray-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.651V9.35m0 0a3.001 3.001 0 003.75-.614A2.993 2.993 0 009 9.35c.983-.005 1.888-.48 2.45-1.25.562.77 1.467 1.245 2.45 1.25.983-.005 1.888-.48 2.45-1.25a3.003 3.003 0 003.75.614z" />
+              </svg>
+              <span class="truncate">หน้าร้านค้า</span>
+            </a>
+
+            <!-- หน้าร้านค้า (Collapsed Icon Only) -->
+            <a href="/" class="sidebar-icon-only hidden w-10 h-10 mx-auto rounded-full hover:bg-gray-200/60 items-center justify-center text-gray-600 cursor-pointer" title="หน้าร้านค้า">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.651V9.35m0 0a3.001 3.001 0 003.75-.614A2.993 2.993 0 009 9.35c.983-.005 1.888-.48 2.45-1.25.562.77 1.467 1.245 2.45 1.25.983-.005 1.888-.48 2.45-1.25a3.003 3.003 0 003.75.614z" />
+              </svg>
+            </a>
+
+            <!-- ตั้งค่า (Expanded) -->
+            <button type="button" id="btnSettingsModal" class="sidebar-text-item w-full flex items-center gap-3 px-3.5 py-2 text-gray-700 hover:bg-gray-200/50 text-[13px] rounded-lg transition-colors cursor-pointer text-left">
+              <svg class="w-4 h-4 text-gray-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <span class="truncate">ตั้งค่า</span>
+            </button>
+
+            <!-- ตั้งค่า (Collapsed Icon Only) -->
+            <button type="button" id="btnSettingsModalMini" class="sidebar-icon-only hidden w-10 h-10 mx-auto rounded-full hover:bg-gray-200/60 items-center justify-center text-gray-600 cursor-pointer" title="ตั้งค่า">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </button>
+          </div>
+
+      </aside>
+
+      <!-- ========================================== -->
+      <!-- 2. RIGHT MAIN AREA (Pure White, Full Height) -->
+      <!-- ========================================== -->
+      <div class="flex-1 flex flex-col h-full min-w-0 bg-white relative overflow-hidden">
+        
+        <!-- Top Header for Main Area: AI Mode + หน้าร้านค้า on Left, User Profile on Right -->
+        <header class="h-[70px] flex items-center justify-between px-4 sm:px-6 md:px-8 lg:px-12 shrink-0 z-30 bg-white">
+          
+          <!-- Navigation Tabs: AI Mode & หน้าร้านค้า (Always aligned with white canvas!) -->
+          <nav class="flex items-center gap-6 sm:gap-7 py-1 whitespace-nowrap">
+            <!-- 1. AI Mode (Active Tab) -->
+            <div class="px-2 py-1.5 text-[14px] font-semibold text-gray-900 border-b-2 border-gray-900 select-none">
+              <span>AI Mode</span>
+            </div>
+
+            <!-- 2. หน้าร้านค้า (Inactive Tab with hover underline) -->
+            <a href="/" class="px-2 py-1.5 text-[14px] font-medium text-gray-500 hover:text-gray-900 border-b-2 border-transparent hover:border-gray-300 transition-all select-none" title="ไปยังหน้าร้านค้า UDO">
+              <span>หน้าร้านค้า</span>
+            </a>
+          </nav>
+
+          <!-- Right Side: User Profile Greeting -->
+          <div class="flex items-center gap-3 shrink-0 ml-4">
+            <div class="flex items-center gap-2.5 px-3 py-1.5 rounded-xl hover:bg-gray-100 transition-colors cursor-pointer select-none" title="บัญชีผู้ใช้">
+              <!-- User Icon (Head & Shoulders Outline) -->
+              <svg class="w-5 h-5 text-gray-800 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+              </svg>
+              <!-- 2-line greeting: สวัสดี / alizz -->
+              <div class="flex flex-col text-left leading-tight">
+                <span class="text-[11px] text-gray-500 font-normal">สวัสดี</span>
+                <span class="text-[13.5px] font-semibold text-gray-900 tracking-tight">alizz</span>
+              </div>
+              <!-- Small Dropdown Chevron Down -->
+              <svg class="w-3.5 h-3.5 text-gray-700 ml-0.5 shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+              </svg>
+            </div>
+          </div>
+
+        </header>
+
+        <!-- Center Chat Canvas (Scrollable Area) -->
+        <main class="flex-1 flex flex-col min-h-0 bg-white relative overflow-hidden">
+          
+          <!-- Center Chat Canvas (Scrollable Area) -->
+          <div id="chatScrollArea" class="flex-1 overflow-y-auto px-4 sm:px-6 md:px-8 lg:px-12 py-6">
+            <div class="max-w-[1240px] mx-auto flex flex-col space-y-10 pb-36">
+              
+              <!-- Default Welcome Suggestions Container (Hidden in favor of central landing bar) -->
+              <div id="welcomeContainer" class="hidden"></div>
+
+              <!-- Dynamic Conversation Thread Messages Container -->
+              <div id="chatMessagesContainer" class="flex flex-col space-y-12">
+                <!-- Rendered dynamically by chat.js -->
+              </div>
+
+              <!-- Pending Loading Skeleton -->
+              <div id="chatPendingSkeleton" class="hidden space-y-4 pt-2 max-w-[760px]">
+                <div class="flex items-center gap-2.5 mb-3 text-gray-500 text-[13.5px]">
+                  <div class="w-4 h-4 rounded-full border-2 border-[#e7151a] border-t-transparent animate-spin shrink-0"></div>
+                  <span>UDO AI กำลังค้นคว้าข้อมูลและวิเคราะห์แนวทางการเชื่อม...</span>
+                </div>
+                <div class="space-y-3 animate-pulse">
+                  <div class="h-4 bg-gray-200/90 rounded-full w-full"></div>
+                  <div class="h-4 bg-gray-200/75 rounded-full w-[92%]"></div>
+                  <div class="h-4 bg-gray-200/60 rounded-full w-[76%]"></div>
+                </div>
+                <div class="space-y-2.5 pl-4 pt-2 animate-pulse">
+                  <div class="h-3.5 bg-gray-200/80 rounded-full w-[88%]"></div>
+                  <div class="h-3.5 bg-gray-200/60 rounded-full w-[72%]"></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Floating Center / Bottom Input Bar (Centered on New Chat, Left-aligned on Active Chat) -->
+          <div id="chatBottomBarContainer" class="absolute inset-0 flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 pb-10 z-20 pointer-events-none transition-all duration-300">
+            
+            <!-- Central Landing Greeting (Only visible in New Chat) -->
+            <div id="chatLandingGreeting" class="flex flex-col items-center text-center mb-6 sm:mb-8 pointer-events-auto select-none">
+              <h1 class="text-2xl sm:text-[32px] md:text-[36px] font-normal text-gray-900 tracking-tight leading-tight">
+                มีอะไรให้ UDO AI ช่วยวันนี้ไหม คุณ alizz
+              </h1>
+            </div>
+
+            <div id="chatBottomBarRow" class="max-w-[760px] mx-auto flex flex-col items-center w-full pointer-events-auto transition-all duration-300 relative">
+              
+              <!-- Ambient Glow Aura: Real-time Dynamic Reflection Synced with the Running Beam -->
+              <div id="chatAmbientAura" class="ambient-aura-wrapper absolute -inset-x-20 sm:-inset-x-28 -inset-y-16 sm:-inset-y-24 -z-10 pointer-events-none transition-opacity duration-500 overflow-hidden flex items-center justify-center">
+                <!-- Dynamic Rotating Ambient Glow: Spins in 100% lockstep with the border beam -->
+                <div class="ambient-laser-glow pointer-events-none"></div>
+              </div>
+
+              <!-- Left Column: Input Bar -->
+              <div id="chatBottomBarLeft" class="flex-1 min-w-0 w-full pointer-events-auto">
+                
+                <!-- Outer Glass Frame with Travelling Laser Beam (Active in Landing Mode) -->
+                <div id="chatGlassFrame" class="landing-glass-frame relative p-[6px] sm:p-[7px] rounded-[36px] sm:rounded-[38px] transition-all duration-300">
+                  
+                  <!-- 1. The Orbiting Light Beam Layer (Overflown within the rounded contour) -->
+                  <div id="chatBeamContainer" class="absolute inset-0 rounded-[36px] sm:rounded-[38px] overflow-hidden pointer-events-none">
+                    <div class="beam-laser-spinner pointer-events-none"></div>
+                  </div>
+
+                  <!-- 2. The Frosted Glass Trench / Bevel Layer -->
+                  <div id="chatGlassBezel" class="absolute inset-[1.5px] rounded-[34.5px] sm:rounded-[36.5px] bg-white/20 backdrop-blur-md border border-white/60 pointer-events-none shadow-[inset_0_1px_2px_rgba(255,255,255,0.8),0_4px_20px_rgba(0,0,0,0.03)]"></div>
+
+                  <!-- 3. The Core Input Form -->
+                  <form id="chatForm" class="relative z-10 w-full flex items-center bg-white rounded-[28px] sm:rounded-[30px] border border-gray-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.04)] px-4 sm:px-5 py-3 transition-all">
+                    
+                    <!-- Left Action: Plus Button (+) -->
+                    <button type="button" id="btnChatPlus" class="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center shrink-0 mr-2.5 transition-colors cursor-pointer" title="เพิ่มข้อมูล">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                      </svg>
+                    </button>
+
+                    <!-- Text Input -->
+                    <input 
+                      id="chatInput"
+                      type="text" 
+                      placeholder="ลองถามอะไรก็ได้" 
+                      autocomplete="off"
+                      class="flex-1 bg-transparent text-[15.5px] text-gray-900 placeholder-gray-500 outline-none border-none focus:ring-0 px-1 py-1"
+                    />
+
+                    <!-- Right Actions: Mic & Submit Arrow Button -->
+                    <div class="flex items-center gap-2 shrink-0 ml-2">
+                      <button type="button" id="btnChatMic" class="w-9 h-9 rounded-full hover:bg-gray-100 text-gray-600 flex items-center justify-center transition-colors cursor-pointer" title="ค้นหาด้วยเสียง">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15a3 3 0 003-3V6a3 3 0 00-3-3 3 3 0 00-3 3v6a3 3 0 003 3z" />
+                        </svg>
+                      </button>
+
+                      <!-- Submit Button: Appears with green #90DE3C when typing -->
+                      <button type="submit" id="btnChatSubmit" class="hidden w-9 h-9 rounded-full bg-[#90DE3C] hover:bg-[#82c936] text-black items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95 shrink-0" title="ส่งคำถาม">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5L12 3m0 0l7.5 7.5M12 3v18" />
+                        </svg>
+                      </button>
+                    </div>
+
+                  </form>
+                </div>
+
+                <!-- Disclaimer: Hidden on landing, displayed during active conversation -->
+                <div id="chatBottomBarDisclaimer" class="hidden text-center text-[11.5px] text-gray-400 mt-2.5">
+                  UDO AI อาจให้ข้อมูลสรุปเพื่อการแนะนำเบื้องต้น โปรดตรวจสอบสเปกจากผู้ผลิตก่อนเชื่อมงานจริง
+                </div>
+              </div>
+
+              <!-- Right Spacer matching right citation card width (hidden in centered new chat mode) -->
+              <div id="chatBottomBarRightSpacer" class="hidden w-[330px] xl:w-[360px] shrink-0 pointer-events-none"></div>
+
+            </div>
+          </div>
+
+        </main>
+
+      </div>
+
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 3. CITATION QUICK PREVIEW MODAL (Articles & Products) -->
+    <!-- ========================================== -->
+    <div id="citationPreviewModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs transition-opacity duration-200 opacity-0 pointer-events-none select-text">
+      <div id="citationModalCard" class="bg-white rounded-3xl max-w-2xl w-full max-h-[88vh] flex flex-col shadow-2xl overflow-hidden transform scale-95 transition-all duration-200 border border-gray-100">
+        <!-- Modal Top Bar -->
+        <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between shrink-0 bg-gray-50/70">
+          <div id="citationModalBadge" class="flex items-center gap-2">
+            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11.5px] font-semibold bg-red-50 text-[#e7151a]">
+              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2L14.4 8.6L21 11L14.4 13.4L12 20L9.6 13.4L3 11L9.6 8.6L12 2Z"/></svg>
+              <span>UDO Engineering Knowledge</span>
+            </span>
+          </div>
+          <button type="button" id="btnCloseCitationModal" class="w-8 h-8 rounded-full hover:bg-gray-200 text-gray-500 hover:text-gray-900 flex items-center justify-center transition-colors cursor-pointer" title="ปิดหน้าต่าง">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Modal Scrollable Content -->
+        <div id="citationModalBody" class="p-6 overflow-y-auto space-y-4 text-gray-800 text-[14.5px] leading-relaxed">
+          <!-- Dynamically populated via JS -->
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="px-6 py-3.5 border-t border-gray-100 bg-gray-50/50 flex items-center justify-between shrink-0">
+          <span class="text-[12px] text-gray-400">ตรวจสอบสเปกทางการจาก UDO Trading</span>
+          <button type="button" id="btnFooterCloseModal" class="px-5 py-2 bg-gray-900 hover:bg-black text-white text-[13px] font-medium rounded-full transition-colors cursor-pointer">
+            ปิดหน้าต่าง
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Script Entry Point -->
+    <script type="module" src="./src/chat.js"></script>
+  </body>
+</html>

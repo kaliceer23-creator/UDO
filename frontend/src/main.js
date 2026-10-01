@@ -2,59 +2,8 @@ import './style.css'
 
 
 
-// Script สำหรับทำ Fade Effect ให้กับช่องค้นหา
-const searchPlaceholders = [
-  "อุปกรณ์เสริม",
-  "ตู้เชื่อม MIG / TIG",
-  "ลวดเชื่อมสเตนเลส",
-  "หน้ากากเชื่อมปรับแสงอัตโนมัติ",
-  "ชุดตัดแก๊ส / พลาสม่า",
-  "ใบตัดเหล็ก ใบเจียร",
-  "อะไหล่ปืนเชื่อมต่างๆ",
-  "ถุงมือหนังงานเชื่อม"
-];
+import './nav_search.js';
 
-const searchInput = document.getElementById('searchInput');
-const animatedPlaceholder = document.getElementById('animatedPlaceholder');
-
-if (searchInput && animatedPlaceholder) {
-  let wordIndex = 0;
-  
-  // Set initial word
-  animatedPlaceholder.textContent = searchPlaceholders[0];
-
-  // ตั้งเวลาสลับข้อความแบบทันที (ไม่เฟด) โดยค้างไว้ 4.5 วินาที
-  setInterval(() => {
-    wordIndex = (wordIndex + 1) % searchPlaceholders.length;
-    animatedPlaceholder.textContent = searchPlaceholders[wordIndex];
-  }, 4500);
-
-  // จัดการ Placeholder เมื่อคลิกค้นหา
-  searchInput.addEventListener('focus', () => {
-    animatedPlaceholder.style.opacity = '0';
-    searchInput.setAttribute('placeholder', 'ถาม UDO AI');
-  });
-
-  searchInput.addEventListener('blur', () => {
-    if (searchInput.value.trim().length === 0) {
-      animatedPlaceholder.style.opacity = '1';
-      searchInput.setAttribute('placeholder', '');
-    }
-  });
-
-  
-  searchInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && searchInput.value.trim().length > 0) {
-       window.location.href = '/category.html?type=search&q=' + encodeURIComponent(searchInput.value.trim());
-    }
-  });
-
-  searchInput.addEventListener('input', () => {
-    if (searchInput.value.trim().length > 0) {
-      animatedPlaceholder.style.opacity = '0';
-    }
-  });
-}
 
 
 // --- Hero Slider Logic (Fade Transition) ---
@@ -141,6 +90,34 @@ if (slider) {
   startInterval();
 }
 
+// --- Category Strip Scroll Logic ---
+const catStrip = document.getElementById('categoryStrip');
+const catStripNext = document.getElementById('catStripNext');
+
+if (catStrip && catStripNext) {
+  catStripNext.addEventListener('click', () => {
+    catStrip.scrollBy({ left: 260, behavior: 'smooth' });
+  });
+}
+
+// --- Brand Strip Scroll Logic ---
+const brandStrip = document.getElementById('brandStrip');
+const brandStripPrev = document.getElementById('brandStripPrev');
+const brandStripNext = document.getElementById('brandStripNext');
+
+if (brandStrip) {
+  if (brandStripNext) {
+    brandStripNext.addEventListener('click', () => {
+      brandStrip.scrollBy({ left: 320, behavior: 'smooth' });
+    });
+  }
+  if (brandStripPrev) {
+    brandStripPrev.addEventListener('click', () => {
+      brandStrip.scrollBy({ left: -320, behavior: 'smooth' });
+    });
+  }
+}
+
 // --- Cart Control Logic (Instacart Style) ---
 document.querySelectorAll('.cart-control').forEach(control => {
   const btnAdd = control.querySelector('.btn-add');
@@ -215,7 +192,9 @@ document.querySelectorAll('.unit-toggle').forEach(btn => {
     const newPrice = btn.dataset.price;
     const newUnit = btn.dataset.unit;
 
-    priceDisplay.textContent = '฿' + newPrice;
+    const numPrice = parseFloat(String(newPrice).replace(/,/g, ''));
+    const formattedPrice = !isNaN(numPrice) ? numPrice.toLocaleString('en-US') : newPrice;
+    priceDisplay.textContent = '฿' + formattedPrice;
     priceUnit.textContent = '/' + newUnit;
     
     // Update cart control dataset and display
@@ -431,6 +410,7 @@ productSliders.forEach(sliderWrapper => {
     megaMenu.classList.remove('flex');
     if (menuArrow) menuArrow.classList.remove('rotate-180');
     if (overlay) overlay.classList.add('hidden');
+    if (menuBtn) menuBtn.classList.remove('bg-white/25');
   };
 
   const openMenu = () => {
@@ -438,14 +418,61 @@ productSliders.forEach(sliderWrapper => {
     megaMenu.classList.add('flex');
     if (menuArrow) menuArrow.classList.add('rotate-180');
     if (overlay) overlay.classList.remove('hidden');
+    if (menuBtn) menuBtn.classList.add('bg-white/25');
   };
 
   if (menuBtn && megaMenu) {
+    // Mega Menu Sidebar Hover / Tab Switching
+    const megaSidebarItems = megaMenu.querySelectorAll('.mega-sidebar-item');
+    const megaPanels = megaMenu.querySelectorAll('.mega-panel');
+
+    const activateMegaTab = (tabId) => {
+      megaSidebarItems.forEach((item) => {
+        const arrow = item.querySelector('.mega-sidebar-arrow');
+        if (item.dataset.megaTab === tabId) {
+          item.classList.add('bg-brand-green', 'text-white');
+          item.classList.remove('text-[#252525]');
+          if (arrow) {
+            arrow.classList.add('text-white');
+            arrow.classList.remove('text-gray-400');
+          }
+        } else {
+          item.classList.remove('bg-brand-green', 'text-white');
+          item.classList.add('text-[#252525]');
+          if (arrow) {
+            arrow.classList.remove('text-white');
+            arrow.classList.add('text-gray-400');
+          }
+        }
+      });
+
+      megaPanels.forEach((panel) => {
+        if (panel.id === `mega-panel-${tabId}`) {
+          panel.classList.remove('hidden');
+          panel.classList.add('block');
+        } else {
+          panel.classList.add('hidden');
+          panel.classList.remove('block');
+        }
+      });
+    };
+
+    megaSidebarItems.forEach((item) => {
+      const tabId = item.dataset.megaTab;
+      item.addEventListener('mouseenter', () => {
+        activateMegaTab(tabId);
+      });
+      item.addEventListener('focus', () => {
+        activateMegaTab(tabId);
+      });
+    });
+
     menuBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       const isHidden = megaMenu.classList.contains('hidden');
       if (isHidden) {
         openMenu();
+        activateMegaTab('12');
       } else {
         closeMenu();
       }
@@ -462,82 +489,6 @@ productSliders.forEach(sliderWrapper => {
     });
   }
 
-  // --- Fluid Framer-like Mobile Dock AI Search Logic ---
-  const dockAiBtn = document.getElementById('dock-ai-btn');
-  const dockDefaultState = document.getElementById('dock-default-state');
-  const dockInputState = document.getElementById('dock-input-state');
-  const dockAiInput = document.getElementById('dock-ai-input');
-  const dockCancelBtn = document.getElementById('dock-cancel-btn');
-  const mobileBottomDock = document.getElementById('mobile-bottom-dock');
-  const dockSendBtn = document.getElementById('dock-send-btn');
-  const dockMicBtn = document.getElementById('dock-mic-btn');
-
-  if (dockAiBtn && dockDefaultState && dockInputState && dockCancelBtn && mobileBottomDock) {
-    
-    // Shadow classes
-    const defaultShadow = ['shadow-[0_8px_32px_rgba(0,0,0,0.12),0_1px_3px_rgba(0,0,0,0.05)]', 'hover:shadow-[0_12px_40px_rgba(225,36,39,0.25)]'];
-    const activeRedShadow = ['shadow-[0_0px_40px_rgba(225,36,39,0.35)]', 'hover:shadow-[0_0px_50px_rgba(225,36,39,0.45)]', 'border-white/50'];
-    const defaultBorder = ['border-white/50'];
-
-    const openAiSearch = (e) => {
-      if(e) e.preventDefault();
-      
-      mobileBottomDock.classList.remove('w-[350px]', 'md:w-[380px]', ...defaultShadow, ...defaultBorder);
-      mobileBottomDock.classList.add('!max-w-[95vw]', 'md:!max-w-[600px]', '!w-[95vw]', 'md:!w-[600px]', ...activeRedShadow);
-      
-      dockDefaultState.classList.remove('opacity-100', 'translate-x-0');
-      dockDefaultState.classList.add('opacity-0', '-translate-x-8', 'pointer-events-none');
-      
-      dockInputState.classList.remove('opacity-0', 'translate-x-12', 'pointer-events-none');
-      dockInputState.classList.add('opacity-100', 'translate-x-0', 'pointer-events-auto');
-      
-      setTimeout(() => dockAiInput.focus(), 150);
-    };
-
-    const closeAiSearch = (e) => {
-      if(e) e.preventDefault();
-      
-      mobileBottomDock.classList.remove('!max-w-[95vw]', 'md:!max-w-[600px]', '!w-[95vw]', 'md:!w-[600px]', ...activeRedShadow);
-      mobileBottomDock.classList.add('w-[350px]', 'md:w-[380px]', ...defaultShadow, ...defaultBorder);
-      
-      dockInputState.classList.remove('opacity-100', 'translate-x-0', 'pointer-events-auto');
-      dockInputState.classList.add('opacity-0', 'translate-x-12', 'pointer-events-none');
-      
-      dockDefaultState.classList.remove('opacity-0', '-translate-x-8', 'pointer-events-none');
-      dockDefaultState.classList.add('opacity-100', 'translate-x-0');
-      
-      dockAiInput.value = ''; 
-      
-      if (dockSendBtn && dockMicBtn) {
-        dockMicBtn.classList.remove('opacity-0', 'scale-75', 'pointer-events-none');
-        dockMicBtn.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
-        
-        dockSendBtn.classList.add('opacity-0', 'scale-75', 'pointer-events-none');
-        dockSendBtn.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
-      }
-    };
-
-    dockAiBtn.addEventListener('click', openAiSearch);
-    dockCancelBtn.addEventListener('click', closeAiSearch);
-
-    // Cross-fade Mic and Send button based on input
-    if (dockAiInput && dockSendBtn && dockMicBtn) {
-      dockAiInput.addEventListener('input', (e) => {
-        if (e.target.value.trim().length > 0) {
-          dockMicBtn.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
-          dockMicBtn.classList.add('opacity-0', 'scale-75', 'pointer-events-none');
-          
-          dockSendBtn.classList.remove('opacity-0', 'scale-75', 'pointer-events-none');
-          dockSendBtn.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
-        } else {
-          dockMicBtn.classList.remove('opacity-0', 'scale-75', 'pointer-events-none');
-          dockMicBtn.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
-          
-          dockSendBtn.classList.add('opacity-0', 'scale-75', 'pointer-events-none');
-          dockSendBtn.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
-        }
-      });
-    }
-  }
-
+import './dock.js';
 import './home_hydrate.js';
+

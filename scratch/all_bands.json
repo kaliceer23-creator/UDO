@@ -1,0 +1,314 @@
+[
+  {
+    "id": "17",
+    "name": "KOBE",
+    "slug": "KOBE",
+    "thumb_image": "bands/June2018/XcbbkOvt2o9nb4J8gnpr.jpg",
+    "cover_image": "bands/February2019/HBgkSPGlLEAFKxlSz7DH.jpg",
+    "sort": 1
+  },
+  {
+    "id": "3",
+    "name": "YAWATA",
+    "slug": "YAWATA, ลวดเชื่อม",
+    "thumb_image": "bands/June2026/2PaGokJeH9KB2k6Xmuca.jpg",
+    "cover_image": "bands/May2026/SRFfBmnZoXH7FQ0l8E18.jpg",
+    "sort": 2
+  },
+  {
+    "id": "38",
+    "name": "MORRIS",
+    "slug": "morris",
+    "thumb_image": "bands/April2019/fLUnBcGVovnoYujtyYLi.jpg",
+    "cover_image": null,
+    "sort": 3
+  },
+  {
+    "id": "39",
+    "name": "SELECTARC",
+    "slug": "SELECTARC",
+    "thumb_image": "bands/April2019/6q5lApkwz6SjeYNuP6O1.JPG",
+    "cover_image": "bands/May2026/rFN6obtKtm4aUVZS7mwA.jpg",
+    "sort": 4
+  },
+  {
+    "id": "40",
+    "name": "WhaleSpray",
+    "slug": "whalespray",
+    "thumb_image": "bands/June2026/UyANs8dHFLenaQLsl9D1.jpg",
+    "cover_image": "bands/January2020/Pl0aKh3Ilwteo99BnvQz.jpg",
+    "sort": 5
+  },
+  {
+    "id": "23",
+    "name": "NIKKO",
+    "slug": "nikko",
+    "thumb_image": "bands/July2018/XGlDvRmuyFgjyneUul5I.jpg",
+    "cover_image": "bands/August2021/dYAJ1SbXq8BmEmczu7s5.jpg",
+    "sort": 6
+  },
+  {
+    "id": "7",
+    "name": "CHAMP",
+    "slug": "CHAMP",
+    "thumb_image": "bands/June2026/Q7z9GIFVNMS4oIqLOnWa.jpg",
+    "cover_image": "bands/June2026/KFWnHXiWxGieiXqjro1L.jpg",
+    "sort": 7
+  },
+  {
+    "id": "2",
+    "name": "POWERWELD",
+    "slug": "POWERWELD",
+    "thumb_image": "bands/February2024/v7mTZPVkDbdkD6840vfU.jpg",
+    "cover_image": "bands/February2024/V2s6BwZk3JKs93H2H6wP.png",
+    "sort": 8
+  },
+  {
+    "id": "9",
+    "name": "HYUNDAI",
+    "slug": "HYUNDAI",
+    "thumb_image": "bands/June2018/9CMMA4vpWgd9LWlaru0Q.jpg",
+    "cover_image": "bands/August2018/27pyWtZ3WNNJmQWpPTUD.jpg",
+    "sort": 9
+  },
+  {
+    "id": "10",
+    "name": "GEMINI",
+    "slug": "GEMINI",
+    "thumb_image": "bands/June2026/mbFQq6WAjIWIvpfu5Qeh.jpg",
+    "cover_image": "bands/June2026/AvABwe2JD6kPAmYAq39B.jpg",
+    "sort": 10
+  },
+  {
+    "id": "11",
+    "name": "KENZO",
+    "slug": "KENZO",
+    "thumb_image": "bands/June2018/SgCYolBUkpEv6ILdlg3U.jpg",
+    "cover_image": null,
+    "sort": 11
+  },
+  {
+    "id": "12",
+    "name": "HILCO",
+    "slug": "HILCO",
+    "thumb_image": "bands/June2018/y3NgMdvtSqdE4LSKY9DL.jpg",
+    "cover_image": null,
+    "sort": 12
+  },
+  {
+    "id": "14",
+    "name": "TANAKA",
+    "slug": "TANAKA",
+    "thumb_image": "bands/June2018/TT8HvVcO28a3EMXAX4YC.JPG",
+    "cover_image": null,
+    "sort": 13
+  },
+  {
+    "id": "15",
+    "name": "NANKAI",
+    "slug": "NANKAI",
+    "thumb_image": "bands/June2018/KYeJ8ZngG0aPQa6eCTNm.JPG",
+    "cover_image": null,
+    "sort": 14
+  },
+  {
+    "id": "16",
+    "name": "NKK",
+    "slug": "NKK",
+    "thumb_image": "bands/June2018/D6pAuyzNiadHwL3lJk5G.jpg",
+    "cover_image": null,
+    "sort": 15
+  },
+  {
+    "id": "19",
+    "name": "NSSW",
+    "slug": "NSSW",
+    "thumb_image": "bands/July2018/aJC23YFVGyUdvBFiSjPJ.JPG",
+    "cover_image": "bands/February2019/SJcmzx0mYsGSleqjoimT.jpg",
+    "sort": 16
+  },
+  {
+    "id": "21",
+    "name": "NICHIA",
+    "slug": "NICHIA",
+    "thumb_image": "bands/July2018/j9Peacxfuq5Stw1SHGuT.JPG",
+    "cover_image": null,
+    "sort": 18
+  },
+  {
+    "id": "22",
+    "name": "INDALCO",
+    "slug": "INDALCO",
+    "thumb_image": "bands/July2018/IDAj1sftFQ5bi14AQ1lH.png",
+    "cover_image": null,
+    "sort": 19
+  },
+  {
+    "id": "24",
+    "name": "NABAKEM",
+    "slug": "nabakem",
+    "thumb_image": "bands/July2018/oLLSCrXJdpQcRLYEhRaS.jpg",
+    "cover_image": null,
+    "sort": 20
+  },
+  {
+    "id": "25",
+    "name": "HARRIS",
+    "slug": "harris",
+    "thumb_image": "bands/July2018/TIAnqukEbeEhbsrUI7ZF.jpg",
+    "cover_image": "bands/January2020/cfT97tp11CwZxYNxyH0R.jpg",
+    "sort": 21
+  },
+  {
+    "id": "26",
+    "name": "GOLD",
+    "slug": "gold",
+    "thumb_image": "bands/June2026/pFgP6g7YH9JBK2ZIBA3e.jpg",
+    "cover_image": null,
+    "sort": 22
+  },
+  {
+    "id": "27",
+    "name": "AUTOWEL",
+    "slug": "autowel",
+    "thumb_image": "bands/July2018/aDPCDdlhZAZ7WrnD03pX.jpg",
+    "cover_image": null,
+    "sort": 23
+  },
+  {
+    "id": "28",
+    "name": "WELDSTAR",
+    "slug": "WELDSTAR",
+    "thumb_image": "bands/June2026/bbxN3p84j10ey2KVaIKr.jpg",
+    "cover_image": null,
+    "sort": 24
+  },
+  {
+    "id": "33",
+    "name": "TRAFIMET",
+    "slug": "TRAFIMET",
+    "thumb_image": "bands/February2019/dSgu7HCvUwcytYJVlOwi.jpg",
+    "cover_image": "bands/February2019/UKBIndov7Hi1vsBpFNPj.jpg",
+    "sort": 25
+  },
+  {
+    "id": "35",
+    "name": "OTC",
+    "slug": "OTC",
+    "thumb_image": "bands/March2019/FW651aAyEGXVCKcliYdJ.jpg",
+    "cover_image": null,
+    "sort": 26
+  },
+  {
+    "id": "32",
+    "name": "No Brand",
+    "slug": "No Brand",
+    "thumb_image": "bands/February2019/xlUu1fGCPNDN1Pcxdq3M.jpg",
+    "cover_image": "bands/February2019/MKy0ZHbfPui6Wowv7ZRV.jpg",
+    "sort": 27
+  },
+  {
+    "id": "30",
+    "name": "IOXYGEN",
+    "slug": "IOXYGEN",
+    "thumb_image": "bands/September2018/Pl61ieaHTaRw1uRcDq8y.JPG",
+    "cover_image": "bands/January2026/fEbu4XvxDI6i9FGukorw.jpg",
+    "sort": 28
+  },
+  {
+    "id": "36",
+    "name": "OPTECH",
+    "slug": "OPTECH",
+    "thumb_image": "bands/March2019/V4s6y6zQBAEoVMoxUg0I.jpg",
+    "cover_image": null,
+    "sort": 29
+  },
+  {
+    "id": "53",
+    "name": "EMTOP",
+    "slug": "emtop",
+    "thumb_image": "bands/February2024/9uymsK6RGFvvKMeBKlIX.jpg",
+    "cover_image": "bands/February2024/0lRW2iJzDMnqI8s34s2F.png",
+    "sort": 999
+  },
+  {
+    "id": "48",
+    "name": "ESAB",
+    "slug": "ESAB",
+    "thumb_image": "bands/August2020/k6ismQQuFRyYN6W0VkHW.png",
+    "cover_image": null,
+    "sort": 999
+  },
+  {
+    "id": "46",
+    "name": "GASWORK",
+    "slug": "gaswork",
+    "thumb_image": "bands/July2020/hgnaGcOaxUiIXSTdyiPx.jpg",
+    "cover_image": "bands/July2020/ctv6nQEROd1WTnt6wchg.jpg",
+    "sort": 999
+  },
+  {
+    "id": "45",
+    "name": "GOLD PREMIUM",
+    "slug": "GOLDPREMIUM",
+    "thumb_image": "bands/June2026/f2ZKNgaAoAgYXMtFhPcK.jpg",
+    "cover_image": null,
+    "sort": 999
+  },
+  {
+    "id": "50",
+    "name": "KISWEL",
+    "slug": "KISWEL",
+    "thumb_image": "bands/December2022/VL6gfjF6czbszJP51YAJ.jpg",
+    "cover_image": "bands/December2022/7CX2s3J17nBFAaSXy5wX.jpg",
+    "sort": 999
+  },
+  {
+    "id": "55",
+    "name": "POWERARC",
+    "slug": "POWERARC",
+    "thumb_image": "bands/March2026/0t6xH08oRgpZCqGYlx5E.jpg",
+    "cover_image": "bands/June2026/92CvjoSaYIig4fvtSsZn.jpg",
+    "sort": 999
+  },
+  {
+    "id": "51",
+    "name": "STANVAC",
+    "slug": "Stanvac",
+    "thumb_image": "bands/October2023/U82bZ2qN7P6teRqpVhar.png",
+    "cover_image": "bands/October2023/ibnmIAI4K7VgicTtEQ3e.jpg",
+    "sort": 999
+  },
+  {
+    "id": "54",
+    "name": "SUPERON",
+    "slug": "SUPERON",
+    "thumb_image": "bands/March2025/lP6xA9pLXXNdV1YQkpF7.jpg",
+    "cover_image": "bands/April2025/YPLBTgm3mIwD7jij6IWl.jpg",
+    "sort": 999
+  },
+  {
+    "id": "43",
+    "name": "TASETO",
+    "slug": "TASETO",
+    "thumb_image": "bands/June2026/dkXIT9ghPYxBPwS9RcZO.jpg",
+    "cover_image": null,
+    "sort": 999
+  },
+  {
+    "id": "44",
+    "name": "UDO",
+    "slug": "UDO",
+    "thumb_image": "bands/June2026/KPR0YTeJ0GmPt9lk462M.jpg",
+    "cover_image": null,
+    "sort": 999
+  },
+  {
+    "id": "49",
+    "name": "VDM METALS",
+    "slug": "VDM",
+    "thumb_image": "bands/January2026/mV1zbJQbwt6xJkmz5pip.png",
+    "cover_image": "bands/January2026/5dk2lJ2tQN5Xb5DcJfrm.jpg",
+    "sort": 999
+  }
+]

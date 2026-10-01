@@ -1,0 +1,1931 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>รายละเอียดสินค้า - UDO</title>
+    <!-- Prompt Font for Windows fallback -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+    <style id="fouc-fix">
+      /* Prevent FOUC (Flash of Unstyled Content) for SVGs */
+      svg:not([class*="w-"]) { max-width: 40px; max-height: 40px; }
+    </style>
+    <script type="module" crossorigin src="/assets/product-BDVM8eMi.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/ProductCard-D2c0gKoJ.js">
+    <link rel="modulepreload" crossorigin href="/assets/mock_database-BcIaIGFD.js">
+    <link rel="modulepreload" crossorigin href="/assets/home_hydrate-D0wupE0z.js">
+    <link rel="modulepreload" crossorigin href="/assets/category_taxonomy-Dxaq_VWX.js">
+    <link rel="stylesheet" crossorigin href="/assets/ProductCard-DBQu-2uL.css">
+  </head>
+  <body class="bg-white font-['Prompt',sans-serif] antialiased text-gray-900 selection:bg-[#8fc101] selection:text-white pb-[80px] md:pb-0">
+    <div id="app">
+
+    
+    <!-- 1. Nav Component (โหลดจากไฟล์ศูนย์รวม) -->
+  <!-- Mega Menu Overlay (Moved outside to guarantee it sits under header) -->
+  <div id="mega-menu-overlay" class="hidden fixed inset-0 bg-black/30 z-[40] cursor-pointer"></div>
+  <!-- 0. แถบ Utility ด้านบนสุด (สไตล์ BaNANA) -->
+  <div class="w-full bg-[#F5F5F5] hidden md:block relative z-[60]">
+    <div class="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12 h-8 flex items-center justify-end text-[13px] text-black/90 font-medium gap-4">
+      <a href="#" class="hover:text-brand-red transition-all">เกี่ยวกับเรา</a>
+      <span class="text-gray-400 font-light">|</span>
+      <a href="#" class="hover:text-brand-red transition-all">วิธีการสั่งซื้อ/ขอใบเสนอราคา</a>
+      <span class="text-gray-400 font-light">|</span>
+      <a href="#" class="hover:text-brand-red transition-all">FAQ</a>
+      <span class="text-gray-400 font-light">|</span>
+      <a href="#" class="hover:text-brand-red transition-all">ติดต่อเรา</a>
+      <span class="text-gray-400 font-light">|</span>
+      
+      <!-- ตัวเลือกภาษา (Language Switcher) -->
+      <div class="flex items-center gap-1 cursor-pointer hover:text-brand-red group">
+        <span class="font-medium text-black/90 group-hover:text-brand-red">TH</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-500 group-hover:text-brand-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+        </svg>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Sticky Wrapper สำหรับล็อก Header + Nav ให้อยู่บนสุดตอนไถจอ -->
+  <div class="sticky top-0 z-[60] w-full">
+        <!-- 1. แถบสีขาวด้านบน (Main Header) -->
+    
+    <header class="w-full bg-white border-b border-black/5 relative z-[55]">
+      <div class="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12 py-2.5 md:py-3.5 lg:py-4 flex items-center justify-between gap-4 lg:gap-8">
+        
+        <!-- Logo (Far Left) -->
+        <div class="flex items-center shrink-0">
+          <a href="/" class="hover:opacity-80 transition-opacity">
+            <img src="/images/logos/logo_main.svg" alt="UDO Welding Products" class="h-[36px] md:h-[45px] w-auto object-contain" />
+          </a>
+        </div>
+        
+        <!-- Search Bar Area (Centered with generous space on left & right) -->
+        <div class="hidden md:flex flex-1 justify-center px-4 lg:px-8">
+          <form id="searchForm" action="/category.html" method="GET" class="w-full max-w-[480px] lg:max-w-[540px] xl:max-w-[620px] flex items-center bg-white rounded-full h-[46px] pl-2.5 pr-2 border border-gray-200/90 shadow-[0_2px_10px_rgba(0,0,0,0.04)] hover:border-gray-300 focus-within:border-gray-400 focus-within:shadow-[0_4px_16px_rgba(0,0,0,0.08)] transition-all duration-200 relative">
+            <input type="hidden" name="type" value="ai_search" />
+            
+            <!-- Left Action: Plus Button (+) -->
+            <a href="/chat.html" class="w-8 h-8 rounded-full bg-[#f1f3f4] hover:bg-[#e8eaed] text-gray-600 hover:text-gray-900 flex items-center justify-center shrink-0 transition-colors cursor-pointer select-none" title="ถาม UDO AI">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+            </a>
+
+            <!-- Search Input Container -->
+            <div class="flex-1 mx-2.5 flex items-center h-full relative">
+              <input 
+                id="searchInput"
+                name="q"
+                type="text" 
+                placeholder="ลองถามอะไรก็ได้"
+                autocomplete="off"
+                class="w-full bg-transparent text-[14.5px] placeholder:text-[#160808] placeholder:font-normal placeholder:opacity-100 text-[#160808] font-normal outline-none focus:outline-none border-none focus:border-none focus:ring-0 h-full relative z-10"
+              />
+            </div>
+
+            <!-- Microphone Action -->
+            <a href="/chat.html" class="w-7 h-7 rounded-full hover:bg-gray-100 text-gray-500 hover:text-gray-800 flex items-center justify-center transition-colors cursor-pointer mr-1.5 shrink-0" title="พิมพ์ด้วยเสียง / ปรึกษา UDO AI">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-[17px] h-[17px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15a3 3 0 01-3-3V4.5a3 3 0 116 0v7.5a3 3 0 01-3 3z" />
+              </svg>
+            </a>
+            
+            <!-- AI Mode Pill Button with Frosted Glass & Dual Orbiting Red/Green Laser -->
+            <div class="relative inline-flex items-center justify-center shrink-0">
+              
+              <!-- Ambient Glow Aura behind the Pill -->
+              <div class="absolute -inset-2 -z-10 pointer-events-none overflow-hidden rounded-full flex items-center justify-center">
+                <div class="nav-ai-pill-glow pointer-events-none"></div>
+              </div>
+
+              <!-- Outer Glass Frame with Orbiting Laser Beam -->
+              <div class="relative p-[2px] rounded-full overflow-hidden shadow-[0_2px_10px_rgba(0,0,0,0.04)]">
+                
+                <!-- Orbiting Dual-Color Laser Beam Layer -->
+                <div class="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
+                  <div class="nav-ai-pill-beam pointer-events-none"></div>
+                </div>
+
+                <!-- Frosted Glass Trench / Bevel Layer -->
+                <div class="absolute inset-[1px] rounded-full bg-white/30 backdrop-blur-md border border-white/70 pointer-events-none shadow-[inset_0_1px_2px_rgba(255,255,255,0.8)]"></div>
+
+                <!-- White Inner Button: Pill shape -->
+                <button type="submit" id="aiModeBtn" aria-label="ส่งคำถาม AI" class="relative z-10 bg-white hover:bg-gray-50 text-gray-900 px-3.5 h-[30px] rounded-full flex items-center justify-center gap-1.5 transition-colors shrink-0 cursor-pointer active:scale-[0.98] outline-none shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+                  <!-- AI Search Icon (Magnifying Glass + Sparkle in Solid Black) -->
+                  <div class="relative flex items-center justify-center w-4 h-4 mr-0.5 text-gray-900">
+                    <!-- Magnifying Glass -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-[13.5px] h-[13.5px] text-gray-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                    </svg>
+                    <!-- Sparkle (Top Right) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-[8.5px] h-[8.5px] text-gray-900 absolute -top-1 -right-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+                    </svg>
+                  </div>
+                  <span class="font-medium text-[12.5px] md:text-[13px] tracking-tight text-gray-900">โหมด AI</span>
+                </button>
+              </div>
+
+            </div>
+            
+            <!-- Recent Searches Dropdown Container -->
+            <div id="navRecentSearchesDropdown" class="hidden absolute top-[calc(100%+8px)] left-0 w-full bg-white rounded-2xl border border-gray-200/90 shadow-[0_12px_36px_rgba(0,0,0,0.1)] p-2 z-[100]">
+              <div id="navRecentSearchesList" class="flex flex-col gap-0.5 max-h-[300px] overflow-y-auto"></div>
+            </div>
+
+          </form>
+        </div>
+
+        <!-- Right Side Actions (Far Right) -->
+        <div class="shrink-0 flex items-center justify-end text-[16px] text-black/90 font-medium gap-8 lg:gap-10 xl:gap-12">
+          
+          <!-- Auth Links -->
+          <div class="hidden lg:flex items-center gap-1.5 font-medium text-[14px] text-[#252525]">
+            <a href="#" class="flex items-center gap-1.5 hover:text-brand-red transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-[22px] h-[22px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.3">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+              </svg>
+              เข้าสู่ระบบ
+            </a>
+            <span class="text-gray-400 mx-1">|</span>
+            <a href="#" class="hover:text-brand-red transition-colors">ลงทะเบียน</a>
+          </div>
+
+          <!-- Icons Group (Heart + LINE) -->
+          <div class="flex items-center gap-4">
+            <!-- Heart Icon -->
+            <a href="#" class="text-black/90 hover:text-brand-red transition-colors flex items-center" title="รายการโปรด">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-[24px] h-[24px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2">
+                <!-- Geometric Heart with straight V bottom -->
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+              </svg>
+            </a>
+
+            <!-- LINE Official Button (Replaces Cart) -->
+            <a href="https://line.me" target="_blank" rel="noopener noreferrer" class="w-[30px] h-[30px] bg-[#06C755] hover:bg-[#05b34c] rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 shadow-sm shrink-0" title="LINE Official">
+              <img src="/images/line-logo.png" alt="Line" class="w-[18px] h-[18px] object-contain" />
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </header>
+
+  <!-- 2. แถบคาดสีเขียว (Main Categories Banner) -->
+  <nav class="w-full bg-brand-green h-[34px] md:h-[36px] relative z-50 overflow-x-auto lg:overflow-visible no-scrollbar">
+    <div class="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12 relative h-full flex items-center justify-between">
+      
+      <!-- ปุ่มเลือกตามหมวดหมู่ (ฝั่งซ้าย: Grid Icon + Down Arrow) -->
+      <div id="category-menu-btn" class="h-full flex items-center gap-1.5 md:gap-2 text-[#393636] font-medium text-[13.5px] md:text-[14px] cursor-pointer hover:bg-white/25 active:bg-white/35 px-2.5 md:px-3 -ml-2.5 md:-ml-3 rounded-md transition-all shrink-0 select-none group">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-[#393636] transition-transform duration-200 group-hover:scale-105 shrink-0" viewBox="0 0 24 24" fill="currentColor">
+          <path fill-rule="evenodd" d="M3 6a3 3 0 013-3h2.25a3 3 0 013 3v2.25a3 3 0 01-3 3H6a3 3 0 01-3-3V6zm9.75 0a3 3 0 013-3H18a3 3 0 013 3v2.25a3 3 0 01-3 3h-2.25a3 3 0 01-3-3V6zM3 15.75a3 3 0 013-3h2.25a3 3 0 013 3V18a3 3 0 01-3 3H6a3 3 0 01-3-3v-2.25zm9.75 0a3 3 0 013-3H18a3 3 0 013 3V18a3 3 0 01-3 3h-2.25a3 3 0 01-3-3v-2.25z" clip-rule="evenodd" />
+        </svg>
+        <span class="inline-block transform scale-y-[1.035] origin-center whitespace-nowrap">หมวดหมู่สินค้า</span>
+        <svg id="category-menu-arrow" xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-[#393636]/80 transition-transform duration-200 group-hover:translate-y-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+        </svg>
+      </div>
+
+      <!-- เมนูกลุ่มงานเชื่อม (Sub-groups of ลวดเชื่อม พร้อม Hover Dropdown) -->
+      <div class="hidden lg:flex flex-1 justify-between h-full items-center gap-1 xl:gap-2 ml-3 lg:ml-5 xl:ml-8 2xl:ml-10 whitespace-nowrap lg:overflow-visible no-scrollbar">
+        
+        <!-- 1. เชื่อมเหล็ก -->
+        <div class="relative group/menu h-full flex items-center">
+          <a href="/category.html?type=category&name=กลุ่มลวดเชื่อม&sub=เชื่อมเหล็ก" class="h-full flex items-center text-[#393636] group-hover/menu:text-brand-red font-medium text-[13px] xl:text-[14px] 2xl:text-[14.5px] transition-colors px-2 xl:px-3 2xl:px-4">
+            <span class="inline-block transform scale-y-[1.035] origin-center">เชื่อมเหล็ก</span>
+          </a>
+          <div class="hidden group-hover/menu:block absolute top-full left-0 z-50 pt-0 min-w-[195px] w-max">
+            <div class="bg-white rounded-b-[6px] shadow-[0_10px_25px_rgba(0,0,0,0.12)] border border-gray-100 overflow-hidden text-left">
+              <a href="/category.html?type=category&name=กลุ่มลวดเชื่อม&sub=เชื่อมเหล็ก" class="block bg-[#FBEEEE] hover:bg-[#f6d7d7] text-gray-900 font-medium text-[13.5px] px-4 py-2.5 transition-colors">
+                <span>เชื่อมเหล็ก</span>
+              </a>
+              <div class="flex flex-col">
+                <a href="/category.html?type=category&cat=270" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>เชื่อมไฟฟ้า (MMA)</span>
+                </a>
+                <a href="/category.html?type=category&cat=275" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>เชื่อมอาร์กอน (TIG)</span>
+                </a>
+                <a href="/category.html?type=category&cat=280" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>เชื่อมซีโอทู (MIG)</span>
+                </a>
+                <a href="/category.html?type=category&cat=282" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>เชื่อมฟลักซ์คอลล์ (FCW)</span>
+                </a>
+                <a href="/category.html?type=category&cat=286" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>เชื่อมซับเมอร์ก (SAW)</span>
+                </a>
+                <a href="/category.html?type=category&cat=289" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>เชื่อมแก๊ส (Brazing)</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. เชื่อมสแตนเลส -->
+        <div class="relative group/menu h-full flex items-center">
+          <a href="/category.html?type=category&name=กลุ่มลวดเชื่อม&sub=เชื่อมสแตนเลส" class="h-full flex items-center text-[#393636] group-hover/menu:text-brand-red font-medium text-[13px] xl:text-[14px] 2xl:text-[14.5px] transition-colors px-2 xl:px-3 2xl:px-4">
+            <span class="inline-block transform scale-y-[1.035] origin-center">เชื่อมสแตนเลส</span>
+          </a>
+          <div class="hidden group-hover/menu:block absolute top-full left-0 z-50 pt-0 min-w-[195px] w-max">
+            <div class="bg-white rounded-b-[6px] shadow-[0_10px_25px_rgba(0,0,0,0.12)] border border-gray-100 overflow-hidden text-left">
+              <a href="/category.html?type=category&name=กลุ่มลวดเชื่อม&sub=เชื่อมสแตนเลส" class="block bg-[#FBEEEE] hover:bg-[#f6d7d7] text-gray-900 font-medium text-[13.5px] px-4 py-2.5 transition-colors">
+                <span>เชื่อมสแตนเลส</span>
+              </a>
+              <div class="flex flex-col">
+                <a href="/category.html?type=category&cat=264" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>เชื่อมไฟฟ้า (MMA)</span>
+                </a>
+                <a href="/category.html?type=category&cat=276" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>เชื่อมอาร์กอน (TIG)</span>
+                </a>
+                <a href="/category.html?type=category&cat=281" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>เชื่อมซีโอทู (MIG)</span>
+                </a>
+                <a href="/category.html?type=category&cat=283" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>เชื่อมฟลักซ์คอลล์ (FCW)</span>
+                </a>
+                <a href="/category.html?type=category&cat=287" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>เชื่อมซับเมอร์ก (SAW)</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. เชื่อมอลูมิเนียม -->
+        <div class="relative group/menu h-full flex items-center">
+          <a href="/category.html?type=category&name=กลุ่มลวดเชื่อม&sub=เชื่อมอลูมิเนียม" class="h-full flex items-center text-[#393636] group-hover/menu:text-brand-red font-medium text-[13px] xl:text-[14px] 2xl:text-[14.5px] transition-colors px-2 xl:px-3 2xl:px-4">
+            <span class="inline-block transform scale-y-[1.035] origin-center">เชื่อมอลูมิเนียม</span>
+          </a>
+          <div class="hidden group-hover/menu:block absolute top-full left-0 z-50 pt-0 min-w-[195px] w-max">
+            <div class="bg-white rounded-b-[6px] shadow-[0_10px_25px_rgba(0,0,0,0.12)] border border-gray-100 overflow-hidden text-left">
+              <a href="/category.html?type=category&name=กลุ่มลวดเชื่อม&sub=เชื่อมอลูมิเนียม" class="block bg-[#FBEEEE] hover:bg-[#f6d7d7] text-gray-900 font-medium text-[13.5px] px-4 py-2.5 transition-colors">
+                <span>เชื่อมอลูมิเนียม</span>
+              </a>
+              <div class="flex flex-col">
+                <a href="/category.html?type=category&cat=279" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>เชื่อมอาร์กอน (TIG)</span>
+                </a>
+                <a href="/category.html?type=category&cat=291" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>เชื่อมไฟฟ้า (MMA)</span>
+                </a>
+                <a href="/category.html?type=category&cat=292" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>เชื่อมแก๊ส (Brazing)</span>
+                </a>
+                <a href="/category.html?type=category&cat=295" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>เชื่อมซีโอทู (MIG)</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. เชื่อมเหล็กหล่อ -->
+        <div class="relative group/menu h-full flex items-center">
+          <a href="/category.html?type=category&name=กลุ่มลวดเชื่อม&sub=เชื่อมเหล็กหล่อ" class="h-full flex items-center text-[#393636] group-hover/menu:text-brand-red font-medium text-[13px] xl:text-[14px] 2xl:text-[14.5px] transition-colors px-2 xl:px-3 2xl:px-4">
+            <span class="inline-block transform scale-y-[1.035] origin-center">เชื่อมเหล็กหล่อ</span>
+          </a>
+          <div class="hidden group-hover/menu:block absolute top-full left-0 z-50 pt-0 min-w-[195px] w-max">
+            <div class="bg-white rounded-b-[6px] shadow-[0_10px_25px_rgba(0,0,0,0.12)] border border-gray-100 overflow-hidden text-left">
+              <a href="/category.html?type=category&name=กลุ่มลวดเชื่อม&sub=เชื่อมเหล็กหล่อ" class="block bg-[#FBEEEE] hover:bg-[#f6d7d7] text-gray-900 font-medium text-[13.5px] px-4 py-2.5 transition-colors">
+                <span>เชื่อมเหล็กหล่อ</span>
+              </a>
+              <div class="flex flex-col">
+                <a href="/category.html?type=category&cat=266" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>เชื่อมไฟฟ้า (MMA)</span>
+                </a>
+                <a href="/category.html?type=category&cat=290" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>เชื่อมอาร์กอน (TIG)</span>
+                </a>
+                <a href="/category.html?type=category&cat=397" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>เชื่อมซีโอทู (MIG)</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. เชื่อมทองเหลือง ทองแดง เงิน -->
+        <div class="relative group/menu h-full flex items-center">
+          <a href="/category.html?type=category&name=กลุ่มลวดเชื่อม&sub=เชื่อมทองเหลือง-ทองแดงและเงิน" class="h-full flex items-center text-[#393636] group-hover/menu:text-brand-red font-medium text-[13px] xl:text-[14px] 2xl:text-[14.5px] transition-colors px-2 xl:px-3 2xl:px-4">
+            <span class="inline-block transform scale-y-[1.035] origin-center">เชื่อมทองเหลือง ทองแดง เงิน</span>
+          </a>
+          <div class="hidden group-hover/menu:block absolute top-full left-0 z-50 pt-0 min-w-[215px] w-max">
+            <div class="bg-white rounded-b-[6px] shadow-[0_10px_25px_rgba(0,0,0,0.12)] border border-gray-100 overflow-hidden text-left">
+              <a href="/category.html?type=category&name=กลุ่มลวดเชื่อม&sub=เชื่อมทองเหลือง-ทองแดงและเงิน" class="block bg-[#FBEEEE] hover:bg-[#f6d7d7] text-gray-900 font-medium text-[13.5px] px-4 py-2.5 transition-colors">
+                <span>เชื่อมทองเหลือง ทองแดง เงิน</span>
+              </a>
+              <div class="flex flex-col">
+                <a href="/category.html?type=category&cat=294" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>เชื่อมแก๊ส (Brazing)</span>
+                </a>
+                <a href="/category.html?type=category&cat=390" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>เชื่อมอาร์กอน (TIG)</span>
+                </a>
+                <a href="/category.html?type=category&cat=394" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>เชื่อมไฟฟ้า (MMA)</span>
+                </a>
+                <a href="/category.html?type=category&cat=396" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>เชื่อมซีโอทู (MIG)</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. เชื่อมพอกผิวแข็ง -->
+        <div class="relative group/menu h-full flex items-center">
+          <a href="/category.html?type=category&name=กลุ่มลวดเชื่อม&sub=เชื่อมพอกผิวแข็ง" class="h-full flex items-center text-[#393636] group-hover/menu:text-brand-red font-medium text-[13px] xl:text-[14px] 2xl:text-[14.5px] transition-colors px-2 xl:px-3 2xl:px-4">
+            <span class="inline-block transform scale-y-[1.035] origin-center">เชื่อมพอกผิวแข็ง</span>
+          </a>
+          <div class="hidden group-hover/menu:block absolute top-full left-0 z-50 pt-0 min-w-[195px] w-max">
+            <div class="bg-white rounded-b-[6px] shadow-[0_10px_25px_rgba(0,0,0,0.12)] border border-gray-100 overflow-hidden text-left">
+              <a href="/category.html?type=category&name=กลุ่มลวดเชื่อม&sub=เชื่อมพอกผิวแข็ง" class="block bg-[#FBEEEE] hover:bg-[#f6d7d7] text-gray-900 font-medium text-[13.5px] px-4 py-2.5 transition-colors">
+                <span>เชื่อมพอกผิวแข็ง</span>
+              </a>
+              <div class="flex flex-col">
+                <a href="/category.html?type=category&cat=274" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>เชื่อมไฟฟ้า (MMA)</span>
+                </a>
+                <a href="/category.html?type=category&cat=285" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>เชื่อมฟลักซ์คอลล์ (FCW)</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. เชื่อมตัดเซาะร่อง -->
+        <div class="relative group/menu h-full flex items-center">
+          <a href="/category.html?type=category&name=กลุ่มลวดเชื่อม&sub=เชื่อมตัดเซาะร่อง" class="h-full flex items-center text-[#393636] group-hover/menu:text-brand-red font-medium text-[13px] xl:text-[14px] 2xl:text-[14.5px] transition-colors px-2 xl:px-3 2xl:px-4">
+            <span class="inline-block transform scale-y-[1.035] origin-center">เชื่อมตัดเซาะร่อง</span>
+          </a>
+          <div class="hidden group-hover/menu:block absolute top-full left-0 z-50 pt-0 min-w-[195px] w-max">
+            <div class="bg-white rounded-b-[6px] shadow-[0_10px_25px_rgba(0,0,0,0.12)] border border-gray-100 overflow-hidden text-left">
+              <a href="/category.html?type=category&name=กลุ่มลวดเชื่อม&sub=เชื่อมตัดเซาะร่อง" class="block bg-[#FBEEEE] hover:bg-[#f6d7d7] text-gray-900 font-medium text-[13.5px] px-4 py-2.5 transition-colors">
+                <span>เชื่อมตัดเซาะร่อง</span>
+              </a>
+              <div class="flex flex-col">
+                <a href="/category.html?type=category&cat=268" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>เชื่อมไฟฟ้า (MMA)</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8. เชื่อมวัสดุเกรดพิเศษ -->
+        <div class="relative group/menu h-full flex items-center">
+          <a href="/category.html?type=category&name=กลุ่มลวดเชื่อม&sub=เชื่อมวัสดุเกรดพิเศษ" class="h-full flex items-center text-[#393636] group-hover/menu:text-brand-red font-medium text-[13px] xl:text-[14px] 2xl:text-[14.5px] transition-colors px-2 xl:px-3 2xl:px-4">
+            <span class="inline-block transform scale-y-[1.035] origin-center">เชื่อมวัสดุเกรดพิเศษ</span>
+          </a>
+          <div class="hidden group-hover/menu:block absolute top-full right-0 z-50 pt-0 min-w-[200px] w-max">
+            <div class="bg-white rounded-b-[6px] shadow-[0_10px_25px_rgba(0,0,0,0.12)] border border-gray-100 overflow-hidden text-left">
+              <a href="/category.html?type=category&name=กลุ่มลวดเชื่อม&sub=เชื่อมวัสดุเกรดพิเศษ" class="block bg-[#FBEEEE] hover:bg-[#f6d7d7] text-gray-900 font-medium text-[13.5px] px-4 py-2.5 transition-colors">
+                <span>เชื่อมวัสดุเกรดพิเศษ</span>
+              </a>
+              <div class="flex flex-col">
+                <a href="/category.html?type=category&cat=272" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>เชื่อมไฟฟ้า (MMA)</span>
+                </a>
+                <a href="/category.html?type=category&cat=277" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>เชื่อมอาร์กอน (TIG)</span>
+                </a>
+                <a href="/category.html?type=category&cat=407" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>เชื่อมซีโอทู (MIG)</span>
+                </a>
+                <a href="/category.html?type=category&cat=284" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>เชื่อมฟลักซ์คอลล์ (FCW)</span>
+                </a>
+                <a href="/category.html?type=category&cat=288" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>เชื่อมซับเมอร์ก (SAW)</span>
+                </a>
+                <a href="/category.html?type=category&cat=381" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>เชื่อมแม่พิมพ์</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 9. เชื่อมทังสเตน -->
+        <div class="relative group/menu h-full flex items-center">
+          <a href="/category.html?type=category&name=กลุ่มลวดเชื่อม&sub=เชื่อมทังสเตน" class="h-full flex items-center text-[#393636] group-hover/menu:text-brand-red font-medium text-[13px] xl:text-[14px] 2xl:text-[14.5px] transition-colors px-2 xl:px-3 2xl:px-4">
+            <span class="inline-block transform scale-y-[1.035] origin-center">เชื่อมทังสเตน</span>
+          </a>
+          <div class="hidden group-hover/menu:block absolute top-full right-0 z-50 pt-0 min-w-[215px] w-max">
+            <div class="bg-white rounded-b-[6px] shadow-[0_10px_25px_rgba(0,0,0,0.12)] border border-gray-100 overflow-hidden text-left">
+              <a href="/category.html?type=category&name=กลุ่มลวดเชื่อม&sub=เชื่อมทังสเตน" class="block bg-[#FBEEEE] hover:bg-[#f6d7d7] text-gray-900 font-medium text-[13.5px] px-4 py-2.5 transition-colors">
+                <span>เชื่อมทังสเตน</span>
+              </a>
+              <div class="flex flex-col">
+                <a href="/product.html?id=udo-2986" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>ทังสเตน WL20 (หัวน้ำเงิน)</span>
+                </a>
+                <a href="/product.html?id=udo-2987" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>ทังสเตน WC20 (หัวเทา)</span>
+                </a>
+                <a href="/product.html?id=udo-1039" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>ทังสเตน WT20 (หัวแดง)</span>
+                </a>
+                <a href="/product.html?id=udo-1041" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>ทังสเตน WL15 (หัวทอง)</span>
+                </a>
+                <a href="/product.html?id=udo-1040" class="px-4 py-2.5 text-[13px] text-gray-700 hover:text-brand-red hover:bg-gray-50 transition-colors">
+                  <span>ทังสเตน WP (หัวเขียว)</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+
+    </div>
+  </nav>
+
+  <!-- Mega Menu Dropdown (BaNANA Exact Style) -->
+  <div id="desktop-mega-menu" class="hidden absolute flex-col top-[100%] left-0 w-screen bg-white border-t border-gray-100 shadow-2xl cursor-default z-[60]">
+    <!-- Centered Content Wrapper (1360px) -->
+    <div class="w-full max-w-[1440px] mx-auto flex h-[480px]">
+      
+      <!-- Left Sidebar (Main Categories) -->
+      <div class="w-[280px] bg-white border-r border-gray-200 overflow-y-auto custom-scrollbar py-6 pr-4 pl-4 md:pl-8 lg:pl-12 group/sidebar">
+        <!-- 1. Promo Item -->
+        <a href="/category.html?type=collection&name=promotion" data-mega-tab="promo" class="mega-sidebar-item flex items-center justify-between px-4 py-2 mb-2 text-brand-green hover:bg-brand-green hover:text-white font-semibold text-[16px] rounded-lg transition-colors group cursor-pointer">
+          <span class="flex items-center gap-2">โปรโมชั่นพิเศษ</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="mega-sidebar-arrow w-4 h-4 text-brand-green group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+        </a>
+
+        <!-- 2. Active Item by default: กลุ่มลวดเชื่อม -->
+        <a href="/category.html?type=category&cat=12" data-mega-tab="12" class="mega-sidebar-item is-active flex items-center justify-between px-4 py-2 mb-2 font-normal text-[16px] rounded-lg transition-colors bg-brand-green text-white hover:!bg-brand-green hover:!text-white group cursor-pointer">
+          <span class="flex items-center gap-2">กลุ่มลวดเชื่อม</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="mega-sidebar-arrow w-4 h-4 text-white hover:!text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+        </a>
+        
+        <!-- 3. ใบตัดใบเจียร -->
+        <a href="/category.html?type=category&cat=298" data-mega-tab="298" class="mega-sidebar-item flex items-center justify-between px-4 py-2 mb-2 text-[#252525] hover:bg-brand-green hover:text-white font-normal text-[16px] rounded-lg transition-colors group cursor-pointer">
+          <span>ใบตัดใบเจียร</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="mega-sidebar-arrow w-4 h-4 text-gray-400 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+        </a>
+
+        <!-- 4. อุปกรณ์เชื่อมตัดเผาแก๊ส -->
+        <a href="/category.html?type=category&cat=312" data-mega-tab="312" class="mega-sidebar-item flex items-center justify-between px-4 py-2 mb-2 text-[#252525] hover:bg-brand-green hover:text-white font-normal text-[16px] rounded-lg transition-colors group cursor-pointer">
+          <span>อุปกรณ์เชื่อมตัดเผาแก๊ส</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="mega-sidebar-arrow w-4 h-4 text-gray-400 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+        </a>
+
+        <!-- 5. ท่อบรรจุก๊าซ และวาล์ว -->
+        <a href="/category.html?type=category&cat=327" data-mega-tab="327" class="mega-sidebar-item flex items-center justify-between px-4 py-2 mb-2 text-[#252525] hover:bg-brand-green hover:text-white font-normal text-[16px] rounded-lg transition-colors group cursor-pointer">
+          <span>ท่อบรรจุก๊าซ และวาล์ว</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="mega-sidebar-arrow w-4 h-4 text-gray-400 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+        </a>
+
+        <!-- 6. เครื่องเชื่อมและเครื่องตัดพลาสม่า -->
+        <a href="/category.html?type=category&cat=339" data-mega-tab="339" class="mega-sidebar-item flex items-center justify-between px-4 py-2 mb-2 text-[#252525] hover:bg-brand-green hover:text-white font-normal text-[16px] rounded-lg transition-colors group cursor-pointer">
+          <span>เครื่องเชื่อมและเครื่องตัดพลาสม่า</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="mega-sidebar-arrow w-4 h-4 text-gray-400 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+        </a>
+
+        <!-- 7. อะไหล่สิ้นเปลือง เครื่องตัดพลาสม่า เครื่องเชื่อม -->
+        <a href="/category.html?type=category&cat=344" data-mega-tab="344" class="mega-sidebar-item flex items-center justify-between px-4 py-2 mb-2 text-[#252525] hover:bg-brand-green hover:text-white font-normal text-[16px] rounded-lg transition-colors group cursor-pointer">
+          <span>อะไหล่สิ้นเปลือง เครื่องตัดพลาสม่า เครื่องเชื่อม</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="mega-sidebar-arrow w-4 h-4 text-gray-400 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+        </a>
+
+        <!-- 8. วัสดุอุปกรณ์เคมีภัณฑ์สำหรับงานเชื่อม -->
+        <a href="/category.html?type=category&cat=382" data-mega-tab="382" class="mega-sidebar-item flex items-center justify-between px-4 py-2 mb-2 text-[#252525] hover:bg-brand-green hover:text-white font-normal text-[16px] rounded-lg transition-colors group cursor-pointer">
+          <span>วัสดุอุปกรณ์เคมีภัณฑ์สำหรับงานเชื่อม</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="mega-sidebar-arrow w-4 h-4 text-gray-400 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+        </a>
+
+        <!-- 9. เครื่องมือช่าง -->
+        <a href="/category.html?type=category&cat=398" data-mega-tab="398" class="mega-sidebar-item flex items-center justify-between px-4 py-2 mb-2 text-[#252525] hover:bg-brand-green hover:text-white font-normal text-[16px] rounded-lg transition-colors group cursor-pointer">
+          <span>เครื่องมือช่าง</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="mega-sidebar-arrow w-4 h-4 text-gray-400 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+        </a>
+      </div>
+
+      <!-- Right Content Area (Subcategories Container) -->
+      <div class="flex-1 bg-white pl-8 pr-4 md:pr-8 lg:pr-12 py-8 overflow-y-auto custom-scrollbar">
+        
+        <!-- Panel 1: โปรโมชั่นพิเศษ -->
+        <div id="mega-panel-promo" class="mega-panel hidden">
+          <a href="/category.html?type=collection&name=promotion" class="text-brand-green font-semibold text-[16px] mb-8 flex items-center gap-2 w-fit hover:opacity-80 transition-all">
+            โปรโมชั่นพิเศษ ทั้งหมด
+          </a>
+          <div class="grid grid-cols-4 gap-x-8">
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=collection&name=promotion&cat=12" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">ลวดเชื่อมโปรโมชั่น</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=collection&name=promotion&cat=263" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ลวดเชื่อมสแตนเลส ลดพิเศษ</span></a></li>
+                  <li><a href="/category.html?type=collection&name=promotion&cat=269" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ลวดเชื่อมเหล็ก ราคาโรงงาน</span></a></li>
+                  <li><a href="/category.html?type=collection&name=promotion&cat=278" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ลวดเชื่อมอลูมิเนียม จัดรายการ</span></a></li>
+                  <li><a href="/category.html?type=collection&name=promotion&cat=273" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ลวดเชื่อมพอกผิวแข็ง ลด 10%</span></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=collection&name=promotion&cat=339" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">ตู้เชื่อมลดราคา</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=collection&name=promotion&cat=340" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เครื่องเชื่อมไฟฟ้า MMA ลดล้างสต็อก</span></a></li>
+                  <li><a href="/category.html?type=collection&name=promotion&cat=341" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เครื่องเชื่อมอาร์กอน TIG จัดเซ็ต</span></a></li>
+                  <li><a href="/category.html?type=collection&name=promotion&cat=342" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เครื่องเชื่อมซีโอทู MIG ราคาพิเศษ</span></a></li>
+                  <li><a href="/category.html?type=collection&name=promotion&cat=343" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เครื่องตัดพลาสม่า คุ้มสุด</span></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=12" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">แบรนด์ยอดนิยม</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?brand=KOBE" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>KOBE STEEL ลวดเชื่อมยอดนิยม</span></a></li>
+                  <li><a href="/category.html?brand=GEMINI" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>GEMINI มาตรฐานสากล</span></a></li>
+                  <li><a href="/category.html?brand=YAWATA" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>YAWATA ครบทุกงานช่าง</span></a></li>
+                  <li><a href="/category.html?brand=UDO" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>UDO เกรดพิเศษอุตสาหกรรม</span></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=344" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">อะไหล่ & อุปกรณ์เสริม</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=344" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>อะไหล่หัวเชื่อม TIG / MIG</span></a></li>
+                  <li><a href="/category.html?type=category&cat=315" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เกจ์ปรับแรงดันแก๊ส ลดพิเศษ</span></a></li>
+                  <li><a href="/category.html?type=category&cat=298" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ใบตัด ใบเจียร ยกลังสุดคุ้ม</span></a></li>
+                  <li><a href="/category.html?type=category&cat=389" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>อุปกรณ์เซฟตี้งานเชื่อม</span></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 2: กลุ่มลวดเชื่อม (ID: 12) (Default Active) -->
+        <div id="mega-panel-12" class="mega-panel block">
+          <a href="/category.html?type=category&cat=12" class="text-brand-green font-semibold text-[16px] mb-8 flex items-center gap-2 w-fit hover:opacity-80 transition-all">
+            กลุ่มลวดเชื่อม ทั้งหมด
+          </a>
+          <div class="grid grid-cols-4 gap-x-8">
+            <!-- Column 1 -->
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=269" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">เชื่อมเหล็ก</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=270" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เชื่อมไฟฟ้า (MMA)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=275" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เชื่อมอาร์กอน (TIG)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=280" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เชื่อมซีโอทู (MIG)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=282" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เชื่อมฟลักซ์คอร์ส (FCW)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=286" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เชื่อมซับเมอร์ค (SAW)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=289" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เชื่อมแก๊ส (Brazing)</span></a></li>
+                </ul>
+              </div>
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=263" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">เชื่อมสแตนเลส</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=264" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เชื่อมไฟฟ้า (MMA)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=276" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เชื่อมอาร์กอน (TIG)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=281" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เชื่อมซีโอทู (MIG)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=283" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เชื่อมฟลักซ์คอร์ส (FCW)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=287" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เชื่อมซับเมอร์ค (SAW)</span></a></li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Column 2 -->
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=278" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">เชื่อมอลูมิเนียม</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=291" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เชื่อมไฟฟ้า (MMA)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=279" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เชื่อมอาร์กอน (TIG)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=295" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เชื่อมซีโอทู (MIG)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=292" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เชื่อมแก๊ส (Brazing)</span></a></li>
+                </ul>
+              </div>
+              <div class="pb-6 mb-6">
+                <a href="/category.html?type=category&cat=265" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">เชื่อมเหล็กหล่อ</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=266" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เชื่อมไฟฟ้า (MMA)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=290" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เชื่อมอาร์กอน (TIG)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=397" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เชื่อมซีโอทู (MIG)</span></a></li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Column 3 -->
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=271" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">เชื่อมวัสดุเกรดพิเศษ</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=272" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เชื่อมไฟฟ้า (MMA)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=277" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เชื่อมอาร์กอน (TIG)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=407" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เชื่อมซีโอทู (MIG)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=284" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เชื่อมฟลักซ์คอร์ส (FCW)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=288" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เชื่อมซับเมอร์ค (SAW)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=381" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เชื่อมแม่พิมพ์</span></a></li>
+                </ul>
+              </div>
+              <div class="pb-6 mb-6">
+                <a href="/category.html?type=category&cat=273" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">เชื่อมพอกผิวแข็ง</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=274" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เชื่อมไฟฟ้า (MMA)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=285" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เชื่อมฟลักซ์คอร์ส (FCW)</span></a></li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Column 4 -->
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=293" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">เชื่อมทองเหลืองทองแดงและเงิน</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=394" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เชื่อมไฟฟ้า (MMA)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=390" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เชื่อมอาร์กอน (TIG)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=396" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เชื่อมซีโอทู (MIG)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=294" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เชื่อมแก๊ส (Brazing)</span></a></li>
+                </ul>
+              </div>
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=267" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">เชื่อมตัดเจาะร่อง</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=268" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เชื่อมไฟฟ้า (MMA)</span></a></li>
+                </ul>
+              </div>
+              <div class="pb-6 mb-6">
+                <a href="/category.html?type=category&cat=296" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">เชื่อมทังสเตน</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/product.html?id=udo-2986" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ทังสเตน WL20 (หัวน้ำเงิน)</span></a></li>
+                  <li><a href="/product.html?id=udo-2987" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ทังสเตน WC20 (หัวเทา)</span></a></li>
+                  <li><a href="/product.html?id=udo-1039" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ทังสเตน WT20 (หัวแดง)</span></a></li>
+                  <li><a href="/product.html?id=udo-1041" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ทังสเตน WL15 (หัวทอง)</span></a></li>
+                  <li><a href="/product.html?id=udo-1040" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ทังสเตน WP (หัวเขียว)</span></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 3: ใบตัดใบเจียร (ID: 298) -->
+        <div id="mega-panel-298" class="mega-panel hidden">
+          <a href="/category.html?type=category&cat=298" class="text-brand-green font-semibold text-[16px] mb-8 flex items-center gap-2 w-fit hover:opacity-80 transition-all">
+            ใบตัดใบเจียร ทั้งหมด
+          </a>
+          <div class="grid grid-cols-4 gap-x-8">
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=299" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">ใบตัด</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=300" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เหล็ก, สแตนเลส</span></a></li>
+                  <li><a href="/category.html?type=category&cat=301" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เหล็ก</span></a></li>
+                  <li><a href="/category.html?type=category&cat=302" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>สแตนเลส</span></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=303" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">ใบเจียร</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=304" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เหล็ก</span></a></li>
+                  <li><a href="/category.html?type=category&cat=305" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>สแตนเลส</span></a></li>
+                  <li><a href="/category.html?type=category&cat=306" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>กระจก</span></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=307" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">จานทราย</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=308" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>หลังอ่อน</span></a></li>
+                  <li><a href="/category.html?type=category&cat=309" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>หลังแข็ง</span></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=310" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">ล้อทราย</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=311" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>มีแกน</span></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 4: อุปกรณ์เชื่อมตัดเผาแก๊ส (ID: 312) -->
+        <div id="mega-panel-312" class="mega-panel hidden">
+          <a href="/category.html?type=category&cat=312" class="text-brand-green font-semibold text-[16px] mb-8 flex items-center gap-2 w-fit hover:opacity-80 transition-all">
+            อุปกรณ์เชื่อมตัดเผาแก๊ส ทั้งหมด
+          </a>
+          <div class="grid grid-cols-4 gap-x-8">
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=315" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">เกจ์ปรับแรงดันแก๊ส</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=319" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>อ๊อกซิเย่น (O2)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=320" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>อาร์กอน (AR)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=321" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>คาร์บอนไดร์อ๊อกไซด์ (CO2)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=316" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ไนโตรเจน (N2)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=317" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>อาซิทีลีน (AC)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=318" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>โพเพน (LPG)</span></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=315" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">เกจ์แก๊สพิเศษ</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=391" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ไนตรัสอ๊อกไซด์ (N2O)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=392" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ฮีเลียม (He)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=393" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ไฮโดรเจน (H2)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=395" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ก๊าซพิเศษอื่นๆ</span></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=312" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">ชุดตัด เชื่อม เผาแก๊ส</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=313" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ตัดแก๊ส</span></a></li>
+                  <li><a href="/category.html?type=category&cat=322" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เชื่อมแก๊ส</span></a></li>
+                  <li><a href="/category.html?type=category&cat=323" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เผาแก๊ส</span></a></li>
+                  <li><a href="/category.html?type=category&cat=325" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เชื่อม-ตัด-เผา</span></a></li>
+                  <li><a href="/category.html?type=category&cat=326" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ชุดเชื่อม-ตัดสนาม</span></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=324" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">วาล์วและอุปกรณ์เสริม</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=324" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>วาล์วกันย้อน (Flashback)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=314" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>อุปกรณ์เสริมตัดแก๊ส</span></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 5: ท่อบรรจุก๊าซ และวาล์ว (ID: 327) -->
+        <div id="mega-panel-327" class="mega-panel hidden">
+          <a href="/category.html?type=category&cat=327" class="text-brand-green font-semibold text-[16px] mb-8 flex items-center gap-2 w-fit hover:opacity-80 transition-all">
+            ท่อบรรจุก๊าซ และวาล์ว ทั้งหมด
+          </a>
+          <div class="grid grid-cols-4 gap-x-8">
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=327" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">ท่อก๊าซอุตสาหกรรม</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=328" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>อ๊อกซิเย่น (O2)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=329" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ไนโตรเจน (N2)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=330" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>อาร์กอน (Ar)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=331" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>คาร์บอนไดออกไซด์ (CO2)</span></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=327" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">ก๊าซพิเศษ</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=332" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>อะเซทีลีน (AC)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=333" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ฮีเลียม (He)</span></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=334" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">แก๊สกระป๋อง & แก๊สก้อน</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=335" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>แก๊สกระป๋อง</span></a></li>
+                  <li><a href="/category.html?type=category&cat=336" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>แก๊สก้อน</span></a></li>
+                  <li><a href="/category.html?type=category&cat=334" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ถังกำเนิดแก๊ส</span></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=337" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">วาล์ว & รถเข็น</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=337" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>หัววาล์วท่อ</span></a></li>
+                  <li><a href="/category.html?type=category&cat=338" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>รถเข็นท่อบรรจุก๊าซ</span></a></li>
+                  <li><a href="/category.html?type=category&cat=388" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>วัสดุและอุปกรณ์เสริมอื่นๆ</span></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 6: เครื่องเชื่อมและเครื่องตัดพลาสม่า (ID: 339) -->
+        <div id="mega-panel-339" class="mega-panel hidden">
+          <a href="/category.html?type=category&cat=339" class="text-brand-green font-semibold text-[16px] mb-8 flex items-center gap-2 w-fit hover:opacity-80 transition-all">
+            เครื่องเชื่อมและเครื่องตัดพลาสม่า ทั้งหมด
+          </a>
+          <div class="grid grid-cols-4 gap-x-8">
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=340" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">เครื่องเชื่อมไฟฟ้า (MMA)</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=340" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เครื่องเชื่อมอินเวอร์เตอร์ MMA</span></a></li>
+                  <li><a href="/category.html?type=category&cat=340" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เครื่องเชื่อมหูหิ้วพกพา</span></a></li>
+                  <li><a href="/category.html?type=category&cat=340" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เครื่องเชื่อมอุตสาหกรรมหนัก</span></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=341" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">เครื่องเชื่อมอาร์กอน (TIG)</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=341" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ตู้เชื่อมอาร์กอน TIG DC</span></a></li>
+                  <li><a href="/category.html?type=category&cat=341" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ตู้เชื่อม TIG AC/DC อลูมิเนียม</span></a></li>
+                  <li><a href="/category.html?type=category&cat=341" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ตู้เชื่อม TIG ระบบ Pulse</span></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=342" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">เครื่องเชื่อมซีโอทู (MIG)</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=342" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เครื่องเชื่อม MIG/MAG CO2</span></a></li>
+                  <li><a href="/category.html?type=category&cat=342" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เครื่องเชื่อมมิกไร้แก๊ส</span></a></li>
+                  <li><a href="/category.html?type=category&cat=342" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ตู้เชื่อม Multi-Process</span></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=343" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">เครื่องตัดพลาสม่า (PLASMA)</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=343" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เครื่องตัดพลาสม่าอินเวอร์เตอร์</span></a></li>
+                  <li><a href="/category.html?type=category&cat=343" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เครื่องตัดพลาสม่า Pilot Arc</span></a></li>
+                  <li><a href="/category.html?type=category&cat=343" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เครื่องตัดพลาสม่าปั๊มลมในตัว</span></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 7: อะไหล่สิ้นเปลือง เครื่องตัดพลาสม่า เครื่องเชื่อม (ID: 344) -->
+        <div id="mega-panel-344" class="mega-panel hidden">
+          <a href="/category.html?type=category&cat=344" class="text-brand-green font-semibold text-[16px] mb-8 flex items-center gap-2 w-fit hover:opacity-80 transition-all">
+            อะไหล่สิ้นเปลือง เครื่องตัดพลาสม่า เครื่องเชื่อม ทั้งหมด
+          </a>
+          <div class="grid grid-cols-4 gap-x-8">
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=345" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">อะไหล่หัวเชื่อม TIG</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=352" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ปืนเชื่อมอาร์กอนพร้อมสาย</span></a></li>
+                  <li><a href="/category.html?type=category&cat=351" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ด้ามเชื่อม (Torch)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=348" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ถ้วยเซรามิค (Alumina Nozzle)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=349" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>สลิปใน (Collet)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=350" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>สลิปนอก (Collet Body)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=347" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>หางปลาจับลวด (Back Cap)</span></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=353" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">อะไหล่หัวเชื่อม MIG</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=361" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ปืนเชื่อมซีโอทูพร้อมสาย</span></a></li>
+                  <li><a href="/category.html?type=category&cat=355" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>คอนแท็คทิป (Contact Tip)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=357" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>น๊อตเซิล (Nozzle)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=356" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>แก๊สดิสฟิวเซอร์ (Gas Diffuser)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=358" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>คอด้ามเชื่อม (Torch Head)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=359" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>แกนจับหัวทิป (Tip Holder)</span></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=362" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">อะไหล่หัวตัด PLASMA</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=369" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ปืนตัดพลาสม่าพร้อมสาย</span></a></li>
+                  <li><a href="/category.html?type=category&cat=364" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ชิลด์คัพ (Shield Cup)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=365" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>อีเล็คโทรด (Electrode)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=366" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>หัวทิป (Tip)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=367" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>แก๊สดิสฟิวเซอร์</span></a></li>
+                  <li><a href="/category.html?type=category&cat=368" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ด้ามตัด (Torch Head)</span></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=389" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">อุปกรณ์เซฟตี้ & อื่นๆ</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=389" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>อุปกรณ์เซฟตี้</span></a></li>
+                  <li><a href="/category.html?type=category&cat=380" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>อุปกรณ์และอะไหล่อื่นๆ</span></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 8: วัสดุอุปกรณ์เคมีภัณฑ์สำหรับงานเชื่อม (ID: 382) -->
+        <div id="mega-panel-382" class="mega-panel hidden">
+          <a href="/category.html?type=category&cat=382" class="text-brand-green font-semibold text-[16px] mb-8 flex items-center gap-2 w-fit hover:opacity-80 transition-all">
+            วัสดุอุปกรณ์เคมีภัณฑ์สำหรับงานเชื่อม ทั้งหมด
+          </a>
+          <div class="grid grid-cols-4 gap-x-8">
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=384" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">น้ำยาป้องกันสะเก็ด</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=384" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>สเปรย์ป้องกันสะเก็ด (AntiSpatter)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=384" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ครีมจุ่มหัวเชื่อมป้องกันสะเก็ด</span></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=383" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">ทำความสะอาดและเคลือบผิว</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=383" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>น้ำยาล้างแนวเชื่อมสแตนเลส</span></a></li>
+                  <li><a href="/category.html?type=category&cat=383" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เจลทำความสะอาดคราบไหม้</span></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=385" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">ตรวจสอบแนวเชื่อม (N.D.T.)</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=385" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>น้ำยาทำความสะอาด (Cleaner)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=385" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>น้ำยาแทรกซึม (Penetrant)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=385" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>น้ำยาเร่งภาพ (Developer)</span></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=387" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">น้ำยาประสาน (Flux)</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=387" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ฟลักซ์เชื่อมทองเหลือง</span></a></li>
+                  <li><a href="/category.html?type=category&cat=387" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ฟลักซ์เชื่อมเงิน</span></a></li>
+                  <li><a href="/category.html?type=category&cat=387" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ผงประสานเชื่อมอลูมิเนียม</span></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 9: เครื่องมือช่าง (ID: 398) -->
+        <div id="mega-panel-398" class="mega-panel hidden">
+          <a href="/category.html?type=category&cat=398" class="text-brand-green font-semibold text-[16px] mb-8 flex items-center gap-2 w-fit hover:opacity-80 transition-all">
+            เครื่องมือช่าง ทั้งหมด
+          </a>
+          <div class="grid grid-cols-4 gap-x-8">
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=399" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">เครื่องมือทั่วไป</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=399" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เครื่องมือ (Hand Tools)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=400" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เครื่องมือไฟฟ้าไร้สาย (Cordless)</span></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=401" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">เครื่องมือไฟฟ้า & ลม</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=401" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เครื่องมือช่างไฟฟ้า (Power Tools)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=402" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เครื่องมือลม (Air Tools)</span></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=403" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">เครื่องปั่นไฟ & ปั๊มน้ำ</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=403" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เครื่องปั่นไฟ (Power Generator)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=404" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>ปั้มน้ำ (Water Pump)</span></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <div class="border-b border-gray-200 pb-6 mb-6">
+                <a href="/category.html?type=category&cat=405" class="block text-[#252525] font-semibold text-[16px] mb-3 hover:text-brand-red transition-colors">เครื่องมือสวน & อุปกรณ์เสริม</a>
+                <ul class="space-y-2 text-[16px] text-gray-600 font-normal">
+                  <li><a href="/category.html?type=category&cat=405" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>เครื่องมือสวน (Garden Tools)</span></a></li>
+                  <li><a href="/category.html?type=category&cat=406" class="hover:text-brand-red transition-colors flex gap-2"><span>&#8226;</span><span>อุปกรณ์เสริมเครื่องมือช่าง</span></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mega Menu Trust Bar (Bottom Footer of Dropdown) -->
+    <div class="w-full bg-white border-t border-gray-100">
+      <div class="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 divide-y md:divide-y-0 lg:divide-x divide-gray-200 py-4">
+          
+          <!-- 1. Expertise (Trust) -->
+          <div class="flex items-center justify-center gap-4 px-4 py-2 lg:py-1">
+            <svg class="w-10 h-10 text-gray-900 group-hover:text-brand-red transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="M9 12l2 2 4-4"/>
+            </svg>
+            <div class="flex flex-col justify-center">
+              <div class="text-[15px] font-bold text-gray-900 leading-snug">สินค้าคุณภาพมาตรฐาน</div>
+              <div class="text-[13px] text-gray-800 leading-snug">ทีมงานผู้เชี่ยวชาญให้คำปรึกษา</div>
+            </div>
+          </div>
+
+          <!-- 2. Shipping -->
+          <div class="flex items-center justify-center gap-3.5 px-4 py-2 lg:py-1">
+            <svg class="w-[76px] h-[76px] text-gray-900 group-hover:text-brand-red transition-colors shrink-0" viewBox="0 0 252.000000 204.000000" fill="currentColor" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+
+<g transform="translate(0.000000,204.000000) scale(0.100000,-0.100000)"
+fill="currentColor" stroke="none">
+<path d="M415 1636 c-32 -32 -36 -64 -33 -256 l3 -165 25 0 25 0 -3 175 c-3
+204 -1 211 76 220 26 3 90 2 142 -1 52 -4 260 -7 461 -8 280 -1 369 -4 377
+-13 7 -9 11 -169 14 -454 2 -363 1 -444 -11 -457 -11 -15 -36 -17 -168 -17
+l-154 0 3 -27 3 -28 243 -3 c217 -2 242 -4 242 -19 0 -26 48 -100 80 -123 44
+-31 125 -45 178 -31 52 14 127 80 137 119 10 39 24 52 57 52 36 0 84 24 98 49
+6 12 10 97 10 205 l0 186 -37 42 c-21 24 -67 75 -103 113 -36 39 -91 99 -124
+135 -32 36 -68 70 -79 77 -15 8 -73 12 -169 13 l-148 0 0 75 c0 82 -14 123
+-52 149 -20 14 -88 16 -546 16 l-523 0 -24 -24z m1445 -289 c12 -10 166 -176
+242 -261 10 -10 15 -23 12 -28 -6 -9 -294 -11 -318 -2 -13 5 -16 24 -16 104 0
+115 -4 130 -36 130 -28 0 -26 6 -24 -125 3 -162 3 -162 254 -170 105 -3 192
+-8 195 -11 3 -3 6 -67 6 -142 -1 -159 -8 -182 -60 -182 -31 0 -36 4 -62 57
+-41 84 -93 116 -187 117 -104 0 -154 -32 -196 -127 -20 -46 -22 -47 -65 -47
+l-45 0 0 343 c0 189 3 347 7 350 12 13 277 7 293 -6z m118 -614 c28 -32 32
+-43 32 -96 0 -49 -5 -66 -26 -94 -71 -94 -203 -82 -254 23 -24 48 -25 85 -5
+128 47 98 182 119 253 39z"/>
+<path d="M252 1098 c-9 -9 -12 -99 -12 -345 0 -318 1 -333 19 -343 13 -6 155
+-10 394 -10 354 0 376 1 398 19 l24 19 3 306 c2 262 1 310 -13 336 l-16 30
+-392 0 c-292 0 -396 -3 -405 -12z m176 -116 l3 -73 127 3 127 3 3 73 3 73 67
+-3 67 -3 0 -295 0 -295 -270 0 -270 0 -3 275 c-1 151 0 285 3 298 5 21 10 23
+73 20 l67 -3 3 -73z m198 63 c4 -8 3 -31 0 -50 l-7 -35 -64 0 -65 0 0 50 0 50
+65 0 c49 0 67 -4 71 -15z m384 -285 l0 -300 -64 0 c-49 0 -65 4 -70 16 -8 20
+-8 548 0 568 5 12 21 16 70 16 l64 0 0 -300z"/>
+</g>
+</svg>
+            <div class="flex flex-col justify-center">
+              <div class="text-[15px] font-bold text-gray-900 leading-snug">จัดส่งทั่วประเทศ</div>
+              <div class="text-[13px] text-gray-800 leading-snug">รวดเร็ว ทันใจ ปลอดภัย</div>
+            </div>
+          </div>
+
+          <!-- 3. Contact (Phone) -->
+          <div class="flex items-center justify-center gap-3.5 px-4 py-2 lg:py-1">
+            <svg class="w-[42px] h-[42px] text-gray-900 group-hover:text-brand-red transition-colors shrink-0" viewBox="0 0 32 43" fill="currentColor" stroke="currentColor" stroke-width="0.1" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+<path d="M16.73 26.41C21.1 26.41 24.65 22.86 24.65 18.49V14.97C24.65 16.43 25.83 17.61 27.29 17.61C28.75 17.61 29.93 16.43 29.93 14.97V11.45C29.93 10.29 29.17 9.31 28.13 8.96C27.75 3.96 23.58 0 18.48 0H13.2C8.11 0 3.93 3.96 3.56 8.96C2.52 9.31 1.76 10.29 1.76 11.45V14.97C1.76 16.14 2.53 17.13 3.6 17.47C3.96 19.54 5.75 21.13 7.93 21.13H13.37C13.73 22.15 14.7 22.89 15.85 22.89C17.31 22.89 18.49 21.71 18.49 20.25C18.49 18.79 17.31 17.61 15.85 17.61C14.7 17.61 13.74 18.35 13.37 19.37H7.93C6.71 19.37 5.7 18.54 5.39 17.42C6.36 17.03 7.05 16.08 7.05 14.97V17.61C7.05 18.1 7.44 18.49 7.93 18.49C8.42 18.49 8.81 18.1 8.81 17.61V11.45C8.81 8.05 11.57 5.29 14.97 5.29H16.73C20.13 5.29 22.89 8.06 22.89 11.45V18.49C22.89 21.89 20.13 24.65 16.73 24.65H14.97C13.09 24.65 11.34 23.81 10.16 22.34C9.85 21.96 9.3 21.9 8.92 22.2C8.54 22.5 8.48 23.06 8.78 23.44C10.29 25.33 12.55 26.41 14.97 26.41C6.72 26.41 0 33.12 0 41.38C0 41.87 0.39 42.26 0.88 42.26H30.81C31.3 42.26 31.69 41.87 31.69 41.38C31.69 33.13 24.98 26.41 16.72 26.41H16.73ZM15.85 19.37C16.34 19.37 16.73 19.76 16.73 20.25C16.73 20.74 16.33 21.13 15.85 21.13C15.37 21.13 14.97 20.74 14.97 20.25C14.97 19.76 15.37 19.37 15.85 19.37ZM28.18 14.97C28.18 15.46 27.78 15.85 27.3 15.85C26.82 15.85 26.42 15.46 26.42 14.97V11.45C26.42 10.96 26.82 10.57 27.3 10.57C27.78 10.57 28.18 10.96 28.18 11.45V14.97ZM3.52 11.45C3.52 10.96 3.92 10.57 4.4 10.57C4.88 10.57 5.28 10.96 5.28 11.45V14.97C5.28 15.46 4.88 15.85 4.4 15.85C3.92 15.85 3.52 15.46 3.52 14.97V11.45ZM16.73 3.53H14.97C10.6 3.53 7.05 7.08 7.05 11.45C7.05 10.32 6.33 9.36 5.32 8.98C5.68 4.94 9.08 1.76 13.21 1.76H18.49C22.62 1.76 26.02 4.94 26.38 8.98C25.38 9.35 24.65 10.31 24.65 11.45C24.65 7.08 21.1 3.53 16.73 3.53ZM1.79 40.5C2.24 33.63 7.98 28.17 14.97 28.17H16.73C23.72 28.17 29.45 33.62 29.91 40.5H1.79Z" fill="currentColor"/>
+</svg>
+            <div class="flex flex-col justify-center">
+              <div class="text-[15px] font-bold text-gray-900 leading-snug">062-815-9999</div>
+              <div class="text-[13px] text-gray-800 leading-snug">บริการทุกวัน 09.00 - 18.00 น.</div>
+            </div>
+          </div>
+
+          <!-- 4. Email -->
+          <div class="flex items-center justify-center gap-3.5 px-4 py-2 lg:py-1">
+            <svg class="w-[56px] h-[56px] text-gray-900 group-hover:text-brand-red transition-colors shrink-0" viewBox="0 0 62 29" fill="currentColor" stroke="currentColor" stroke-width="0" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+<path d="M40.9609 0.0312286C45.9309 0.0312286 50.9009 0.111229 55.8709 0.00122856C59.0909 -0.0687714 61.9809 2.86123 61.1009 6.56123C59.6909 12.5312 58.3409 18.5112 56.9509 24.4812C56.3309 27.1312 54.4009 28.6712 51.7009 28.6712C41.7209 28.6712 31.7409 28.6112 21.7609 28.7012C18.4609 28.7312 15.6209 25.7612 16.5009 22.1012C17.7409 16.9612 18.8909 11.8112 20.0709 6.66123C20.2709 5.79123 20.4609 4.92123 20.6709 4.06123C21.2709 1.60123 23.2609 0.0312286 25.8009 0.0312286C30.8509 0.0312286 35.9109 0.0312286 40.9609 0.0312286ZM40.9309 2.16123C35.9409 2.16123 30.9409 2.16123 25.9509 2.16123C25.7209 2.16123 25.4209 2.08123 25.3009 2.32123C25.1709 2.58123 25.4909 2.71123 25.6309 2.87123C29.3109 6.79123 33.0009 10.7012 36.6909 14.6012C38.2609 16.2612 39.6909 16.3612 41.5009 14.9612C44.6409 12.5312 47.7909 10.1012 50.9309 7.67123C52.9809 6.08123 55.0309 4.50123 57.0809 2.91123C57.1909 2.82123 57.3809 2.76123 57.3609 2.59123C57.3409 2.38123 57.1209 2.36123 56.9709 2.32123C56.5209 2.19123 56.0609 2.15123 55.5809 2.15123C50.6909 2.15123 45.8109 2.15123 40.9209 2.15123L40.9309 2.16123ZM36.6409 26.5512C41.5209 26.5512 46.4109 26.5512 51.2909 26.5512C51.4809 26.5512 51.6709 26.5512 51.8609 26.5512C52.0009 26.5512 52.1909 26.5712 52.2309 26.3912C52.2709 26.2512 52.1209 26.1712 52.0309 26.0912C49.0409 23.1012 46.0509 20.1212 43.0709 17.1212C42.8009 16.8512 42.5909 16.8512 42.3109 17.0812C41.9809 17.3412 41.6109 17.5612 41.2109 17.7212C39.0109 18.6012 36.9809 18.1012 35.1709 16.1912C34.7909 15.7912 34.5409 15.7312 34.0809 16.0812C31.7109 17.8412 29.3109 19.5612 26.9209 21.2912C24.8409 22.8012 22.7609 24.3112 20.6909 25.8312C20.5509 25.9312 20.2809 26.0012 20.3509 26.2312C20.4109 26.4212 20.6609 26.4212 20.8409 26.4612C21.2609 26.5412 21.6809 26.5812 22.1109 26.5812C26.9509 26.5812 31.7909 26.5812 36.6309 26.5812L36.6409 26.5512ZM18.5209 23.4812C18.5709 23.7912 18.4109 24.2112 18.7109 24.3712C19.0309 24.5412 19.2609 24.1412 19.5009 23.9712C23.8509 20.8212 28.1909 17.6612 32.5309 14.5112C33.1609 14.0512 33.1609 14.0612 32.6309 13.5012C29.7809 10.4712 26.9409 7.43123 24.0809 4.41123C23.8209 4.13123 23.6009 3.58123 23.2109 3.69123C22.8509 3.79123 22.8409 4.36123 22.7509 4.75123C21.5209 10.0412 20.2909 15.3312 19.0809 20.6212C18.8609 21.5712 18.5509 22.5012 18.5109 23.4812H18.5209ZM59.0709 5.35123C59.0009 5.00123 59.1709 4.60123 58.8909 4.46123C58.5909 4.31123 58.3809 4.69123 58.1609 4.86123C53.7509 8.25123 49.3609 11.6612 44.9409 15.0512C44.5209 15.3712 44.5309 15.5412 44.8909 15.9012C47.7409 18.7212 50.5709 21.5712 53.4109 24.4012C53.6909 24.6812 53.9409 25.2312 54.2909 25.1212C54.7009 24.9912 54.7209 24.4012 54.8209 23.9712C55.9109 19.2612 57.0109 14.5512 58.0909 9.83123C58.4309 8.32123 58.8609 6.83123 59.0709 5.36123V5.35123Z" fill="currentColor"/>
+<path d="M5.65064 18.4794C4.19064 18.4794 2.72064 18.4794 1.26064 18.4794C0.430639 18.4794 -0.0193608 18.0794 0.000639167 17.3894C0.0106392 16.7294 0.460639 16.3594 1.25064 16.3594C4.18064 16.3594 7.10064 16.3594 10.0306 16.3594C10.8606 16.3594 11.3106 16.7594 11.2906 17.4494C11.2806 18.0994 10.8306 18.4794 10.0406 18.4894C8.58064 18.4894 7.11064 18.4894 5.65064 18.4894V18.4794Z" fill="currentColor"/>
+<path d="M9.70059 12.3605C8.58059 12.3605 7.45059 12.3605 6.33059 12.3605C5.54059 12.3605 5.10059 11.9705 5.10059 11.3005C5.10059 10.6405 5.54059 10.2405 6.32059 10.2305C8.59059 10.2305 10.8606 10.2305 13.1206 10.2305C13.9106 10.2305 14.3506 10.6205 14.3506 11.2905C14.3506 11.9505 13.9106 12.3505 13.1306 12.3605C11.9906 12.3605 10.8406 12.3605 9.70059 12.3605Z" fill="currentColor"/>
+<path d="M13.8109 6.24078C12.9809 6.24078 12.1609 6.25078 11.3309 6.24078C10.6109 6.23078 10.1809 5.80078 10.2009 5.15078C10.2109 4.53078 10.6309 4.12078 11.3209 4.12078C12.9709 4.11078 14.6209 4.11078 16.2809 4.12078C17.0009 4.12078 17.4309 4.56078 17.4109 5.21078C17.4009 5.82078 16.9709 6.23078 16.2909 6.24078C15.4609 6.26078 14.6409 6.24078 13.8109 6.24078Z" fill="currentColor"/>
+</svg>
+            <div class="flex flex-col justify-center">
+              <div class="text-[15px] font-bold text-gray-900 leading-snug">ส่งอีเมล</div>
+              <div class="text-[13px] text-gray-800 leading-snug">ถึงเรา</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- 3. พื้นที่เนื้อหาหลัก (Main Content) -->
+  <!-- Breadcrumb -->
+    <div class="bg-white">
+      <div class="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12">
+        <div id="product-breadcrumb-container" class="border-b border-gray-200 pt-3.5 pb-3 text-[15px] font-normal text-gray-700 flex items-center gap-4 overflow-x-auto whitespace-nowrap">
+          <a href="/" class="hover:text-[#8ac353] hover:underline hover:underline-offset-2">หน้าหลัก</a>
+          <span class="text-gray-400">&gt;</span>
+          <a href="/category.html?cat=cat-12" class="hover:text-[#8ac353] hover:underline hover:underline-offset-2">กลุ่มลวดเชื่อม</a>
+          <span class="text-gray-400">&gt;</span>
+          <span class="text-[#252525]">รายละเอียดสินค้า</span>
+        </div>
+      </div>
+    </div>
+
+    <main class="bg-white min-h-screen pt-6 md:pt-8">
+      <div class="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12 pb-20 lg:pb-24">
+        
+        <div class="flex flex-col lg:flex-row justify-start items-start gap-4 lg:gap-5 xl:gap-6">
+          
+          <!-- LEFT COLUMN: Central Style Image Gallery (57-58% width) -->
+          <div class="w-full lg:w-[57%] xl:w-[58%] lg:sticky lg:top-36 lg:self-start">
+            <div class="flex flex-col-reverse sm:flex-row items-center sm:items-start gap-4 md:gap-6">
+              
+              <!-- 1. Vertical Thumbnail Strip (ฝั่งซ้าย พร้อมปุ่มลูกศรขึ้น-ลง) -->
+              <div id="product-thumbnails-wrapper" class="flex sm:flex-col items-center gap-2.5 shrink-0 select-none">
+                <!-- Up Button (↑) -->
+                <button type="button" id="btn-thumb-prev" onclick="window.scrollThumbnails(-1)" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-gray-300 hover:border-black bg-white hover:bg-gray-50 text-gray-800 hover:text-black flex items-center justify-center transition-all cursor-pointer shrink-0" aria-label="เลื่อนรูปขึ้น">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 19V5m0 0l-6 6m6-6l6 6" />
+                  </svg>
+                </button>
+
+                <!-- Thumbnails List Container (Aligned with main image) -->
+                <div id="product-thumbnails-container" class="flex sm:flex-col gap-3 sm:gap-3.5 overflow-x-auto sm:overflow-y-auto no-scrollbar max-w-[85vw] sm:max-w-none sm:max-h-[460px] md:max-h-[480px] lg:max-h-[500px] py-1 px-1">
+                  <!-- Dynamically populated by JS -->
+                </div>
+
+                <!-- Down Button (↓) -->
+                <button type="button" id="btn-thumb-next" onclick="window.scrollThumbnails(1)" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-gray-300 hover:border-black bg-white hover:bg-gray-50 text-gray-800 hover:text-black flex items-center justify-center transition-all cursor-pointer shrink-0" aria-label="เลื่อนรูปลง">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14m0 0l6-6m-6 6l-6-6" />
+                  </svg>
+                </button>
+              </div>
+
+              <!-- 2. Main Product Image (ฝั่งขวา พร้อมปุ่มลูกศรซ้าย-ขวา และ SKU ด้านล่างแบบชิดรูป) -->
+              <div class="flex-1 w-full flex flex-col items-center">
+                <div class="relative w-full aspect-square bg-white flex items-center justify-center group overflow-hidden">
+                  <img id="product-image" src="/images/bg-welding.jpeg" alt="Product" class="w-full h-full object-contain p-0 transform scale-[0.72] origin-center cursor-zoom-in transition-all duration-300">
+                  
+                  <!-- Main Image Left Arrow (←) -->
+                  <button type="button" id="btn-main-prev" onclick="window.navigateImage(-1)" class="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-11 md:h-11 rounded-full bg-white border border-gray-300 hover:border-black flex items-center justify-center text-gray-800 hover:text-black transition-all cursor-pointer z-10" aria-label="รูปภาพก่อนหน้า">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 md:w-6 md:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m0 0l6 6m-6-6l6-6" />
+                    </svg>
+                  </button>
+
+                  <!-- Main Image Right Arrow (→) -->
+                  <button type="button" id="btn-main-next" onclick="window.navigateImage(1)" class="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-11 md:h-11 rounded-full bg-white border border-gray-300 hover:border-black flex items-center justify-center text-gray-800 hover:text-black transition-all cursor-pointer z-10" aria-label="รูปภาพถัดไป">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 md:w-6 md:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m0 0l-6-6m6 6l-6 6" />
+                    </svg>
+                  </button>
+                </div>
+
+                <!-- SKU Code Centered Below Main Image (Right directly under the image) -->
+                <div id="product-sku" class="mt-2 text-center text-[14px] sm:text-[15px] text-[#252525] font-normal tracking-wide">
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- RIGHT COLUMN: Details (Reduced width to 36-38%, max-w-[480px]) -->
+          <div class="w-full lg:w-[38%] xl:w-[36%] max-w-[480px]">
+            <!-- 1. ชื่อสินค้า (Product Title) -->
+            <h1 id="product-name" class="text-[21px] sm:text-[22px] md:text-[23px] font-semibold text-[#160808] leading-[1.35] tracking-tight block transform scale-y-[1.035] origin-top-left mb-6"></h1>
+
+            <!-- 2. ราคา (Price Section - Central Style) -->
+            <div id="product-price-section" class="mb-6 flex flex-col items-start">
+              <!-- Badges Row (Discount % & New Tag side-by-side like Central Department Store) -->
+              <div id="product-badges-row" class="flex items-center gap-2 mb-2.5" style="display:none;">
+                <!-- Tag ลดราคา (Discount Badge - Solid Black matching Card) -->
+                <div id="product-discount-badge" class="bg-[#000000] text-white text-[15px] font-semibold px-2 py-0.5 rounded-[4px] leading-tight select-none tracking-tight flex items-center justify-center" style="display:none;">
+                  <span class="inline-block transform scale-y-[1.08] origin-center font-semibold"></span>
+                </div>
+
+                <!-- Tag ใหม่ (New Badge - Exactly matching Product Card) -->
+                <div id="product-badge-new" class="bg-[#f2f2f2] text-[#160808] text-[15px] font-bold px-2 py-0.5 rounded-[4px] leading-tight select-none tracking-tight flex items-center justify-center" style="display:none;">
+                  <span class="inline-block transform scale-y-[1.05] origin-center">ใหม่</span>
+                </div>
+              </div>
+
+              <!-- Pricing Row (Original Red #FF3B30 for both Price and Save text) -->
+              <div class="flex items-baseline gap-2.5 sm:gap-3 flex-wrap">
+                <div class="flex items-baseline gap-1.5">
+                  <div id="product-price" class="text-[26px] sm:text-[28px] md:text-[30px] font-semibold text-[#FF3B30] leading-none tracking-tight inline-block transform scale-y-[1.08] origin-bottom"></div>
+                  <span id="product-unit" class="text-black/50 text-[14px] font-normal" style="display:none;"></span>
+                </div>
+                <div id="product-original-price" class="text-[16px] sm:text-[17px] text-[#a6a0a0] line-through decoration-[#a6a0a0] font-normal inline-block transform scale-y-[1.08] origin-bottom tracking-tight" style="display:none;"></div>
+                <div id="product-savings" class="text-[15px] sm:text-[16px] text-[#FF3B30] font-normal inline-block transform scale-y-[1.08] origin-bottom tracking-tight" style="display:none;"></div>
+              </div>
+
+              <!-- Installment / Warranty -->
+              <div id="product-warranty" class="flex items-center gap-2 mt-2.5 text-[13px] text-black/60" style="display:none;">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-black/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+                รับประกัน 1 ปี
+              </div>
+            </div>
+
+            <!-- 3. รายละเอียด (Description) -->
+            <p id="product-desc" class="text-[18px] text-[#333] font-normal leading-[1.6] mb-6"></p>
+
+            <!-- 4. ขนาด (Size & Packaging Section) -->
+            <div class="space-y-5">
+              <!-- Size Section (ขนาด:) -->
+              <div id="size-section-wrapper">
+                <div class="flex items-baseline gap-2 mb-3">
+                  <span class="text-[15px] font-bold text-[#333]">ขนาด:</span>
+                  <span id="selected-size-label" class="text-[15px] font-normal text-[#333]"></span>
+                </div>
+                <div class="flex flex-wrap items-center gap-2.5" id="size-buttons">
+                  <!-- Buttons will be injected by JS -->
+                </div>
+              </div>
+
+              <!-- Packaging (บรรจุ:) -->
+              <div id="package-section-wrapper">
+                <div class="flex items-baseline gap-2 mb-3">
+                  <span class="text-[15px] font-bold text-[#333]">บรรจุ:</span>
+                  <span id="selected-package-label" class="text-[15px] font-normal text-[#333]"></span>
+                </div>
+                <div class="flex flex-wrap items-center gap-2.5" id="package-buttons">
+                  <!-- Buttons will be injected by JS -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Button & Wishlist (Central Style - Balanced prominence) -->
+            <div class="flex items-center gap-3 mt-9 sm:mt-10 lg:mt-11 mb-8">
+              <!-- Main CTA Button with 2-Side Curtain Reveal Hover Effect (Reduced height to 46px) -->
+              <a href="https://line.me/R/ti/p/@udothai" target="_blank" rel="noopener noreferrer" id="btn-main-action" class="group relative overflow-hidden flex-1 bg-brand-green h-[46px] rounded-[2px] flex items-center justify-center tracking-wide select-none">
+                <!-- Left Curtain Panel (Black) -->
+                <span class="absolute top-0 left-0 w-1/2 h-full bg-black transition-transform duration-300 ease-out group-hover:-translate-x-full"></span>
+                <!-- Right Curtain Panel (Black) -->
+                <span class="absolute top-0 right-0 w-1/2 h-full bg-black transition-transform duration-300 ease-out group-hover:translate-x-full"></span>
+                <!-- Button Text (White normally, Black when curtains open like nav) -->
+                <span class="relative z-10 font-normal text-[15px] sm:text-[16px] text-white group-hover:text-black transition-colors duration-300">
+                  สั่งซื้อ / สอบถามทาง LINE
+                </span>
+              </a>
+              
+              <!-- Heart Button (Wishlist - Proportional 46px square) -->
+              <button type="button" id="btn-product-heart" onclick="window.toggleFavorite()" class="w-[46px] h-[46px] border-[1.5px] border-gray-400 rounded-[2px] flex items-center justify-center text-[#252525] shrink-0 cursor-pointer" aria-label="เพิ่มเป็นรายการโปรด">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-[24px] h-[24px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.3">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+              </button>
+            </div>
+
+
+          </div>
+
+        </div>
+      </div>
+
+
+
+      <!-- Specs Section -->
+      <div class="w-full bg-[#F5F5F5] py-16 border-b border-gray-200">
+        <div class="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12">
+          <h2 class="text-[22px] font-bold text-[#252525] mb-6">รายละเอียดสินค้า</h2>
+          
+          <div id="product-specs-container" class="w-full flex flex-col text-[16px] text-[#252525]">
+            <!-- JS will inject specs here -->
+          </div>
+        </div>
+      </div>
+      <!-- End of Specs Section -->
+      <!-- Rich Content (A+ Content) Section -->
+      <div class="w-full bg-white pt-16 pb-0 relative">
+        <div id="rich-content-container" class="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12 text-center relative overflow-hidden transition-[max-height] duration-500 ease-in-out max-h-[300px]">
+          
+          <!-- Headline -->
+          <h3 id="rich-headline" class="text-[24px] font-semibold text-[#252525] mb-4"></h3>
+          
+          <!-- Feature Text Block -->
+          <div class="mb-8">
+            <h4 id="rich-subheadline" class="text-[19px] font-semibold text-[#252525] mb-4 hidden"></h4>
+            <p id="rich-desc" class="text-[16px] text-[#252525] leading-relaxed w-full mx-auto whitespace-pre-line"></p>
+          </div>
+
+          <!-- Engineering Specs Tables (Chemical, Mechanical, Current Range) -->
+          <div id="rich-engineering-tables" class="w-full text-left my-8 space-y-6"></div>
+          
+          <!-- Image 1 -->
+          <div class="w-full max-w-[800px] mx-auto mb-10 flex justify-center px-2 sm:px-0" style="display:none;">
+            <img id="rich-img-1" src="" alt="Product Detail 1" class="max-w-full h-auto object-contain rounded-xl mx-auto">
+          </div>
+          
+          <!-- Image 2 -->
+          <div class="w-full max-w-[800px] mx-auto mb-8 flex justify-center px-2 sm:px-0" style="display:none;">
+            <img id="rich-img-2" src="" alt="Product Detail 2" class="max-w-full h-auto object-contain rounded-xl mx-auto">
+          </div>
+          
+          <!-- Image 3 -->
+          <div class="w-full max-w-[800px] mx-auto mb-6 flex justify-center px-2 sm:px-0" style="display:none;">
+            <img id="rich-img-3" src="" alt="Product Detail 3" class="max-w-full h-auto object-contain rounded-xl mx-auto">
+          </div>
+          
+        </div>
+        
+        <!-- Fade & Read More -->
+        <div id="rich-content-fade" class="absolute bottom-0 left-0 w-full h-[140px] bg-gradient-to-t from-white via-white/80 to-transparent flex items-end justify-center pb-0 pointer-events-none transition-all duration-300">
+          <button id="btn-read-more" class="pointer-events-auto text-[#252525] font-semibold text-[16px] flex items-center gap-2 hover:text-brand-red transition-colors bg-white px-8 py-2.5 rounded-full shadow-[0_2px_15px_rgba(0,0,0,0.1)] border border-gray-100 translate-y-1/2 z-10">
+            <span id="read-more-text">ดูรายละเอียดเพิ่มเติม</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform duration-300" id="read-more-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+
+    
+      <!-- Similar Products Section (สินค้าที่คล้ายกัน - สไตล์เดียวกับสินค้าแนะนำ) -->
+      <section class="w-full bg-[#F7F6F4] py-12 md:py-16">
+        <div class="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12">
+          <!-- Header (Styled exactly like index.html) -->
+          <div class="flex items-baseline justify-between mb-3 md:mb-4">
+            <h2 class="text-[30px] font-semibold text-gray-900 tracking-[0.008em]">
+              <span class="inline-block transform scale-y-[1.05] origin-bottom-left">สินค้าที่คล้ายกัน</span>
+            </h2>
+            <a id="related-view-all" href="/category.html" class="text-[16px] md:text-[18px] font-normal text-gray-900 hover:text-gray-600 underline underline-offset-4 transition-colors">
+              ดูทั้งหมด
+            </a>
+          </div>
+
+          <!-- Slider Wrapper (สไตล์เดียวกับ Slider ในหน้าแรก) -->
+          <div class="relative w-full group/pslider pb-1">
+            <div id="related-products-track" class="pslider-track flex items-stretch gap-3 md:gap-4 overflow-x-auto no-scrollbar pt-1 md:pt-2 pb-3 snap-x snap-mandatory">
+              <!-- Injected by JS -->
+            </div>
+
+            <!-- Navigation Buttons -->
+            <button type="button" class="pslider-prev absolute left-0 top-1/2 -translate-y-1/2 w-8 h-14 bg-black/25 hover:bg-black/35 text-white rounded-md z-10 transition-all flex items-center justify-center opacity-0 pointer-events-none" aria-label="ก่อนหน้า">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="0.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button type="button" class="pslider-next absolute right-0 top-1/2 -translate-y-1/2 w-8 h-14 bg-black/25 hover:bg-black/35 text-white rounded-md z-10 transition-all flex items-center justify-center" aria-label="ถัดไป">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="0.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- 4. Footer & Floating UI (โหลดจากไฟล์ศูนย์รวม) -->
+  <!-- Footer (สไตล์ Central Inspirer: พื้นหลังขาว, Ribbon สีเข้มคั่นกลาง, ไร้แถบดำล่างสุด) -->
+<footer class="bg-white w-full border-t border-gray-200">
+  
+  <!-- 1. โซนหัวข้อและ 3 ไอคอนจุดเด่น (WHY SHOP WITH US) จัดกึ่งกลาง -->
+  <div class="max-w-[1440px] mx-auto px-4 md:px-8 xl:px-12 pt-6 md:pt-8 pb-5 md:pb-6">
+    <!-- Header with horizontal lines -->
+    <div class="flex items-center justify-center mb-5 md:mb-6">
+      <div class="h-[1px] bg-gray-300 w-16 sm:w-24 md:w-36"></div>
+      <span class="px-4 md:px-6 text-[16px] md:text-[18.5px] font-bold text-gray-800 tracking-wide text-center">
+        ทำไมต้องซื้อกับ UDO
+      </span>
+      <div class="h-[1px] bg-gray-300 w-16 sm:w-24 md:w-36"></div>
+    </div>
+
+    <!-- 3 ไอคอนจัดกึ่งกลางสวยงาม -->
+    <div class="max-w-[1000px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 text-center">
+      
+      <!-- 1. สินค้าคุณภาพมาตรฐาน -->
+      <div class="flex flex-col items-center group">
+        <div class="w-14 h-14 md:w-16 md:h-16 flex items-center justify-center mb-2.5 text-gray-900 group-hover:text-brand-red transition-colors">
+          <svg class="w-11 h-11 md:w-12 md:h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="M9 12l2 2 4-4"/>
+          </svg>
+        </div>
+        <p class="text-[13.5px] md:text-[14px] text-gray-700 font-light leading-relaxed text-center">
+          สินค้าคุณภาพมาตรฐาน<br />
+          รับประกันของแท้ 100%
+        </p>
+      </div>
+
+      <!-- 2. จัดส่งด่วนทั่วประเทศ -->
+      <div class="flex flex-col items-center group">
+        <div class="w-14 h-14 md:w-16 md:h-16 flex items-center justify-center mb-2.5 text-gray-900 group-hover:text-brand-red transition-colors">
+          <svg class="w-12 h-12 md:w-13 md:h-13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="3" width="15" height="13" rx="1"/>
+            <polygon points="16 8 20 8 23 11 23 16 16 16 8"/>
+            <circle cx="5.5" cy="18.5" r="2.5"/>
+            <circle cx="18.5" cy="18.5" r="2.5"/>
+          </svg>
+        </div>
+        <p class="text-[13.5px] md:text-[14px] text-gray-700 font-light leading-relaxed text-center">
+          จัดส่งด่วนทั่วประเทศ<br />
+          ปลอดภัย รวดเร็วถึงหน้างาน
+        </p>
+      </div>
+
+      <!-- 3. ทีมงานผู้เชี่ยวชาญให้คำปรึกษา -->
+      <div class="flex flex-col items-center group">
+        <div class="w-14 h-14 md:w-16 md:h-16 flex items-center justify-center mb-2.5 text-gray-900 group-hover:text-brand-red transition-colors">
+          <svg class="w-11 h-11 md:w-12 md:h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            <path d="M8 10h.01M12 10h.01M16 10h.01"/>
+          </svg>
+        </div>
+        <p class="text-[13.5px] md:text-[14px] text-gray-700 font-light leading-relaxed text-center">
+          ทีมผู้เชี่ยวชาญพร้อมให้คำปรึกษา<br />
+          โทร 062-815-9999
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 2. แถบสีเข้มคั่นกลาง (Ribbon Bar): Social Media ซ้าย + ช่องกรอกอีเมล ขวา -->
+  <div class="w-full bg-[#2B2B2B] py-3 md:py-3.5">
+    <div class="max-w-[1440px] mx-auto px-4 md:px-8 xl:px-12 flex flex-col lg:flex-row items-center justify-between gap-4 lg:gap-6">
+      
+      <!-- ฝั่งซ้าย: Social Media ในวงกลมสีขาว -->
+      <div class="flex items-center gap-3">
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/udothailand" target="_blank" rel="noopener noreferrer" class="w-9 h-9 md:w-10 md:h-10 rounded-full border border-white/80 hover:border-white text-white hover:bg-white/15 flex items-center justify-center transition-all duration-200" aria-label="Facebook">
+          <svg class="w-4 h-4 md:w-5 md:h-5 fill-current" viewBox="0 0 24 24">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+        </a>
+
+        <!-- X (Twitter) -->
+        <a href="#" class="w-9 h-9 md:w-10 md:h-10 rounded-full border border-white/80 hover:border-white text-white hover:bg-white/15 flex items-center justify-center transition-all duration-200" aria-label="X">
+          <svg class="w-4 h-4 md:w-4.5 md:h-4.5 fill-current" viewBox="0 0 24 24">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+
+        <!-- YouTube -->
+        <a href="#" class="w-9 h-9 md:w-10 md:h-10 rounded-full border border-white/80 hover:border-white text-white hover:bg-white/15 flex items-center justify-center transition-all duration-200" aria-label="YouTube">
+          <svg class="w-4 h-4 md:w-5 md:h-5 fill-current" viewBox="0 0 24 24">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+        </a>
+
+        <!-- Instagram -->
+        <a href="#" class="w-9 h-9 md:w-10 md:h-10 rounded-full border border-white/80 hover:border-white text-white hover:bg-white/15 flex items-center justify-center transition-all duration-200" aria-label="Instagram">
+          <svg class="w-4 h-4 md:w-5 md:h-5 fill-current" viewBox="0 0 24 24">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+        </a>
+
+        <!-- LINE -->
+        <a href="https://line.me/R/ti/p/@udothai" target="_blank" rel="noopener noreferrer" class="w-9 h-9 md:w-10 md:h-10 rounded-full border border-white/80 hover:border-white text-white hover:bg-white/15 flex items-center justify-center transition-all duration-200" aria-label="LINE">
+          <svg class="w-4 h-4 md:w-5 md:h-5 fill-current" viewBox="0 0 24 24">
+            <path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.038 9.608.391.084.922.258 1.057.592.122.303.079.778.039 1.085l-.171 1.026c-.052.312-.246 1.22.986.666 1.233-.554 6.657-3.92 9.083-6.711C23.003 14.28 24 12.374 24 10.304z"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- ฝั่งขวา: ส่งอีเมลถึงเรา และช่องกรอกอีเมล -->
+      <div class="flex flex-col sm:flex-row items-center gap-3 md:gap-4 w-full lg:w-auto justify-end">
+        <div class="flex items-center gap-2.5 text-center sm:text-right">
+          <div class="w-8 h-8 rounded-full border border-white/80 flex items-center justify-center text-white shrink-0 hidden sm:flex">
+            <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <span class="text-white/90 text-[13px] md:text-[13.5px] font-light tracking-wide">
+            ส่งอีเมลถึงเรา เพื่อสั่งซื้อหรือติดต่อสอบถาม
+          </span>
+        </div>
+
+        <!-- กล่อง Input สีขาวพร้อมปุ่มลูกศรสีแดง -->
+        <form class="flex items-center bg-white rounded-[6px] pl-3.5 pr-1.5 py-1.5 w-full sm:w-[280px] md:w-[320px] shadow-sm" onsubmit="event.preventDefault(); alert('ขอบคุณสำหรับการติดต่อ เจ้าหน้าที่จะติดต่อกลับโดยเร็วที่สุด');">
+          <input type="email" placeholder="กรุณากรอกอีเมลของคุณ" class="bg-transparent text-[13.5px] text-gray-800 placeholder-gray-400 focus:outline-none flex-1 min-w-0" required />
+          <button type="submit" class="p-1 text-brand-red hover:opacity-80 transition-opacity shrink-0" aria-label="ส่งอีเมล">
+            <svg class="w-5 h-5 text-[#E7151A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+            </svg>
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 3. โซนเมนูลิงก์ 5 คอลัมน์ (พื้นหลังขาว ไร้โลโก้ตามสั่ง) -->
+  <div class="max-w-[1440px] mx-auto px-4 md:px-8 xl:px-12 pt-6 md:pt-7 pb-10">
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 lg:gap-10">
+      
+      <!-- Col 1: ช่วยเหลือ -->
+      <div class="flex flex-col gap-2.5">
+        <h3 class="font-semibold text-gray-900 text-[14px] mb-1">ช่วยเหลือ</h3>
+        <a href="#" class="text-gray-600 hover:text-brand-red text-[13.5px] transition-colors">วิธีการสั่งซื้อออนไลน์</a>
+        <a href="#" class="text-gray-600 hover:text-brand-red text-[13.5px] transition-colors">วิธีการติดตามการสั่งซื้อ</a>
+        <a href="#" class="text-gray-600 hover:text-brand-red text-[13.5px] transition-colors">นโยบายการรับประกันสินค้า</a>
+        <a href="#" class="text-gray-600 hover:text-brand-red text-[13.5px] transition-colors">การคืนสินค้าและการคืนเงิน</a>
+        <a href="#" class="text-gray-600 hover:text-brand-red text-[13.5px] transition-colors">คำถามที่พบบ่อย (FAQ)</a>
+      </div>
+
+      <!-- Col 2: บริการ -->
+      <div class="flex flex-col gap-2.5">
+        <h3 class="font-semibold text-gray-900 text-[14px] mb-1">บริการ</h3>
+        <a href="#" class="text-gray-600 hover:text-brand-red text-[13.5px] transition-colors">การจัดส่งสินค้าด่วน</a>
+        <a href="#" class="text-gray-600 hover:text-brand-red text-[13.5px] transition-colors">ขอใบเสนอราคาออนไลน์</a>
+        <a href="#" class="text-gray-600 hover:text-brand-red text-[13.5px] transition-colors">บริการงานโปรเจกต์และโรงงาน</a>
+        <a href="#" class="text-gray-600 hover:text-brand-red text-[13.5px] transition-colors">ปรึกษาปัญหาทางเทคนิคงานเชื่อม</a>
+        <a href="#" class="text-gray-600 hover:text-brand-red text-[13.5px] transition-colors">UDO Express Delivery</a>
+      </div>
+
+      <!-- Col 3: หมวดหมู่สินค้า -->
+      <div class="flex flex-col gap-2.5">
+        <h3 class="font-semibold text-gray-900 text-[14px] mb-1">หมวดหมู่สินค้า</h3>
+        <a href="/category.html?type=category&name=กลุ่มลวดเชื่อม" class="text-gray-600 hover:text-brand-red text-[13.5px] transition-colors">กลุ่มลวดเชื่อม</a>
+        <a href="/category.html?type=category&name=เครื่องเชื่อมและอุปกรณ์" class="text-gray-600 hover:text-brand-red text-[13.5px] transition-colors">เครื่องเชื่อมและเครื่องตัดพลาสม่า</a>
+        <a href="/category.html?type=category&name=อุปกรณ์แก๊สและงานตัด" class="text-gray-600 hover:text-brand-red text-[13.5px] transition-colors">อุปกรณ์เชื่อมตัดเผาแก๊ส</a>
+        <a href="/category.html?type=category&name=ท่อบรรจุก๊าซและวาล์ว" class="text-gray-600 hover:text-brand-red text-[13.5px] transition-colors">ท่อบรรจุก๊าซและวาล์ว</a>
+        <a href="/category.html?type=category&name=ใบตัดใบเจียร" class="text-gray-600 hover:text-brand-red text-[13.5px] transition-colors">ใบตัดใบเจียร</a>
+        <a href="/category.html?type=category&name=เครื่องมือช่าง" class="text-gray-600 hover:text-brand-red text-[13.5px] transition-colors">เครื่องมือช่าง</a>
+      </div>
+
+      <!-- Col 4: เกี่ยวกับ UDO -->
+      <div class="flex flex-col gap-2.5">
+        <h3 class="font-semibold text-gray-900 text-[14px] mb-1">เกี่ยวกับ UDO</h3>
+        <a href="#" class="text-gray-600 hover:text-brand-red text-[13.5px] transition-colors">เกี่ยวกับเรา</a>
+        <a href="#" class="text-gray-600 hover:text-brand-red text-[13.5px] transition-colors">ติดต่อเรา</a>
+        <a href="#" class="text-gray-600 hover:text-brand-red text-[13.5px] transition-colors">ร่วมงานกับเรา</a>
+        <a href="#" class="text-gray-600 hover:text-brand-red text-[13.5px] transition-colors">นโยบายความเป็นส่วนตัว</a>
+        <a href="#" class="text-gray-600 hover:text-brand-red text-[13.5px] transition-colors">นโยบายคุกกี้</a>
+        <a href="#" class="text-gray-600 hover:text-brand-red text-[13.5px] transition-colors">ข้อตกลงและเงื่อนไข</a>
+      </div>
+
+      <!-- Col 5: การรับรองและบริการจัดส่ง -->
+      <div class="flex flex-col gap-2.5 col-span-2 sm:col-span-1">
+        <h3 class="font-semibold text-gray-900 text-[14px] mb-1">การรับรองและการจัดส่ง</h3>
+        <div class="flex items-center gap-2.5 mb-2">
+          <img src="/images/footer-logos/dbd.png" alt="DBD Registered" class="h-6 md:h-7 w-auto object-contain" />
+          <img src="/images/footer-logos/mastercard.png" alt="Mastercard" class="h-4 md:h-5 w-auto object-contain" />
+          <img src="/images/footer-logos/visa.png" alt="Visa" class="h-4 md:h-5 w-auto object-contain" />
+        </div>
+        <div class="flex items-center gap-3 mt-1">
+          <img src="/images/footer-logos/kerry.webp" alt="Kerry Express" class="h-5 w-auto object-contain" />
+          <img src="/images/footer-logos/dhl.webp" alt="DHL" class="h-4 w-auto object-contain" />
+          <img src="/images/footer-logos/thai-post.png" alt="Thailand Post" class="h-5 w-auto object-contain" />
+        </div>
+        <p class="text-[12.5px] text-gray-500 mt-2 font-light leading-relaxed">
+          รองรับการชำระเงินทุกช่องทาง มั่นใจในความปลอดภัยระดับมาตรฐานสากล
+        </p>
+      </div>
+
+    </div>
+
+    <!-- 4. ข้อมูลเวลาทำการ และชื่อบริษัท (พื้นหลังขาว ไร้เส้นคั่น ไร้แถบลิขสิทธิ์แยก) -->
+    <div class="mt-14 md:mt-16 flex flex-col gap-1 text-[13px] md:text-[13.5px] text-gray-600 font-light">
+      <div>
+        <strong class="font-semibold text-gray-800">เวลาทำการ UDO Call Center :</strong> วันจันทร์ - วันเสาร์ 08.30 - 17.30 น. (หยุดวันอาทิตย์)
+      </div>
+      <div>
+        <strong class="font-semibold text-gray-800">เวลาจัดส่งสินค้า :</strong> วันจันทร์ - วันเสาร์ 08.30 - 16.00 น. (ตัดรอบจัดส่งทุกวัน)
+      </div>
+      <div class="text-gray-500 mt-0.5">
+        Copyright &copy; บริษัท ยู.ดี.โอ. เทรดดิ้ง จำกัด 149 ถนนจันทน์ แขวงทุ่งวัดดอน เขตสาทร กรุงเทพมหานคร 10120
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+  <!-- Sticky Right Buttons (Why UDO & LINE) -->
+  <div class="fixed bottom-6 md:bottom-8 right-6 md:right-8 z-[100] flex flex-col items-center gap-3 md:gap-4">
+    
+    <!-- Why UDO Button -->
+    <div class="relative group cursor-pointer" id="whyUdoBtnContainer">
+      <!-- Close Button (X) -->
+      <button onclick="document.getElementById('whyUdoBtnContainer').style.display='none'" class="absolute -top-1 -right-1 md:-top-1.5 md:-right-1.5 w-6 h-6 md:w-8 md:h-8 bg-black/70 text-white rounded-full flex items-center justify-center hover:bg-black/90 transition-colors z-10 border-[1.5px] border-white/30 shadow-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 md:w-5 md:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      
+      <!-- Main Circle Button -->
+      <a href="#" class="w-[90px] h-[90px] md:w-[108px] md:h-[108px] bg-[#E7151A] rounded-full flex flex-col items-center justify-center shadow-[0_8px_16px_rgba(231,21,26,0.15)]">
+        <span class="text-white text-[14px] md:text-[17px] leading-[1.3] text-center font-medium">ทำไมต้อง<br>ซื้อกับ<br>UDO</span>
+      </a>
+    </div>
+    
+    <!-- Floating LINE Button (Bottom Right) -->
+    <a href="https://line.me" target="_blank" rel="noopener noreferrer" class="w-[54px] h-[54px] md:w-[60px] md:h-[60px] bg-[#06C755] hover:bg-[#05b34c] rounded-full border border-white shadow-[0_6px_16px_rgba(6,199,85,0.25)] flex items-center justify-center transition-all duration-300 cursor-pointer group hover:scale-105 active:scale-95" title="LINE Official">
+      <img src="/images/line-logo.png" alt="Line" class="w-[30px] h-[30px] md:w-[34px] md:h-[34px] object-contain" />
+    </a>
+  </div>
+
+  <!-- Floating Apple Frosted Glass Pill Dock with Orbiting Red/Green Laser Frame -->
+<div id="mobile-bottom-dock" class="fixed bottom-5 sm:bottom-6 left-1/2 -translate-x-1/2 z-[100] transition-all duration-300 select-none">
+  
+  <!-- Outer Ambient Glow Aura around the entire Dock -->
+  <div class="absolute -inset-4 -z-10 pointer-events-none overflow-hidden rounded-full flex items-center justify-center">
+    <div class="dock-laser-glow pointer-events-none"></div>
+  </div>
+
+  <!-- Outer Glass Frame with Orbiting Laser Beam -->
+  <div class="dock-outer-frame relative p-[4px] rounded-full overflow-hidden shadow-[0_12px_40px_rgba(0,0,0,0.12)] transition-all duration-300">
+    
+    <!-- Orbiting Dual-Color Laser Beam Layer (Runs around entire dock on hover or when expanded) -->
+    <div class="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
+      <div class="dock-laser-beam pointer-events-none"></div>
+    </div>
+
+    <!-- Frosted Glass Trench / Bevel Layer -->
+    <div class="dock-glass-trench absolute inset-[1.5px] rounded-full bg-white/50 backdrop-blur-2xl border border-white/85 pointer-events-none shadow-[inset_0_1px_2px_rgba(255,255,255,0.9)]"></div>
+
+    <!-- Inner Core Content Container (Equal height in both normal and search modes) -->
+    <div class="dock-inner-container relative z-10 p-1 sm:p-1.5 rounded-full flex items-center justify-center w-full">
+      
+      <!-- View 1: 3 Normal Dock Buttons -->
+      <div id="dock-buttons-view" class="flex items-center justify-center gap-2 sm:gap-2.5 w-full shrink-0 transition-all duration-200">
+        <!-- 1. UDO AI Button (Click expands into search capsule) -->
+        <button type="button" id="dock-item-ai" class="dock-btn group flex items-center gap-2 sm:gap-2.5 bg-white hover:bg-gray-50 text-gray-900 px-4 sm:px-5 h-[44px] sm:h-[48px] rounded-full transition-all duration-200 select-none cursor-pointer active:scale-95 shadow-[0_1px_4px_rgba(0,0,0,0.06)]" aria-label="เปิดกล่องค้นหา UDO AI">
+          <!-- AI Search Icon (Magnifying Glass + Sparkle in Solid Black) -->
+          <div class="relative flex items-center justify-center w-[18px] h-[18px] text-gray-900 shrink-0 transition-transform duration-200 group-hover:scale-110">
+            <!-- Magnifying Glass -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-[15px] h-[15px] text-inherit" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.3">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+            </svg>
+            <!-- Sparkle (Top Right) -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-[9.5px] h-[9.5px] text-inherit absolute -top-1 -right-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.3">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+            </svg>
+          </div>
+          <span class="text-[13px] sm:text-[14px] font-semibold tracking-tight whitespace-nowrap text-gray-900">UDO AI</span>
+        </button>
+
+        <!-- 2. ขอราคา (Pure Round Circle Button, Hovers to UDO Green) -->
+        <button type="button" id="dock-item-rfq" class="dock-btn group flex flex-col items-center justify-center gap-0.5 bg-white hover:bg-[#90DE3C] text-gray-900 hover:text-black w-[44px] h-[44px] sm:w-[48px] sm:h-[48px] rounded-full aspect-square transition-all duration-200 select-none cursor-pointer active:scale-95 shadow-[0_1px_4px_rgba(0,0,0,0.06)] shrink-0 p-0" aria-label="ขอราคา">
+          <svg class="w-4 h-4 sm:w-4.5 sm:h-4.5 fill-current transition-transform duration-200 group-hover:scale-105" viewBox="0 0 24 24">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M6 3C4.89543 3 4 3.89543 4 5V19C4 20.1046 4.89543 21 6 21H18C19.1046 21 20 20.1046 20 19V5C20 3.89543 19.1046 3 18 3H6ZM7.5 7.5C7.5 7.22386 7.72386 7 8 7H16C16.2761 7 16.5 7.22386 16.5 7.5C16.5 7.77614 16.2761 8 16 8H8C7.72386 8 7.5 7.77614 7.5 7.5ZM7.5 11.5C7.5 11.2239 7.72386 11 8 11H16C16.2761 11 16.5 11.2239 16.5 11.5C16.5 11.7761 16.2761 12 16 12H8C7.72386 12 7.5 11.7761 7.5 11.5ZM8 15C7.44772 15 7.5 15.2239 7.5 15.5C7.5 15.7761 7.72386 16 8 16H16C16.2761 16 16.5 15.7761 16.5 15.5C16.5 15.2239 16.2761 15 16 15H8Z"/>
+          </svg>
+          <span class="text-[9px] sm:text-[9.5px] font-semibold tracking-tight whitespace-nowrap text-inherit transition-colors duration-200 leading-none">ขอราคา</span>
+        </button>
+
+        <!-- 3. โทรสต็อก (Pure Round Circle Button, Hovers to UDO Green) -->
+        <button type="button" id="dock-item-contact" class="dock-btn group flex flex-col items-center justify-center gap-0.5 bg-white hover:bg-[#90DE3C] text-gray-900 hover:text-black w-[44px] h-[44px] sm:w-[48px] sm:h-[48px] rounded-full aspect-square transition-all duration-200 select-none cursor-pointer active:scale-95 shadow-[0_1px_4px_rgba(0,0,0,0.06)] shrink-0 p-0" aria-label="โทรสต็อก">
+          <svg class="w-4 h-4 sm:w-4.5 sm:h-4.5 fill-current transition-transform duration-200 group-hover:scale-110" viewBox="0 0 24 24">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.69 6.69c.103.038.251.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" />
+          </svg>
+          <span class="text-[9px] sm:text-[9.5px] font-semibold tracking-tight whitespace-nowrap text-inherit transition-colors duration-200 leading-none">โทรสต็อก</span>
+        </button>
+      </div>
+
+      <!-- View 2: Search Input Capsule (Expanded Mode, Exact Height as Dock) -->
+      <form id="dock-search-view" class="hidden w-full h-[44px] sm:h-[48px] bg-white rounded-full px-2.5 sm:px-3 shadow-[0_1px_4px_rgba(0,0,0,0.06)] transition-all duration-200">
+        <!-- Plus Button (+) -->
+        <div id="dock-plus-wrapper" class="dock-plus-wrapper flex items-center">
+          <a href="/chat.html" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center shrink-0 transition-colors cursor-pointer mr-1" title="เปิดหน้าห้องแชท UDO AI">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+          </a>
+        </div>
+
+        <!-- Text Input with Placeholder Matching Image -->
+        <div id="dock-input-wrapper" class="dock-input-wrapper flex-1 min-w-0 w-full flex items-center">
+          <textarea 
+            id="dock-search-input"
+            rows="1"
+            placeholder="ลองถามอะไรก็ได้" 
+            autocomplete="off"
+            class="w-full bg-transparent text-[13.5px] sm:text-[14.5px] text-[#160808] font-normal placeholder:text-[#160808] placeholder:font-normal placeholder:opacity-100 outline-none border-none focus:ring-0 px-2 sm:px-2.5 py-0.5 resize-none leading-relaxed transition-all"
+          ></textarea>
+        </div>
+
+        <!-- Right Action Controls -->
+        <div id="dock-actions-right" class="dock-actions-right flex items-center gap-1 shrink-0 ml-1">
+          <!-- Mic Button -->
+          <button type="button" id="dock-search-mic" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full hover:bg-gray-100 text-gray-600 flex items-center justify-center transition-colors cursor-pointer" title="ค้นหาด้วยเสียง">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 sm:w-4.5 sm:h-4.5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15a3 3 0 003-3V6a3 3 0 00-3-3 3 3 0 00-3 3v6a3 3 0 003 3z" />
+            </svg>
+          </button>
+
+          <!-- Submit Arrow Button (appears when typing) -->
+          <button type="submit" id="dock-search-submit" class="hidden w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#90DE3C] hover:bg-[#82c936] text-black items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95 shrink-0" title="ส่งคำถาม">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5L12 3m0 0l7.5 7.5M12 3v18" />
+            </svg>
+          </button>
+
+          <!-- Close / Collapse Button (X) -->
+          <button type="button" id="dock-search-close" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full text-gray-400 hover:text-gray-700 hover:bg-gray-100 flex items-center justify-center transition-colors cursor-pointer" title="ย่อกลับ">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+    </div>
+  </div>
+
+</div>
+
+
+
+<!-- Glassmorphism Modal 1: UDO AI Search Assistant -->
+<div id="dock-ai-modal" class="fixed inset-0 z-[110] flex items-end sm:items-center justify-center transition-all duration-300 opacity-0 pointer-events-none p-0 sm:p-4" role="dialog" aria-modal="true" aria-labelledby="dock-ai-title">
+  <!-- Backdrop -->
+  <div class="dock-modal-backdrop absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity"></div>
+  
+  <!-- Sheet Card -->
+  <div class="dock-modal-card apple-glass-modal relative w-full max-w-lg rounded-t-3xl sm:rounded-3xl p-6 transition-all duration-300 transform translate-y-8 sm:translate-y-4 scale-95">
+    <!-- Header -->
+    <div class="flex items-center justify-between pb-4 border-b border-gray-100">
+      <div class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-full bg-black text-white flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+          </svg>
+        </div>
+        <div>
+          <h3 id="dock-ai-title" class="font-semibold text-gray-900 text-[16px] leading-tight">ถาม UDO AI</h3>
+          <p class="text-xs text-gray-500">ผู้ช่วยค้นหาสเปกลวดเชื่อมและอุปกรณ์ช่างอุตสาหกรรม</p>
+        </div>
+      </div>
+      <button type="button" class="dock-modal-close w-8 h-8 rounded-full text-gray-400 hover:text-gray-700 hover:bg-gray-100 flex items-center justify-center transition-colors" aria-label="ปิด">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- AI Search Form -->
+    <form id="dock-ai-search-form" class="mt-4">
+      <div class="relative flex items-center">
+        <input type="text" id="dock-ai-modal-input" placeholder="พิมพ์คำถาม หรือค้นหาสเปกสินค้า..." class="w-full bg-gray-50/80 border border-gray-200 focus:border-black focus:bg-white rounded-2xl pl-4 pr-12 py-3.5 text-[14.5px] text-gray-900 placeholder-gray-400 outline-none transition-all shadow-inner" autocomplete="off" />
+        <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-xl bg-black hover:bg-zinc-800 text-white flex items-center justify-center transition-all shadow-sm">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+          </svg>
+        </button>
+      </div>
+    </form>
+
+    <!-- Quick Prompt Suggestions -->
+    <div class="mt-4">
+      <div class="text-[12px] font-medium text-gray-500 mb-2">คำค้นหายอดนิยม:</div>
+      <div class="flex flex-wrap gap-2">
+        <button type="button" class="dock-ai-prompt-pill px-3 py-1.5 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-medium transition-colors" data-query="ลวดเชื่อมสแตนเลส 308L">ลวดเชื่อมสแตนเลส 308L</button>
+        <button type="button" class="dock-ai-prompt-pill px-3 py-1.5 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-medium transition-colors" data-query="ลวดเชื่อมเหล็กเหนียว RB-26">ลวดเชื่อมเหล็กเหนียว RB-26</button>
+        <button type="button" class="dock-ai-prompt-pill px-3 py-1.5 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-medium transition-colors" data-query="ใบตัด NKK 4 นิ้ว">ใบตัด NKK 4 นิ้ว</button>
+        <button type="button" class="dock-ai-prompt-pill px-3 py-1.5 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-medium transition-colors" data-query="เครื่องเชื่อม MIG">เครื่องเชื่อม MIG</button>
+        <button type="button" class="dock-ai-prompt-pill px-3 py-1.5 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-medium transition-colors" data-query="เกจ์ปรับแรงดัน">เกจ์ปรับแรงดัน</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Glassmorphism Modal 2: B2B Quotation (ขอใบเสนอราคา) -->
+<div id="dock-rfq-modal" class="fixed inset-0 z-[110] flex items-end sm:items-center justify-center transition-all duration-300 opacity-0 pointer-events-none p-0 sm:p-4" role="dialog" aria-modal="true" aria-labelledby="dock-rfq-title">
+  <!-- Backdrop -->
+  <div class="dock-modal-backdrop absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity"></div>
+  
+  <!-- Sheet Card -->
+  <div class="dock-modal-card apple-glass-modal relative w-full max-w-lg rounded-t-3xl sm:rounded-3xl p-6 transition-all duration-300 transform translate-y-8 sm:translate-y-4 scale-95">
+    <!-- Header -->
+    <div class="flex items-center justify-between pb-4 border-b border-gray-100">
+      <div class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-full bg-brand-red text-white flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+          </svg>
+        </div>
+        <div>
+          <h3 id="dock-rfq-title" class="font-semibold text-gray-900 text-[16px] leading-tight">ขอใบเสนอราคาออนไลน์</h3>
+          <p class="text-xs text-gray-500">B2B Request a Quote ออกเอกสารกำกับภาษีถูกต้อง</p>
+        </div>
+      </div>
+      <button type="button" class="dock-modal-close w-8 h-8 rounded-full text-gray-400 hover:text-gray-700 hover:bg-gray-100 flex items-center justify-center transition-colors" aria-label="ปิด">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Content Options -->
+    <div class="mt-4 flex flex-col gap-3">
+      <!-- Option 1: LINE RFQ (Fastest) -->
+      <a href="https://line.me/R/ti/p/@udothai" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-4 rounded-2xl bg-emerald-50/80 hover:bg-emerald-100/90 border border-emerald-100 transition-all group">
+        <div class="flex items-center gap-3.5">
+          <div class="w-10 h-10 rounded-full bg-[#06C755] flex items-center justify-center text-white shrink-0 shadow-sm">
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+              <path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.038 9.608.391.084.922.258 1.057.592.122.303.079.778.039 1.085l-.171 1.026c-.052.312-.246 1.22.986.666 1.233-.554 6.657-3.92 9.083-6.711C23.003 14.28 24 12.374 24 10.304z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="text-[14px] font-semibold text-gray-900 group-hover:text-emerald-700 transition-colors">ส่งรายการขอราคาทาง LINE</div>
+            <div class="text-xs text-gray-500">ส่งรูปภาพหรือรายการสินค้า ออกใบเสนอราคาใน 15 นาที</div>
+          </div>
+        </div>
+        <span class="text-xs font-semibold px-3 py-1.5 rounded-full bg-[#06C755] text-white shrink-0 group-hover:bg-[#05b34c] transition-colors">แอด LINE</span>
+      </a>
+
+      <!-- Option 2: Email RFQ -->
+      <a href="mailto:sales@udo.co.th?subject=ขอใบเสนอราคาจากเว็บไซต์%20UDO" class="flex items-center justify-between p-4 rounded-2xl bg-gray-50/80 hover:bg-gray-100 border border-gray-200 transition-all group">
+        <div class="flex items-center gap-3.5">
+          <div class="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center text-white shrink-0 shadow-sm">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+            </svg>
+          </div>
+          <div>
+            <div class="text-[14px] font-semibold text-gray-900 group-hover:text-black transition-colors">ส่งคำขอทางอีเมล</div>
+            <div class="text-xs text-gray-500">sales@udo.co.th สำหรับจัดซื้อโครงการและโรงงาน</div>
+          </div>
+        </div>
+        <span class="text-xs font-semibold px-3 py-1.5 rounded-full bg-zinc-800 text-white shrink-0 group-hover:bg-black transition-colors">ส่งอีเมล</span>
+      </a>
+
+      <!-- Option 3: Phone Direct -->
+      <a href="tel:0628159999" class="flex items-center justify-between p-4 rounded-2xl bg-red-50/70 hover:bg-red-100/80 border border-red-100 transition-all group">
+        <div class="flex items-center gap-3.5">
+          <div class="w-10 h-10 rounded-full bg-brand-red flex items-center justify-center text-white shrink-0 shadow-sm">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-2.896-1.596-5.25-3.95-6.847-6.847l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+            </svg>
+          </div>
+          <div>
+            <div class="text-[14px] font-semibold text-gray-900 group-hover:text-brand-red transition-colors">โทรปรึกษาฝ่ายขายตรง</div>
+            <div class="text-xs text-gray-500">โทร 062-815-9999 ให้บริการ จันทร์-เสาร์ 08:00-17:30 น.</div>
+          </div>
+        </div>
+        <span class="text-xs font-semibold px-3 py-1.5 rounded-full bg-brand-red text-white shrink-0 group-hover:bg-[#cc1217] transition-colors">โทรออก</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Glassmorphism Modal 3: Contact & Stock Check (ติดต่อเรา / โทรเช็กสต็อก) -->
+<div id="dock-contact-modal" class="fixed inset-0 z-[110] flex items-end sm:items-center justify-center transition-all duration-300 opacity-0 pointer-events-none p-0 sm:p-4" role="dialog" aria-modal="true" aria-labelledby="dock-contact-title">
+  <!-- Backdrop -->
+  <div class="dock-modal-backdrop absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity"></div>
+  
+  <!-- Sheet Card -->
+  <div class="dock-modal-card apple-glass-modal relative w-full max-w-lg rounded-t-3xl sm:rounded-3xl p-6 transition-all duration-300 transform translate-y-8 sm:translate-y-4 scale-95">
+    <!-- Header -->
+    <div class="flex items-center justify-between pb-4 border-b border-gray-100">
+      <div class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-full bg-brand-red text-white flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-2.896-1.596-5.25-3.95-6.847-6.847l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+          </svg>
+        </div>
+        <div>
+          <h3 id="dock-contact-title" class="font-semibold text-gray-900 text-[16px] leading-tight">ติดต่อฝ่ายขายและบริการ UDO</h3>
+          <p class="text-xs text-gray-500">เช็กสต็อกสินค้า สั่งซื้อด่วน หรือปรึกษาทีมเทคนิค</p>
+        </div>
+      </div>
+      <button type="button" class="dock-modal-close w-8 h-8 rounded-full text-gray-400 hover:text-gray-700 hover:bg-gray-100 flex items-center justify-center transition-colors" aria-label="ปิด">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Contact Actions -->
+    <div class="mt-4 flex flex-col gap-3">
+      <!-- Call Direct -->
+      <a href="tel:0628159999" class="flex items-center justify-between p-4 rounded-2xl bg-red-50/80 hover:bg-red-100/90 border border-red-100 transition-all group">
+        <div class="flex items-center gap-3.5">
+          <div class="w-11 h-11 rounded-full bg-brand-red flex items-center justify-center text-white shrink-0 shadow-sm">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-2.896-1.596-5.25-3.95-6.847-6.847l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+            </svg>
+          </div>
+          <div>
+            <div class="text-[14.5px] font-semibold text-gray-900 group-hover:text-brand-red transition-colors">โทรเช็กสต็อก / สั่งซื้อด่วน</div>
+            <div class="text-xs text-gray-600 font-medium">062-815-9999 (สายด่วนฝ่ายขาย)</div>
+          </div>
+        </div>
+        <span class="text-xs font-semibold px-3.5 py-2 rounded-full bg-brand-red text-white shrink-0 group-hover:bg-[#cc1217] transition-colors shadow-sm">โทรออกทันที</span>
+      </a>
+
+      <!-- LINE Chat -->
+      <a href="https://line.me/R/ti/p/@udothai" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-4 rounded-2xl bg-emerald-50/80 hover:bg-emerald-100/90 border border-emerald-100 transition-all group">
+        <div class="flex items-center gap-3.5">
+          <div class="w-11 h-11 rounded-full bg-[#06C755] flex items-center justify-center text-white shrink-0 shadow-sm">
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+              <path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.038 9.608.391.084.922.258 1.057.592.122.303.079.778.039 1.085l-.171 1.026c-.052.312-.246 1.22.986.666 1.233-.554 6.657-3.92 9.083-6.711C23.003 14.28 24 12.374 24 10.304z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="text-[14.5px] font-semibold text-gray-900 group-hover:text-emerald-700 transition-colors">แชทคุยทาง LINE Official</div>
+            <div class="text-xs text-gray-600 font-medium">@udothai (แอดมินพร้อมตอบคำถาม)</div>
+          </div>
+        </div>
+        <span class="text-xs font-semibold px-3.5 py-2 rounded-full bg-[#06C755] text-white shrink-0 group-hover:bg-[#05b34c] transition-colors shadow-sm">คุยผ่าน LINE</span>
+      </a>
+    </div>
+
+    <!-- Operating Hours Banner -->
+    <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
+      <span>เวลาทำการ: จันทร์ - เสาร์ 08:00 - 17:30 น.</span>
+      <span class="font-medium text-emerald-600">จัดส่งด่วนทั่วประเทศ</span>
+    </div>
+  </div>
+</div>
+
+    </div>
+  </body>
+</html>

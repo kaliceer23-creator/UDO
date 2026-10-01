@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 145.27 57.89">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #85d825;
+        stroke: #85d825;
+        stroke-miterlimit: 10;
+        stroke-width: 1.5px;
+      }
+
+      .cls-2 {
+        font-family: SukhumvitSet-Medium, 'Sukhumvit Set';
+        font-size: 9.13px;
+        font-weight: 500;
+      }
+
+      .cls-2, .cls-3 {
+        isolation: isolate;
+      }
+
+      .cls-4 {
+        fill: #f01a26;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M59.02,39.82h25.74c1.06,0,1.93-.86,1.93-1.93V2.93c0-1.06-.86-1.93-1.93-1.93h-44.5c-1.06,0-1.93.86-1.93,1.93v33.04H5.01V1.02H1.16v36.88c0,1.06.86,1.93,1.93,1.93h37.17c1.06,0,1.93-.86,1.93-1.93V4.86h40.65v31.12h-23.81v3.85h0Z"/>
+  <path class="cls-1" d="M140.26,4.87v30.91h-44.83V4.87h44.83M140.26,1.02h-44.83c-2.13,0-3.85,1.72-3.85,3.85v30.91c0,2.13,1.72,3.85,3.85,3.85h44.83c2.13,0,3.85-1.72,3.85-3.85V4.87c0-2.13-1.72-3.85-3.85-3.85h0Z"/>
+  <rect class="cls-4" x="119.15" y="8.06" width="17.86" height="11.01"/>
+  <g class="cls-3">
+    <text class="cls-2" transform="translate(0 53.77)"><tspan x="0" y="0">THE LEADER OF WELDING P</tspan></text>
+    <text class="cls-2" transform="translate(111.28 53.77)"><tspan x="0" y="0">R</tspan></text>
+    <text class="cls-2" transform="translate(116.66 53.77)"><tspan x="0" y="0">ODUCS</tspan></text>
+  </g>
+</svg>

@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UDO Admin - ระบบจัดการสต็อกและสินค้า</title>
+  <link rel="icon" type="image/svg+xml" href="/images/logos/logo-icon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script type="module" crossorigin src="/assets/admin-Dsdp5P1l.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/ProductCard-D2c0gKoJ.js">
+  <link rel="stylesheet" crossorigin href="/assets/ProductCard-DBQu-2uL.css">
+</head>
+<body class="bg-[#ECECEE] text-[#160808] antialiased font-['Prompt',sans-serif] min-h-screen flex selection:bg-black selection:text-white overflow-x-hidden max-w-full">
+
+  <!-- Slim Vertical Sidebar Dock (Inspired by Bento / Pinterest Minimalist Design) -->
+  <aside class="fixed inset-y-0 left-0 w-16 md:w-20 bg-[#0B0B0C] border-r border-[#1C1C1F] z-40 flex flex-col items-center justify-between py-6 px-2 shadow-2xl transition-all">
+    
+    <!-- Top Monogram & Brand -->
+    <div class="flex flex-col items-center gap-6">
+      <a href="/admin/" class="group relative flex items-center justify-center w-11 h-11 md:w-12 md:h-12 rounded-2xl bg-gradient-to-br from-neutral-800 to-neutral-900 border border-neutral-700/80 hover:border-neutral-500 shadow-md transition-all">
+        <span class="font-bold text-white tracking-widest text-sm md:text-base">UDO</span>
+        <span class="absolute left-16 md:left-20 bg-black text-white text-xs px-2.5 py-1 rounded-md opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap shadow-lg z-50">
+          UDO Admin CMS
+        </span>
+      </a>
+
+      <!-- Navigation Icons Stack -->
+      <nav class="flex flex-col items-center gap-3">
+        <!-- Tab 1: Inventory (Active) -->
+        <button id="nav-tab-inventory" class="nav-tab-btn active group relative flex items-center justify-center w-11 h-11 md:w-12 md:h-12 rounded-2xl bg-white text-black shadow-md transition-all">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 md:w-6 md:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+          </svg>
+          <span class="absolute left-16 md:left-20 bg-black text-white text-xs px-2.5 py-1 rounded-md opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap shadow-lg z-50">
+            จัดการสต็อกสินค้า
+          </span>
+        </button>
+
+        <!-- Tab 2: Visual Merchandising (ผังหน้าร้าน & แคมเปญ) -->
+        <button id="nav-tab-merchandising" class="nav-tab-btn group relative flex items-center justify-center w-11 h-11 md:w-12 md:h-12 rounded-2xl text-neutral-400 hover:text-white hover:bg-white/10 transition-all">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 md:w-6 md:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+          </svg>
+          <span class="absolute left-16 md:left-20 bg-black text-white text-xs px-2.5 py-1 rounded-md opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap shadow-lg z-50">
+            ผังหน้าร้าน & จัดลำดับสินค้า (Merchandising)
+          </span>
+        </button>
+
+        <!-- Tab 3: Audit Logs -->
+        <button id="nav-tab-logs" class="nav-tab-btn group relative flex items-center justify-center w-11 h-11 md:w-12 md:h-12 rounded-2xl text-neutral-400 hover:text-white hover:bg-white/10 transition-all">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 md:w-6 md:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span class="absolute left-16 md:left-20 bg-black text-white text-xs px-2.5 py-1 rounded-md opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap shadow-lg z-50">
+            ประวัติการเดินสต็อก (Audit Logs)
+          </span>
+        </button>
+
+        <div class="w-6 h-px bg-neutral-800 my-1"></div>
+
+        <!-- External Link 1: Storefront -->
+        <a href="/" target="_blank" class="group relative flex items-center justify-center w-11 h-11 md:w-12 md:h-12 rounded-2xl text-neutral-400 hover:text-white hover:bg-white/10 transition-all">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 md:w-6 md:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+          </svg>
+          <span class="absolute left-16 md:left-20 bg-black text-white text-xs px-2.5 py-1 rounded-md opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap shadow-lg z-50">
+            ดูหน้าร้านหลัก (เปิดแท็บใหม่)
+          </span>
+        </a>
+
+        <!-- External Link 2: AI Assistant -->
+        <a href="/chat.html" target="_blank" class="group relative flex items-center justify-center w-11 h-11 md:w-12 md:h-12 rounded-2xl text-neutral-400 hover:text-white hover:bg-white/10 transition-all">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 md:w-6 md:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+          </svg>
+          <span class="absolute left-16 md:left-20 bg-black text-white text-xs px-2.5 py-1 rounded-md opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap shadow-lg z-50">
+            ระบบแชทบอท AI UDO
+          </span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Bottom Admin Status -->
+    <div class="flex flex-col items-center gap-2">
+      <div class="relative w-9 h-9 md:w-10 md:h-10 rounded-full bg-neutral-800 border border-neutral-700 flex items-center justify-center text-xs font-semibold text-white">
+        AD
+        <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full border-2 border-black"></span>
+      </div>
+      <span class="text-[10px] text-neutral-500 hidden md:block">PHP 8.1</span>
+    </div>
+  </aside>
+
+  <!-- Main Canvas Area -->
+  <main class="flex-1 ml-16 md:ml-20 flex flex-col min-h-screen min-w-0 max-w-full overflow-x-hidden">
+
+    <!-- Sticky Glass Top Header -->
+    <header class="sticky top-0 z-30 bg-[#ECECEE]/90 backdrop-blur-md px-4 sm:px-8 py-3.5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-black/[0.05]">
+      <div>
+        <div class="flex items-center gap-2.5">
+          <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-[#160808]">จัดการสต็อกและสินค้า</h1>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[12px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200/80">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            ซิงค์ระบบเรียลไทม์
+          </span>
+        </div>
+        <p class="text-xs sm:text-[13px] text-[#424245] mt-0.5">ฐานข้อมูลทางการ UDO 1,307 รายการ (Native PHP 8.1 API + MariaDB)</p>
+      </div>
+
+      <!-- Search Box & Refresh Control -->
+      <div class="flex items-center gap-2.5 w-full sm:w-auto">
+        <div class="relative flex-1 sm:w-80">
+          <input 
+            type="text" 
+            id="admin-search-input" 
+            placeholder="ค้นหาชื่อไทย, ชื่ออังกฤษ, SKU, หรือแท็ก..." 
+            class="w-full bg-white rounded-full pl-10 pr-4 py-2.5 text-[13.5px] sm:text-[14px] text-[#160808] placeholder-gray-500 border border-black/[0.08] shadow-[0_1px_2px_rgba(0,0,0,0.03)] focus:outline-none focus:ring-2 focus:ring-black transition-all"
+          >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-500 absolute left-3.5 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+
+        <button id="admin-refresh-btn" class="flex items-center gap-1.5 px-4 py-2.5 bg-[#160808] text-white hover:bg-black rounded-full text-[13px] font-medium transition-all shrink-0 cursor-pointer shadow-xs">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+          <span class="hidden md:inline">รีเฟรช</span>
+        </button>
+
+        <!-- Primary CTA: Add Product Button in Sticky Header -->
+        <button type="button" id="header-btn-add-product" class="flex items-center gap-1.5 px-4 py-2.5 bg-black hover:bg-neutral-800 text-white rounded-full text-[13px] font-semibold transition-all shrink-0 cursor-pointer shadow-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+          </svg>
+          <span>เพิ่มสินค้าใหม่</span>
+        </button>
+
+        <!-- Admin Identity & Logout -->
+        <div id="admin-auth-header-section" class="flex items-center gap-2 pl-2 border-l border-black/10 shrink-0">
+          <div class="hidden sm:flex flex-col items-end text-right">
+            <span id="header-admin-name" class="text-xs font-bold text-gray-900 leading-tight">กำลังตรวจสอบ...</span>
+            <span id="header-admin-role-badge" class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-neutral-900 text-amber-300">
+              -
+            </span>
+          </div>
+          <button id="admin-logout-btn" title="ออกจากระบบ" class="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-gray-700 hover:text-rose-600 bg-white hover:bg-rose-50 border border-black/10 rounded-full transition-colors cursor-pointer shadow-xs">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+            <span class="hidden md:inline">ออกจากระบบ</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Content Body -->
+    <div class="p-4 sm:p-8 space-y-6 flex-1 min-w-0 max-w-full overflow-x-hidden">
+
+      <!-- Tab 1: Inventory & Stock Management View -->
+      <div id="inventory-view-wrapper" class="space-y-6">
+        <!-- Bento Metric Summary Cards (Apple Inset Card Surfaces) -->
+        <section class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4">
+          <!-- Total -->
+          <div class="bg-white rounded-2xl p-4 sm:p-5 border border-black/[0.06] shadow-[0_2px_8px_rgba(0,0,0,0.03)] flex flex-col justify-between transition-all min-w-0">
+            <span class="text-[13px] font-medium text-[#424245]">สินค้าทั้งหมด</span>
+            <div class="mt-2 flex items-baseline justify-between">
+              <span id="stat-total" class="text-2xl sm:text-[28px] font-bold text-[#160808] tracking-tight">1,307</span>
+              <span class="text-[12px] text-[#424245] font-semibold">รายการ</span>
+            </div>
+          </div>
+
+          <!-- In Stock -->
+          <div class="bg-white rounded-2xl p-4 sm:p-5 border border-black/[0.06] shadow-[0_2px_8px_rgba(0,0,0,0.03)] flex flex-col justify-between transition-all min-w-0">
+            <div class="flex items-center justify-between">
+              <span class="text-[13px] font-medium text-[#424245]">พร้อมส่ง</span>
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+            </div>
+            <div class="mt-2 flex items-baseline justify-between">
+              <span id="stat-in-stock" class="text-2xl sm:text-[28px] font-bold text-[#0E7A3A] tracking-tight">1,275</span>
+              <span class="text-[12px] text-[#0E7A3A] font-semibold">In-Stock</span>
+            </div>
+          </div>
+
+          <!-- Out of Stock -->
+          <div class="bg-white rounded-2xl p-4 sm:p-5 border border-black/[0.06] shadow-[0_2px_8px_rgba(0,0,0,0.03)] flex flex-col justify-between transition-all min-w-0">
+            <div class="flex items-center justify-between">
+              <span class="text-[13px] font-medium text-[#424245]">หมดสต็อก</span>
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+            </div>
+            <div class="mt-2 flex items-baseline justify-between">
+              <span id="stat-out-of-stock" class="text-2xl sm:text-[28px] font-bold text-rose-600 tracking-tight">32</span>
+              <span class="text-[12px] text-rose-600 font-semibold">Out-of-Stock</span>
+            </div>
+          </div>
+
+          <!-- Best Seller -->
+          <div class="bg-white rounded-2xl p-4 sm:p-5 border border-black/[0.06] shadow-[0_2px_8px_rgba(0,0,0,0.03)] flex flex-col justify-between transition-all min-w-0">
+            <div class="flex items-center justify-between">
+              <span class="text-[13px] font-medium text-[#424245]">สินค้าขายดี</span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+            </div>
+            <div class="mt-2 flex items-baseline justify-between">
+              <span id="stat-best-seller" class="text-2xl sm:text-[28px] font-bold text-amber-700 tracking-tight">69</span>
+              <span class="text-[12px] text-amber-700 font-semibold">Top Sales</span>
+            </div>
+          </div>
+
+          <!-- Recommended -->
+          <div class="bg-white rounded-2xl p-4 sm:p-5 border border-black/[0.06] shadow-[0_2px_8px_rgba(0,0,0,0.03)] flex flex-col justify-between transition-all min-w-0">
+            <div class="flex items-center justify-between">
+              <span class="text-[13px] font-medium text-[#424245]">สินค้าแนะนำ</span>
+              <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span>
+            </div>
+            <div class="mt-2 flex items-baseline justify-between">
+              <span id="stat-recommended" class="text-2xl sm:text-[28px] font-bold text-purple-700 tracking-tight">277</span>
+              <span class="text-[12px] text-purple-700 font-semibold">Featured</span>
+            </div>
+          </div>
+
+          <!-- Promotion -->
+          <div class="bg-white rounded-2xl p-4 sm:p-5 border border-black/[0.06] shadow-[0_2px_8px_rgba(0,0,0,0.03)] flex flex-col justify-between transition-all min-w-0">
+            <div class="flex items-center justify-between">
+              <span class="text-[13px] font-medium text-[#424245]">โปรโมชั่น</span>
+              <span class="w-2.5 h-2.5 rounded-full bg-sky-500"></span>
+            </div>
+            <div class="mt-2 flex items-baseline justify-between">
+              <span id="stat-promotion" class="text-2xl sm:text-[28px] font-bold text-sky-700 tracking-tight">20</span>
+              <span class="text-[12px] text-sky-700 font-semibold">Promo Active</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Filter & Batch Action Controls (Apple Grouped Surface Card) -->
+        <section class="bg-white rounded-2xl md:rounded-3xl p-5 border border-black/[0.06] shadow-[0_2px_8px_rgba(0,0,0,0.03)] space-y-4">
+          <!-- Top Row: Quick Status Pills + Action Buttons -->
+          <div class="flex items-center justify-between flex-wrap gap-3">
+            <!-- Status Pill Chips -->
+            <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
+              <button class="status-filter-pill active px-4 py-2 rounded-full text-[13px] font-semibold bg-[#160808] text-white shadow-xs transition-all cursor-pointer shrink-0" data-status="all">
+                ทั้งหมด
+              </button>
+              <button class="status-filter-pill px-4 py-2 rounded-full text-[13px] font-medium bg-[#EAEAEF] text-[#160808] hover:bg-[#DFDFE5] transition-all cursor-pointer shrink-0" data-status="publish">
+                เผยแพร่
+              </button>
+              <button class="status-filter-pill px-4 py-2 rounded-full text-[13px] font-medium bg-[#EAEAEF] text-[#160808] hover:bg-[#DFDFE5] transition-all cursor-pointer shrink-0" data-status="draft">
+                ฉบับร่าง
+              </button>
+              <button class="status-filter-pill px-4 py-2 rounded-full text-[13px] font-medium bg-[#EAEAEF] text-[#160808] hover:bg-[#DFDFE5] transition-all cursor-pointer shrink-0" data-status="suspended">
+                ระงับจำหน่าย
+              </button>
+              <button class="status-filter-pill px-4 py-2 rounded-full text-[13px] font-medium bg-[#EAEAEF] text-[#160808] hover:bg-[#DFDFE5] transition-all cursor-pointer shrink-0" data-status="in_stock">
+                พร้อมส่ง
+              </button>
+              <button class="status-filter-pill px-4 py-2 rounded-full text-[13px] font-medium bg-[#EAEAEF] text-[#160808] hover:bg-[#DFDFE5] transition-all cursor-pointer shrink-0" data-status="out_of_stock">
+                หมดสต็อก
+              </button>
+              <button class="status-filter-pill px-4 py-2 rounded-full text-[13px] font-medium bg-[#EAEAEF] text-[#160808] hover:bg-[#DFDFE5] transition-all cursor-pointer shrink-0" data-status="special_order">
+                สั่งพิเศษ
+              </button>
+            </div>
+
+            <!-- Right: Add Product Button, Filter Button & Batch Select Toggle -->
+            <div class="flex items-center gap-2">
+              <!-- Add New Product Button -->
+              <button type="button" id="btn-add-product" class="flex items-center gap-1.5 px-3.5 py-2 bg-black hover:bg-neutral-800 text-white rounded-xl text-xs font-semibold transition-all cursor-pointer shadow-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                </svg>
+                <span>เพิ่มสินค้าใหม่</span>
+              </button>
+
+              <!-- Multi-Criteria Filter Button -->
+              <button id="btn-open-filters" class="flex items-center gap-1.5 px-3.5 py-2 bg-[#EAEAEF] hover:bg-[#DFDFE5] text-[#160808] rounded-xl text-xs font-semibold transition-all cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                </svg>
+                <span>กรองข้อมูล</span>
+                <span id="active-filter-badge" class="hidden px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-black text-white leading-none">0</span>
+                <svg id="filter-chevron-icon" xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-gray-500 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              <!-- Progressive Selection Mode Toggle Button -->
+              <button id="btn-toggle-select-mode" class="flex items-center gap-1.5 px-3.5 py-2 border border-black/10 hover:border-black/25 bg-white text-[#160808] rounded-xl text-xs font-semibold transition-all cursor-pointer shadow-xs">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                </svg>
+                <span id="btn-select-mode-label">เลือกรายการ</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Bottom Row: Category & Sort Controls + Total Count -->
+          <div class="flex items-center justify-between gap-3 pt-3.5 border-t border-gray-100 flex-wrap">
+            <div class="flex items-center gap-3 flex-wrap">
+              <!-- Category Quick Select -->
+              <div class="flex items-center gap-2">
+                <span class="text-[13px] text-[#424245] font-medium shrink-0">หมวดหมู่:</span>
+                <select id="category-filter-select" class="bg-[#EAEAEF] rounded-xl px-3.5 py-2 text-[13px] text-[#160808] font-medium border border-black/[0.04] focus:outline-none focus:ring-2 focus:ring-black cursor-pointer">
+                  <option value="all">ทั้งหมด (8 หมวดหมู่หลัก)</option>
+                  <option value="cat-12">กลุ่มลวดเชื่อม (411)</option>
+                  <option value="cat-312">อุปกรณ์เชื่อมตัดเผาแก๊ส (338)</option>
+                  <option value="cat-344">อะไหล่สิ้นเปลือง เครื่องเชื่อม/พลาสม่า (326)</option>
+                  <option value="cat-298">ใบตัดใบเจียร (74)</option>
+                  <option value="cat-327">ท่อบรรจุก๊าซ และวาล์ว (63)</option>
+                  <option value="cat-339">เครื่องเชื่อมและเครื่องตัดพลาสม่า (41)</option>
+                  <option value="cat-382">วัสดุอุปกรณ์เคมีภัณฑ์งานเชื่อม (33)</option>
+                  <option value="cat-398">เครื่องมือช่าง (21)</option>
+                </select>
+              </div>
+
+              <!-- Dedicated Sort Select -->
+              <div class="flex items-center gap-2">
+                <span class="text-[13px] text-[#424245] font-medium shrink-0">จัดเรียงตาม:</span>
+                <select id="sort-select" class="bg-[#EAEAEF] rounded-xl px-3.5 py-2 text-[13px] text-[#160808] font-medium border border-black/[0.04] focus:outline-none focus:ring-2 focus:ring-black cursor-pointer">
+                  <option value="sort_priority">ลำดับความสำคัญร้าน (Sort Priority)</option>
+                  <option value="stock_desc">สต็อกมาก ไป น้อย</option>
+                  <option value="stock_asc">สต็อกน้อย ไป มาก (ดูของใกล้หมด)</option>
+                  <option value="sold_desc">ยอดขายประวัติจริง (Top Sold Orders)</option>
+                  <option value="price_asc">ราคา ต่ำ ไป สูง</option>
+                  <option value="price_desc">ราคา สูง ไป ต่ำ</option>
+                  <option value="name_asc">ชื่อสินค้า ก - ฮ</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Result Count Label -->
+            <div class="text-[13px] text-[#424245] font-medium">
+              พบสินค้า <span id="filtered-count" class="font-bold text-[#160808]">1,307</span> รายการ
+            </div>
+          </div>
+
+          <!-- Inline Collapsible Filter Panel (Accordion Expansion) -->
+          <div id="inline-filter-panel" class="hidden pt-3 border-t border-gray-100 transition-all duration-200">
+            <div class="p-4 sm:p-5 bg-[#F9F9FB] rounded-2xl border border-gray-200/80 space-y-4">
+              <!-- 4-Column Categorized Checkboxes Grid -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+                
+                <!-- Col 1: Publication Status -->
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between pb-1.5 border-b border-gray-200">
+                    <span class="font-bold text-[#160808]">สถานะแสดงผล</span>
+                    <span class="text-[10px] text-gray-400">Visibility</span>
+                  </div>
+                  <div class="space-y-1.5">
+                    <label class="flex items-center gap-2 p-2 bg-white hover:bg-gray-50 rounded-xl border border-gray-200/70 cursor-pointer transition-colors">
+                      <input type="checkbox" value="publish" class="filter-status-cb w-4 h-4 accent-black rounded">
+                      <span class="font-medium text-gray-800">เผยแพร่ (Publish)</span>
+                    </label>
+                    <label class="flex items-center gap-2 p-2 bg-white hover:bg-gray-50 rounded-xl border border-gray-200/70 cursor-pointer transition-colors">
+                      <input type="checkbox" value="draft" class="filter-status-cb w-4 h-4 accent-black rounded">
+                      <span class="font-medium text-gray-800">ฉบับร่าง (Draft)</span>
+                    </label>
+                    <label class="flex items-center gap-2 p-2 bg-white hover:bg-gray-50 rounded-xl border border-gray-200/70 cursor-pointer transition-colors">
+                      <input type="checkbox" value="suspended" class="filter-status-cb w-4 h-4 accent-black rounded">
+                      <span class="font-medium text-gray-800">ระงับจำหน่าย (Suspended)</span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Col 2: Stock Availability -->
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between pb-1.5 border-b border-gray-200">
+                    <span class="font-bold text-[#160808]">ความพร้อมสต็อก</span>
+                    <span class="text-[10px] text-gray-400">Inventory</span>
+                  </div>
+                  <div class="space-y-1.5">
+                    <label class="flex items-center gap-2 p-2 bg-white hover:bg-gray-50 rounded-xl border border-gray-200/70 cursor-pointer transition-colors">
+                      <input type="checkbox" value="in_stock" class="filter-avail-cb w-4 h-4 accent-black rounded">
+                      <span class="font-medium text-emerald-800">พร้อมส่ง (In Stock)</span>
+                    </label>
+                    <label class="flex items-center gap-2 p-2 bg-white hover:bg-gray-50 rounded-xl border border-gray-200/70 cursor-pointer transition-colors">
+                      <input type="checkbox" value="out_of_stock" class="filter-avail-cb w-4 h-4 accent-black rounded">
+                      <span class="font-medium text-rose-800">หมดสต็อก (Out of Stock)</span>
+                    </label>
+                    <label class="flex items-center gap-2 p-2 bg-white hover:bg-gray-50 rounded-xl border border-gray-200/70 cursor-pointer transition-colors">
+                      <input type="checkbox" value="special_order" class="filter-avail-cb w-4 h-4 accent-black rounded">
+                      <span class="font-medium text-purple-800">สั่งพิเศษ (Special Order)</span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Col 3: Marketing Badges -->
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between pb-1.5 border-b border-gray-200">
+                    <span class="font-bold text-[#160808]">ป้ายการตลาด</span>
+                    <span class="text-[10px] text-gray-400">Highlights</span>
+                  </div>
+                  <div class="space-y-1.5">
+                    <label class="flex items-center gap-2 p-2 bg-white hover:bg-gray-50 rounded-xl border border-gray-200/70 cursor-pointer transition-colors">
+                      <input type="checkbox" value="best_seller" class="filter-badge-cb w-4 h-4 accent-amber-500 rounded">
+                      <span class="font-medium text-amber-800">สินค้าขายดี (Best Seller)</span>
+                    </label>
+                    <label class="flex items-center gap-2 p-2 bg-white hover:bg-gray-50 rounded-xl border border-gray-200/70 cursor-pointer transition-colors">
+                      <input type="checkbox" value="new_arrival" class="filter-badge-cb w-4 h-4 accent-emerald-500 rounded">
+                      <span class="font-medium text-emerald-800">สินค้ามาใหม่ (New Arrival)</span>
+                    </label>
+                    <label class="flex items-center gap-2 p-2 bg-white hover:bg-gray-50 rounded-xl border border-gray-200/70 cursor-pointer transition-colors">
+                      <input type="checkbox" value="recommended" class="filter-badge-cb w-4 h-4 accent-purple-500 rounded">
+                      <span class="font-medium text-purple-800">สินค้าแนะนำ (Recommended)</span>
+                    </label>
+                    <label class="flex items-center gap-2 p-2 bg-white hover:bg-gray-50 rounded-xl border border-gray-200/70 cursor-pointer transition-colors">
+                      <input type="checkbox" value="promotion" class="filter-badge-cb w-4 h-4 accent-sky-500 rounded">
+                      <span class="font-medium text-sky-800">โปรโมชั่น (Promotion)</span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Col 4: Categories Multi-Select -->
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between pb-1.5 border-b border-gray-200">
+                    <span class="font-bold text-[#160808]">หมวดหมู่สินค้า</span>
+                    <span class="text-[10px] text-gray-400">Categories</span>
+                  </div>
+                  <div id="filter-inline-categories-list" class="max-h-44 overflow-y-auto space-y-1.5 pr-1">
+                    <!-- Categories checkboxes injected dynamically via admin.js -->
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Footer Bar -->
+              <div class="flex items-center justify-between pt-2 border-t border-gray-200/80">
+                <button id="btn-reset-filter-modal" type="button" class="text-xs font-semibold text-gray-500 hover:text-black hover:underline cursor-pointer">
+                  ล้างเงื่อนไขทั้งหมด
+                </button>
+                <button id="btn-close-filter-panel" type="button" class="px-5 py-2 bg-black hover:bg-neutral-800 text-white text-xs font-semibold rounded-xl shadow-xs transition-all cursor-pointer">
+                  ปิดแผงตัวกรอง
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Active Filter Pills Strip (Rendered dynamically when filters are active) -->
+          <div id="active-filter-pills-container" class="hidden flex items-center gap-2 pt-2.5 border-t border-dashed border-gray-200 flex-wrap">
+            <span class="text-xs text-[#424245] font-medium">ตัวกรองที่ใช้งานอยู่:</span>
+            <div id="active-filter-pills-list" class="flex items-center gap-1.5 flex-wrap"></div>
+            <button id="btn-clear-all-filters" class="text-xs text-neutral-500 hover:text-black underline ml-1 cursor-pointer">ล้างทั้งหมด</button>
+          </div>
+        </section>
+
+        <!-- Inventory Apple Inset Grouped Island (Option 1) -->
+        <section id="inventory-list-wrapper" class="bg-white rounded-2xl md:rounded-3xl overflow-hidden border border-black/[0.06] shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+          <!-- Table Column Headers -->
+          <div class="hidden md:flex items-center gap-4 px-6 py-3.5 text-[12.5px] font-semibold text-[#424245] uppercase tracking-wider bg-gray-50/70 border-b border-gray-100">
+            <!-- Select All Checkbox (Shown only in Selection Mode) -->
+            <div id="col-header-select-all" class="hidden items-center shrink-0 pr-1">
+              <input type="checkbox" id="inventory-select-all" class="w-4 h-4 rounded accent-black cursor-pointer" title="เลือกทั้งหมดในหน้านี้">
+            </div>
+            <div class="flex-1 min-w-0">สินค้า / รหัส SKU</div>
+            <div class="w-32 shrink-0">แบรนด์</div>
+            <div class="w-32 text-center shrink-0">สถานะ</div>
+            <div class="w-40 text-center shrink-0">สต็อกพร้อมส่ง (คลิกเพื่อแก้ไข)</div>
+            <div class="w-28 text-right shrink-0">ราคาเริ่มต้น</div>
+            <div class="w-28 text-right shrink-0">การจัดการ</div>
+          </div>
+
+          <!-- The Hairline-Divided List Container -->
+          <div id="product-rows-container" class="divide-y divide-gray-100">
+            <!-- Loading skeleton -->
+            <div class="p-12 text-center text-[#424245]">
+              <div class="inline-block w-6 h-6 border-2 border-black border-t-transparent rounded-full animate-spin mb-3"></div>
+              <p class="text-sm font-medium">กำลังโหลดข้อมูลสินค้า 1,307 รายการ...</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Pagination Bar -->
+        <div id="pagination-wrapper" class="flex flex-col sm:flex-row items-center justify-between gap-4 py-2 px-2">
+          <span id="pagination-info" class="text-[13px] text-[#424245] font-medium">
+            แสดง 0 - 0 จาก 0 รายการ
+          </span>
+          <div class="flex items-center gap-1.5" id="pagination-buttons">
+            <!-- Injected via admin.js -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Visual Merchandising & Storefront Shelves Manager (Tab 2) -->
+      <section id="merchandising-wrapper" class="hidden space-y-6 min-w-0 max-w-full overflow-hidden">
+        <!-- Control Header Card -->
+        <div class="bg-white rounded-2xl md:rounded-3xl p-5 border border-black/[0.06] shadow-[0_2px_8px_rgba(0,0,0,0.03)] flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="text-base sm:text-lg font-bold text-[#160808]">ผังจำลองหน้าแรก & จัดการสินค้าไฮไลต์ (Storefront Merchandising Shelves)</h2>
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-purple-50 text-purple-700 border border-purple-200">WYSIWYG 4 Shelves</span>
+            </div>
+            <p class="text-[13px] text-[#424245] mt-0.5">จำลองมุมมองแถวละ 5 ชิ้นเหมือนหน้าแรกจริง เลื่อนซ้าย-ขวาเพื่อตรวจสอบสินค้า หรือกด "คลี่ดูผังเต็ม" เพื่อจัดลำดับและคัดเลือกสินค้าเข้ากลุ่ม</p>
+          </div>
+          <div class="text-xs text-[#424245] font-medium shrink-0">
+            * ซิงก์ตรงกับแถวสินค้าบนหน้าแรก 100%
+          </div>
+        </div>
+
+        <!-- 4 Core Storefront Shelves Container -->
+        <div id="merchandising-shelves-container" class="space-y-6 min-w-0 max-w-full overflow-hidden">
+        </div>
+      </section>
+
+      <!-- Audit Logs Container (Tab 3) -->
+      <section id="audit-logs-wrapper" class="hidden space-y-4">
+        <div class="bg-white rounded-2xl md:rounded-3xl p-5 sm:p-6 border border-black/[0.06] shadow-[0_2px_8px_rgba(0,0,0,0.03)] space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h2 class="text-base sm:text-lg font-bold text-[#160808]">ประวัติการปรับสต็อกสินค้า (Inventory Audit Trail)</h2>
+              <p class="text-[13px] text-[#424245] mt-0.5">บันทึกทุกการเคลื่อนไหวสต็อก เวลา ผู้ดำเนินการ และระดับสิทธิ์จริงจาก Session เซิร์ฟเวอร์ ป้องกันการปลอมแปลง</p>
+            </div>
+            <button id="refresh-logs-btn" class="flex items-center gap-1.5 px-4 py-2 bg-[#160808] text-white hover:bg-black rounded-full text-[13px] font-semibold self-start sm:self-auto cursor-pointer transition-all shadow-xs">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
+              <span>รีเฟรชประวัติ</span>
+            </button>
+          </div>
+
+          <!-- Filter & Search Controls -->
+          <div class="flex flex-col md:flex-row items-stretch md:items-center gap-3 pt-3 border-t border-gray-100">
+            <div class="relative flex-1">
+              <input 
+                type="text" 
+                id="audit-search-input" 
+                placeholder="ค้นหาชื่อสินค้า, SKU, หรือชื่อผู้บันทึก..." 
+                class="w-full bg-[#F8F8FA] border border-gray-200 rounded-xl pl-9 pr-3.5 py-2 text-xs sm:text-[13px] text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black"
+              >
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <select id="audit-role-filter" class="bg-[#F8F8FA] border border-gray-200 rounded-xl px-3 py-2 text-xs font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-black cursor-pointer">
+                <option value="all">ทุกระดับสิทธิ์ผู้ใช้</option>
+                <option value="super_admin">เฉพาะ Super Admin (เจ้าของร้าน)</option>
+                <option value="staff">เฉพาะ Staff (พนักงานคลัง)</option>
+              </select>
+
+              <select id="audit-action-filter" class="bg-[#F8F8FA] border border-gray-200 rounded-xl px-3 py-2 text-xs font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-black cursor-pointer">
+                <option value="all">ทุกประเภทรายการ</option>
+                <option value="stock_adjustment">ปรับสต็อกสินค้า</option>
+                <option value="update_product">แก้ไขข้อมูลสินค้า</option>
+                <option value="reorder_shelf">จัดเรียงผังหน้าร้าน</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl md:rounded-3xl border border-black/[0.06] shadow-[0_2px_8px_rgba(0,0,0,0.03)] overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs sm:text-[13px]">
+              <thead class="bg-gray-50/70 border-b border-gray-100 text-[#424245] font-semibold uppercase tracking-wider text-[12px]">
+                <tr>
+                  <th class="py-3.5 px-4 whitespace-nowrap">วันและเวลา</th>
+                  <th class="py-3.5 px-4 whitespace-nowrap">ผู้ทำรายการ</th>
+                  <th class="py-3.5 px-4 whitespace-nowrap">ประเภท</th>
+                  <th class="py-3.5 px-4">สินค้า / SKU</th>
+                  <th class="py-3.5 px-4 text-center whitespace-nowrap">ก่อนหน้า</th>
+                  <th class="py-3.5 px-4 text-center whitespace-nowrap">ปรับเปลี่ยน</th>
+                  <th class="py-3.5 px-4 text-center whitespace-nowrap">คงเหลือใหม่</th>
+                  <th class="py-3.5 px-4">เหตุผล</th>
+                </tr>
+              </thead>
+              <tbody id="audit-logs-tbody" class="divide-y divide-gray-100 font-medium text-gray-700">
+                <tr>
+                  <td colspan="8" class="py-8 text-center text-gray-400">ยังไม่มีประวัติการปรับสต็อก</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="audit-logs-footer" class="p-4 bg-gray-50/50 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-500">
+            <span id="audit-logs-count">แสดงทั้งหมด 0 รายการ</span>
+            <span class="text-[11px] text-gray-400 font-mono">ระบบบันทึกแบบ Immutable Audit Trail (ไม่สามารถแก้ไขหรือลบได้)</span>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Quick Inline Stock Edit Popover Modal -->
+  <dialog id="inline-stock-modal" class="p-0 rounded-2xl shadow-2xl backdrop:bg-black/40 border border-gray-200">
+    <div class="bg-white p-5 w-80 space-y-4">
+      <div class="flex items-center justify-between border-b border-gray-100 pb-3">
+        <h3 class="text-sm font-bold text-gray-900">แก้ไขสต็อกด่วน</h3>
+        <button id="modal-close-btn" class="p-1 rounded-full text-gray-400 hover:text-black hover:bg-gray-100 transition-colors cursor-pointer">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="space-y-3">
+        <div>
+          <label class="text-xs text-gray-500 block mb-1">สินค้า</label>
+          <p id="modal-product-name" class="text-xs font-semibold text-gray-800 line-clamp-1">-</p>
+          <p id="modal-variant-info" class="text-[11px] text-gray-500 mt-0.5">-</p>
+        </div>
+
+        <div>
+          <label class="text-xs text-gray-700 font-semibold block mb-1">จำนวนสต็อกใหม่</label>
+          <input 
+            type="number" 
+            id="modal-stock-input" 
+            min="0" 
+            class="w-full bg-[#F8F8FA] border border-gray-300 rounded-xl px-3 py-2 text-base font-bold text-gray-900 focus:outline-none focus:ring-2 focus:ring-black"
+          >
+        </div>
+
+        <div>
+          <label class="text-xs text-gray-500 block mb-1">เหตุผลการปรับสต็อก</label>
+          <select id="modal-reason-select" class="w-full bg-[#F8F8FA] border border-gray-200 rounded-xl px-2.5 py-1.5 text-xs text-gray-700 focus:outline-none">
+            <option value="สินค้าเข้าโกดังใหม่">สินค้าเข้าโกดังใหม่</option>
+            <option value="ขายหน้าร้าน/สั่งซื้อภายนอก">ขายหน้าร้าน / สั่งซื้อภายนอก</option>
+            <option value="ตรวจนับสต็อกประจำงวด">ตรวจนับสต็อกประจำงวด</option>
+            <option value="สินค้าชำรุด/ตัดจ่าย">สินค้าชำรุด / ตัดจ่าย</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 pt-2">
+        <button id="modal-cancel-btn" class="flex-1 py-2 rounded-xl text-xs font-semibold bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all">ยกเลิก</button>
+        <button id="modal-save-btn" class="flex-1 py-2 rounded-xl text-xs font-semibold bg-black text-white hover:bg-neutral-800 transition-all">บันทึกสต็อก</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Multi-Select Collection Curation Picker Modal -->
+  <dialog id="curation-picker-modal" class="p-0 rounded-2xl md:rounded-3xl shadow-2xl backdrop:bg-black/50 border border-gray-200 w-full max-w-3xl overflow-hidden">
+    <div class="bg-white flex flex-col max-h-[85vh]">
+      <!-- Header -->
+      <div class="p-5 border-b border-gray-100 flex items-center justify-between">
+        <div>
+          <h3 class="text-base font-bold text-[#160808]" id="picker-modal-title">เลือกสินค้าเข้ากลุ่ม: สินค้าขายดี</h3>
+          <p class="text-xs text-[#424245] mt-0.5">เลือกสินค้าที่ต้องการนำเข้ากลุ่มนี้ สามารถค้นหาและเลือกได้หลายรายการพร้อมกัน</p>
+        </div>
+        <button type="button" id="picker-close-btn" class="p-1.5 rounded-full text-gray-400 hover:text-black hover:bg-gray-100 transition-colors cursor-pointer">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Search & Filters Toolbar -->
+      <div class="p-4 bg-[#F9F9FB] border-b border-gray-200/80 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+        <!-- Search Input -->
+        <div class="relative flex-1">
+          <svg class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+          <input 
+            type="text" 
+            id="picker-search-input" 
+            placeholder="ค้นหาชื่อสินค้า, SKU, แบรนด์..." 
+            class="w-full bg-white border border-gray-300 rounded-xl pl-9 pr-3 py-2 text-xs font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-black"
+          >
+        </div>
+
+        <!-- Category Dropdown Filter -->
+        <select id="picker-category-filter" class="bg-white border border-gray-300 rounded-xl px-3 py-2 text-xs font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-black">
+          <option value="all">ทุกหมวดหมู่สินค้า</option>
+          <option value="กลุ่มลวดเชื่อม">กลุ่มลวดเชื่อม</option>
+          <option value="กลุ่มอุปกรณ์ตัดแก๊ส">กลุ่มอุปกรณ์ตัดแก๊ส</option>
+          <option value="กลุ่มเครื่องเชื่อมและพลาสม่า">กลุ่มเครื่องเชื่อมและพลาสม่า</option>
+        </select>
+
+        <!-- Only Not-In-Collection Filter Toggle -->
+        <label class="flex items-center gap-1.5 cursor-pointer text-xs font-medium text-[#424245] shrink-0 select-none">
+          <input type="checkbox" id="picker-filter-unselected" class="w-4 h-4 accent-black rounded">
+          <span>ซ่อนสินค้าที่มีอยู่แล้ว</span>
+        </label>
+      </div>
+
+      <!-- Quick Select All & Counter Row -->
+      <div class="px-5 py-2.5 bg-gray-50/70 border-b border-gray-100 flex items-center justify-between text-xs text-[#424245]">
+        <div class="flex items-center gap-3">
+          <label class="flex items-center gap-2 cursor-pointer font-semibold text-[#160808]">
+            <input type="checkbox" id="picker-select-all" class="w-4 h-4 accent-black rounded cursor-pointer">
+            <span>เลือกทั้งหมดที่แสดง</span>
+          </label>
+          <span class="text-gray-300">|</span>
+          <span id="picker-counter-label">เลือกแล้ว <strong class="text-[#160808]" id="picker-selected-count">0</strong> รายการ</span>
+        </div>
+        <button type="button" id="picker-clear-btn" class="text-xs text-gray-500 hover:text-black underline cursor-pointer">
+          ล้างการเลือก
+        </button>
+      </div>
+
+      <!-- Scrollable Product List -->
+      <div id="picker-product-list" class="p-4 overflow-y-auto space-y-2 flex-1 max-h-[440px]">
+        <!-- Candidate product rows populated via admin.js -->
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="p-4 border-t border-gray-200 bg-white flex items-center justify-between gap-3">
+        <div class="text-xs text-[#424245]">
+          * สินค้าที่เลือกจะถูกบันทึกเข้ากลุ่มทันที
+        </div>
+        <div class="flex items-center gap-2">
+          <button type="button" id="picker-cancel-btn" class="px-4 py-2 rounded-xl text-xs font-semibold bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all cursor-pointer">
+            ยกเลิก
+          </button>
+          <button type="button" id="picker-submit-btn" class="px-5 py-2 rounded-xl text-xs font-semibold bg-[#160808] text-white hover:bg-black transition-all shadow-xs cursor-pointer">
+            เพิ่มเข้ากลุ่ม (<span id="picker-btn-count">0</span> รายการ)
+          </button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Slide-Over Drawer for WYSIWYG Product Editing (Phase 4 Ready) -->
+  <div id="drawer-backdrop" class="fixed inset-0 bg-black/40 backdrop-blur-xs z-50 opacity-0 pointer-events-none transition-opacity duration-300"></div>
+  <aside id=product-drawer class="fixed inset-y-0 right-0 w-full lg:w-[94vw] lg:max-w-[1400px] bg-[#FAFAFC] shadow-2xl z-50 transform translate-x-full transition-transform duration-300 flex flex-col border-l border-gray-200">
+    <!-- Workbench Header -->
+    <div class="px-5 py-3.5 border-b border-gray-200 flex items-center justify-between bg-white sticky top-0 z-20">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-black text-white flex items-center justify-center font-bold text-xs tracking-wider shrink-0">
+          UDO
+        </div>
+        <div>
+          <h2 id="drawer-title" class="text-sm sm:text-base font-bold text-gray-900 leading-tight">แก้ไขข้อมูลสินค้า & WYSIWYG Workbench</h2>
+          <p id="drawer-sku-label" class="text-xs text-gray-400 font-mono mt-0.5">SKU: -</p>
+        </div>
+      </div>
+      <button id="drawer-close-btn" class="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 hover:text-black transition-all cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Workbench Body (2-Column Desktop Grid) -->
+    <div class="flex-1 overflow-y-auto p-4 sm:p-6">
+      <div class="flex flex-col lg:flex-row items-start gap-6">
+        
+        <!-- Left Column: 4-Tab Form Editor (70-75% on desktop) -->
+        <div class="flex-1 min-w-0 w-full space-y-4">
+          <!-- Horizontal Tabs Bar -->
+          <div class="bg-white p-1.5 rounded-2xl border border-gray-200 shadow-2xs">
+            <nav class="flex items-center gap-1 overflow-x-auto no-scrollbar" id="editor-tabs-bar" aria-label="Editor Tabs">
+              <button type="button" class="tab-btn active flex-1 py-2 px-3 rounded-xl text-xs font-bold bg-black text-white transition-all cursor-pointer text-center whitespace-nowrap shadow-2xs" data-tab="tab-basic">
+                1. ข้อมูลพื้นฐาน & สถานะ
+              </button>
+              <button type="button" class="tab-btn flex-1 py-2 px-3 rounded-xl text-xs font-semibold text-gray-600 hover:text-black hover:bg-gray-100 transition-all cursor-pointer text-center whitespace-nowrap" data-tab="tab-variants">
+                2. ขนาด & ราคาส่ง (Matrix)
+              </button>
+              <button type="button" class="tab-btn flex-1 py-2 px-3 rounded-xl text-xs font-semibold text-gray-600 hover:text-black hover:bg-gray-100 transition-all cursor-pointer text-center whitespace-nowrap" data-tab="tab-specs">
+                3. สเปกเทคนิค (Specs)
+              </button>
+              <button type="button" class="tab-btn flex-1 py-2 px-3 rounded-xl text-xs font-semibold text-gray-600 hover:text-black hover:bg-gray-100 transition-all cursor-pointer text-center whitespace-nowrap" data-tab="tab-rich">
+                4. เนื้อหาโชว์เคส A+
+              </button>
+            </nav>
+          </div>
+
+          <!-- Form Wrapping Tab Panels -->
+          <form id="drawer-form" class="space-y-4">
+            <input type="hidden" id="drawer-pid">
+
+            <!-- Panel 1: Basic Info & Status -->
+            <div id="panel-basic" class="tab-panel space-y-4">
+              <!-- General Info Card -->
+              <div class="bg-white p-4 sm:p-5 rounded-2xl border border-gray-200 shadow-2xs space-y-4">
+                <div class="border-b border-gray-100 pb-2">
+                  <span class="text-xs font-bold text-gray-900 block">ข้อมูลประจำสินค้า</span>
+                  <span class="text-[11px] text-gray-500">ระบุชื่อ หมวดหมู่ แบรนด์ และลำดับการแสดงผล</span>
+                </div>
+
+                <div>
+                  <label class="text-xs font-semibold text-gray-700 block mb-1">ชื่อสินค้าภาษาไทย</label>
+                  <input type="text" id="drawer-name" class="w-full bg-[#F8F8FA] border border-gray-300 rounded-xl px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-black">
+                </div>
+
+                <div>
+                  <label class="text-xs font-semibold text-gray-700 block mb-1">ชื่อสินค้าภาษาอังกฤษ (name_en)</label>
+                  <input type="text" id="drawer-name-en" placeholder="เช่น Tungsten Electrode WT20..." class="w-full bg-[#F8F8FA] border border-gray-300 rounded-xl px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-black">
+                </div>
+
+                <div>
+                  <label class="text-xs font-semibold text-gray-700 block mb-1">หมวดหมู่สินค้าหลัก (Main Category)</label>
+                  <select id="drawer-category" class="w-full bg-[#F8F8FA] border border-gray-300 rounded-xl px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-black cursor-pointer font-medium">
+                    <option value="cat-12" data-name="กลุ่มลวดเชื่อม">กลุ่มลวดเชื่อม (cat-12)</option>
+                    <option value="cat-312" data-name="อุปกรณ์เชื่อมตัดเผาแก๊ส">อุปกรณ์เชื่อมตัดเผาแก๊ส (cat-312)</option>
+                    <option value="cat-344" data-name="อะไหล่สิ้นเปลือง เครื่องเชื่อม/พลาสม่า">อะไหล่สิ้นเปลือง เครื่องเชื่อม/พลาสม่า (cat-344)</option>
+                    <option value="cat-298" data-name="ใบตัดใบเจียร">ใบตัดใบเจียร (cat-298)</option>
+                    <option value="cat-327" data-name="ท่อบรรจุก๊าซ และวาล์ว">ท่อบรรจุก๊าซ และวาล์ว (cat-327)</option>
+                    <option value="cat-339" data-name="เครื่องเชื่อมและเครื่องตัดพลาสม่า">เครื่องเชื่อมและเครื่องตัดพลาสม่า (cat-339)</option>
+                    <option value="cat-382" data-name="วัสดุอุปกรณ์เคมีภัณฑ์งานเชื่อม">วัสดุอุปกรณ์เคมีภัณฑ์งานเชื่อม (cat-382)</option>
+                    <option value="cat-398" data-name="เครื่องมือช่าง">เครื่องมือช่าง (cat-398)</option>
+                  </select>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <!-- Brand Category-Scoped Combobox -->
+                  <div class="relative">
+                    <div class="flex items-center justify-between mb-1">
+                      <label class="text-xs font-semibold text-gray-700 block">แบรนด์ (Brand)</label>
+                      <button type="button" id="drawer-brand-scope-toggle" class="text-[11px] text-gray-500 hover:text-black font-medium underline cursor-pointer transition-colors" title="สลับการกรองเฉพาะแบรนด์ในหมวดหมู่">
+                        เฉพาะหมวดนี้
+                      </button>
+                    </div>
+                    
+                    <input type="hidden" id="drawer-brand" value="UDO">
+
+                    <div class="relative">
+                      <input 
+                        type="text" 
+                        id="drawer-brand-search" 
+                        placeholder="เลือกหรือค้นหาแบรนด์..." 
+                        autocomplete="off"
+                        class="w-full bg-[#F8F8FA] border border-gray-300 rounded-xl pl-3 pr-8 py-2 text-sm font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-black focus:bg-white transition-all cursor-pointer"
+                      >
+                      <button type="button" id="drawer-brand-chevron-btn" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-black transition-colors cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform duration-200" id="drawer-brand-chevron" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </button>
+                    </div>
+
+                    <div id="drawer-brand-dropdown" class="hidden absolute left-0 right-0 top-full mt-1.5 bg-white rounded-2xl border border-black/[0.08] shadow-2xl z-30 p-2 space-y-1 max-h-60 overflow-y-auto">
+                      <div id="drawer-brand-category-header" class="px-2 py-1 text-[11px] font-medium text-gray-500 border-b border-gray-100 flex items-center justify-between">
+                        <span id="drawer-brand-category-name" class="truncate pr-1">แบรนด์ในหมวดหมู่นี้</span>
+                        <span id="drawer-brand-count-badge" class="font-mono text-[10px] text-gray-400 shrink-0">0</span>
+                      </div>
+
+                      <div id="drawer-brand-list" class="space-y-0.5 pt-1">
+                        <!-- Dynamically populated via admin.js -->
+                      </div>
+
+                      <div id="drawer-brand-add-section" class="pt-1.5 border-t border-gray-100 hidden">
+                        <button type="button" id="btn-add-new-brand" class="w-full text-left px-3 py-2 rounded-xl text-xs font-semibold text-[#0E7A3A] bg-[#E8F8EE] hover:bg-[#D6F4DF] transition-all flex items-center justify-between cursor-pointer">
+                          <span class="truncate" id="btn-add-new-brand-text">+ เพิ่มแบรนด์ใหม่</span>
+                          <span class="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-[#0E7A3A] text-white shrink-0 ml-1">New</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Sort Priority Input -->
+                  <div>
+                    <div class="flex items-center justify-between mb-1">
+                      <label class="text-xs font-semibold text-gray-700 block">ลำดับความสำคัญ (Priority)</label>
+                      <span class="text-[11px] text-gray-400 font-mono">#1 มาก่อน</span>
+                    </div>
+                    <input type="number" id="drawer-sort-priority" min="1" class="w-full bg-[#F8F8FA] border border-gray-300 rounded-xl px-3 py-2 text-sm font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-black">
+                  </div>
+                </div>
+
+                <!-- Short Summary Description -->
+                <div>
+                  <label class="text-xs font-semibold text-gray-700 block mb-1">คำอธิบายสินค้าอย่างย่อ (Short Product Description)</label>
+                  <textarea id="drawer-desc" rows="3" class="w-full bg-[#F8F8FA] border border-gray-300 rounded-xl px-3 py-2 text-xs text-gray-900 focus:outline-none focus:ring-2 focus:ring-black" placeholder="คำอธิบายสรุปสั้นๆ ที่แสดงผลใต้ชื่อสินค้าในส่วนหัว"></textarea>
+                </div>
+              </div>
+
+              <!-- Product Gallery & Primary Cover Card -->
+              <div class="bg-white p-4 sm:p-5 rounded-2xl border border-gray-200 shadow-2xs space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-gray-100 pb-3">
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <span class="text-xs font-bold text-gray-900 block">คลังรูปภาพสินค้า & กำหนดรูปหลัก (Product Gallery & Primary Cover)</span>
+                      <span id="drawer-gallery-count-badge" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-neutral-100 text-neutral-700">0 รูป</span>
+                    </div>
+                    <p class="text-[11px] text-gray-500 mt-0.5">รูปที่ 1 จะถูกใช้เป็นการ์ดหน้าร้านและรูปหลักบนหน้าสินค้าเสมอ สามารถคลิก "ตั้งเป็นรูปหลัก" หรือสลับลำดับรูปได้ทันที</p>
+                  </div>
+                  <div class="flex items-center gap-2 shrink-0">
+                    <input type="file" id="drawer-gallery-file-input" accept="image/jpeg,image/png,image/webp" multiple class="hidden">
+                    <button type="button" id="btn-browse-gallery-img" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-black hover:bg-neutral-800 text-white rounded-xl text-xs font-semibold shadow-2xs transition-all cursor-pointer">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                      </svg>
+                      <span>เพิ่มรูปภาพ</span>
+                    </button>
+                    <button type="button" id="btn-add-gallery-url" class="inline-flex items-center gap-1 px-2.5 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl text-xs font-medium transition-all cursor-pointer" title="ใส่ลิงก์รูปภาพโดยตรง">
+                      <span>URL</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Gallery Grid Container -->
+                <div id="drawer-gallery-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                  <!-- Dynamic gallery tiles injected by admin.js -->
+                </div>
+
+                <!-- Inline URL Input Bar (Hidden by default, toggled via btn-add-gallery-url) -->
+                <div id="drawer-gallery-url-bar" class="hidden p-3 bg-gray-50 rounded-xl border border-gray-200 space-y-2">
+                  <span class="text-xs font-semibold text-gray-800 block">ระบุ URL รูปภาพสินค้า</span>
+                  <div class="flex items-center gap-2">
+                    <input type="text" id="drawer-gallery-url-input" placeholder="https://www.udo.co.th/... หรือ /images/..." class="flex-1 bg-white border border-gray-300 rounded-xl px-3 py-1.5 text-xs text-gray-900 focus:outline-none focus:ring-2 focus:ring-black">
+                    <button type="button" id="btn-submit-gallery-url" class="px-4 py-1.5 bg-black hover:bg-neutral-800 text-white rounded-xl text-xs font-semibold cursor-pointer">เพิ่มเข้าคลัง</button>
+                    <button type="button" id="btn-cancel-gallery-url" class="px-3 py-1.5 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-xl text-xs font-medium cursor-pointer">ยกเลิก</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Lifecycle & Availability Card -->
+              <div class="bg-white p-4 sm:p-5 rounded-2xl border border-gray-200 shadow-2xs space-y-4">
+                <div class="border-b border-gray-100 pb-2">
+                  <span class="text-xs font-bold text-gray-900 block">สถานะการเผยแพร่และความพร้อมจัดส่ง</span>
+                </div>
+
+                <div>
+                  <span class="text-xs font-bold text-gray-800 block mb-1.5">สถานะการแสดงผล (Publishing Lifecycle)</span>
+                  <div class="grid grid-cols-3 gap-2">
+                    <label class="cursor-pointer">
+                      <input type="radio" name="drawer-publish-status" value="publish" id="drawer-pub-published" class="peer sr-only" checked>
+                      <div class="p-2.5 rounded-xl border border-gray-200 bg-white text-center peer-checked:border-black peer-checked:bg-black peer-checked:text-white transition-all">
+                        <span class="text-xs font-semibold block">เผยแพร่</span>
+                        <span class="text-[10px] opacity-75 block mt-0.5">ขายบนเว็บ & AI พบ</span>
+                      </div>
+                    </label>
+                    <label class="cursor-pointer">
+                      <input type="radio" name="drawer-publish-status" value="draft" id="drawer-pub-draft" class="peer sr-only">
+                      <div class="p-2.5 rounded-xl border border-gray-200 bg-white text-center peer-checked:border-black peer-checked:bg-black peer-checked:text-white transition-all">
+                        <span class="text-xs font-semibold block">ฉบับร่าง</span>
+                        <span class="text-[10px] opacity-75 block mt-0.5">ซ่อนจากหน้าเว็บ & AI</span>
+                      </div>
+                    </label>
+                    <label class="cursor-pointer">
+                      <input type="radio" name="drawer-publish-status" value="suspended" id="drawer-pub-archived" class="peer sr-only">
+                      <div class="p-2.5 rounded-xl border border-gray-200 bg-white text-center peer-checked:border-black peer-checked:bg-black peer-checked:text-white transition-all">
+                        <span class="text-xs font-semibold block">ระงับจำหน่าย</span>
+                        <span class="text-[10px] opacity-75 block mt-0.5">หยุดจำหน่าย</span>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+
+                <div>
+                  <span class="text-xs font-bold text-gray-800 block mb-1.5">ความพร้อมในการจัดส่ง (Availability Status)</span>
+                  <div class="grid grid-cols-3 gap-2">
+                    <label class="cursor-pointer">
+                      <input type="radio" name="drawer-fulfillment-status" value="in_stock" id="drawer-ful-instock" class="peer sr-only" checked>
+                      <div class="p-2.5 rounded-xl border border-gray-200 bg-white text-center peer-checked:border-[#0E7A3A] peer-checked:bg-[#E8F8EE] peer-checked:text-[#0E7A3A] transition-all">
+                        <span class="text-xs font-semibold block">พร้อมส่ง</span>
+                        <span class="text-[10px] opacity-80 block mt-0.5">มีของในคลัง</span>
+                      </div>
+                    </label>
+                    <label class="cursor-pointer">
+                      <input type="radio" name="drawer-fulfillment-status" value="out_of_stock" id="drawer-ful-outofstock" class="peer sr-only">
+                      <div class="p-2.5 rounded-xl border border-gray-200 bg-white text-center peer-checked:border-[#9B1C1C] peer-checked:bg-[#FDE8E8] peer-checked:text-[#9B1C1C] transition-all">
+                        <span class="text-xs font-semibold block">หมดสต็อก</span>
+                        <span class="text-[10px] opacity-80 block mt-0.5">รอสินค้าเข้า</span>
+                      </div>
+                    </label>
+                    <label class="cursor-pointer">
+                      <input type="radio" name="drawer-fulfillment-status" value="special_order" id="drawer-ful-preorder" class="peer sr-only">
+                      <div class="p-2.5 rounded-xl border border-gray-200 bg-white text-center peer-checked:border-[#6B21A8] peer-checked:bg-[#F3E8FF] peer-checked:text-[#6B21A8] transition-all">
+                        <span class="text-xs font-semibold block">สั่งพิเศษ</span>
+                        <span class="text-[10px] opacity-80 block mt-0.5">Pre-order / สั่งผลิต</span>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Marketing Badges Card -->
+              <div class="bg-white p-4 sm:p-5 rounded-2xl border border-gray-200 shadow-2xs space-y-3">
+                <span class="text-xs font-bold text-gray-900 block">ป้ายกำกับการตลาด & ผังหน้าร้าน (Marketing Badges)</span>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                  <label class="flex items-center gap-2 p-2.5 rounded-xl border border-gray-200 bg-gray-50/50 hover:bg-gray-50 cursor-pointer transition-colors">
+                    <input type="checkbox" id="drawer-flag-best" class="w-4 h-4 accent-amber-500 rounded">
+                    <span class="text-xs font-semibold text-amber-800">สินค้าขายดี</span>
+                  </label>
+                  <label class="flex items-center gap-2 p-2.5 rounded-xl border border-gray-200 bg-gray-50/50 hover:bg-gray-50 cursor-pointer transition-colors">
+                    <input type="checkbox" id="drawer-flag-new" class="w-4 h-4 accent-emerald-500 rounded">
+                    <span class="text-xs font-semibold text-emerald-800">สินค้าใหม่</span>
+                  </label>
+                  <label class="flex items-center gap-2 p-2.5 rounded-xl border border-gray-200 bg-gray-50/50 hover:bg-gray-50 cursor-pointer transition-colors">
+                    <input type="checkbox" id="drawer-flag-rec" class="w-4 h-4 accent-purple-500 rounded">
+                    <span class="text-xs font-semibold text-purple-800">สินค้าแนะนำ</span>
+                  </label>
+                  <label class="flex items-center gap-2 p-2.5 rounded-xl border border-gray-200 bg-gray-50/50 hover:bg-gray-50 cursor-pointer transition-colors">
+                    <input type="checkbox" id="drawer-flag-promo" class="w-4 h-4 accent-sky-500 rounded">
+                    <span class="text-xs font-semibold text-sky-800">โปรโมชั่น</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Danger Zone Card -->
+              <div id="drawer-danger-zone" class="bg-rose-50/50 p-4 sm:p-5 rounded-2xl border border-rose-200/80 shadow-2xs space-y-3">
+                <div class="flex items-center justify-between flex-wrap gap-2">
+                  <div>
+                    <span class="text-xs font-bold text-rose-900 block">โซนอันตราย (Danger Zone)</span>
+                    <span class="text-[11px] text-rose-700/80">การลบสินค้านี้จะนำข้อมูลออกจากระบบและหน้าบ้านทันที โปรดใช้ความระมัดระวัง</span>
+                  </div>
+                  <button type="button" id="btn-drawer-delete-product" class="px-4 py-2 bg-white hover:bg-rose-600 text-rose-600 hover:text-white border border-rose-300 hover:border-rose-600 rounded-xl text-xs font-semibold transition-all shadow-2xs cursor-pointer inline-flex items-center gap-1.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                    <span>ลบสินค้านี้ออกจากระบบ</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Panel 2: 2-Tier Variants Matrix -->
+            <div id="panel-variants" class="tab-panel space-y-4 hidden">
+              <div class="bg-white p-4 sm:p-5 rounded-2xl border border-gray-200 shadow-2xs space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-gray-100 pb-3">
+                  <div>
+                    <label class="text-xs font-bold text-gray-900 block">ขนาดและหน่วยบรรจุขายส่ง (Variants & Wholesale Matrix)</label>
+                    <p class="text-[11px] text-gray-500">เลือกขนาดทางกายภาพ (Size) และกำหนดระดับราคาตามหน่วยบรรจุ/ขายส่ง (Package Tier)</p>
+                  </div>
+                  <button type="button" id="btn-add-custom-size" class="self-start sm:self-auto inline-flex items-center gap-1 text-[11px] font-semibold text-black bg-white hover:bg-gray-100 border border-gray-300 px-3 py-1.5 rounded-xl cursor-pointer transition-colors shadow-2xs">
+                    + กำหนดขนาดใหม่
+                  </button>
+                </div>
+
+                <!-- Dimension 1: Preset Size Chips Bar -->
+                <div class="space-y-1.5">
+                  <span class="text-[10px] font-semibold text-gray-500 uppercase tracking-wider block">ขนาดมาตรฐานที่รองรับ (คลิกเพื่อเพิ่มขนาดเข้าสู่รายการ):</span>
+                  <div id="drawer-size-presets-bar" class="flex flex-wrap gap-1.5 items-center">
+                    <!-- Dynamic chips injected here -->
+                  </div>
+                </div>
+
+                <!-- Dimension 2: Grouped Matrix Tables per Size -->
+                <div id="drawer-variants-list" class="space-y-4">
+                  <!-- Dynamic 2-tier matrix tables injected here -->
+                </div>
+
+                <datalist id="common-packages-list">
+                  <option value="ชิ้น">
+                  <option value="ม้วน (5 กก.)">
+                  <option value="ม้วน (15 กก.)">
+                  <option value="ห่อ (1 กก.)">
+                  <option value="ห่อ (5 กก.)">
+                  <option value="กล่อง (5 กก.)">
+                  <option value="ลัง (20 กก.)">
+                  <option value="กระป๋อง">
+                  <option value="ชุด">
+                  <option value="แผ่น">
+                  <option value="คู่">
+                </datalist>
+              </div>
+            </div>
+
+            <!-- Panel 3: Technical Specifications Table -->
+            <div id="panel-specs" class="tab-panel space-y-4 hidden">
+              <div class="bg-white p-4 sm:p-5 rounded-2xl border border-gray-200 shadow-2xs space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-gray-100 pb-3">
+                  <div>
+                    <label class="text-xs font-bold text-gray-900 block">ข้อมูลจำเพาะทางเทคนิค (Technical Specifications Table)</label>
+                    <p class="text-[11px] text-gray-500">ตารางคุณสมบัติที่จะแสดงในแท็บสเปกของหน้าสินค้า (Key-Value Pairs)</p>
+                  </div>
+                  <button type="button" id="btn-add-spec-row" class="self-start sm:self-auto inline-flex items-center gap-1 text-[11px] font-semibold text-black bg-white hover:bg-gray-100 border border-gray-300 px-3 py-1.5 rounded-xl cursor-pointer transition-colors shadow-2xs">
+                    + เพิ่มรายการสเปก
+                  </button>
+                </div>
+
+                <!-- Category Spec Presets Bar -->
+                <div class="space-y-1.5">
+                  <span class="text-[10px] font-semibold text-gray-500 uppercase tracking-wider block">หัวข้อสเปกแนะนำตามหมวดหมู่ (คลิกเพื่อเพิ่ม):</span>
+                  <div id="drawer-spec-presets-bar" class="flex flex-wrap gap-1.5 items-center min-h-[24px]">
+                    <!-- Preset chips populated dynamically based on category -->
+                  </div>
+                </div>
+
+                <!-- Specs Table Container -->
+                <div class="overflow-x-auto bg-white rounded-xl border border-gray-200 shadow-2xs">
+                  <table class="w-full text-left text-xs">
+                    <thead class="bg-gray-50/70 text-[10px] uppercase font-bold text-gray-500 border-b border-gray-200 tracking-wider">
+                      <tr>
+                        <th class="py-2.5 px-3 w-[36%]">หัวข้อสเปก / คุณสมบัติ (Key)</th>
+                        <th class="py-2.5 px-3 w-[50%]">ค่ารายละเอียด / ค่าทางเทคนิค (Value)</th>
+                        <th class="py-2.5 px-2 w-[14%] text-center">จัดการ</th>
+                      </tr>
+                    </thead>
+                    <tbody id="drawer-specs-tbody" class="divide-y divide-gray-100">
+                      <!-- Spec rows injected here -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Panel 4: Rich / A+ Content Manager -->
+            <div id="panel-rich" class="tab-panel space-y-4 hidden">
+              <div class="bg-white p-4 sm:p-5 rounded-2xl border border-gray-200 shadow-2xs space-y-4">
+                <div class="border-b border-gray-100 pb-3">
+                  <label class="text-xs font-bold text-gray-900 block">เนื้อหาโชว์เคส / รายละเอียดแบบ A+ (Rich / A+ Content Manager)</label>
+                  <p class="text-[11px] text-gray-500">ส่วนนำเสนอจุดเด่นของสินค้าที่แสดงผลด้านล่างของหน้าสินค้า (A+ Content) พร้อมรูปภาพโชว์เคสและเอกสารรับรอง</p>
+                </div>
+
+                <!-- Headline -->
+                <div>
+                  <label class="text-xs font-semibold text-gray-700 block mb-1">หัวข้อใหญ่โชว์เคส (Headline)</label>
+                  <input 
+                    type="text" 
+                    id="drawer-rich-headline" 
+                    class="w-full bg-[#F8F8FA] border border-gray-300 rounded-xl px-3 py-2 text-xs font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-black" 
+                    placeholder="เช่น ลวดเชื่อมมิกคุณภาพสูง มาตรฐานสากล สำหรับงานโครงสร้างหนัก"
+                  >
+                  <p class="text-[10px] text-gray-400 mt-1">แสดงเป็นหัวข้อใหญ่ (24px) ด้านบนสุดของส่วน Rich Content (หากเว้นว่างจะใช้ชื่อสินค้าอัตโนมัติ)</p>
+                </div>
+
+                <!-- Subheadline -->
+                <div>
+                  <label class="text-xs font-semibold text-gray-700 block mb-1">หัวข้อย่อยโชว์เคส (Subheadline)</label>
+                  <input 
+                    type="text" 
+                    id="drawer-rich-subheadline" 
+                    class="w-full bg-[#F8F8FA] border border-gray-300 rounded-xl px-3 py-2 text-xs text-gray-900 focus:outline-none focus:ring-2 focus:ring-black" 
+                    placeholder="เช่น คุณสมบัติพิเศษที่ช่างมืออาชีพและโรงงานอุตสาหกรรมไว้วางใจ"
+                  >
+                </div>
+
+                <!-- Paragraph Description with Max-Width Note -->
+                <div>
+                  <div class="flex items-center justify-between mb-1">
+                    <label class="text-xs font-semibold text-gray-700 block">คำอธิบายโชว์เคสแบบย่อหน้า (Rich Paragraph Description)</label>
+                    <span class="text-[10px] text-gray-400">ควบคุมความกว้างสูงสุดอัตโนมัติเพื่อให้อ่านง่าย</span>
+                  </div>
+                  <textarea 
+                    id="drawer-rich-desc" 
+                    rows="4" 
+                    class="w-full bg-[#F8F8FA] border border-gray-300 rounded-xl px-3 py-2 text-xs text-gray-900 focus:outline-none focus:ring-2 focus:ring-black leading-relaxed" 
+                    placeholder="ระบุจุดเด่น คุณสมบัติการใช้งาน ข้อแนะนำ และคำอธิบายเชิงลึก..."
+                  ></textarea>
+                </div>
+
+                <!-- Document / Catalog Mode Toggle -->
+                <div class="p-3 bg-gray-50 rounded-xl border border-gray-200 flex items-start gap-3">
+                  <input 
+                    type="checkbox" 
+                    id="drawer-rich-is-document" 
+                    class="w-4 h-4 mt-0.5 accent-black rounded cursor-pointer shrink-0"
+                  >
+                  <label for="drawer-rich-is-document" class="text-xs cursor-pointer select-none">
+                    <span class="font-bold text-gray-900 block">โหมดเอกสารรับรอง / แคตตาล็อก (isDocument Max-Width 1040px)</span>
+                    <span class="text-[11px] text-gray-500 block mt-0.5">เปิดตัวเลือกนี้เมื่อรูปภาพด้านล่างเป็นเอกสารสเปกชีต แคตตาล็อก หรือใบรับรองมาตรฐาน เพื่อขยายความกว้างสูงสุดเป็น 1040px (ปกติโหมดรูปภาพทั่วไปจำกัดความกว้างที่ 760px เพื่อป้องกันรูปแตก)</span>
+                  </label>
+                </div>
+
+                <!-- 3 Showcase Images Grid -->
+                <div class="space-y-2">
+                  <span class="text-xs font-bold text-gray-900 block">รูปภาพโชว์เคสประจำสินค้า (Showcase Images 1-3)</span>
+                  <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <!-- Showcase Image 1 -->
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-200 flex flex-col justify-between space-y-2.5">
+                      <div>
+                        <div class="flex items-center justify-between mb-1.5">
+                          <span class="text-xs font-bold text-gray-800">รูปที่ 1 (ภาพหลักโชว์เคส)</span>
+                          <button type="button" class="btn-clear-rich-img text-[10px] text-gray-400 hover:text-rose-600 cursor-pointer" data-target="1">ลบรูป</button>
+                        </div>
+                        <div class="w-full aspect-video bg-white rounded-lg border border-gray-200 flex items-center justify-center overflow-hidden relative mb-2">
+                          <img id="rich-preview-1" class="w-full h-full object-contain hidden" alt="Preview 1">
+                          <span id="rich-placeholder-1" class="text-[11px] text-gray-400">ยังไม่มีรูปภาพ</span>
+                        </div>
+                        <input 
+                          type="text" 
+                          id="drawer-rich-img-1" 
+                          class="w-full bg-white border border-gray-300 rounded-lg px-2.5 py-1.5 text-[11px] text-gray-800 focus:outline-none focus:ring-1 focus:ring-black mb-2" 
+                          placeholder="URL รูปภาพที่ 1 หรืออัปโหลด"
+                        >
+                      </div>
+                      <div class="flex items-center gap-1.5 pt-1 border-t border-gray-200/60">
+                        <input type="file" id="rich-file-input-1" accept="image/jpeg,image/png,image/webp" class="hidden">
+                        <button type="button" class="btn-browse-rich-file flex-1 py-1.5 px-2 bg-white hover:bg-gray-100 text-gray-800 border border-gray-200 text-[11px] font-semibold rounded-lg text-center cursor-pointer transition-colors" data-target="1">
+                          เลือกจากเครื่อง
+                        </button>
+                        <button type="button" class="btn-use-primary-rich-img py-1.5 px-2 bg-black hover:bg-neutral-800 text-white text-[11px] font-medium rounded-lg text-center cursor-pointer transition-colors" data-target="1" title="ใช้รูปสินค้าหลัก">
+                          ใช้รูปหลัก
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- Showcase Image 2 -->
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-200 flex flex-col justify-between space-y-2.5">
+                      <div>
+                        <div class="flex items-center justify-between mb-1.5">
+                          <span class="text-xs font-bold text-gray-800">รูปที่ 2 (จุดเด่น/การใช้งาน)</span>
+                          <button type="button" class="btn-clear-rich-img text-[10px] text-gray-400 hover:text-rose-600 cursor-pointer" data-target="2">ลบรูป</button>
+                        </div>
+                        <div class="w-full aspect-video bg-white rounded-lg border border-gray-200 flex items-center justify-center overflow-hidden relative mb-2">
+                          <img id="rich-preview-2" class="w-full h-full object-contain hidden" alt="Preview 2">
+                          <span id="rich-placeholder-2" class="text-[11px] text-gray-400">ยังไม่มีรูปภาพ</span>
+                        </div>
+                        <input 
+                          type="text" 
+                          id="drawer-rich-img-2" 
+                          class="w-full bg-white border border-gray-300 rounded-lg px-2.5 py-1.5 text-[11px] text-gray-800 focus:outline-none focus:ring-1 focus:ring-black mb-2" 
+                          placeholder="URL รูปภาพที่ 2 หรืออัปโหลด"
+                        >
+                      </div>
+                      <div class="flex items-center gap-1.5 pt-1 border-t border-gray-200/60">
+                        <input type="file" id="rich-file-input-2" accept="image/jpeg,image/png,image/webp" class="hidden">
+                        <button type="button" class="btn-browse-rich-file flex-1 py-1.5 px-2 bg-white hover:bg-gray-100 text-gray-800 border border-gray-200 text-[11px] font-semibold rounded-lg text-center cursor-pointer transition-colors" data-target="2">
+                          เลือกจากเครื่อง
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- Showcase Image 3 -->
+                    <div class="bg-gray-50 p-3 rounded-xl border border-gray-200 flex flex-col justify-between space-y-2.5">
+                      <div>
+                        <div class="flex items-center justify-between mb-1.5">
+                          <span class="text-xs font-bold text-gray-800">รูปที่ 3 (สเปกชีต/ใบเซอร์)</span>
+                          <button type="button" class="btn-clear-rich-img text-[10px] text-gray-400 hover:text-rose-600 cursor-pointer" data-target="3">ลบรูป</button>
+                        </div>
+                        <div class="w-full aspect-video bg-white rounded-lg border border-gray-200 flex items-center justify-center overflow-hidden relative mb-2">
+                          <img id="rich-preview-3" class="w-full h-full object-contain hidden" alt="Preview 3">
+                          <span id="rich-placeholder-3" class="text-[11px] text-gray-400">ยังไม่มีรูปภาพ</span>
+                        </div>
+                        <input 
+                          type="text" 
+                          id="drawer-rich-img-3" 
+                          class="w-full bg-white border border-gray-300 rounded-lg px-2.5 py-1.5 text-[11px] text-gray-800 focus:outline-none focus:ring-1 focus:ring-black mb-2" 
+                          placeholder="URL รูปภาพที่ 3 หรืออัปโหลด"
+                        >
+                      </div>
+                      <div class="flex items-center gap-1.5 pt-1 border-t border-gray-200/60">
+                        <input type="file" id="rich-file-input-3" accept="image/jpeg,image/png,image/webp" class="hidden">
+                        <button type="button" class="btn-browse-rich-file flex-1 py-1.5 px-2 bg-white hover:bg-gray-100 text-gray-800 border border-gray-200 text-[11px] font-semibold rounded-lg text-center cursor-pointer transition-colors" data-target="3">
+                          เลือกจากเครื่อง
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Right Column: Live Storefront Card Preview & Summary (25-30% on desktop) -->
+        <div class="w-full lg:w-[320px] xl:w-[360px] shrink-0 sticky top-0 space-y-4">
+          <!-- Live Preview Card Box -->
+          <div class="bg-white rounded-2xl p-4 border border-gray-200 shadow-2xs space-y-3">
+            <div class="flex items-center justify-between border-b border-gray-100 pb-2">
+              <span class="text-xs font-bold text-gray-900 block">ตัวอย่างการ์ดหน้าร้านจริง</span>
+              <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">WYSIWYG</span>
+            </div>
+
+            <div id="drawer-preview-card" class="max-w-[280px] mx-auto bg-white rounded-2xl shadow-sm border border-gray-200 p-3">
+              <!-- Rendered live via ProductCard component -->
+            </div>
+
+            <!-- Product Image Framing Action Bar -->
+            <div class="pt-2 border-t border-gray-100 space-y-2">
+              <div class="flex items-center justify-between text-[11px] text-gray-500">
+                <span>อัตราส่วนภาพ:</span>
+                <span class="font-semibold text-gray-700">1:1 Square (800x800)</span>
+              </div>
+              <div class="flex items-center justify-between text-[11px] text-gray-500">
+                <span>สถานะภาพ:</span>
+                <span id="drawer-image-status" class="font-semibold text-gray-700 truncate max-w-[140px]">รูปภาพมาตรฐาน</span>
+              </div>
+              <button type="button" id="btn-open-image-framing" class="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 bg-black hover:bg-neutral-800 text-white rounded-xl text-xs font-semibold shadow-xs transition-all cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <span>เปลี่ยน / จัดตำแหน่งรูปภาพ 1:1</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Shortcuts & Navigation Quick Helper -->
+          <div class="bg-white rounded-2xl p-4 border border-gray-200 shadow-2xs space-y-2.5 text-xs">
+            <span class="font-bold text-gray-900 block">ทางลัดสลับแท็บแก้ไข</span>
+            <div class="grid grid-cols-2 gap-1.5">
+              <button type="button" class="btn-quick-tab py-1.5 px-2 bg-gray-50 hover:bg-gray-100 rounded-lg text-gray-700 text-left cursor-pointer transition-colors" data-target="tab-basic">
+                1. ข้อมูลพื้นฐาน
+              </button>
+              <button type="button" class="btn-quick-tab py-1.5 px-2 bg-gray-50 hover:bg-gray-100 rounded-lg text-gray-700 text-left cursor-pointer transition-colors" data-target="tab-variants">
+                2. ราคาส่ง/สต็อก
+              </button>
+              <button type="button" class="btn-quick-tab py-1.5 px-2 bg-gray-50 hover:bg-gray-100 rounded-lg text-gray-700 text-left cursor-pointer transition-colors" data-target="tab-specs">
+                3. สเปกเทคนิค
+              </button>
+              <button type="button" class="btn-quick-tab py-1.5 px-2 bg-gray-50 hover:bg-gray-100 rounded-lg text-gray-700 text-left cursor-pointer transition-colors" data-target="tab-rich">
+                4. โชว์เคส A+
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Workbench Footer Actions -->
+    <div class="px-5 py-3.5 border-t border-gray-200 bg-white flex items-center justify-between gap-3 sticky bottom-0 z-20">
+      <div class="hidden sm:flex items-center gap-2 text-xs text-gray-500">
+        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+        <span>ระบบพร้อมบันทึกการเปลี่ยนแปลงและอัปเดตหน้าบ้านทันที</span>
+      </div>
+      <div class="flex items-center gap-3 w-full sm:w-auto">
+        <button id="drawer-cancel-btn" type="button" class="flex-1 sm:flex-initial px-5 py-2.5 rounded-xl text-xs font-semibold bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all cursor-pointer">ยกเลิก</button>
+        <button id="drawer-save-btn" type="button" class="flex-1 sm:flex-initial px-6 py-2.5 rounded-xl text-xs font-semibold bg-black text-white hover:bg-neutral-800 transition-all shadow-md cursor-pointer inline-flex items-center justify-center gap-1.5">
+          <span>บันทึกข้อมูลหน้าบ้านทันที</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+
+  <!-- Toast Notification Container -->
+  <div id="admin-toast" class="fixed bottom-6 right-6 bg-black text-white px-4 py-3 rounded-2xl shadow-2xl text-xs font-medium transform translate-y-20 opacity-0 transition-all duration-300 z-50 flex items-center gap-2 border border-neutral-700">
+    <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+    <span id="toast-message">บันทึกสำเร็จ</span>
+  </div>
+
+  <!-- Admin Authentication Modal (Login Gate) -->
+  <dialog id="admin-login-modal" class="p-0 rounded-3xl shadow-2xl backdrop:bg-black/60 border border-neutral-200 focus:outline-none">
+    <div class="bg-white p-7 sm:p-9 w-88 sm:w-96 space-y-6">
+      <div class="text-center space-y-2">
+        <div class="w-14 h-14 mx-auto rounded-2xl bg-[#0B0B0C] border border-neutral-700 flex items-center justify-center shadow-lg">
+          <span class="font-bold text-white tracking-widest text-lg">UDO</span>
+        </div>
+        <h3 class="text-lg font-bold text-gray-900">เข้าสู่ระบบผู้ดูแล</h3>
+        <p class="text-xs text-gray-500">กรุณาเข้าสู่ระบบเพื่อจัดการสต็อกและร้านค้า</p>
+      </div>
+
+      <form id="admin-login-form" class="space-y-4">
+        <div>
+          <label class="text-xs font-semibold text-gray-700 block mb-1">ชื่อผู้ใช้งาน</label>
+          <input 
+            type="text" 
+            id="login-username" 
+            required
+            autocomplete="username"
+            placeholder="admin หรือ warehouse01" 
+            class="w-full bg-[#F8F8FA] border border-gray-300 rounded-xl px-3.5 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-black"
+          >
+        </div>
+
+        <div>
+          <label class="text-xs font-semibold text-gray-700 block mb-1">รหัสผ่าน</label>
+          <input 
+            type="password" 
+            id="login-password" 
+            required
+            autocomplete="current-password"
+            placeholder="รหัสผ่านผู้ดูแลระบบ" 
+            class="w-full bg-[#F8F8FA] border border-gray-300 rounded-xl px-3.5 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-black"
+          >
+        </div>
+
+        <div id="login-error-msg" class="hidden text-xs text-rose-600 bg-rose-50 border border-rose-200 rounded-xl p-2.5 text-center font-medium">
+        </div>
+
+        <button 
+          type="submit" 
+          id="login-submit-btn" 
+          class="w-full py-3 rounded-xl text-sm font-semibold bg-black text-white hover:bg-neutral-800 transition-all shadow-md cursor-pointer flex items-center justify-center gap-2"
+        >
+          <span>เข้าสู่ระบบ</span>
+        </button>
+
+        <div class="p-3 bg-gray-50 rounded-xl border border-gray-200/60 text-[11px] text-gray-500 space-y-1">
+          <p class="font-semibold text-gray-700">บัญชีสำหรับทดสอบ:</p>
+          <p>• Super Admin: <span class="font-mono text-gray-900">admin</span> / <span class="font-mono text-gray-900">udo@admin2026</span></p>
+          <p>• Staff: <span class="font-mono text-gray-900">warehouse01</span> / <span class="font-mono text-gray-900">staff@2026</span></p>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+
+
+  <!-- 1-Click Status Popover Dropdown (Singleton) -->
+  <div id="global-status-popover" class="fixed z-50 hidden bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-black/[0.08] p-1.5 w-44 transition-all duration-150 transform scale-95 opacity-0">
+    <button data-status="publish" class="status-option-item w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold hover:bg-gray-100 transition-colors cursor-pointer text-left">
+      <span class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+        <span class="text-gray-800">เผยแพร่</span>
+      </span>
+      <span class="check-icon hidden text-emerald-600 font-bold">&#10003;</span>
+    </button>
+    <button data-status="draft" class="status-option-item w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold hover:bg-gray-100 transition-colors cursor-pointer text-left">
+      <span class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-gray-400"></span>
+        <span class="text-gray-800">ฉบับร่าง</span>
+      </span>
+      <span class="check-icon hidden text-gray-600 font-bold">&#10003;</span>
+    </button>
+    <button data-status="suspended" class="status-option-item w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold hover:bg-gray-100 transition-colors cursor-pointer text-left">
+      <span class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+        <span class="text-gray-800">ระงับจำหน่าย</span>
+      </span>
+      <span class="check-icon hidden text-rose-600 font-bold">&#10003;</span>
+    </button>
+  </div>
+
+  <!-- Floating Bottom Action Dock (macOS / iOS Capsule Bar) -->
+  <div id="floating-batch-dock" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 transform translate-y-24 opacity-0 pointer-events-none transition-all duration-300 ease-out flex items-center gap-2.5 sm:gap-3 px-4 sm:px-5 py-2.5 sm:py-3 rounded-full bg-[#0B0B0C]/90 backdrop-blur-xl border border-neutral-700/80 text-white shadow-2xl max-w-[95vw] overflow-x-auto">
+    <div class="flex items-center gap-2 pr-3 border-r border-neutral-700 shrink-0">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      <span id="batch-selected-count-label" class="text-xs font-bold text-white whitespace-nowrap">เลือกอยู่ 0 รายการ</span>
+    </div>
+
+    <!-- Quick Status Batch Buttons -->
+    <div class="flex items-center gap-1.5 shrink-0">
+      <button data-batch-status="publish" class="batch-action-btn px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/30 transition-all cursor-pointer whitespace-nowrap">
+        เผยแพร่
+      </button>
+      <button data-batch-status="draft" class="batch-action-btn px-3 py-1.5 rounded-full text-xs font-semibold bg-neutral-700 hover:bg-neutral-600 text-neutral-200 transition-all cursor-pointer whitespace-nowrap">
+        ฉบับร่าง
+      </button>
+      <button data-batch-status="suspended" class="batch-action-btn px-3 py-1.5 rounded-full text-xs font-semibold bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/30 transition-all cursor-pointer whitespace-nowrap">
+        ระงับ
+      </button>
+      <button data-batch-avail="in_stock" class="batch-action-btn px-3 py-1.5 rounded-full text-xs font-semibold bg-white/10 hover:bg-white/20 text-white transition-all cursor-pointer whitespace-nowrap">
+        เป็นพร้อมส่ง
+      </button>
+      <button data-batch-avail="out_of_stock" class="batch-action-btn px-3 py-1.5 rounded-full text-xs font-semibold bg-white/10 hover:bg-white/20 text-neutral-300 transition-all cursor-pointer whitespace-nowrap">
+        เป็นหมดสต็อก
+      </button>
+      <button type="button" id="btn-batch-delete-products" class="batch-action-btn px-3 py-1.5 rounded-full text-xs font-semibold bg-rose-500/25 hover:bg-rose-500/40 text-rose-300 border border-rose-500/40 transition-all cursor-pointer whitespace-nowrap inline-flex items-center gap-1">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+        </svg>
+        <span>ลบที่เลือก</span>
+      </button>
+    </div>
+
+    <!-- Dismiss Button -->
+    <button id="btn-cancel-batch-selection" title="ยกเลิกการเลือก" class="p-1.5 rounded-full text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors ml-1 cursor-pointer shrink-0">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Product Image Framing & Positioning Modal (1:1 Fixed Aspect Ratio, Center Crosshairs & Safe Zone) -->
+  <dialog id="image-framing-modal" class="p-0 bg-transparent backdrop:bg-black/60 backdrop:backdrop-blur-sm fixed inset-0 m-auto z-50 rounded-3xl max-w-lg w-full shadow-2xl transition-all pointer-events-auto">
+    <div id="framing-modal-card" class="bg-white rounded-3xl overflow-hidden border border-black/[0.08] flex flex-col max-h-[92vh] pointer-events-auto">
+      <!-- Header -->
+      <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between shrink-0 bg-white">
+        <div>
+          <h3 class="text-base font-bold text-gray-900">จัดตำแหน่งและครอบตัดรูปภาพ</h3>
+          <p class="text-xs text-gray-500 mt-0.5">สัดส่วน 1:1 พร้อมเส้นเล็งศูนย์กลางและขอบเขตระยะปลอดภัย 88%</p>
+        </div>
+        <button type="button" id="btn-close-framing-modal" class="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 hover:text-black transition-colors cursor-pointer" title="ปิด">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Body / Canvas Workspace -->
+      <div class="p-6 flex flex-col items-center gap-4 overflow-y-auto">
+        
+        <!-- Dropzone / File Selector (When no new image loaded, or to replace image) -->
+        <div class="w-full flex items-center justify-between gap-3">
+          <button type="button" id="btn-framing-browse" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold bg-gray-100 hover:bg-gray-200 text-gray-800 transition-colors cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+            </svg>
+            <span>เลือกรูปภาพจากเครื่อง</span>
+          </button>
+          <input type="file" id="framing-file-input" accept="image/jpeg,image/png,image/webp" class="hidden">
+          <span class="text-[11px] text-gray-400">หรือลากไฟล์รูปมาวางบนกรอบ</span>
+        </div>
+
+        <!-- 1:1 Canvas Container (Interactive Pan & Zoom Viewport) -->
+        <div id="framing-canvas-viewport" class="relative w-[340px] sm:w-[380px] aspect-square rounded-2xl bg-[#0F0F11] overflow-hidden shadow-inner border border-black/10 select-none cursor-grab active:cursor-grabbing flex items-center justify-center">
+          
+          <!-- Hidden Native Canvas for Export (800x800) -->
+          <canvas id="framing-export-canvas" width="800" height="800" class="hidden"></canvas>
+
+          <!-- Interactive Display Canvas (400x400) -->
+          <canvas id="framing-display-canvas" width="400" height="400" class="w-full h-full object-contain pointer-events-none"></canvas>
+
+          <!-- Center Crosshairs Overlay (เส้นกากบาทเล็งศูนย์กลาง 50/50) -->
+          <div class="absolute inset-0 pointer-events-none flex items-center justify-center">
+            <!-- Vertical Hairline -->
+            <div class="absolute inset-y-0 left-1/2 -translate-x-1/2 w-[1px] bg-white/40 shadow-xs"></div>
+            <!-- Horizontal Hairline -->
+            <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[1px] bg-white/40 shadow-xs"></div>
+            <!-- Center Anchor Point Dot -->
+            <div class="absolute w-2 h-2 rounded-full border border-white bg-amber-400/80 shadow-xs"></div>
+          </div>
+
+          <!-- Safe Zone Guide (88% Inset matching scale-[0.88] of storefront card) -->
+          <div class="absolute inset-[6%] rounded-xl border border-dashed border-amber-300/80 pointer-events-none flex flex-col justify-between p-2 shadow-xs">
+            <span class="text-[10px] font-mono text-amber-200/90 tracking-wide uppercase bg-black/60 px-1.5 py-0.5 rounded self-start">Safe Zone 88%</span>
+            <span class="text-[10px] font-mono text-amber-200/70 tracking-wide text-right self-end bg-black/60 px-1.5 py-0.5 rounded">Storefront Match</span>
+          </div>
+
+          <!-- Hint Pill -->
+          <div class="absolute bottom-2 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-xs text-[10.5px] text-white/90 pointer-events-none">
+            คลิกค้างแล้วลากเพื่อขยับตำแหน่ง
+          </div>
+        </div>
+
+        <!-- Controls Bar: Zoom Slider + Action Buttons -->
+        <div class="w-full max-w-[380px] space-y-3 bg-[#F8F8FA] p-3.5 rounded-2xl border border-gray-200/80">
+          <div class="flex items-center justify-between text-xs text-gray-700">
+            <span class="font-semibold flex items-center gap-1.5">
+              <span>ระดับการซูม (Zoom)</span>
+            </span>
+            <span id="framing-zoom-label" class="font-mono font-bold text-gray-900">100%</span>
+          </div>
+
+          <!-- Zoom Slider -->
+          <div class="flex items-center gap-3">
+            <button type="button" id="btn-framing-zoom-out" class="w-7 h-7 rounded-lg bg-white border border-gray-200 hover:border-black flex items-center justify-center text-gray-600 hover:text-black transition-colors cursor-pointer text-sm font-bold">
+              -
+            </button>
+            <input type="range" id="framing-zoom-slider" min="1.0" max="3.0" step="0.01" value="1.0" class="flex-1 accent-black cursor-pointer">
+            <button type="button" id="btn-framing-zoom-in" class="w-7 h-7 rounded-lg bg-white border border-gray-200 hover:border-black flex items-center justify-center text-gray-600 hover:text-black transition-colors cursor-pointer text-sm font-bold">
+              +
+            </button>
+          </div>
+
+          <!-- Quick Action Buttons: Snap to Center, Rotate -->
+          <div class="flex items-center gap-2 pt-1 border-t border-gray-200/60">
+            <button type="button" id="btn-framing-snap-center" class="flex-1 inline-flex items-center justify-center gap-1.5 py-1.5 px-3 bg-white hover:bg-gray-100 border border-gray-200 rounded-xl text-xs font-semibold text-gray-800 transition-colors cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v3m0 12v3m9-9h-3M6 12H3" />
+              </svg>
+              <span>จัดกึ่งกลางอัตโนมัติ</span>
+            </button>
+            <button type="button" id="btn-framing-rotate" class="inline-flex items-center justify-center gap-1.5 py-1.5 px-3 bg-white hover:bg-gray-100 border border-gray-200 rounded-xl text-xs font-semibold text-gray-800 transition-colors cursor-pointer" title="หมุนภาพ 90 องศา">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
+              <span>หมุน 90°</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer Buttons -->
+      <div class="px-6 py-4 border-t border-gray-100 flex items-center justify-end gap-3 bg-white shrink-0">
+        <button type="button" id="btn-framing-cancel" class="px-4 py-2.5 rounded-xl text-xs font-semibold bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors cursor-pointer">
+          ยกเลิก
+        </button>
+        <button type="button" id="btn-framing-apply-upload" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-semibold bg-black hover:bg-neutral-800 text-white shadow-md transition-all cursor-pointer">
+          <svg id="framing-upload-spinner" class="w-3.5 h-3.5 animate-spin hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          <span id="framing-apply-text">บันทึกและใช้รูปภาพนี้</span>
+        </button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Safe Product Deletion Confirmation Modal -->
+  <dialog id="delete-confirm-modal" class="p-0 rounded-3xl shadow-2xl backdrop:bg-black/60 backdrop:backdrop-blur-sm border border-neutral-200 focus:outline-none w-[92vw] max-w-md overflow-hidden fixed inset-0 m-auto z-50">
+    <div class="bg-white p-6 space-y-4">
+      <!-- Icon & Title -->
+      <div class="flex items-start gap-3">
+        <div class="w-10 h-10 rounded-2xl bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-600 shrink-0">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="text-base font-bold text-gray-900" id="delete-modal-title">ยืนยันการลบสินค้าออกจากระบบ</h3>
+          <p class="text-xs text-gray-500 mt-0.5">การดำเนินการนี้ไม่สามารถยกเลิกได้ สินค้าจะถูกลบออกจากฐานข้อมูลและหน้าบ้านทันที</p>
+        </div>
+      </div>
+
+      <!-- Product Detail Card (Single Delete) -->
+      <div id="delete-modal-single-info" class="p-3.5 bg-gray-50 rounded-2xl border border-gray-200 flex items-center gap-3">
+        <div class="w-14 h-14 bg-white rounded-xl border border-gray-200 flex items-center justify-center overflow-hidden shrink-0">
+          <img id="delete-modal-img" src="" alt="Product" class="w-full h-full object-contain p-1">
+        </div>
+        <div class="min-w-0 flex-1">
+          <p id="delete-modal-name" class="text-xs font-bold text-gray-900 line-clamp-1">-</p>
+          <p id="delete-modal-sku" class="text-[11px] text-gray-500 font-mono mt-0.5">SKU: -</p>
+          <span id="delete-modal-cat" class="inline-block mt-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-gray-200 text-gray-700">-</span>
+        </div>
+      </div>
+
+      <!-- Batch Summary Card (Batch Delete) -->
+      <div id="delete-modal-batch-info" class="hidden p-4 bg-rose-50/60 rounded-2xl border border-rose-200 text-center space-y-1">
+        <span class="text-sm font-bold text-rose-950 block">คุณกำลังจะลบสินค้าจำนวน</span>
+        <span id="delete-modal-batch-count" class="text-2xl font-black text-rose-600 block">0</span>
+        <span class="text-xs text-rose-800 font-medium block">รายการออกจากระบบ</span>
+      </div>
+
+      <!-- Audit Warning -->
+      <div class="p-2.5 bg-neutral-50 rounded-xl border border-neutral-200/60 text-[11px] text-gray-500">
+        * ข้อมูลการลบจะถูกบันทึกลงในระบบประวัติการตรวจสอบ (Audit Trail) โดยอัตโนมัติ
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-2.5 pt-2 border-t border-gray-100">
+        <button type="button" id="delete-modal-cancel-btn" class="flex-1 py-2.5 rounded-xl text-xs font-semibold bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all cursor-pointer">
+          ยกเลิก
+        </button>
+        <button type="button" id="delete-modal-confirm-btn" class="flex-1 py-2.5 rounded-xl text-xs font-semibold bg-rose-600 hover:bg-rose-700 text-white transition-all shadow-sm cursor-pointer flex items-center justify-center gap-1.5">
+          <span>ยืนยันการลบถาวร</span>
+        </button>
+      </div>
+    </div>
+  </dialog>
+
+</body>
+</html>
