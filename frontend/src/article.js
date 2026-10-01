@@ -181,9 +181,6 @@ function renderArticle(article) {
   const dateEl = document.getElementById('article-date');
   if (dateEl) dateEl.textContent = formatDateThai(article.created_at) || 'บทความวิศวกรรม';
 
-  const readTimeEl = document.getElementById('article-read-time');
-  if (readTimeEl) readTimeEl.textContent = `อ่าน ${article.read_time_minutes || 3} นาที`;
-
   const titleEl = document.getElementById('article-title');
   if (titleEl) titleEl.textContent = article.title;
 
@@ -238,8 +235,8 @@ function renderArticle(article) {
     if (article.highlight_quote) {
       quoteText.textContent = `“${article.highlight_quote}”`;
       quoteCallout.classList.remove('hidden');
-    } else if (article.excerpt && article.excerpt.length > 25 && article.excerpt.length < 180) {
-      quoteText.textContent = `“${article.excerpt}”`;
+    } else if (article.excerpt && article.excerpt.trim()) {
+      quoteText.textContent = `“${article.excerpt.trim()}”`;
       quoteCallout.classList.remove('hidden');
     } else {
       quoteCallout.classList.add('hidden');
@@ -354,7 +351,7 @@ async function renderRelatedArticles(currentSlug) {
           `}
         </div>
         <div class="text-xs text-gray-400 font-medium mb-1">
-          ${formatDateThai(a.created_at) || 'บทความวิศวกรรม'} • อ่าน ${a.read_time_minutes || 3} นาที
+          ${formatDateThai(a.created_at) || 'บทความวิศวกรรม'}
         </div>
         <h3 class="font-semibold text-[#160808] group-hover:text-[#c5161b] transition-colors text-[16px] sm:text-[17px] leading-[1.38] line-clamp-2 h-[48px] overflow-hidden text-ellipsis mb-1.5" title="${escapeHtml(a.title)}">
           ${escapeHtml(a.title)}

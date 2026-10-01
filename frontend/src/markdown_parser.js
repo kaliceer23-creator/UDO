@@ -74,7 +74,7 @@ function parseInlineMarkdown(text) {
 
   // 0. Images: ![alt](url)
   out = out.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, url) => {
-    return `<figure class="my-6 text-center"><img src="${escapeHtml(url)}" alt="${escapeHtml(alt || 'ภาพประกอบ')}" class="w-full max-w-[800px] h-auto object-contain rounded-2xl mx-auto border border-gray-200/80 shadow-xs" loading="lazy" />${alt && alt !== 'ภาพประกอบ' && alt !== 'ภาพประกอบเนื้อหา' ? `<figcaption class="text-xs text-gray-500 mt-2 text-center">${escapeHtml(alt)}</figcaption>` : ''}</figure>`;
+    return `<figure class="my-6 text-center"><img src="${escapeHtml(url)}" alt="${escapeHtml(alt || 'ภาพประกอบ')}" class="w-full max-w-[800px] h-auto object-contain rounded-[8px] mx-auto border border-gray-200/80 shadow-xs" loading="lazy" />${alt && alt !== 'ภาพประกอบ' && alt !== 'ภาพประกอบเนื้อหา' ? `<figcaption class="text-xs text-gray-500 mt-2 text-center">${escapeHtml(alt)}</figcaption>` : ''}</figure>`;
   });
 
   // 1. Inline code / Specs pill: `code`
@@ -249,7 +249,7 @@ export function renderMarkdownToHTML(markdownInput) {
       const url = imgBlockMatch[2].trim();
       htmlParts.push(`
         <figure class="my-6 text-center">
-          <img src="${escapeHtml(url)}" alt="${escapeHtml(alt || 'ภาพประกอบ')}" class="w-full max-w-[800px] h-auto object-contain rounded-2xl mx-auto border border-gray-200/80 shadow-xs" loading="lazy" />
+          <img src="${escapeHtml(url)}" alt="${escapeHtml(alt || 'ภาพประกอบ')}" class="w-full max-w-[800px] h-auto object-contain rounded-[8px] mx-auto border border-gray-200/80 shadow-xs" loading="lazy" />
           ${alt && alt !== 'ภาพประกอบ' && alt !== 'ภาพประกอบเนื้อหา' ? `<figcaption class="text-xs text-gray-500 mt-2 text-center">${escapeHtml(alt)}</figcaption>` : ''}
         </figure>
       `);
@@ -294,7 +294,7 @@ export function renderMarkdownToHTML(markdownInput) {
       }
       if (trimmed.startsWith('# ')) {
         const text = trimmed.slice(2).trim();
-        htmlParts.push(`<h2 class="text-[22px] sm:text-[24px] font-bold text-[#160808] mt-8 mb-3.5 tracking-tight leading-snug border-b border-gray-100 pb-2">${parseInlineMarkdown(text)}</h2>`);
+        htmlParts.push(`<h2 class="text-[21px] sm:text-[23px] font-bold text-[#160808] mt-7 mb-3 tracking-tight leading-snug">${parseInlineMarkdown(text)}</h2>`);
         continue;
       }
     }
