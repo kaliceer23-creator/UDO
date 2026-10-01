@@ -416,10 +416,20 @@ function runLocalFallbackFilter() {
     if (state.sortOrder === 'name_asc') {
       return (a.name || '').localeCompare(b.name || '', 'th');
     }
-    // Default: sort_priority
+    // Default: sort_priority (with deterministic tie-breakers)
     const prioA = a.sort_priority ?? 100;
     const prioB = b.sort_priority ?? 100;
-    return prioA - prioB;
+    if (prioA !== prioB) {
+      return prioA - prioB;
+    }
+    // Tie-breaker 1: Best seller items come first within same priority tier
+    const bestA = a.flags?.is_best_seller ? 1 : 0;
+    const bestB = b.flags?.is_best_seller ? 1 : 0;
+    if (bestA !== bestB) {
+      return bestB - bestA;
+    }
+    // Tie-breaker 2: Alphabetical name order for consistent stability
+    return (a.name || '').localeCompare(b.name || '', 'th');
   });
 
   // Calculate Metrics from full master list
