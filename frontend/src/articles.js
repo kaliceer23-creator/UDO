@@ -52,9 +52,9 @@ async function fetchAllArticles() {
 function renderArticleCard(a) {
   const tags = Array.isArray(a.tags) ? a.tags.slice(0, 3) : [];
   const tagsHtml = tags.map(t => `
-    <span class="inline-block text-[11px] font-medium text-gray-500 bg-[#F5F5F7] border border-gray-200/80 px-2 py-0.5 rounded-[3px]">
-      ${escapeHtml(t)}
-    </span>
+    <a href="/category.html?q=${encodeURIComponent(t)}" class="px-2.5 py-1 bg-[#F5F5F7] hover:bg-gray-200 border border-gray-200/80 rounded-lg text-xs text-gray-700 font-medium transition-colors select-none">
+      #${escapeHtml(t)}
+    </a>
   `).join('');
 
   return `
@@ -73,18 +73,18 @@ function renderArticleCard(a) {
           ${escapeHtml(a.author || 'UDO TECHNICAL TEAM')} • ${formatDateThai(a.created_at)}
         </div>
 
-        <h3 class="text-[17.5px] sm:text-[19px] font-bold text-[#160808] leading-snug line-clamp-2 mb-2 group-hover:text-[#c5161b] transition-colors" title="${escapeHtml(a.title)}">
+        <h3 class="text-[20px] sm:text-[22px] font-bold text-[#160808] leading-snug line-clamp-2 mb-2 group-hover:text-[#c5161b] transition-colors" title="${escapeHtml(a.title)}">
           <a href="/article.html?slug=${encodeURIComponent(a.slug || a.id)}">
             ${escapeHtml(a.title)}
           </a>
         </h3>
 
-        <p class="text-[13px] sm:text-[13.5px] text-gray-600 leading-relaxed font-light line-clamp-3 mb-3.5">
+        <p class="text-[14.5px] sm:text-[15px] text-[#2c2c2e] leading-relaxed font-normal line-clamp-3 mb-3.5">
           ${escapeHtml(a.excerpt || '')}
         </p>
       </div>
 
-      <div class="flex flex-wrap gap-1.5 pt-1 border-t border-gray-100">
+      <div class="flex flex-wrap items-center gap-2 pt-1">
         ${tagsHtml}
       </div>
     </article>
