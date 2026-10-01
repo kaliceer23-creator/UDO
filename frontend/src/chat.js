@@ -485,6 +485,17 @@ function openArticleModal(articleId) {
           </div>
         </div>
       ` : ''}
+
+      <!-- Full Article Reader Link -->
+      ${art.slug || art.id ? `
+        <div class="pt-3 border-t border-gray-100 flex items-center justify-between">
+          <span class="text-xs text-gray-400">บทความวิศวกรรมฉบับเต็ม</span>
+          <a href="/article.html?slug=${encodeURIComponent(art.slug || art.id)}" target="_blank" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-[#160808] hover:bg-black text-white text-xs font-semibold rounded-xl transition-all shadow-2xs">
+            <span>อ่านฉบับเต็ม</span>
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </a>
+        </div>
+      ` : ''}
     </div>
   `;
 

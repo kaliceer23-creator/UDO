@@ -64,12 +64,12 @@ async function fetchArticleData(slug, id) {
       const all = await res.json();
       if (Array.isArray(all) && all.length > 0) {
         if (slug) {
-          const match = all.find(a => a.slug === slug);
-          if (match) return match;
+          const match = all.find(a => a.slug === slug || (a.slug && a.slug.toLowerCase() === slug.toLowerCase()));
+          return match || null;
         }
         if (id) {
-          const match = all.find(a => a.id === id);
-          if (match) return match;
+          const match = all.find(a => String(a.id) === String(id));
+          return match || null;
         }
         return all[0];
       }
@@ -137,6 +137,22 @@ function renderArticle(article) {
   if (!article) {
     const titleEl = document.getElementById('article-title');
     if (titleEl) titleEl.textContent = 'ไม่พบบทความที่ต้องการ';
+    const excerptEl = document.getElementById('article-excerpt');
+    if (excerptEl) {
+      excerptEl.innerHTML = `
+        <span class="block mb-4">ขออภัย ไม่พบบทความที่คุณกำลังค้นหา อาจถูกย้ายหรือเปลี่ยนชื่อ</span>
+        <a href="/" class="inline-flex items-center gap-2 px-5 py-2.5 bg-[#160808] text-white text-sm font-semibold rounded-xl hover:bg-black transition-all">
+          &larr; กลับหน้าหลัก
+        </a>
+      `;
+      excerptEl.style.display = 'block';
+    }
+    const catEl = document.getElementById('article-category');
+    if (catEl) catEl.textContent = 'UDO Technical Knowledge';
+    const dateEl = document.getElementById('article-date');
+    if (dateEl) dateEl.textContent = '';
+    const readTimeEl = document.getElementById('article-read-time');
+    if (readTimeEl) readTimeEl.textContent = '';
     return;
   }
 

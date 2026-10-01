@@ -231,6 +231,56 @@ const promoFn = (db) => {
     .sort((a, b) => (a.storefront_shelves.promotion ?? 9999) - (b.storefront_shelves.promotion ?? 9999));
 };
 
+const esc = (s) => (s ? String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;') : '');
+
+export async function hydrateArticlesTrack() {
+  const track = document.getElementById('articles-track');
+  if (!track) return;
+
+  try {
+    let articles = [];
+    const res = await fetch('/api/articles.php?limit=6');
+    if (res.ok) {
+      const data = await res.json();
+      if (data.success && Array.isArray(data.articles) && data.articles.length > 0) {
+        articles = data.articles;
+      }
+    }
+    if (articles.length === 0) {
+      const fallbackRes = await fetch('/api/articles.json');
+      if (fallbackRes.ok) {
+        const all = await fallbackRes.json();
+        if (Array.isArray(all) && all.length > 0) {
+          articles = all.slice(0, 6);
+        }
+      }
+    }
+
+    if (articles.length > 0) {
+      track.innerHTML = articles.map(art => {
+        const cover = art.cover_image || '/images/bg-welding.jpeg';
+        const slug = art.slug || art.id;
+        const excerpt = art.excerpt || '';
+        return `
+          <a href="/article.html?slug=${encodeURIComponent(slug)}" class="article-card-peek-3 snap-start shrink-0 flex flex-col group cursor-pointer">
+            <div class="w-full aspect-[16/10] bg-gray-100 rounded-[8px] overflow-hidden mb-3.5 md:mb-4 relative">
+              <img src="${cover}" alt="${esc(art.title)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" loading="lazy" />
+            </div>
+            <h3 class="font-semibold text-[#160808] group-hover:text-brand-red transition-colors text-[18.5px] md:text-[20px] leading-[1.38] md:leading-[1.4] line-clamp-2 h-[54px] md:h-[58px] overflow-hidden text-ellipsis transform scale-y-[1.035] origin-top-left" title="${esc(art.title)}">
+              ${esc(art.title)}
+            </h3>
+            <p class="text-[15px] md:text-[16px] text-[#555555] font-light line-clamp-2 mt-1 md:mt-1.5 leading-[1.48] md:leading-[1.5] h-[44px] md:h-[48px] overflow-hidden text-ellipsis">
+              ${esc(excerpt)}
+            </p>
+          </a>
+        `;
+      }).join('');
+    }
+  } catch (e) {
+    // Keep server-rendered static cards on error
+  }
+}
+
 /**
  * Hydrate all storefront tracks with given product dataset
  */
@@ -243,6 +293,7 @@ export const hydrateAllTracks = (sourceDb = mockDatabase) => {
   injectTrack('recommended-products-track', forYouFn, sourceDb);
   injectTrack('promotions-track', promoFn, sourceDb);
   injectTrack('promotion-track', promoFn, sourceDb);
+  hydrateArticlesTrack();
 };
 
 // Initial synchronous render (0ms perceived latency)

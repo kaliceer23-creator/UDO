@@ -239,25 +239,26 @@ export function renderCitationsCardContentHTML(citations = [], meta = {}) {
   let articleCardHTML = '';
   if (articlesCount > 0) {
     const art = matchedArticles[0];
+    const articleLink = art.slug ? `/article.html?slug=${encodeURIComponent(art.slug)}` : '/article.html';
     articleCardHTML = `
       <div class="citation-source-item group relative rounded-xl p-1.5 -mx-1.5 transition-all duration-300">
-        <!-- Top line: Favicon + Source name with count + 3 dots -->
+        <!-- Top line: Favicon + Source name with count + Link icon -->
         <div class="flex items-center justify-between gap-2 mb-1.5">
           <div class="flex items-center gap-1.5 min-w-0">
             <img src="/images/logos/logo.svg" alt="UDO" class="w-3.5 h-3.5 object-contain shrink-0" onerror="this.src='/images/logos/logo.svg'" />
             <span class="text-[12px] font-medium text-gray-500 truncate">บทความวิศวกรรม (${articlesCount})</span>
           </div>
-          <button type="button" class="text-gray-400 hover:text-gray-600 p-0.5 shrink-0 transition-colors" title="ตัวเลือกเพิ่มเติม">
-            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
-              <circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/>
+          <a href="${articleLink}" target="_blank" class="text-gray-400 hover:text-black p-0.5 shrink-0 transition-colors" title="อ่านบทความฉบับเต็ม">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
-          </button>
+          </a>
         </div>
 
         <!-- Middle & Bottom row: Text on left + Single relevant image on right -->
-        <div class="flex items-start justify-between gap-3">
+        <a href="${articleLink}" target="_blank" class="flex items-start justify-between gap-3 group/art cursor-pointer block">
           <div class="flex-1 min-w-0 text-left">
-            <h4 class="text-[13px] font-semibold text-gray-900 group-hover:text-[#e7151a] leading-snug line-clamp-2 transition-colors cursor-pointer" title="${escapeHtml(art.title)}">
+            <h4 class="text-[13px] font-semibold text-gray-900 group-hover/art:text-[#e7151a] leading-snug line-clamp-2 transition-colors" title="${escapeHtml(art.title)}">
               ${escapeHtml(art.title)}
             </h4>
             <p class="text-[11.5px] text-gray-500 line-clamp-2 mt-1 leading-relaxed">
@@ -265,11 +266,11 @@ export function renderCitationsCardContentHTML(citations = [], meta = {}) {
             </p>
           </div>
           ${art.image ? `
-            <div class="relative w-14 h-14 rounded-xl bg-gray-100 border border-gray-200/80 shrink-0 overflow-hidden flex items-center justify-center cursor-pointer">
-              <img src="${art.image}" alt="Thumbnail" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='/images/logos/logo.svg'" />
+            <div class="relative w-14 h-14 rounded-xl bg-gray-100 border border-gray-200/80 shrink-0 overflow-hidden flex items-center justify-center">
+              <img src="${art.image}" alt="Thumbnail" class="w-full h-full object-cover group-hover/art:scale-105 transition-transform duration-300" onerror="this.src='/images/logos/logo.svg'" />
             </div>
           ` : ''}
-        </div>
+        </a>
       </div>
     `;
   }

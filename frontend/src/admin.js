@@ -6694,7 +6694,7 @@ function renderAdminArticlesTable() {
 function openArticleDrawer(articleId) {
   if (!dom.articleDrawer || !dom.articleDrawerBackdrop) return;
 
-  const found = (state.articles || []).find(a => a.id === articleId);
+  const found = (state.articles || []).find(a => String(a.id) === String(articleId));
   if (!found) {
     showToast('ไม่พบบทความที่ต้องการ', 'error');
     return;
@@ -6806,9 +6806,13 @@ function closeArticleDrawer() {
 function switchArticleTab(tabName) {
   state.activeArticleTab = tabName;
 
+  const panelId = tabName.startsWith('art-panel-') ? tabName : `art-panel-${tabName.replace(/^art-/, '')}`;
+  const shortName = tabName.replace(/^art-panel-/, 'art-');
+
   document.querySelectorAll('.article-tab-btn').forEach(btn => {
     const t = btn.getAttribute('data-tab');
-    if (t === tabName) {
+    const tShort = t ? t.replace(/^art-panel-/, 'art-') : '';
+    if (t === tabName || t === panelId || tShort === shortName) {
       btn.classList.add('bg-[#160808]', 'text-white', 'font-bold', 'active', 'shadow-xs');
       btn.classList.remove('text-[#424245]', 'hover:text-[#160808]', 'hover:bg-gray-100', 'font-semibold');
     } else {
@@ -6821,7 +6825,7 @@ function switchArticleTab(tabName) {
     panel.classList.add('hidden');
   });
 
-  const activePanel = document.getElementById(tabName);
+  const activePanel = document.getElementById(panelId) || document.getElementById(tabName);
   if (activePanel) {
     activePanel.classList.remove('hidden');
   }

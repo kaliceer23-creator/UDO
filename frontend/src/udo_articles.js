@@ -27,6 +27,7 @@ export const UDO_ARTICLES = [
     ],
     recommended_products: ['GMN9826', 'GMN5526', 'PWMNI5512', 'HDSNCI26', 'HDSNFC26', 'PW100N26'],
     source: 'UDO Engineering Knowledge',
+    slug: 'howtoweldcastiron',
     image: '/images/bg-welding.jpeg',
     badge: 'Verified'
   },
