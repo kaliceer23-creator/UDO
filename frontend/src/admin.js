@@ -267,6 +267,28 @@ const dom = {
   framingUploadSpinner: document.getElementById('framing-upload-spinner'),
   framingApplyText: document.getElementById('framing-apply-text'),
 
+  // Showcase Image Framing Modal (16:9 Editorial Aspect Ratio)
+  showcaseFramingModal: document.getElementById('showcase-framing-modal'),
+  showcaseFramingCard: document.getElementById('showcase-framing-card'),
+  btnCloseShowcaseFraming: document.getElementById('btn-close-showcase-framing'),
+  btnShowcaseFramingCancel: document.getElementById('btn-showcase-framing-cancel'),
+  btnShowcaseFramingBrowse: document.getElementById('btn-showcase-framing-browse'),
+  showcaseFramingFileInput: document.getElementById('showcase-framing-file-input'),
+  btnShowcaseFramingUsePrimary: document.getElementById('btn-showcase-framing-use-primary'),
+  showcaseFramingViewport: document.getElementById('showcase-framing-viewport'),
+  showcaseFramingDisplayCanvas: document.getElementById('showcase-framing-display-canvas'),
+  showcaseFramingExportCanvas: document.getElementById('showcase-framing-export-canvas'),
+  showcaseDropOverlay: document.getElementById('showcase-drop-overlay'),
+  showcaseFramingZoomSlider: document.getElementById('showcase-framing-zoom-slider'),
+  showcaseFramingZoomLabel: document.getElementById('showcase-framing-zoom-label'),
+  btnShowcaseFramingZoomOut: document.getElementById('btn-showcase-framing-zoom-out'),
+  btnShowcaseFramingZoomIn: document.getElementById('btn-showcase-framing-zoom-in'),
+  btnShowcaseFramingSnapCenter: document.getElementById('btn-showcase-framing-snap-center'),
+  btnShowcaseFramingRotate: document.getElementById('btn-showcase-framing-rotate'),
+  btnShowcaseFramingApplyUpload: document.getElementById('btn-showcase-framing-apply-upload'),
+  showcaseFramingUploadSpinner: document.getElementById('showcase-framing-upload-spinner'),
+  showcaseFramingApplyText: document.getElementById('showcase-framing-apply-text'),
+
   // Gallery Management Elements
   drawerGalleryGrid: document.getElementById('drawer-gallery-grid'),
   drawerGalleryCountBadge: document.getElementById('drawer-gallery-count-badge'),
@@ -3388,22 +3410,37 @@ function renderDrawerRichContent() {
           </div>
 
           <div class="flex flex-col sm:flex-row gap-3 items-start">
-            <div class="w-full sm:w-40 aspect-video bg-white rounded-xl border border-gray-200 overflow-hidden flex items-center justify-center shrink-0 relative">
+            <!-- Drag & Drop Dropzone Preview Box -->
+            <div class="block-image-dropzone group w-full sm:w-44 aspect-video bg-gray-50 hover:bg-gray-100 rounded-xl border-2 border-dashed border-gray-300 hover:border-black overflow-hidden flex items-center justify-center shrink-0 relative cursor-pointer transition-all shadow-2xs" title="คลิกเพื่อครอบตัดหรือลากรูปมาวางที่นี่">
               <img src="${escapeHtml(block.image || '')}" class="block-preview-img w-full h-full object-contain ${block.image ? '' : 'hidden'}" alt="Preview">
-              <span class="block-placeholder-text text-[11px] text-gray-400 font-medium ${block.image ? 'hidden' : ''}">ไม่มีรูปภาพ</span>
+              <div class="block-placeholder-container flex flex-col items-center justify-center text-center p-2 ${block.image ? 'hidden' : ''}">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400 group-hover:text-black mb-1 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <span class="text-[11px] text-gray-500 font-medium leading-tight">ลากรูปมาวางที่นี่<br><span class="text-[10px] text-gray-400">หรือคลิกครอบตัด</span></span>
+              </div>
+              <div class="block-hover-overlay absolute inset-0 bg-black/40 text-white text-[11px] font-semibold flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity ${block.image ? '' : 'hidden'}">
+                คลิกเพื่อจัดกรอบ 16:9
+              </div>
             </div>
 
             <div class="flex-1 w-full space-y-2">
               <input 
                 type="text" 
                 class="block-field-image w-full bg-white border border-gray-300 rounded-xl px-3.5 py-2 text-xs sm:text-[13px] text-[#160808] focus:outline-none focus:ring-2 focus:ring-black transition-all"
-                placeholder="URL รูปภาพ (เช่น /uploads/products/...) หรืออัปโหลดจากเครื่อง"
+                placeholder="URL รูปภาพ (เช่น /images/products/...) หรือกดเลือกจากเครื่อง"
                 value="${escapeHtml(block.image || '')}"
               >
               <div class="flex items-center gap-2 flex-wrap">
                 <input type="file" class="block-file-input hidden" accept="image/jpeg,image/png,image/webp">
-                <button type="button" class="btn-browse-block-file px-3 py-1.5 bg-white hover:bg-gray-100 text-[#160808] border border-gray-200 rounded-lg text-xs font-semibold cursor-pointer transition-colors shadow-2xs">
-                  เลือกจากเครื่อง
+                <button type="button" class="btn-browse-block-file px-3 py-1.5 bg-white hover:bg-gray-100 text-[#160808] border border-gray-200 rounded-lg text-xs font-semibold cursor-pointer transition-colors shadow-2xs flex items-center gap-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                  </svg>
+                  <span>เลือกจากเครื่อง & ครอบตัด</span>
+                </button>
+                <button type="button" class="btn-frame-block-image px-3 py-1.5 bg-neutral-900 hover:bg-black text-white rounded-lg text-xs font-semibold cursor-pointer transition-colors shadow-2xs ${block.image ? '' : 'hidden'}" title="เปิดหน้าต่างจัดกรอบรูปภาพ 16:9">
+                  ครอบตัดรูป 16:9
                 </button>
                 <button type="button" class="btn-use-primary-block-image px-3 py-1.5 bg-white hover:bg-gray-100 text-[#160808] border border-gray-200 rounded-lg text-xs font-semibold cursor-pointer transition-colors shadow-2xs" title="ดึงรูปสินค้าหลักมาใส่ในบล็อกนี้">
                   ใช้รูปสินค้าหลัก
@@ -3433,7 +3470,10 @@ function renderDrawerRichContent() {
 
     const imageInput = card.querySelector('.block-field-image');
     const previewImg = card.querySelector('.block-preview-img');
-    const placeholderText = card.querySelector('.block-placeholder-text');
+    const dropzone = card.querySelector('.block-image-dropzone');
+    const placeholderContainer = card.querySelector('.block-placeholder-container');
+    const hoverOverlay = card.querySelector('.block-hover-overlay');
+    const frameBtn = card.querySelector('.btn-frame-block-image');
     const clearImgBtn = card.querySelector('.btn-clear-block-image');
 
     const updateCardImage = (url) => {
@@ -3443,12 +3483,16 @@ function renderDrawerRichContent() {
       if (cleanUrl) {
         previewImg.src = cleanUrl;
         previewImg.classList.remove('hidden');
-        placeholderText.classList.add('hidden');
+        if (placeholderContainer) placeholderContainer.classList.add('hidden');
+        if (hoverOverlay) hoverOverlay.classList.remove('hidden');
+        if (frameBtn) frameBtn.classList.remove('hidden');
         clearImgBtn.classList.remove('hidden');
       } else {
         previewImg.src = '';
         previewImg.classList.add('hidden');
-        placeholderText.classList.remove('hidden');
+        if (placeholderContainer) placeholderContainer.classList.remove('hidden');
+        if (hoverOverlay) hoverOverlay.classList.add('hidden');
+        if (frameBtn) frameBtn.classList.add('hidden');
         clearImgBtn.classList.add('hidden');
       }
     };
@@ -3460,6 +3504,40 @@ function renderDrawerRichContent() {
     clearImgBtn.addEventListener('click', () => {
       updateCardImage('');
     });
+
+    // Dropzone click & drag-drop interactions
+    if (dropzone) {
+      dropzone.addEventListener('click', () => {
+        openShowcaseFramingModal(index, block.image || null);
+      });
+
+      ['dragenter', 'dragover'].forEach(name => {
+        dropzone.addEventListener(name, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropzone.classList.add('border-black', 'bg-blue-50/70', 'ring-2', 'ring-black');
+        });
+      });
+      ['dragleave', 'drop'].forEach(name => {
+        dropzone.addEventListener(name, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropzone.classList.remove('border-black', 'bg-blue-50/70', 'ring-2', 'ring-black');
+        });
+      });
+      dropzone.addEventListener('drop', (e) => {
+        const file = e.dataTransfer?.files?.[0];
+        if (file && file.type.startsWith('image/')) {
+          openShowcaseFramingModal(index, file);
+        }
+      });
+    }
+
+    if (frameBtn) {
+      frameBtn.addEventListener('click', () => {
+        openShowcaseFramingModal(index, block.image || null);
+      });
+    }
 
     const usePrimaryBtn = card.querySelector('.btn-use-primary-block-image');
     usePrimaryBtn.addEventListener('click', () => {
@@ -3482,40 +3560,10 @@ function renderDrawerRichContent() {
       fileInput.click();
     });
 
-    fileInput.addEventListener('change', async (e) => {
+    fileInput.addEventListener('change', (e) => {
       const file = e.target.files?.[0];
       if (!file) return;
-
-      const origText = browseBtn.textContent;
-      browseBtn.disabled = true;
-      browseBtn.textContent = 'กำลังอัปโหลด...';
-
-      try {
-        const formData = new FormData();
-        formData.append('file', file);
-        if (state.activeProduct && state.activeProduct.id) {
-          formData.append('product_id', state.activeProduct.id);
-        }
-
-        const res = await fetch('/api/admin/upload.php', {
-          method: 'POST',
-          body: formData,
-          credentials: 'include'
-        });
-
-        const data = await res.json();
-        if (!res.ok || !data.success) {
-          throw new Error(data.error || 'อัปโหลดรูปภาพไม่สำเร็จ');
-        }
-
-        updateCardImage(data.image_url);
-        showToast(`อัปโหลดรูปภาพบล็อกที่ ${index + 1} สำเร็จ`);
-      } catch (err) {
-        showToast(err.message || 'เกิดข้อผิดพลาดในการอัปโหลด', 'error');
-      } finally {
-        browseBtn.disabled = false;
-        browseBtn.textContent = origText;
-      }
+      openShowcaseFramingModal(index, file);
     });
 
     // Reorder & Delete buttons
@@ -4786,6 +4834,275 @@ async function handleApplyFramingAndUpload() {
 }
 
 /**
+ * Showcase Image Framing & Positioning Canvas Controller
+ * 16:9 Widescreen Fixed Aspect Ratio for Editorial Story Blocks (Apple / Nintendo Style)
+ * Exports 1600x900 WebP for sharp widescreen storefront rendering
+ */
+const showcaseFramingState = {
+  targetBlockIndex: null,
+  img: null,
+  imgLoaded: false,
+  baseScale: 1.0,
+  userZoom: 1.0,
+  panX: 0,
+  panY: 0,
+  rotation: 0,
+  isDragging: false,
+  dragStartX: 0,
+  dragStartY: 0,
+  panStartX: 0,
+  panStartY: 0
+};
+
+function openShowcaseFramingModal(blockIndex, initialSrcOrFile = null) {
+  if (!dom.showcaseFramingModal) return;
+
+  showcaseFramingState.targetBlockIndex = blockIndex;
+  showcaseFramingState.userZoom = 1.0;
+  showcaseFramingState.panX = 0;
+  showcaseFramingState.panY = 0;
+  showcaseFramingState.rotation = 0;
+
+  if (dom.showcaseFramingZoomSlider) dom.showcaseFramingZoomSlider.value = '1.0';
+  if (dom.showcaseFramingZoomLabel) dom.showcaseFramingZoomLabel.textContent = '100%';
+
+  if (typeof dom.showcaseFramingModal.showModal === 'function') {
+    dom.showcaseFramingModal.showModal();
+  } else {
+    dom.showcaseFramingModal.classList.remove('hidden');
+  }
+
+  if (initialSrcOrFile) {
+    loadShowcaseImageIntoFraming(initialSrcOrFile);
+  } else {
+    const currentBlock = state.activeProduct?.richContent?.blocks?.[blockIndex];
+    if (currentBlock && currentBlock.image) {
+      loadShowcaseImageIntoFraming(currentBlock.image);
+    } else {
+      showcaseFramingState.img = null;
+      showcaseFramingState.imgLoaded = false;
+      renderShowcaseFramingDisplay();
+    }
+  }
+}
+
+function closeShowcaseFramingModal() {
+  if (dom.showcaseFramingModal) {
+    if (typeof dom.showcaseFramingModal.close === 'function') {
+      try { dom.showcaseFramingModal.close(); } catch (e) {}
+    }
+    dom.showcaseFramingModal.removeAttribute('open');
+  }
+  showcaseFramingState.targetBlockIndex = null;
+}
+
+function loadShowcaseImageIntoFraming(srcOrFile) {
+  if (!srcOrFile) return;
+
+  if (srcOrFile instanceof File || srcOrFile instanceof Blob) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => initShowcaseFramingImageDimensions(img);
+      img.onerror = () => {
+        showToast('ไม่สามารถเปิดรูปภาพนี้ได้ กรุณาลองไฟล์อื่น', 'error');
+      };
+      img.src = e.target.result;
+    };
+    reader.onerror = () => {
+      showToast('เกิดข้อผิดพลาดในการอ่านไฟล์', 'error');
+    };
+    reader.readAsDataURL(srcOrFile);
+  } else if (typeof srcOrFile === 'string') {
+    let finalSrc = srcOrFile;
+    if (finalSrc.startsWith('https://www.udo.co.th/')) {
+      finalSrc = '/api/admin/upload.php?proxy_url=' + encodeURIComponent(finalSrc);
+    }
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => initShowcaseFramingImageDimensions(img);
+    img.onerror = () => {
+      console.warn('Failed to load image into showcase framing canvas:', srcOrFile);
+      showcaseFramingState.img = null;
+      showcaseFramingState.imgLoaded = false;
+      renderShowcaseFramingDisplay();
+    };
+    img.src = finalSrc;
+  }
+}
+
+function initShowcaseFramingImageDimensions(img) {
+  showcaseFramingState.img = img;
+  showcaseFramingState.imgLoaded = true;
+
+  const nw = img.naturalWidth || 640;
+  const nh = img.naturalHeight || 360;
+  const fitScale = Math.min(600 / nw, 340 / nh);
+
+  showcaseFramingState.baseScale = Math.max(0.1, fitScale);
+  showcaseFramingState.userZoom = 1.0;
+  showcaseFramingState.panX = 0;
+  showcaseFramingState.panY = 0;
+  showcaseFramingState.rotation = 0;
+
+  if (dom.showcaseFramingZoomSlider) dom.showcaseFramingZoomSlider.value = '1.0';
+  if (dom.showcaseFramingZoomLabel) dom.showcaseFramingZoomLabel.textContent = '100%';
+
+  renderShowcaseFramingDisplay();
+}
+
+function drawShowcaseFramingOnCanvas(canvas, targetWidth = 640, targetHeight = 360) {
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  ctx.save();
+  ctx.clearRect(0, 0, targetWidth, targetHeight);
+
+  ctx.fillStyle = '#FFFFFF';
+  ctx.fillRect(0, 0, targetWidth, targetHeight);
+
+  if (!showcaseFramingState.imgLoaded || !showcaseFramingState.img) {
+    ctx.fillStyle = '#9CA3AF';
+    ctx.font = '14px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('ยังไม่ได้เลือกรูปภาพ (ลากไฟล์มาวางที่นี่)', targetWidth / 2, targetHeight / 2);
+    ctx.restore();
+    return;
+  }
+
+  const cx = targetWidth / 2;
+  const cy = targetHeight / 2;
+  const ratio = targetWidth / 640;
+
+  ctx.translate(cx, cy);
+  ctx.rotate((showcaseFramingState.rotation * Math.PI) / 180);
+
+  const totalZoom = showcaseFramingState.baseScale * showcaseFramingState.userZoom * ratio;
+  ctx.scale(totalZoom, totalZoom);
+
+  const nw = showcaseFramingState.img.naturalWidth;
+  const nh = showcaseFramingState.img.naturalHeight;
+
+  const drawX = -nw / 2 + (showcaseFramingState.panX * ratio) / totalZoom;
+  const drawY = -nh / 2 + (showcaseFramingState.panY * ratio) / totalZoom;
+
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = 'high';
+  ctx.drawImage(showcaseFramingState.img, drawX, drawY, nw, nh);
+
+  ctx.restore();
+}
+
+function renderShowcaseFramingDisplay() {
+  if (dom.showcaseFramingDisplayCanvas) {
+    drawShowcaseFramingOnCanvas(dom.showcaseFramingDisplayCanvas, 640, 360);
+  }
+}
+
+function updateShowcaseFramingZoom(val) {
+  const clamped = Math.min(3.0, Math.max(1.0, parseFloat(val) || 1.0));
+  showcaseFramingState.userZoom = clamped;
+  if (dom.showcaseFramingZoomSlider) dom.showcaseFramingZoomSlider.value = clamped.toFixed(2);
+  if (dom.showcaseFramingZoomLabel) dom.showcaseFramingZoomLabel.textContent = `${Math.round(clamped * 100)}%`;
+  renderShowcaseFramingDisplay();
+}
+
+function snapShowcaseFramingToCenter() {
+  showcaseFramingState.panX = 0;
+  showcaseFramingState.panY = 0;
+  showcaseFramingState.userZoom = 1.0;
+  if (dom.showcaseFramingZoomSlider) dom.showcaseFramingZoomSlider.value = '1.0';
+  if (dom.showcaseFramingZoomLabel) dom.showcaseFramingZoomLabel.textContent = '100%';
+  renderShowcaseFramingDisplay();
+}
+
+function rotateShowcaseFramingImage() {
+  showcaseFramingState.rotation = (showcaseFramingState.rotation + 90) % 360;
+  renderShowcaseFramingDisplay();
+}
+
+async function handleApplyShowcaseFramingAndUpload() {
+  if (!showcaseFramingState.imgLoaded || !showcaseFramingState.img) {
+    showToast('กรุณาเลือกหรือวางรูปภาพก่อนบันทึก', 'error');
+    return;
+  }
+
+  if (dom.showcaseFramingUploadSpinner) dom.showcaseFramingUploadSpinner.classList.remove('hidden');
+  if (dom.btnShowcaseFramingApplyUpload) dom.btnShowcaseFramingApplyUpload.disabled = true;
+  if (dom.showcaseFramingApplyText) dom.showcaseFramingApplyText.textContent = 'กำลังประมวลผล WebP 1600x900...';
+
+  try {
+    const exportCanvas = dom.showcaseFramingExportCanvas || document.createElement('canvas');
+    exportCanvas.width = 1600;
+    exportCanvas.height = 900;
+    drawShowcaseFramingOnCanvas(exportCanvas, 1600, 900);
+
+    const blob = await new Promise((resolve) => {
+      exportCanvas.toBlob((b) => {
+        if (b) resolve(b);
+        else exportCanvas.toBlob(resolve, 'image/jpeg', 0.90);
+      }, 'image/webp', 0.88);
+    });
+
+    if (!blob) {
+      throw new Error('ไม่สามารถแปลงรูปภาพเพื่อส่งออกได้');
+    }
+
+    const formData = new FormData();
+    formData.append('image', blob, 'showcase_widescreen.webp');
+    formData.append('file', blob, 'showcase_widescreen.webp');
+    if (state.activeProduct && state.activeProduct.id) {
+      formData.append('product_id', state.activeProduct.id);
+    }
+
+    const res = await fetch('/api/admin/upload.php', {
+      method: 'POST',
+      body: formData,
+      credentials: 'include'
+    });
+
+    let uploadedUrl = '';
+    if (res.ok) {
+      try {
+        const data = await res.json();
+        if (data.success && data.image_url) {
+          uploadedUrl = data.image_url;
+        }
+      } catch (e) {}
+    }
+
+    if (!uploadedUrl) {
+      try {
+        uploadedUrl = exportCanvas.toDataURL('image/webp', 0.88);
+      } catch (e) {
+        uploadedUrl = exportCanvas.toDataURL('image/jpeg', 0.88);
+      }
+    }
+
+    const targetIdx = showcaseFramingState.targetBlockIndex;
+    if (typeof targetIdx === 'number' && state.activeProduct?.richContent?.blocks?.[targetIdx]) {
+      state.activeProduct.richContent.blocks[targetIdx].image = uploadedUrl;
+      renderDrawerRichContent();
+      renderShowcasePreview();
+      closeShowcaseFramingModal();
+      showToast(`จัดตำแหน่งและบันทึกรูปภาพโชว์เคสบล็อกที่ ${targetIdx + 1} สำเร็จ`);
+    } else {
+      closeShowcaseFramingModal();
+      showToast('บันทึกรูปภาพสำเร็จ');
+    }
+  } catch (err) {
+    console.error('Showcase framing upload error:', err);
+    showToast(err.message || 'เกิดข้อผิดพลาดในการอัปโหลดรูปภาพ', 'error');
+  } finally {
+    if (dom.showcaseFramingUploadSpinner) dom.showcaseFramingUploadSpinner.classList.add('hidden');
+    if (dom.btnShowcaseFramingApplyUpload) dom.btnShowcaseFramingApplyUpload.disabled = false;
+    if (dom.showcaseFramingApplyText) dom.showcaseFramingApplyText.textContent = 'บันทึกและใช้รูปภาพโชว์เคส';
+  }
+}
+
+/**
  * Format timestamp to human-readable Thai date string
  */
 function formatThaiDate(isoOrDateStr) {
@@ -6044,6 +6361,173 @@ function initEvents() {
   setupFramingDropzone(dom.framingCanvasViewport);
   setupFramingDropzone(dom.framingModalCard);
   setupFramingDropzone(dom.imageFramingModal);
+
+  // Showcase Framing Modal Event Listeners
+  if (dom.btnCloseShowcaseFraming) {
+    dom.btnCloseShowcaseFraming.addEventListener('click', closeShowcaseFramingModal);
+  }
+  if (dom.btnShowcaseFramingCancel) {
+    dom.btnShowcaseFramingCancel.addEventListener('click', closeShowcaseFramingModal);
+  }
+  if (dom.showcaseFramingModal) {
+    dom.showcaseFramingModal.addEventListener('click', (e) => {
+      if (e.target === dom.showcaseFramingModal) {
+        closeShowcaseFramingModal();
+      }
+    });
+  }
+
+  // Showcase File Picker Browse Button & Input
+  if (dom.btnShowcaseFramingBrowse) {
+    dom.btnShowcaseFramingBrowse.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (dom.showcaseFramingFileInput) {
+        dom.showcaseFramingFileInput.value = '';
+        dom.showcaseFramingFileInput.click();
+      }
+    });
+  }
+
+  if (dom.showcaseFramingFileInput) {
+    dom.showcaseFramingFileInput.addEventListener('change', (e) => {
+      const file = e.target.files?.[0];
+      if (file) loadShowcaseImageIntoFraming(file);
+    });
+  }
+
+  // Pull Primary Product Image in Showcase Framing Modal
+  if (dom.btnShowcaseFramingUsePrimary) {
+    dom.btnShowcaseFramingUsePrimary.addEventListener('click', () => {
+      if (!state.activeProduct || !state.activeProduct.images || state.activeProduct.images.length === 0) {
+        showToast('สินค้านี้ยังไม่มีรูปภาพหลัก', 'error');
+        return;
+      }
+      const raw0 = state.activeProduct.images[0];
+      const primaryUrl = typeof raw0 === 'string' ? raw0 : (raw0.large || raw0.card || raw0.original || raw0.thumb || '');
+      if (primaryUrl) {
+        loadShowcaseImageIntoFraming(primaryUrl);
+        showToast('ดึงรูปภาพหลักเข้าสู่หน้าต่างจัดกรอบ 16:9 สำเร็จ');
+      }
+    });
+  }
+
+  // Zoom Slider & Buttons for Showcase Framing
+  if (dom.showcaseFramingZoomSlider) {
+    dom.showcaseFramingZoomSlider.addEventListener('input', (e) => {
+      updateShowcaseFramingZoom(parseFloat(e.target.value));
+    });
+  }
+  if (dom.btnShowcaseFramingZoomIn) {
+    dom.btnShowcaseFramingZoomIn.addEventListener('click', () => {
+      updateShowcaseFramingZoom(showcaseFramingState.userZoom + 0.15);
+    });
+  }
+  if (dom.btnShowcaseFramingZoomOut) {
+    dom.btnShowcaseFramingZoomOut.addEventListener('click', () => {
+      updateShowcaseFramingZoom(showcaseFramingState.userZoom - 0.15);
+    });
+  }
+
+  // Action Buttons for Showcase Framing
+  if (dom.btnShowcaseFramingSnapCenter) dom.btnShowcaseFramingSnapCenter.addEventListener('click', snapShowcaseFramingToCenter);
+  if (dom.btnShowcaseFramingRotate) dom.btnShowcaseFramingRotate.addEventListener('click', rotateShowcaseFramingImage);
+  if (dom.btnShowcaseFramingApplyUpload) dom.btnShowcaseFramingApplyUpload.addEventListener('click', handleApplyShowcaseFramingAndUpload);
+
+  // Pan / Drag Interactions on Showcase Canvas Viewport
+  if (dom.showcaseFramingViewport) {
+    dom.showcaseFramingViewport.addEventListener('mousedown', (e) => {
+      if (!showcaseFramingState.imgLoaded) return;
+      showcaseFramingState.isDragging = true;
+      showcaseFramingState.dragStartX = e.clientX;
+      showcaseFramingState.dragStartY = e.clientY;
+      showcaseFramingState.panStartX = showcaseFramingState.panX;
+      showcaseFramingState.panStartY = showcaseFramingState.panY;
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!showcaseFramingState.isDragging) return;
+      const dx = e.clientX - showcaseFramingState.dragStartX;
+      const dy = e.clientY - showcaseFramingState.dragStartY;
+      showcaseFramingState.panX = showcaseFramingState.panStartX + dx;
+      showcaseFramingState.panY = showcaseFramingState.panStartY + dy;
+      renderShowcaseFramingDisplay();
+    });
+
+    window.addEventListener('mouseup', () => {
+      showcaseFramingState.isDragging = false;
+    });
+
+    // Touch events
+    dom.showcaseFramingViewport.addEventListener('touchstart', (e) => {
+      if (!showcaseFramingState.imgLoaded || e.touches.length === 0) return;
+      showcaseFramingState.isDragging = true;
+      showcaseFramingState.dragStartX = e.touches[0].clientX;
+      showcaseFramingState.dragStartY = e.touches[0].clientY;
+      showcaseFramingState.panStartX = showcaseFramingState.panX;
+      showcaseFramingState.panStartY = showcaseFramingState.panY;
+    }, { passive: true });
+
+    dom.showcaseFramingViewport.addEventListener('touchmove', (e) => {
+      if (!showcaseFramingState.isDragging || e.touches.length === 0) return;
+      const dx = e.touches[0].clientX - showcaseFramingState.dragStartX;
+      const dy = e.touches[0].clientY - showcaseFramingState.dragStartY;
+      showcaseFramingState.panX = showcaseFramingState.panStartX + dx;
+      showcaseFramingState.panY = showcaseFramingState.panStartY + dy;
+      renderShowcaseFramingDisplay();
+    }, { passive: true });
+
+    dom.showcaseFramingViewport.addEventListener('touchend', () => {
+      showcaseFramingState.isDragging = false;
+    });
+
+    // Wheel Zoom
+    dom.showcaseFramingViewport.addEventListener('wheel', (e) => {
+      if (!showcaseFramingState.imgLoaded) return;
+      e.preventDefault();
+      const delta = e.deltaY < 0 ? 0.08 : -0.08;
+      updateShowcaseFramingZoom(showcaseFramingState.userZoom + delta);
+    }, { passive: false });
+  }
+
+  // Drag and Drop on Showcase Viewport, Modal Card & Dialog
+  const setupShowcaseDropzone = (el) => {
+    if (!el) return;
+    ['dragenter', 'dragover'].forEach(name => {
+      el.addEventListener(name, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (dom.showcaseDropOverlay) dom.showcaseDropOverlay.classList.remove('hidden');
+        if (dom.showcaseFramingViewport) dom.showcaseFramingViewport.classList.add('ring-4', 'ring-blue-500');
+      });
+    });
+
+    ['dragleave', 'dragend'].forEach(name => {
+      el.addEventListener(name, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (dom.showcaseDropOverlay) dom.showcaseDropOverlay.classList.add('hidden');
+        if (dom.showcaseFramingViewport) dom.showcaseFramingViewport.classList.remove('ring-4', 'ring-blue-500');
+      });
+    });
+
+    el.addEventListener('drop', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (dom.showcaseDropOverlay) dom.showcaseDropOverlay.classList.add('hidden');
+      if (dom.showcaseFramingViewport) dom.showcaseFramingViewport.classList.remove('ring-4', 'ring-blue-500');
+      const file = e.dataTransfer?.files?.[0];
+      if (file && file.type.startsWith('image/')) {
+        loadShowcaseImageIntoFraming(file);
+      } else if (file) {
+        showToast('กรุณาเลือกไฟล์รูปภาพ (JPG, PNG, WebP) เท่านั้น', 'error');
+      }
+    });
+  };
+
+  setupShowcaseDropzone(dom.showcaseFramingViewport);
+  setupShowcaseDropzone(dom.showcaseFramingCard);
+  setupShowcaseDropzone(dom.showcaseFramingModal);
 
   // Admin Login & Logout Listeners
   if (dom.loginForm) {

@@ -1457,6 +1457,136 @@
     </div>
   </dialog>
 
+  <!-- Showcase Image Framing & Positioning Modal (Widescreen 16:9 Aspect Ratio for Editorial Story Blocks) -->
+  <dialog id="showcase-framing-modal" class="p-0 bg-transparent backdrop:bg-black/60 backdrop:backdrop-blur-sm fixed inset-0 m-auto z-50 rounded-3xl max-w-2xl w-full shadow-2xl transition-all pointer-events-auto">
+    <div id="showcase-framing-card" class="bg-white rounded-3xl overflow-hidden border border-black/[0.08] flex flex-col max-h-[92vh] pointer-events-auto">
+      <!-- Header -->
+      <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between shrink-0 bg-white">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-neutral-900 text-white flex items-center justify-center font-bold text-xs shrink-0">
+            16:9
+          </div>
+          <div>
+            <h3 class="text-base sm:text-lg font-bold text-[#160808]">จัดตำแหน่งและครอบตัดรูปภาพโชว์เคส</h3>
+            <p class="text-xs text-[#424245] mt-0.5">สัดส่วน Widescreen 16:9 คมชัดระดับ HD สำหรับบล็อกเล่าเรื่องสไตล์ Apple / Nintendo</p>
+          </div>
+        </div>
+        <button type="button" id="btn-close-showcase-framing" class="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 hover:text-black transition-colors cursor-pointer" title="ปิด">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Body / Canvas Workspace -->
+      <div class="p-6 flex flex-col items-center gap-4 overflow-y-auto">
+        <!-- Top Toolbar: Browse + Drag Hint -->
+        <div class="w-full flex items-center justify-between gap-3 flex-wrap">
+          <div class="flex items-center gap-2">
+            <button type="button" id="btn-showcase-framing-browse" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-[13px] font-semibold bg-gray-100 hover:bg-gray-200 text-[#160808] transition-colors cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+              </svg>
+              <span>เลือกรูปภาพจากเครื่อง</span>
+            </button>
+            <input type="file" id="showcase-framing-file-input" accept="image/jpeg,image/png,image/webp" class="hidden">
+            <button type="button" id="btn-showcase-framing-use-primary" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs sm:text-[13px] font-semibold bg-gray-50 hover:bg-gray-100 text-gray-700 border border-gray-200 transition-colors cursor-pointer">
+              <span>ดึงรูปสินค้าหลัก</span>
+            </button>
+          </div>
+          <span class="text-xs text-[#424245]">หรือลากไฟล์ภาพมาปล่อยลงบนกรอบได้ทันที</span>
+        </div>
+
+        <!-- 16:9 Canvas Container (Interactive Pan & Zoom Viewport) -->
+        <div id="showcase-framing-viewport" class="relative w-full max-w-[560px] aspect-[16/9] rounded-2xl bg-[#0F0F11] overflow-hidden shadow-inner border border-black/10 select-none cursor-grab active:cursor-grabbing flex items-center justify-center">
+          <!-- Hidden Export Canvas (1600x900) -->
+          <canvas id="showcase-framing-export-canvas" width="1600" height="900" class="hidden"></canvas>
+
+          <!-- Interactive Display Canvas (640x360) -->
+          <canvas id="showcase-framing-display-canvas" width="640" height="360" class="w-full h-full object-contain pointer-events-none"></canvas>
+
+          <!-- Center Crosshairs Overlay -->
+          <div class="absolute inset-0 pointer-events-none flex items-center justify-center">
+            <div class="absolute inset-y-0 left-1/2 -translate-x-1/2 w-[1px] bg-white/40 shadow-xs"></div>
+            <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[1px] bg-white/40 shadow-xs"></div>
+            <div class="absolute w-2 h-2 rounded-full border border-white bg-amber-400/80 shadow-xs"></div>
+          </div>
+
+          <!-- Safe Zone Guide (90% Inset) -->
+          <div class="absolute inset-[5%] rounded-xl border border-dashed border-amber-300/80 pointer-events-none flex flex-col justify-between p-2 shadow-xs">
+            <span class="text-[10px] font-mono text-amber-200/90 tracking-wide uppercase bg-black/60 px-1.5 py-0.5 rounded self-start">Showcase Safe Zone (16:9)</span>
+            <span class="text-[10px] font-mono text-amber-200/70 tracking-wide text-right self-end bg-black/60 px-1.5 py-0.5 rounded">High Definition 1600x900</span>
+          </div>
+
+          <!-- Drag and Drop Active Overlay -->
+          <div id="showcase-drop-overlay" class="absolute inset-0 bg-blue-600/80 backdrop-blur-xs flex flex-col items-center justify-center text-white gap-2 pointer-events-none hidden transition-all">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
+            </svg>
+            <p class="text-sm font-bold">ปล่อยไฟล์รูปภาพที่นี่</p>
+          </div>
+
+          <!-- Hint Pill -->
+          <div class="absolute bottom-2 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-xs text-xs text-white/90 font-medium pointer-events-none">
+            คลิกค้างแล้วลากเพื่อจัดตำแหน่ง (Drag to Pan)
+          </div>
+        </div>
+
+        <!-- Controls Bar: Zoom Slider + Action Buttons -->
+        <div class="w-full max-w-[560px] space-y-3 bg-[#F8F8FA] p-3.5 rounded-2xl border border-gray-200/80">
+          <div class="flex items-center justify-between text-xs sm:text-[13px] text-[#160808]">
+            <span class="font-semibold flex items-center gap-1.5">
+              <span>ระดับการซูม (Zoom)</span>
+            </span>
+            <span id="showcase-framing-zoom-label" class="font-mono font-bold text-[#160808]">100%</span>
+          </div>
+
+          <!-- Zoom Slider -->
+          <div class="flex items-center gap-3">
+            <button type="button" id="btn-showcase-framing-zoom-out" class="w-7 h-7 rounded-lg bg-white border border-gray-200 hover:border-black flex items-center justify-center text-gray-600 hover:text-black transition-colors cursor-pointer text-sm font-bold">
+              -
+            </button>
+            <input type="range" id="showcase-framing-zoom-slider" min="1.0" max="3.0" step="0.01" value="1.0" class="flex-1 accent-black cursor-pointer">
+            <button type="button" id="btn-showcase-framing-zoom-in" class="w-7 h-7 rounded-lg bg-white border border-gray-200 hover:border-black flex items-center justify-center text-gray-600 hover:text-black transition-colors cursor-pointer text-sm font-bold">
+              +
+            </button>
+          </div>
+
+          <!-- Quick Action Buttons: Snap to Center, Rotate -->
+          <div class="flex items-center gap-2 pt-1 border-t border-gray-200/60">
+            <button type="button" id="btn-showcase-framing-snap-center" class="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 bg-white hover:bg-gray-100 border border-gray-200 rounded-xl text-xs sm:text-[12.5px] font-semibold text-[#160808] transition-colors cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v3m0 12v3m9-9h-3M6 12H3" />
+              </svg>
+              <span>จัดกึ่งกลางอัตโนมัติ</span>
+            </button>
+            <button type="button" id="btn-showcase-framing-rotate" class="inline-flex items-center justify-center gap-1.5 py-2 px-3 bg-white hover:bg-gray-100 border border-gray-200 rounded-xl text-xs sm:text-[12.5px] font-semibold text-[#160808] transition-colors cursor-pointer" title="หมุนภาพ 90 องศา">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
+              <span>หมุน 90°</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Buttons -->
+      <div class="px-6 py-4 border-t border-gray-100 flex items-center justify-end gap-3 bg-white shrink-0">
+        <button type="button" id="btn-showcase-framing-cancel" class="px-5 py-2.5 rounded-xl text-xs sm:text-[13px] font-semibold bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors cursor-pointer">
+          ยกเลิก
+        </button>
+        <button type="button" id="btn-showcase-framing-apply-upload" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-[13px] font-bold bg-black hover:bg-neutral-800 text-white shadow-md transition-all cursor-pointer">
+          <svg id="showcase-framing-upload-spinner" class="w-3.5 h-3.5 animate-spin hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          <span id="showcase-framing-apply-text">บันทึกและใช้รูปภาพโชว์เคส</span>
+        </button>
+      </div>
+    </div>
+  </dialog>
+
   <!-- Safe Product Deletion Confirmation Modal -->
   <dialog id="delete-confirm-modal" class="p-0 rounded-3xl shadow-2xl backdrop:bg-black/60 backdrop:backdrop-blur-sm border border-neutral-200 focus:outline-none w-[92vw] max-w-md overflow-hidden fixed inset-0 m-auto z-50">
     <div class="bg-white p-6 space-y-4">

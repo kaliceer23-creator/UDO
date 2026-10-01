@@ -110,6 +110,9 @@
     --color-sky-700: oklch(50% .134 242.749);
     --color-sky-800: oklch(44.3% .11 240.79);
     --color-sky-900: oklch(39.1% .09 240.876);
+    --color-blue-50: oklch(97% .014 254.604);
+    --color-blue-500: oklch(62.3% .214 259.815);
+    --color-blue-600: oklch(54.6% .245 262.881);
     --color-purple-50: oklch(97.7% .014 308.299);
     --color-purple-200: oklch(90.2% .063 306.703);
     --color-purple-500: oklch(62.7% .265 303.9);
@@ -194,6 +197,7 @@
     --ease-in-out: cubic-bezier(.4, 0, .2, 1);
     --animate-spin: spin 1s linear infinite;
     --animate-pulse: pulse 2s cubic-bezier(.4, 0, .6, 1) infinite;
+    --animate-bounce: bounce 1s infinite;
     --blur-xs: 4px;
     --blur-sm: 8px;
     --blur-md: 12px;
@@ -538,6 +542,10 @@
 
   .inset-\[1px\] {
     inset: 1px;
+  }
+
+  .inset-\[5\%\] {
+    inset: 5%;
   }
 
   .inset-\[6\%\] {
@@ -1121,6 +1129,10 @@
 
   .aspect-\[12\/5\] {
     aspect-ratio: 12 / 5;
+  }
+
+  .aspect-\[16\/9\] {
+    aspect-ratio: 16 / 9;
   }
 
   .aspect-\[16\/10\] {
@@ -1835,6 +1847,10 @@
     max-width: 480px;
   }
 
+  .max-w-\[560px\] {
+    max-width: 560px;
+  }
+
   .max-w-\[730px\] {
     max-width: 730px;
   }
@@ -2096,6 +2112,10 @@
 
   .transform {
     transform: var(--tw-rotate-x, ) var(--tw-rotate-y, ) var(--tw-rotate-z, ) var(--tw-skew-x, ) var(--tw-skew-y, );
+  }
+
+  .animate-bounce {
+    animation: var(--animate-bounce);
   }
 
   .animate-pulse {
@@ -3222,6 +3242,26 @@
   @supports (color: color-mix(in lab, red, red)) {
     .bg-black\/90 {
       background-color: color-mix(in oklab, var(--color-black) 90%, transparent);
+    }
+  }
+
+  .bg-blue-50\/70 {
+    background-color: #eff6ffb3;
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .bg-blue-50\/70 {
+      background-color: color-mix(in oklab, var(--color-blue-50) 70%, transparent);
+    }
+  }
+
+  .bg-blue-600\/80 {
+    background-color: #155dfccc;
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .bg-blue-600\/80 {
+      background-color: color-mix(in oklab, var(--color-blue-600) 80%, transparent);
     }
   }
 
@@ -5130,6 +5170,10 @@
     --tw-ring-color: var(--color-amber-400);
   }
 
+  .ring-black {
+    --tw-ring-color: var(--color-black);
+  }
+
   .ring-black\/10 {
     --tw-ring-color: #0000001a;
   }
@@ -5138,6 +5182,10 @@
     .ring-black\/10 {
       --tw-ring-color: color-mix(in oklab, var(--color-black) 10%, transparent);
     }
+  }
+
+  .ring-blue-500 {
+    --tw-ring-color: var(--color-blue-500);
   }
 
   .blur {
@@ -6375,8 +6423,8 @@
       width: calc(var(--spacing) * 24);
     }
 
-    .sm\:w-40 {
-      width: calc(var(--spacing) * 40);
+    .sm\:w-44 {
+      width: calc(var(--spacing) * 44);
     }
 
     .sm\:w-80 {
@@ -8581,5 +8629,17 @@ html.is-chat-handoff #chatGlassFrame {
 @keyframes pulse {
   50% {
     opacity: .5;
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    animation-timing-function: cubic-bezier(.8, 0, 1, 1);
+    transform: translateY(-25%);
+  }
+
+  50% {
+    animation-timing-function: cubic-bezier(0, 0, .2, 1);
+    transform: none;
   }
 }
