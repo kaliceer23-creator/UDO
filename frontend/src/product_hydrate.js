@@ -494,21 +494,21 @@ export async function hydrateProduct(productOverride = null) {
         const hasImg = Boolean(b.image);
 
         return `
-          <div class="story-block space-y-6">
+          <div class="story-block mb-10">
             ${hasText ? `
-              <div class="max-w-[760px] mx-auto space-y-3 px-4">
+              <div class="w-full ${imgWrapperWidthClass} mx-auto text-center px-4 sm:px-0 mb-8">
                 ${b.headline ? `
-                  <h3 class="text-2xl sm:text-3xl font-extrabold text-[#252525] tracking-tight leading-tight">
+                  <h3 class="text-[24px] font-semibold text-[#252525] mb-4">
                     ${b.headline.replace(/</g, '&lt;').replace(/>/g, '&gt;')}
                   </h3>
                 ` : ''}
                 ${b.subheadline ? `
-                  <h4 class="text-base sm:text-lg font-semibold text-gray-600 leading-snug">
+                  <h4 class="text-[19px] font-semibold text-[#252525] mb-4">
                     ${b.subheadline.replace(/</g, '&lt;').replace(/>/g, '&gt;')}
                   </h4>
                 ` : ''}
                 ${b.paragraph ? `
-                  <p class="text-[15.5px] sm:text-[16px] text-gray-700 leading-relaxed whitespace-pre-line text-center">
+                  <p class="text-[16px] text-[#252525] leading-relaxed whitespace-pre-line w-full mx-auto">
                     ${b.paragraph.replace(/</g, '&lt;').replace(/>/g, '&gt;')}
                   </p>
                 ` : ''}
@@ -516,11 +516,11 @@ export async function hydrateProduct(productOverride = null) {
             ` : ''}
 
             ${hasImg ? `
-              <div class="w-full ${imgWrapperWidthClass} mx-auto px-2 sm:px-0 flex justify-center">
+              <div class="w-full ${imgWrapperWidthClass} mx-auto px-2 sm:px-0 flex justify-center mb-8">
                 <img 
                   src="${b.image.replace(/"/g, '&quot;')}" 
                   alt="Showcase detail ${i + 1}" 
-                  class="w-full h-auto object-contain rounded-2xl mx-auto shadow-xs"
+                  class="max-w-full h-auto object-contain rounded-xl mx-auto"
                   loading="lazy"
                 >
               </div>

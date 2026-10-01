@@ -170,14 +170,11 @@
     --text-xl--line-height: calc(1.75 / 1.25);
     --text-2xl: 1.5rem;
     --text-2xl--line-height: calc(2 / 1.5);
-    --text-3xl: 1.875rem;
-    --text-3xl--line-height: calc(2.25 / 1.875);
     --font-weight-light: 300;
     --font-weight-normal: 400;
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
-    --font-weight-extrabold: 800;
     --font-weight-black: 900;
     --tracking-tight: -.025em;
     --tracking-wide: .025em;
@@ -660,6 +657,10 @@
     right: calc(var(--spacing) * 6);
   }
 
+  .-bottom-1 {
+    bottom: calc(var(--spacing) * -1);
+  }
+
   .bottom-0 {
     bottom: 0;
   }
@@ -1129,10 +1130,6 @@
 
   .aspect-\[12\/5\] {
     aspect-ratio: 12 / 5;
-  }
-
-  .aspect-\[16\/9\] {
-    aspect-ratio: 16 / 9;
   }
 
   .aspect-\[16\/10\] {
@@ -2136,6 +2133,10 @@
 
   .cursor-not-allowed {
     cursor: not-allowed;
+  }
+
+  .cursor-ns-resize {
+    cursor: ns-resize;
   }
 
   .cursor-pointer {
@@ -3485,6 +3486,16 @@
     background-color: var(--color-neutral-900);
   }
 
+  .bg-neutral-900\/90 {
+    background-color: #171717e6;
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .bg-neutral-900\/90 {
+      background-color: color-mix(in oklab, var(--color-neutral-900) 90%, transparent);
+    }
+  }
+
   .bg-purple-50 {
     background-color: var(--color-purple-50);
   }
@@ -4441,11 +4452,6 @@
     font-weight: var(--font-weight-bold);
   }
 
-  .font-extrabold {
-    --tw-font-weight: var(--font-weight-extrabold);
-    font-weight: var(--font-weight-extrabold);
-  }
-
   .font-light {
     --tw-font-weight: var(--font-weight-light);
     font-weight: var(--font-weight-light);
@@ -5367,12 +5373,20 @@
       scale: 1.012;
     }
 
+    .group-hover\:border-amber-500:is(:where(.group):hover *) {
+      border-color: var(--color-amber-500);
+    }
+
     .group-hover\:bg-\[\#05b34c\]:is(:where(.group):hover *) {
       background-color: #05b34c;
     }
 
     .group-hover\:bg-\[\#cc1217\]:is(:where(.group):hover *) {
       background-color: #cc1217;
+    }
+
+    .group-hover\:bg-amber-400:is(:where(.group):hover *) {
+      background-color: var(--color-amber-400);
     }
 
     .group-hover\:bg-black:is(:where(.group):hover *) {
@@ -5437,6 +5451,14 @@
     .group-hover\/menu\:text-brand-red:is(:where(.group\/menu):hover *) {
       color: var(--color-brand-red);
     }
+  }
+
+  .group-active\:bg-amber-400:is(:where(.group):active *) {
+    background-color: var(--color-amber-400);
+  }
+
+  .group-active\:text-black:is(:where(.group):active *) {
+    color: var(--color-black);
   }
 
   .peer-checked\:block:is(:where(.peer):checked ~ *) {
@@ -6646,11 +6668,6 @@
     .sm\:text-2xl {
       font-size: var(--text-2xl);
       line-height: var(--tw-leading, var(--text-2xl--line-height));
-    }
-
-    .sm\:text-3xl {
-      font-size: var(--text-3xl);
-      line-height: var(--tw-leading, var(--text-3xl--line-height));
     }
 
     .sm\:text-lg {

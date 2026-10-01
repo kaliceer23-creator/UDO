@@ -1,5 +1,32 @@
 [
     {
+        "action": "update_product",
+        "product_id": "udo-014639",
+        "sku": "UDO-E07355F4",
+        "name": "เครื่องเล่นเกม Nintendo Switch 2 + Mario Kart World Bundle",
+        "status": "publish",
+        "availability": "in_stock",
+        "admin_user": "admin",
+        "timestamp": "2026-10-01T08:45:48+00:00",
+        "admin_id": 1,
+        "admin_name": "เจ้าของร้าน (Super Admin)",
+        "admin_role": "super_admin",
+        "ip_address": "192.168.97.1"
+    },
+    {
+        "action": "create_product",
+        "product_id": "udo-014639",
+        "sku": "UDO-E07355F4",
+        "name": "เครื่องเล่นเกม Nintendo Switch 2 + Mario Kart World Bundle",
+        "status": "publish",
+        "reason": "สร้างสินค้าใหม่ผ่านระบบ Admin",
+        "timestamp": "2026-10-01T08:45:39+00:00",
+        "admin_id": 1,
+        "admin_name": "เจ้าของร้าน (Super Admin)",
+        "admin_role": "super_admin",
+        "ip_address": "192.168.97.1"
+    },
+    {
         "action": "update_status",
         "product_id": "udo-157821",
         "product_name": "เครื่องเล่นเกม Nintendo Switch 2 + Mario Kart World Bundle",

@@ -267,7 +267,7 @@ const dom = {
   framingUploadSpinner: document.getElementById('framing-upload-spinner'),
   framingApplyText: document.getElementById('framing-apply-text'),
 
-  // Showcase Image Framing Modal (16:9 Editorial Aspect Ratio)
+  // Showcase Image Framing Modal (Flexible Free Height & Multi-Aspect Ratio)
   showcaseFramingModal: document.getElementById('showcase-framing-modal'),
   showcaseFramingCard: document.getElementById('showcase-framing-card'),
   btnCloseShowcaseFraming: document.getElementById('btn-close-showcase-framing'),
@@ -275,7 +275,17 @@ const dom = {
   btnShowcaseFramingBrowse: document.getElementById('btn-showcase-framing-browse'),
   showcaseFramingFileInput: document.getElementById('showcase-framing-file-input'),
   btnShowcaseFramingUsePrimary: document.getElementById('btn-showcase-framing-use-primary'),
+  showcaseFramingViewportWrapper: document.getElementById('showcase-framing-viewport-wrapper'),
   showcaseFramingViewport: document.getElementById('showcase-framing-viewport'),
+  showcaseCropHandleTop: document.getElementById('showcase-crop-handle-top'),
+  showcaseCropHandleBottom: document.getElementById('showcase-crop-handle-bottom'),
+  btnShowcasePresetAuto: document.getElementById('btn-showcase-preset-auto'),
+  btnShowcasePreset169: document.getElementById('btn-showcase-preset-16-9'),
+  btnShowcasePreset43: document.getElementById('btn-showcase-preset-4-3'),
+  btnShowcasePreset11: document.getElementById('btn-showcase-preset-1-1'),
+  showcaseFramingHeightInput: document.getElementById('showcase-framing-height-input'),
+  showcaseSafezoneRatioLabel: document.getElementById('showcase-safezone-ratio-label'),
+  showcaseSafezoneDimLabel: document.getElementById('showcase-safezone-dim-label'),
   showcaseFramingDisplayCanvas: document.getElementById('showcase-framing-display-canvas'),
   showcaseFramingExportCanvas: document.getElementById('showcase-framing-export-canvas'),
   showcaseDropOverlay: document.getElementById('showcase-drop-overlay'),
@@ -3730,21 +3740,21 @@ function renderShowcasePreview() {
     const maxImgWidth = isDocument ? 'max-w-[1040px]' : 'max-w-[840px]';
 
     return `
-      <div class="story-preview-block space-y-6">
+      <div class="story-preview-block mb-10 text-center">
         ${hasText ? `
-          <div class="max-w-[760px] mx-auto space-y-3 px-4">
+          <div class="w-full ${maxImgWidth} mx-auto text-center px-4 sm:px-0 mb-8">
             ${b.headline ? `
-              <h2 class="text-2xl sm:text-3xl font-extrabold text-[#160808] tracking-tight leading-tight">
+              <h3 class="text-[24px] font-semibold text-[#252525] mb-4">
                 ${escapeHtml(b.headline)}
-              </h2>
-            ` : ''}
-            ${b.subheadline ? `
-              <h3 class="text-base sm:text-lg font-semibold text-gray-600 leading-snug">
-                ${escapeHtml(b.subheadline)}
               </h3>
             ` : ''}
+            ${b.subheadline ? `
+              <h4 class="text-[19px] font-semibold text-[#252525] mb-4">
+                ${escapeHtml(b.subheadline)}
+              </h4>
+            ` : ''}
             ${b.paragraph ? `
-              <p class="text-[15px] sm:text-[16px] text-gray-700 leading-relaxed whitespace-pre-line text-center">
+              <p class="text-[16px] text-[#252525] leading-relaxed whitespace-pre-line w-full mx-auto">
                 ${escapeHtml(b.paragraph)}
               </p>
             ` : ''}
@@ -3752,11 +3762,11 @@ function renderShowcasePreview() {
         ` : ''}
 
         ${hasImage ? `
-          <div class="w-full ${maxImgWidth} mx-auto px-2">
+          <div class="w-full ${maxImgWidth} mx-auto px-2 sm:px-0 flex justify-center mb-8">
             <img 
               src="${escapeHtml(b.image)}" 
               alt="Showcase image ${i + 1}" 
-              class="w-full h-auto object-contain rounded-2xl mx-auto shadow-xs"
+              class="max-w-full h-auto object-contain rounded-xl mx-auto"
               loading="lazy"
             >
           </div>
@@ -4835,8 +4845,9 @@ async function handleApplyFramingAndUpload() {
 
 /**
  * Showcase Image Framing & Positioning Canvas Controller
- * 16:9 Widescreen Fixed Aspect Ratio for Editorial Story Blocks (Apple / Nintendo Style)
- * Exports 1600x900 WebP for sharp widescreen storefront rendering
+ * Flexible Free Height & Multi-Aspect Ratio Crop for Showcase Story Blocks
+ * Supports Auto Height (100% original aspect ratio), Presets (16:9, 4:3, 1:1),
+ * Live Pixel Input, and Dynamic Top/Bottom Drag Handles
  */
 const showcaseFramingState = {
   targetBlockIndex: null,
@@ -4851,7 +4862,14 @@ const showcaseFramingState = {
   dragStartX: 0,
   dragStartY: 0,
   panStartX: 0,
-  panStartY: 0
+  panStartY: 0,
+  // Free height crop state
+  cropHeightMode: 'auto', // 'auto' | '16:9' | '4:3' | '1:1' | 'custom'
+  customHeight: 900,
+  isResizingHeight: false,
+  resizeHandle: null, // 'top' | 'bottom'
+  resizeStartY: 0,
+  resizeStartHeight: 900
 };
 
 function openShowcaseFramingModal(blockIndex, initialSrcOrFile = null) {
@@ -4862,6 +4880,8 @@ function openShowcaseFramingModal(blockIndex, initialSrcOrFile = null) {
   showcaseFramingState.panX = 0;
   showcaseFramingState.panY = 0;
   showcaseFramingState.rotation = 0;
+  showcaseFramingState.isDragging = false;
+  showcaseFramingState.isResizingHeight = false;
 
   if (dom.showcaseFramingZoomSlider) dom.showcaseFramingZoomSlider.value = '1.0';
   if (dom.showcaseFramingZoomLabel) dom.showcaseFramingZoomLabel.textContent = '100%';
@@ -4881,7 +4901,11 @@ function openShowcaseFramingModal(blockIndex, initialSrcOrFile = null) {
     } else {
       showcaseFramingState.img = null;
       showcaseFramingState.imgLoaded = false;
-      renderShowcaseFramingDisplay();
+      showcaseFramingState.customHeight = 900;
+      showcaseFramingState.cropHeightMode = 'auto';
+      if (dom.showcaseFramingHeightInput) dom.showcaseFramingHeightInput.value = '900';
+      updatePresetButtonsHighlight('auto');
+      updateShowcaseFramingDimensions();
     }
   }
 }
@@ -4894,6 +4918,8 @@ function closeShowcaseFramingModal() {
     dom.showcaseFramingModal.removeAttribute('open');
   }
   showcaseFramingState.targetBlockIndex = null;
+  showcaseFramingState.isDragging = false;
+  showcaseFramingState.isResizingHeight = false;
 }
 
 function loadShowcaseImageIntoFraming(srcOrFile) {
@@ -4935,11 +4961,24 @@ function initShowcaseFramingImageDimensions(img) {
   showcaseFramingState.img = img;
   showcaseFramingState.imgLoaded = true;
 
-  const nw = img.naturalWidth || 640;
-  const nh = img.naturalHeight || 360;
-  const fitScale = Math.min(600 / nw, 340 / nh);
+  const nw = img.naturalWidth || 1600;
+  const nh = img.naturalHeight || 900;
 
-  showcaseFramingState.baseScale = Math.max(0.1, fitScale);
+  // Default to Auto Height (100% of original image aspect ratio)
+  let autoHeight = Math.round(1600 * (nh / nw));
+  autoHeight = Math.max(400, Math.min(3200, autoHeight));
+
+  showcaseFramingState.cropHeightMode = 'auto';
+  showcaseFramingState.customHeight = autoHeight;
+
+  if (dom.showcaseFramingHeightInput) {
+    dom.showcaseFramingHeightInput.value = autoHeight;
+  }
+
+  const targetDispH = Math.round(640 * (autoHeight / 1600));
+  const fitScale = Math.min(640 / nw, targetDispH / nh);
+
+  showcaseFramingState.baseScale = Math.max(0.05, fitScale);
   showcaseFramingState.userZoom = 1.0;
   showcaseFramingState.panX = 0;
   showcaseFramingState.panY = 0;
@@ -4948,32 +4987,122 @@ function initShowcaseFramingImageDimensions(img) {
   if (dom.showcaseFramingZoomSlider) dom.showcaseFramingZoomSlider.value = '1.0';
   if (dom.showcaseFramingZoomLabel) dom.showcaseFramingZoomLabel.textContent = '100%';
 
+  updatePresetButtonsHighlight('auto');
+  updateShowcaseFramingDimensions();
+}
+
+function updatePresetButtonsHighlight(activeMode) {
+  const presets = [
+    { btn: dom.btnShowcasePresetAuto, mode: 'auto' },
+    { btn: dom.btnShowcasePreset169, mode: '16:9' },
+    { btn: dom.btnShowcasePreset43, mode: '4:3' },
+    { btn: dom.btnShowcasePreset11, mode: '1:1' }
+  ];
+
+  presets.forEach(({ btn, mode }) => {
+    if (!btn) return;
+    if (mode === activeMode) {
+      btn.className = 'px-2.5 py-1 rounded-lg text-xs font-bold bg-neutral-900 text-white shadow-xs transition-colors cursor-pointer';
+    } else {
+      btn.className = 'px-2.5 py-1 rounded-lg text-xs font-medium bg-white hover:bg-gray-100 text-gray-700 border border-gray-200 transition-colors cursor-pointer';
+    }
+  });
+}
+
+function setCropHeightPreset(mode) {
+  showcaseFramingState.cropHeightMode = mode;
+  let targetH = 900;
+
+  if (mode === 'auto') {
+    if (showcaseFramingState.img && showcaseFramingState.imgLoaded) {
+      const nw = showcaseFramingState.img.naturalWidth || 1600;
+      const nh = showcaseFramingState.img.naturalHeight || 900;
+      targetH = Math.round(1600 * (nh / nw));
+      targetH = Math.max(400, Math.min(3200, targetH));
+    } else {
+      targetH = 900;
+    }
+  } else if (mode === '16:9') {
+    targetH = 900;
+  } else if (mode === '4:3') {
+    targetH = 1200;
+  } else if (mode === '1:1') {
+    targetH = 1600;
+  }
+
+  showcaseFramingState.customHeight = targetH;
+  if (dom.showcaseFramingHeightInput) {
+    dom.showcaseFramingHeightInput.value = targetH;
+  }
+
+  if (showcaseFramingState.img && showcaseFramingState.imgLoaded) {
+    const nw = showcaseFramingState.img.naturalWidth || 640;
+    const nh = showcaseFramingState.img.naturalHeight || 360;
+    const targetDispH = Math.round(640 * (targetH / 1600));
+    const fitScale = Math.min(640 / nw, targetDispH / nh);
+    showcaseFramingState.baseScale = Math.max(0.05, fitScale);
+  }
+
+  updatePresetButtonsHighlight(mode);
+  updateShowcaseFramingDimensions();
+}
+
+function updateShowcaseFramingDimensions() {
+  const h = showcaseFramingState.customHeight || 900;
+  const ratio = Math.round((1600 / h) * 100) / 100;
+
+  if (dom.showcaseFramingViewport) {
+    dom.showcaseFramingViewport.style.aspectRatio = `1600 / ${h}`;
+  }
+
+  if (dom.showcaseFramingDisplayCanvas) {
+    const dispW = 640;
+    const dispH = Math.round(640 * (h / 1600));
+    dom.showcaseFramingDisplayCanvas.width = dispW;
+    dom.showcaseFramingDisplayCanvas.height = dispH;
+  }
+
+  if (dom.showcaseSafezoneDimLabel) {
+    dom.showcaseSafezoneDimLabel.textContent = `1600 x ${h} px`;
+  }
+
+  if (dom.showcaseSafezoneRatioLabel) {
+    let modeText = 'สัดส่วนจริง (Auto)';
+    if (showcaseFramingState.cropHeightMode === '16:9') modeText = '16:9 แนวนอน';
+    else if (showcaseFramingState.cropHeightMode === '4:3') modeText = '4:3 มาตรฐาน';
+    else if (showcaseFramingState.cropHeightMode === '1:1') modeText = '1:1 จัตุรัส';
+    else if (showcaseFramingState.cropHeightMode === 'custom') modeText = `ปรับอิสระ (${ratio}:1)`;
+    dom.showcaseSafezoneRatioLabel.textContent = `Safe Zone (${modeText})`;
+  }
+
   renderShowcaseFramingDisplay();
 }
 
-function drawShowcaseFramingOnCanvas(canvas, targetWidth = 640, targetHeight = 360) {
+function drawShowcaseFramingOnCanvas(canvas, targetWidth = 640, targetHeight = null) {
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
 
+  const h = targetHeight || Math.round(targetWidth * ((showcaseFramingState.customHeight || 900) / 1600));
+
   ctx.save();
-  ctx.clearRect(0, 0, targetWidth, targetHeight);
+  ctx.clearRect(0, 0, targetWidth, h);
 
   ctx.fillStyle = '#FFFFFF';
-  ctx.fillRect(0, 0, targetWidth, targetHeight);
+  ctx.fillRect(0, 0, targetWidth, h);
 
   if (!showcaseFramingState.imgLoaded || !showcaseFramingState.img) {
     ctx.fillStyle = '#9CA3AF';
     ctx.font = '14px sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText('ยังไม่ได้เลือกรูปภาพ (ลากไฟล์มาวางที่นี่)', targetWidth / 2, targetHeight / 2);
+    ctx.fillText('ยังไม่ได้เลือกรูปภาพ (ลากไฟล์มาวางที่นี่)', targetWidth / 2, h / 2);
     ctx.restore();
     return;
   }
 
   const cx = targetWidth / 2;
-  const cy = targetHeight / 2;
+  const cy = h / 2;
   const ratio = targetWidth / 640;
 
   ctx.translate(cx, cy);
@@ -4997,7 +5126,9 @@ function drawShowcaseFramingOnCanvas(canvas, targetWidth = 640, targetHeight = 3
 
 function renderShowcaseFramingDisplay() {
   if (dom.showcaseFramingDisplayCanvas) {
-    drawShowcaseFramingOnCanvas(dom.showcaseFramingDisplayCanvas, 640, 360);
+    const dispW = 640;
+    const dispH = Math.round(640 * ((showcaseFramingState.customHeight || 900) / 1600));
+    drawShowcaseFramingOnCanvas(dom.showcaseFramingDisplayCanvas, dispW, dispH);
   }
 }
 
@@ -5029,15 +5160,17 @@ async function handleApplyShowcaseFramingAndUpload() {
     return;
   }
 
+  const exportHeight = showcaseFramingState.customHeight || 900;
+
   if (dom.showcaseFramingUploadSpinner) dom.showcaseFramingUploadSpinner.classList.remove('hidden');
   if (dom.btnShowcaseFramingApplyUpload) dom.btnShowcaseFramingApplyUpload.disabled = true;
-  if (dom.showcaseFramingApplyText) dom.showcaseFramingApplyText.textContent = 'กำลังประมวลผล WebP 1600x900...';
+  if (dom.showcaseFramingApplyText) dom.showcaseFramingApplyText.textContent = `กำลังประมวลผล WebP 1600x${exportHeight}...`;
 
   try {
     const exportCanvas = dom.showcaseFramingExportCanvas || document.createElement('canvas');
     exportCanvas.width = 1600;
-    exportCanvas.height = 900;
-    drawShowcaseFramingOnCanvas(exportCanvas, 1600, 900);
+    exportCanvas.height = exportHeight;
+    drawShowcaseFramingOnCanvas(exportCanvas, 1600, exportHeight);
 
     const blob = await new Promise((resolve) => {
       exportCanvas.toBlob((b) => {
@@ -5051,8 +5184,9 @@ async function handleApplyShowcaseFramingAndUpload() {
     }
 
     const formData = new FormData();
-    formData.append('image', blob, 'showcase_widescreen.webp');
-    formData.append('file', blob, 'showcase_widescreen.webp');
+    const filename = `showcase_${Date.now()}_1600x${exportHeight}.webp`;
+    formData.append('image', blob, filename);
+    formData.append('file', blob, filename);
     if (state.activeProduct && state.activeProduct.id) {
       formData.append('product_id', state.activeProduct.id);
     }
@@ -5087,7 +5221,7 @@ async function handleApplyShowcaseFramingAndUpload() {
       renderDrawerRichContent();
       renderShowcasePreview();
       closeShowcaseFramingModal();
-      showToast(`จัดตำแหน่งและบันทึกรูปภาพโชว์เคสบล็อกที่ ${targetIdx + 1} สำเร็จ`);
+      showToast(`จัดตำแหน่งและบันทึกรูปภาพโชว์เคสบล็อกที่ ${targetIdx + 1} (${exportCanvas.width}x${exportCanvas.height}px) สำเร็จ`);
     } else {
       closeShowcaseFramingModal();
       showToast('บันทึกรูปภาพสำเร็จ');
@@ -6407,9 +6541,70 @@ function initEvents() {
       const primaryUrl = typeof raw0 === 'string' ? raw0 : (raw0.large || raw0.card || raw0.original || raw0.thumb || '');
       if (primaryUrl) {
         loadShowcaseImageIntoFraming(primaryUrl);
-        showToast('ดึงรูปภาพหลักเข้าสู่หน้าต่างจัดกรอบ 16:9 สำเร็จ');
+        showToast('ดึงรูปภาพหลักเข้าสู่หน้าต่างจัดกรอบสำเร็จ');
       }
     });
+  }
+
+  // Aspect Ratio & Height Preset Buttons
+  if (dom.btnShowcasePresetAuto) {
+    dom.btnShowcasePresetAuto.addEventListener('click', () => setCropHeightPreset('auto'));
+  }
+  if (dom.btnShowcasePreset169) {
+    dom.btnShowcasePreset169.addEventListener('click', () => setCropHeightPreset('16:9'));
+  }
+  if (dom.btnShowcasePreset43) {
+    dom.btnShowcasePreset43.addEventListener('click', () => setCropHeightPreset('4:3'));
+  }
+  if (dom.btnShowcasePreset11) {
+    dom.btnShowcasePreset11.addEventListener('click', () => setCropHeightPreset('1:1'));
+  }
+
+  // Showcase Height Number Input
+  if (dom.showcaseFramingHeightInput) {
+    const handleHeightChange = () => {
+      const val = parseInt(dom.showcaseFramingHeightInput.value, 10);
+      if (!isNaN(val) && val >= 300 && val <= 3200) {
+        showcaseFramingState.customHeight = val;
+        showcaseFramingState.cropHeightMode = 'custom';
+        updatePresetButtonsHighlight('custom');
+        updateShowcaseFramingDimensions();
+      }
+    };
+    dom.showcaseFramingHeightInput.addEventListener('input', handleHeightChange);
+    dom.showcaseFramingHeightInput.addEventListener('change', handleHeightChange);
+  }
+
+  // Drag Resize Handles for Showcase Framing Viewport
+  const handleStartShowcaseResize = (handle, clientY) => {
+    showcaseFramingState.isResizingHeight = true;
+    showcaseFramingState.resizeHandle = handle;
+    showcaseFramingState.resizeStartY = clientY;
+    showcaseFramingState.resizeStartHeight = showcaseFramingState.customHeight || 900;
+  };
+
+  if (dom.showcaseCropHandleTop) {
+    dom.showcaseCropHandleTop.addEventListener('mousedown', (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      handleStartShowcaseResize('top', e.clientY);
+    });
+    dom.showcaseCropHandleTop.addEventListener('touchstart', (e) => {
+      e.stopPropagation();
+      if (e.touches.length > 0) handleStartShowcaseResize('top', e.touches[0].clientY);
+    }, { passive: false });
+  }
+
+  if (dom.showcaseCropHandleBottom) {
+    dom.showcaseCropHandleBottom.addEventListener('mousedown', (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      handleStartShowcaseResize('bottom', e.clientY);
+    });
+    dom.showcaseCropHandleBottom.addEventListener('touchstart', (e) => {
+      e.stopPropagation();
+      if (e.touches.length > 0) handleStartShowcaseResize('bottom', e.touches[0].clientY);
+    }, { passive: false });
   }
 
   // Zoom Slider & Buttons for Showcase Framing
@@ -6437,6 +6632,7 @@ function initEvents() {
   // Pan / Drag Interactions on Showcase Canvas Viewport
   if (dom.showcaseFramingViewport) {
     dom.showcaseFramingViewport.addEventListener('mousedown', (e) => {
+      if (e.target.closest('#showcase-crop-handle-top, #showcase-crop-handle-bottom')) return;
       if (!showcaseFramingState.imgLoaded) return;
       showcaseFramingState.isDragging = true;
       showcaseFramingState.dragStartX = e.clientX;
@@ -6446,6 +6642,22 @@ function initEvents() {
     });
 
     window.addEventListener('mousemove', (e) => {
+      if (showcaseFramingState.isResizingHeight) {
+        const dy = e.clientY - showcaseFramingState.resizeStartY;
+        const rect = dom.showcaseFramingViewport ? dom.showcaseFramingViewport.getBoundingClientRect() : null;
+        const scale = rect && rect.width > 0 ? (1600 / rect.width) : 3;
+        let newH = showcaseFramingState.resizeHandle === 'bottom'
+          ? showcaseFramingState.resizeStartHeight + Math.round(dy * scale)
+          : showcaseFramingState.resizeStartHeight - Math.round(dy * scale);
+        newH = Math.max(400, Math.min(3200, newH));
+        showcaseFramingState.customHeight = newH;
+        showcaseFramingState.cropHeightMode = 'custom';
+        if (dom.showcaseFramingHeightInput) dom.showcaseFramingHeightInput.value = newH;
+        updatePresetButtonsHighlight('custom');
+        updateShowcaseFramingDimensions();
+        return;
+      }
+
       if (!showcaseFramingState.isDragging) return;
       const dx = e.clientX - showcaseFramingState.dragStartX;
       const dy = e.clientY - showcaseFramingState.dragStartY;
@@ -6455,11 +6667,13 @@ function initEvents() {
     });
 
     window.addEventListener('mouseup', () => {
+      showcaseFramingState.isResizingHeight = false;
       showcaseFramingState.isDragging = false;
     });
 
     // Touch events
     dom.showcaseFramingViewport.addEventListener('touchstart', (e) => {
+      if (e.target.closest('#showcase-crop-handle-top, #showcase-crop-handle-bottom')) return;
       if (!showcaseFramingState.imgLoaded || e.touches.length === 0) return;
       showcaseFramingState.isDragging = true;
       showcaseFramingState.dragStartX = e.touches[0].clientX;
@@ -6468,7 +6682,23 @@ function initEvents() {
       showcaseFramingState.panStartY = showcaseFramingState.panY;
     }, { passive: true });
 
-    dom.showcaseFramingViewport.addEventListener('touchmove', (e) => {
+    window.addEventListener('touchmove', (e) => {
+      if (showcaseFramingState.isResizingHeight && e.touches.length > 0) {
+        const dy = e.touches[0].clientY - showcaseFramingState.resizeStartY;
+        const rect = dom.showcaseFramingViewport ? dom.showcaseFramingViewport.getBoundingClientRect() : null;
+        const scale = rect && rect.width > 0 ? (1600 / rect.width) : 3;
+        let newH = showcaseFramingState.resizeHandle === 'bottom'
+          ? showcaseFramingState.resizeStartHeight + Math.round(dy * scale)
+          : showcaseFramingState.resizeStartHeight - Math.round(dy * scale);
+        newH = Math.max(400, Math.min(3200, newH));
+        showcaseFramingState.customHeight = newH;
+        showcaseFramingState.cropHeightMode = 'custom';
+        if (dom.showcaseFramingHeightInput) dom.showcaseFramingHeightInput.value = newH;
+        updatePresetButtonsHighlight('custom');
+        updateShowcaseFramingDimensions();
+        return;
+      }
+
       if (!showcaseFramingState.isDragging || e.touches.length === 0) return;
       const dx = e.touches[0].clientX - showcaseFramingState.dragStartX;
       const dy = e.touches[0].clientY - showcaseFramingState.dragStartY;
@@ -6477,7 +6707,8 @@ function initEvents() {
       renderShowcaseFramingDisplay();
     }, { passive: true });
 
-    dom.showcaseFramingViewport.addEventListener('touchend', () => {
+    window.addEventListener('touchend', () => {
+      showcaseFramingState.isResizingHeight = false;
       showcaseFramingState.isDragging = false;
     });
 
