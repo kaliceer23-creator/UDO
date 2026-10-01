@@ -221,7 +221,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (selectedCat) {
     // Single Category View
     const filtered = filterArticlesByCategory(allArticles, selectedCat);
-    document.title = `${selectedCat} - UDO inspirer บทความงานช่าง`;
+    document.title = `${selectedCat} - UDO Insight บทความงานช่าง`;
 
     if (filtered.length === 0) {
       container.innerHTML = `
@@ -245,7 +245,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   } else {
     // Magazine Sections View (Mirroring Central Inspirer Hub)
-    document.title = 'UDO inspirer - นิตยสารและสาระวิชาการงานช่าง';
+    document.title = 'UDO Insight - นิตยสารและสาระวิชาการงานช่าง';
     
     // Group articles into editorial sections
     const trending = allArticles.slice(0, 3);
