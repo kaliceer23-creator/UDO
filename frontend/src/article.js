@@ -289,19 +289,6 @@ async function renderRecommendedProducts(article) {
       recSection.classList.add('hidden');
     }
   }
-
-  // 2. Hydrate sidebar spotlight tool card (Real Homepage Product Card)
-  const spotWrapper = document.getElementById('sidebar-spotlight-card-wrapper');
-  const spotCard = document.getElementById('sidebar-spotlight-card');
-  if (spotWrapper && spotCard) {
-    if (products && products.length > 0) {
-      const featuredProduct = products[0];
-      spotWrapper.innerHTML = generateCardHTML(featuredProduct, true);
-      spotCard.classList.remove('hidden');
-    } else {
-      spotCard.classList.add('hidden');
-    }
-  }
 }
 
 async function renderRelatedArticles(currentSlug) {
